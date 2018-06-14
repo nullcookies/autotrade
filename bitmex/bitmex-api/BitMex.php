@@ -12,6 +12,7 @@ class BitMex
     const API_URL = 'https://www.bitmex.com';
     const API_PATH = '/api/v1/';
     const SYMBOL = 'XBTUSD';
+    const CURRENCY = 'XBt'; // XBT | XBt
     
     private $apiKey;
     private $apiSecret;
@@ -53,6 +54,7 @@ class BitMex
         );
         
         $return = $this->publicQuery($data);
+        // dump($return); die;
         
         if (!$return || count($return) != 1 || !isset($return[0]['symbol']))
             return false;
@@ -63,7 +65,9 @@ class BitMex
             "bid" => $return[0]['bidPrice'],
             "ask" => $return[0]['askPrice'],
             "high" => $return[0]['highPrice'],
-            "low" => $return[0]['lowPrice']
+            "low" => $return[0]['lowPrice'],
+            "lastChangePcnt" => $return[0]["lastChangePcnt"],
+            "market_price" => $return[0]["markPrice"],
         );
         
         return $return;
@@ -333,7 +337,7 @@ class BitMex
         $data['method']   = "GET";
         $data['function'] = "user/wallet";
         $data['params']   = array(
-            "currency" => "XBt"
+            "currency" => self::CURRENCY
         );
         
         return $this->authQuery($data);
@@ -352,7 +356,7 @@ class BitMex
         $data['method']   = "GET";
         $data['function'] = "user/margin";
         $data['params']   = array(
-            "currency" => "XBt"
+            "currency" => self::CURRENCY
         );
         
         return $this->authQuery($data);

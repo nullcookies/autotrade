@@ -8,8 +8,8 @@
 		.table td, .table th{padding: 5px;}
 		td{border: 1px solid #eee;}
 	</style>
-	<!-- 
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<!-- 
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 	-->
 </head>
@@ -30,7 +30,7 @@ function print_arr1_to_table($title = '', $arr = null)
 	if (!$arr) return null;
 ?>
 	<div class="panel panel-default">
-		<div class="panel-heading"><h3 class="panel-title"><?php echo $title; ?></h3></div>
+		<?php if ($title): ?><div class="panel-heading"><h3 class="panel-title"><?php echo $title; ?></h3></div><?php endif; ?>
 		<div class="panel-body">
 			<table class="table table-bordered table-condensed">
 				<?php
