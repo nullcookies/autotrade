@@ -205,7 +205,7 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-order') {
 	for ($i=0; $i < 10; $i++) { 
 		$arr = $bitmex->getOrder($orderID = $i, $count = 100);
-		if ($i>0 and ($i+1)%3==0) print_arr1_to_table($arr, 'Order', array('style' => 'clear:both;'));
+		if ($i>1 and ($i+1)%3==0) print_arr1_to_table($arr, 'Order', array('style' => 'clear:both;'));
 		else print_arr1_to_table($arr, 'Order');
 	}
 	exit;
