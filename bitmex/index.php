@@ -1,116 +1,157 @@
-<?php
-// dump(__FILE__);
-require_once ("header.php");
-// ============================================================ //
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Trade via API</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<style type="text/css">
+		body,table{font-size: 14px;}
+		.container{width: 100%; padding: 20px;}
+		.table td, .table th{padding: 5px;}
+		table{width: auto !important; margin-bottom: 0!important;}
+		td{border: 1px solid #eee;}
+		h3{font-size: 14px !important;}
+		.panel{/*float: left;*/margin-bottom: 20px!important;}
+		.panel-group{margin-top: 20px;}
+		.panel-current-price,.panel-wallet{width: 49%; min-height: 320px; float: left;}
+		.panel-wallet{float: right;}
+		.panel-actions{clear: both;}
+		.panel-group .panel+.panel{margin-top: 0;}
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- <script src="htmlminifier.min.js"></script> -->
+	<script src="scripts.js"></script>
+	<!--
+	-->
+</head>
+<body>
+	<div class="container">
+		<h2>Auto Trade Bitmex</h2>
+		<!-- <p>The panel-group class clears the bottom-margin. Try to remove the class and see what happens.</p> -->
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#main">Main</a></li>
+			<li><a data-toggle="tab" href="#margin">Margin</a></li>
+			<li><a data-toggle="tab" href="#list-order">List Open Order</a></li>
+			<li><a data-toggle="tab" href="#open-positions">Open Positions</a></li>
+			<li><a data-toggle="tab" href="#orderbook">OrderBook</a></li>
+			<li><a data-toggle="tab" href="#orders">Orders</a></li>
+			<li><a data-toggle="tab" href="#order">Order</a></li>
+			<li><a data-toggle="tab" href="#account">Account</a></li>
+		</ul>
 
-require_once ("bitmex-api/BitMex.php");
+		<div class="tab-content">
+			<div id="main" class="tab-pane fade in active">
+				<div class="panel-group">
+					<!-- All content load here -->
+					<div class="panel panel-primary panel-current-price">
+						<div class="panel-heading"><h3 class="panel-title">Current Price</h3></div>
+						<div class="panel-body">
+							<!-- Content load here -->
+						</div>
+					</div>
 
-$account = 'signvltk1@gmail.com';
-$apiKey = 'P5RaBUJ-8NZsxG_E5x5p6C_B';
-$apiSecret = 'FZ-zqEpiqVPlHOtBu4rMbwx26ZeRoZbQ-RzSiyGv6E9c9epy';
-$bitmex = new BitMex($apiKey, $apiSecret);
-?>
-<div class="panel panel-default">
-	<div class="panel-heading"><h3 class="panel-title">Main Info</h3></div>
-	<div class="panel-body">
-		<table class="table table-bordered table-condensed">
-			<tr>
-				<td><label>Account:</label></td>
-				<td><?php echo $account; ?></td>
-			</tr>
-			<tr>
-				<td><label>API Key:</label></td>
-				<td><?php echo $apiKey; ?></td>
-			</tr>
-			<tr>
-				<td><label>API Secret:</label></td>
-				<td><?php echo $apiSecret; ?></td>
-			</tr>
-		</table>
+					<div class="panel panel-info panel-wallet">
+						<div class="panel-heading"><h3 class="panel-title">Current Wallet</h3></div>
+						<div class="panel-body">
+							<!-- Content load here -->
+						</div>
+					</div>
+
+					<div class="panel panel-danger panel-actions">
+						<div class="panel-heading"><h3 class="panel-title">Actions</h3></div>
+						<div class="panel-body">
+							<!-- Content load here -->
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="margin" class="tab-pane fade">
+				<div class="panel-group">
+					<!-- All content load here -->
+					<div class="panel panel-default panel-margin">
+						<div class="panel-heading"><h3 class="panel-title">Margin</h3></div>
+						<div class="panel-body">
+							<!-- Content load here -->
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="list-order" class="tab-pane fade">
+				<div class="panel-group">
+					<!-- All content load here -->
+					<div class="panel panel-default panel-list-order">
+						<div class="panel-heading"><h3 class="panel-title">List Open Order</h3></div>
+						<div class="panel-body">
+							<!-- Content load here -->
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="open-positions" class="tab-pane fade">
+				<div class="panel-group">
+					<!-- All content load here -->
+					<div class="panel panel-default panel-open-positions">
+						<div class="panel-heading"><h3 class="panel-title">Open Positions</h3></div>
+						<div class="panel-body">
+							<!-- Content load here -->
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div id="orderbook" class="tab-pane fade">
+				<div class="panel-group">
+					<!-- All content load here -->
+					<div class="panel panel-default panel-orderbook">
+						<div class="panel-heading"><h3 class="panel-title">OrderBook</h3></div>
+						<div class="panel-body">
+							<!-- Content load here -->
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="orders" class="tab-pane fade">
+				<div class="panel-group">
+					<!-- All content load here -->
+					<div class="panel panel-default panel-orders">
+						<div class="panel-heading"><h3 class="panel-title">Orders</h3></div>
+						<div class="panel-body">
+							<!-- Content load here -->
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="order" class="tab-pane fade">
+				<div class="panel-group">
+					<!-- All content load here -->
+					<div class="panel panel-default panel-order">
+						<div class="panel-heading"><h3 class="panel-title">Order</h3></div>
+						<div class="panel-body">
+							<!-- Content load here -->
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="account" class="tab-pane fade">
+				<div class="panel-group">
+					<!-- All content load here -->
+					<div class="panel panel-primary panel-main-info">
+						<div class="panel-heading"><h3 class="panel-title">Main Info</h3></div>
+						<div class="panel-body">
+							<!-- Content load here -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>
-
-<?php
-$current = $bitmex->getTicker();
-print_arr1_to_table('Current Price', $current);
-
-$tmp = $bitmex->getWallet();
-$arr = array(
-	'account' => $tmp['account'],
-	'currency' => $tmp['currency'],
-	'prevDeposited' => $tmp['prevDeposited'],
-	'prevAmount' => $tmp['prevAmount'],
-	'deposited' => $tmp['deposited'],
-	'amount' => $tmp['amount'],
-	'withdrawn' => $tmp['withdrawn'],
-);
-print_arr1_to_table('Current Wallet', $arr);
-
-$arr = $bitmex->getOpenOrders();
-print_arr1_to_table('List Order', $arr);
-
-$arr = $bitmex->getOpenPositions();
-print_arr1_to_table('Open Positions', $arr);
-foreach ($arr as $key => $tmp) {
-	print_arr1_to_table('', $tmp);
-	$arr = array(
-		'openingQty' => $tmp['openingQty'],
-		'leverage' => $tmp['leverage'],
-		'realisedPnl' => $tmp['realisedPnl'],
-		'unrealisedGrossPnl' => $tmp['unrealisedGrossPnl'],
-		'unrealisedPnlPcnt' => $tmp['unrealisedPnlPcnt'],
-		'unrealisedRoePcnt' => $tmp['unrealisedRoePcnt'],
-		'avgCostPrice' => $tmp['avgCostPrice'],
-		'avgEntryPrice' => $tmp['avgEntryPrice'],
-		'breakEvenPrice' => $tmp['breakEvenPrice'],
-		'marginCallPrice' => $tmp['marginCallPrice'],
-		'liquidationPrice' => $tmp['liquidationPrice'],
-	);
-	print_arr1_to_table('', $arr);
-}
-
-// $bitmex->closePosition($price);
-// $bitmex->editOrderPrice($orderID, $price);
-
-$tmp = $bitmex->getMargin();
-$arr = array(
-	'realisedPnl' => $tmp['realisedPnl'],
-	'unrealisedPnl' => $tmp['unrealisedPnl'],
-	'walletBalance' => $tmp['walletBalance'],
-	'marginBalance' => $tmp['marginBalance'],
-	'marginBalancePcnt' => $tmp['marginBalancePcnt'],
-	'marginLeverage' => $tmp['marginLeverage'],
-	'marginUsedPcnt' => $tmp['marginUsedPcnt'],
-	'availableMargin' => $tmp['availableMargin'],
-);
-print_arr1_to_table('Margin', $arr);
-
-// $price = $current['last'];
-$price = 6401;
-$arr = array(
-	'leverage' => 5,
-	'ordType' => 'Limit', // Limit | Market
-	'side' => 'Buy', // Buy | Sell
-	'price' => $price,
-	'orderQty' => 1,
-);
-print_arr1_to_table('Place Order', $arr);
-
-// $bitmex->setLeverage($arr['leverage']);
-// $arr = $bitmex->createOrder($arr['ordType'], $arr['side'], (int) $arr['price'], (int) $arr['orderQty']);
-// print_arr1_to_table('Place Order', $arr);
-
-// $arr = $bitmex->getOrderBook($depth = 25);
-// print_arr1_to_table('OrderBook', $arr);
-
-$arr = $bitmex->getOrders(100);
-print_arr1_to_table('List User Order', $arr);
-
-$arr = $bitmex->getOrder($orderID = 0, $count = 100);
-print_arr1_to_table('Order', $arr);
-
-// $bitmex->cancelAllOpenOrders('note to all closed orders at ' . date('H:i:s d/m/Y'));
-// dump($arr); die;
-
-// ============================================================ //
-require_once ("footer.php");
+</body>
+</html>

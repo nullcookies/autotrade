@@ -141,6 +141,8 @@ class BitMex
         );
         
         $orders = $this->authQuery($data);
+
+        if (!$orders) return false;
         
         foreach ($orders as $order) {
             if ($order['orderID'] == $orderID) {
@@ -169,6 +171,10 @@ class BitMex
             "reverse" => "true"
         );
         
+        $arr = $this->authQuery($data);
+
+        if (!$arr) return $arr;
+
         return array_reverse($this->authQuery($data));
     }
     
@@ -191,6 +197,8 @@ class BitMex
         
         $orders = $this->authQuery($data);
         
+        if (!$orders) return array();
+
         $openOrders = array();
         foreach ($orders as $order) {
             if ($order['ordStatus'] == 'New' || $order['ordStatus'] == 'PartiallyFilled')
@@ -218,6 +226,8 @@ class BitMex
         
         $positions = $this->authQuery($data);
         
+        if (!$positions) return array();
+
         $openPositions = array();
         foreach ($positions as $position) {
             if (isset($position['isOpen']) && $position['isOpen'] == true) {
