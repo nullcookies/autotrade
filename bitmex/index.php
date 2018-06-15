@@ -5,6 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 	<style type="text/css">
 		body,table{font-size: 14px;}
 		.container{width: 100%; padding: 20px;}
@@ -18,8 +19,11 @@
 		.panel-wallet{float: right;}
 		.panel-actions{clear: both;}
 		.panel-group .panel+.panel{margin-top: 0;}
+		.panel-orderbook table,.panel-order table{float: left; margin-bottom: 10px!important; margin-left: 10px;}
+		.panel-order table{max-width: 550px;}
 	</style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<!-- <script src="htmlminifier.min.js"></script> -->
 	<script src="scripts.js"></script>
@@ -28,7 +32,7 @@
 </head>
 <body>
 	<div class="container">
-		<h2>Auto Trade Bitmex</h2>
+		<!-- <h2>Auto Trade Bitmex</h2> -->
 		<!-- <p>The panel-group class clears the bottom-margin. Try to remove the class and see what happens.</p> -->
 		<ul class="nav nav-tabs">
 			<li class="active"><a data-toggle="tab" href="#main">Main</a></li>

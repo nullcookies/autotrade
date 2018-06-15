@@ -1,6 +1,8 @@
 <?php
 // dump(__FILE__);
 require_once ("main.php");
+
+if (!session_id()) session_start();
 // ============================================================ //
 
 require_once ("bitmex-api/BitMex.php");
@@ -65,32 +67,35 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 
 // Process load
 if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-main-info') {
-	?>
-	<table class="table table-bordered table-condensed">
-		<tr>
-			<td><label>Account:</label></td>
-			<td><?php echo $account; ?></td>
-		</tr>
-		<tr>
-			<td><label>API Key:</label></td>
-			<td><?php echo $apiKey; ?></td>
-		</tr>
-		<tr>
-			<td><label>API Secret:</label></td>
-			<td><?php echo $apiSecret; ?></td>
-		</tr>
-	</table>
-	<?php
+	$arr = array(
+		'Account' => $account,
+		'API Key' => $apiKey,
+		'API Secret' => $apiSecret,
+	);
+	print_arr1_to_table($arr, 'Current Wallet');
 	exit;
 }
 
 if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-current-price') {
 	$arr = $bitmex->getTicker();
-	if ($arr['lastChangePcnt'] > 0) $arr['last'] = '<span class="text-success">' . $arr['last'] . '</span>';
-	elseif ($arr['lastChangePcnt'] < 0) $arr['last'] = '<span class="text-danger">' . $arr['last'] . '</span>';
-	if ($arr['lastChangePcnt'] > 0) $arr['lastChangePcnt'] = '<span class="text-success">' . ($arr['lastChangePcnt'] * 100) . '%</span>';
-	elseif ($arr['lastChangePcnt'] < 0) $arr['lastChangePcnt'] = '<span class="text-danger">' . ($arr['lastChangePcnt'] * 100) . '%</span>';
+
+	$last_orig = $arr['last'];
+	$last_sess = (isset($_SESSION['getTicker']['last'])) ? $_SESSION['getTicker']['last'] : 0;
+	$_SESSION['getTicker']['last'] = $last_orig;
+	// $arr['sess_last'] = $last_sess;
+	
+	if (!isset($_SESSION['getTicker']['last'])) {
+		if ($arr['lastChangePcnt'] >= 0) $arr['last'] = '<span class="text-success">▲ ' . $arr['last'] . '</span>';
+		elseif ($arr['lastChangePcnt'] < 0) $arr['last'] = '<span class="text-danger">▼ ' . $arr['last'] . '</span>';
+	}
+	else {
+		if ($arr['last'] >= $last_sess) $arr['last'] = '<span class="text-success">▲ ' . $arr['last'] . '</span>';
+		elseif ($arr['last'] < $last_sess) $arr['last'] = '<span class="text-danger">▼ ' . $arr['last'] . '</span>';
+	}
+	if ($arr['lastChangePcnt'] > 0) $arr['lastChangePcnt'] = '<span class="text-success">▲ ' . ($arr['lastChangePcnt'] * 100) . '%</span>';
+	elseif ($arr['lastChangePcnt'] < 0) $arr['lastChangePcnt'] = '<span class="text-danger">▼ ' . ($arr['lastChangePcnt'] * 100) . '%</span>';
 	else $arr['lastChangePcnt'] =  ($arr['lastChangePcnt'] * 100) . '%';
+
 	print_arr1_to_table($arr, 'Current Price');
 	exit;
 }
@@ -182,7 +187,12 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 
 if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-orderbook') {
 	$arr = $bitmex->getOrderBook($depth = 25);
-	print_arr1_to_table($arr, 'OrderBook');
+	// print_arr1_to_table($arr, 'OrderBook');
+	if ($arr) {
+		foreach ($arr as $key => $value) {
+			print_arr1_to_table($value);
+		}
+	}
 	exit;
 }
 
@@ -193,8 +203,11 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 }
 
 if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-order') {
-	$arr = $bitmex->getOrder($orderID = 0, $count = 100);
-	print_arr1_to_table($arr, 'Order');
+	for ($i=0; $i < 10; $i++) { 
+		$arr = $bitmex->getOrder($orderID = $i, $count = 100);
+		if ($i>0 and ($i+1)%3==0) print_arr1_to_table($arr, 'Order', array('style' => 'clear:both;'));
+		else print_arr1_to_table($arr, 'Order');
+	}
 	exit;
 }
 
