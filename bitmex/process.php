@@ -12,6 +12,10 @@ $apiKey = 'P5RaBUJ-8NZsxG_E5x5p6C_B';
 $apiSecret = 'FZ-zqEpiqVPlHOtBu4rMbwx26ZeRoZbQ-RzSiyGv6E9c9epy';
 $bitmex = new BitMex($apiKey, $apiSecret);
 
+$account2 = 'long.vu0104@gmail.com';
+$apiKey2 = 'q1KYRfGHroeROIjRvdsvhJqv';
+$apiSecret2 = 'iCiuNYv_F4rdZkkc2R89bzMLb5KkkINkIkXHpEnN8sp1DEi3';
+
 // if (count($_POST) > 0 and isset($_POST['rtype']) and $_POST['rtype'] == 'ajax' and isset($_POST['act']) and $_POST['act'] == 'add' and ($user_id or $oauth_uid)) {
 // 	if (!$user_info or (int) $user_info['status'] < 0) {
 // 		header('Content-Type: application/json');
@@ -47,20 +51,49 @@ $bitmex = new BitMex($apiKey, $apiSecret);
 // Process load chat
 if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-main-info') {
 	?>
-	<table class="table table-bordered table-condensed">
-		<tr>
-			<td><label>Account:</label></td>
-			<td><?php echo $account; ?></td>
-		</tr>
-		<tr>
-			<td><label>API Key:</label></td>
-			<td><?php echo $apiKey; ?></td>
-		</tr>
-		<tr>
-			<td><label>API Secret:</label></td>
-			<td><?php echo $apiSecret; ?></td>
-		</tr>
-	</table>
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<h5 class="panel-title">Account 1</h5>
+		</div>
+		<div class="panel-body">
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><label>Email:</label></td>
+					<td><?php echo $account; ?></td>
+				</tr>
+				<tr>
+					<td><label>API Key:</label></td>
+					<td><?php echo $apiKey; ?></td>
+				</tr>
+				<tr>
+					<td><label>API Secret:</label></td>
+					<td><?php echo $apiSecret; ?></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<h5 class="panel-title">Account 2</h5>
+		</div>
+		<div class="panel-body">
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<td><label>Email:</label></td>
+					<td><?php echo $account2; ?></td>
+				</tr>
+				<tr>
+					<td><label>API Key:</label></td>
+					<td><?php echo $apiKey2; ?></td>
+				</tr>
+				<tr>
+					<td><label>API Secret:</label></td>
+					<td><?php echo $apiSecret2; ?></td>
+				</tr>
+			</table>
+		</div>
+	</div>
 	<?php
 	exit;
 }
@@ -203,10 +236,15 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 }
 
 if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-order') {
-	for ($i=0; $i < 10; $i++) { 
+	$j = 0;
+	for ($i=0; $i < 10; $i++) {
 		$arr = $bitmex->getOrder($orderID = $i, $count = 100);
-		if ($i>1 and ($i+1)%3==0) print_arr1_to_table($arr, 'Order', array('style' => 'clear:both;'));
+		if (!$arr) continue;
+		$arr['$i'] = $i;
+		$arr['$j'] = $j;
+		if ($j>0 and ($j)%3==0) print_arr1_to_table($arr, 'Order', array('style' => 'clear:both;'));
 		else print_arr1_to_table($arr, 'Order');
+		$j++;
 	}
 	exit;
 }

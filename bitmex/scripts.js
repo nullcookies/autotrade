@@ -1,47 +1,47 @@
 $(document).ready(function() {
 	if ($('.container').length > 0)
 	{
-		// var _loadContent = 0;
-		// var loadContent = function(div, act, options) {
-		// 	var options = options || {};
-		// 	if ($(div).length <= 0) {
-		// 		return false;
-		// 	}
+		var _loadContent = 0;
+		var loadContent = function(div, act, options) {
+			var options = options || {};
+			if ($(div).length <= 0) {
+				return false;
+			}
 
-		// 	var reload_time = options.reload_time || 0;
-		// 	if (!reload_time)
-		// 		reload_time = parseInt($(div).data('reload-time'));
+			var reload_time = options.reload_time || 0;
+			if (!reload_time)
+				reload_time = parseInt($(div).data('reload-time'));
 			
-		// 	if (reload_time) {
-		// 		setTimeout(function(){loadContent(div, act)}, reload_time);
-		// 		if ($(div).length <= 0) 
-		// 			$(div).data('reload-time', reload_time);
-		// 	}
+			if (reload_time) {
+				setTimeout(function(){loadContent(div, act)}, reload_time);
+				if ($(div).length <= 0) 
+					$(div).data('reload-time', reload_time);
+			}
 			
-		// 	// _loadContent++;
-		// 	// if (_loadContent <= 1) return false;
+			// _loadContent++;
+			// if (_loadContent <= 1) return false;
 
-		// 	var request = $.ajax({
-		// 		url: "process.php",
-		// 		method: "GET",
-		// 		data: {rtype: 'ajax', act: act},
-		// 		dataType: "html"
-		// 	});
+			var request = $.ajax({
+				url: "process.php",
+				method: "GET",
+				data: {rtype: 'ajax', act: act},
+				dataType: "html"
+			});
 
-		// 	request.done(function(response) {
-		// 		// if ($(div).length <= 0)
-		// 		// 	$('.panel-group').append('<div class="panel panel-default panel-main-info"></div>');
-		// 		$(div).find('.panel-body').empty().html(response);
-		// 	});
+			request.done(function(response) {
+				// if ($(div).length <= 0)
+				// 	$('.panel-group').append('<div class="panel panel-default panel-main-info"></div>');
+				$(div).find('.panel-body').empty().html(response);
+			});
 
-		// 	request.fail(function(jqXHR, textStatus) {
-		// 		console.log("Request failed: " + textStatus);
-		// 	});
+			request.fail(function(jqXHR, textStatus) {
+				console.log("Request failed: " + textStatus);
+			});
 
-		// 	return false;
-		// };
-		// // loadContent('.panel-main-info', 'load-main-info', {reload_time:(Math.floor(Math.random() * 20) + 10) * 1000});
-		// loadContent('.panel-main-info', 'load-main-info');
+			return false;
+		};
+		// loadContent('.panel-main-info', 'load-main-info', {reload_time:(Math.floor(Math.random() * 20) + 10) * 1000});
+		loadContent('.panel-main-info', 'load-main-info');
 
 		// var _loadCurrentPrice = 0;
 		// var loadCurrentPrice = function(div, act, options) {
@@ -315,39 +315,39 @@ $(document).ready(function() {
 		// };
 		// loadOrders('.panel-orders', 'load-orders', {reload_time:(Math.floor(Math.random() * 21) + 11) * 1000});
 
-		var _loadOrder = 0;
-		var loadOrder = function(div, act, options) {
-			var options = options || {};
-			if ($(div).length <= 0) {
-				return false;
-			}
+		// var _loadOrder = 0;
+		// var loadOrder = function(div, act, options) {
+		// 	var options = options || {};
+		// 	if ($(div).length <= 0) {
+		// 		return false;
+		// 	}
 
-			var reload_time = options.reload_time || 0;
-			if (reload_time)
-				setTimeout(function(){loadOrder(div, act, {reload_time:reload_time})}, reload_time);
+		// 	var reload_time = options.reload_time || 0;
+		// 	if (reload_time)
+		// 		setTimeout(function(){loadOrder(div, act, {reload_time:reload_time})}, reload_time);
 			
-			// _loadOrder++;
-			// if (_loadOrder <= 1) return false;
+		// 	_loadOrder++;
+		// 	if (_loadOrder <= 1) return false;
 
-			var request = $.ajax({
-				url: "process.php",
-				method: "GET",
-				data: {rtype: 'ajax', act: act},
-				dataType: "html"
-			});
+		// 	var request = $.ajax({
+		// 		url: "process.php",
+		// 		method: "GET",
+		// 		data: {rtype: 'ajax', act: act},
+		// 		dataType: "html"
+		// 	});
 
-			request.done(function(response) {
-				$(div).find('.panel-body').empty().html(response);
-				$(div).find('table').effect("highlight", {}, 500);
-			});
+		// 	request.done(function(response) {
+		// 		$(div).find('.panel-body').empty().html(response);
+		// 		$(div).find('table').effect("highlight", {}, 500);
+		// 	});
 
-			request.fail(function(jqXHR, textStatus) {
-				console.log("Request failed: " + textStatus);
-			});
+		// 	request.fail(function(jqXHR, textStatus) {
+		// 		console.log("Request failed: " + textStatus);
+		// 	});
 
-			return false;
-		};
-		loadOrder('.panel-order', 'load-order', {reload_time:(Math.floor(Math.random() * 21) + 11) * 1000});
+		// 	return false;
+		// };
+		// loadOrder('.panel-order', 'load-order', {reload_time:(Math.floor(Math.random() * 21) + 11) * 1000});
 
 		
 		

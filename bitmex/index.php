@@ -4,24 +4,9 @@
 	<title>Trade via API</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-	<style type="text/css">
-		body,table{font-size: 14px;}
-		.container{width: 100%; padding: 20px;}
-		.table td, .table th{padding: 5px;}
-		table{width: auto !important; margin-bottom: 0!important;}
-		td{border: 1px solid #eee;}
-		h3{font-size: 14px !important;}
-		.panel{/*float: left;*/margin-bottom: 20px!important;}
-		.panel-group{margin-top: 20px;}
-		.panel-current-price,.panel-wallet{width: 49%; min-height: 320px; float: left;}
-		.panel-wallet{float: right;}
-		.panel-actions{clear: both;}
-		.panel-group .panel+.panel{margin-top: 0;}
-		.panel-orderbook table,.panel-order table{float: left; margin-bottom: 10px!important; margin-left: 10px;}
-		.panel-order table{max-width: 550px;}
-	</style>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet">
+	<link href="styles.css" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -48,25 +33,24 @@
 		<div class="tab-content">
 			<div id="main" class="tab-pane fade in active">
 				<div class="panel-group">
-					<!-- All content load here -->
 					<div class="panel panel-primary panel-current-price">
 						<div class="panel-heading"><h3 class="panel-title">Current Price</h3></div>
 						<div class="panel-body">
-							<!-- Content load here -->
+							Loading ...
 						</div>
 					</div>
 
 					<div class="panel panel-info panel-wallet">
 						<div class="panel-heading"><h3 class="panel-title">Current Wallet</h3></div>
 						<div class="panel-body">
-							<!-- Content load here -->
+							Loading ...
 						</div>
 					</div>
 
 					<div class="panel panel-danger panel-actions">
 						<div class="panel-heading"><h3 class="panel-title">Actions</h3></div>
 						<div class="panel-body">
-							<!-- Content load here -->
+							Loading ...
 						</div>
 					</div>
 				</div>
@@ -74,11 +58,10 @@
 
 			<div id="margin" class="tab-pane fade">
 				<div class="panel-group">
-					<!-- All content load here -->
 					<div class="panel panel-default panel-margin">
 						<div class="panel-heading"><h3 class="panel-title">Margin</h3></div>
 						<div class="panel-body">
-							<!-- Content load here -->
+							Loading ...
 						</div>
 					</div>
 				</div>
@@ -86,11 +69,10 @@
 
 			<div id="list-order" class="tab-pane fade">
 				<div class="panel-group">
-					<!-- All content load here -->
 					<div class="panel panel-default panel-list-order">
 						<div class="panel-heading"><h3 class="panel-title">List Open Order</h3></div>
 						<div class="panel-body">
-							<!-- Content load here -->
+							Loading ...
 						</div>
 					</div>
 				</div>
@@ -98,11 +80,10 @@
 
 			<div id="open-positions" class="tab-pane fade">
 				<div class="panel-group">
-					<!-- All content load here -->
 					<div class="panel panel-default panel-open-positions">
 						<div class="panel-heading"><h3 class="panel-title">Open Positions</h3></div>
 						<div class="panel-body">
-							<!-- Content load here -->
+							Loading ...
 						</div>
 					</div>
 				</div>
@@ -110,11 +91,10 @@
 			
 			<div id="orderbook" class="tab-pane fade">
 				<div class="panel-group">
-					<!-- All content load here -->
 					<div class="panel panel-default panel-orderbook">
 						<div class="panel-heading"><h3 class="panel-title">OrderBook</h3></div>
 						<div class="panel-body">
-							<!-- Content load here -->
+							Loading ...
 						</div>
 					</div>
 				</div>
@@ -122,11 +102,10 @@
 
 			<div id="orders" class="tab-pane fade">
 				<div class="panel-group">
-					<!-- All content load here -->
 					<div class="panel panel-default panel-orders">
 						<div class="panel-heading"><h3 class="panel-title">Orders</h3></div>
 						<div class="panel-body">
-							<!-- Content load here -->
+							Loading ...
 						</div>
 					</div>
 				</div>
@@ -134,11 +113,10 @@
 
 			<div id="order" class="tab-pane fade">
 				<div class="panel-group">
-					<!-- All content load here -->
 					<div class="panel panel-default panel-order">
 						<div class="panel-heading"><h3 class="panel-title">Order</h3></div>
 						<div class="panel-body">
-							<!-- Content load here -->
+							Loading ...
 						</div>
 					</div>
 				</div>
@@ -146,11 +124,10 @@
 
 			<div id="account" class="tab-pane fade">
 				<div class="panel-group">
-					<!-- All content load here -->
 					<div class="panel panel-primary panel-main-info">
 						<div class="panel-heading"><h3 class="panel-title">Main Info</h3></div>
 						<div class="panel-body">
-							<!-- Content load here -->
+							Loading ...
 						</div>
 					</div>
 				</div>
