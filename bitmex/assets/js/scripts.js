@@ -1,8 +1,8 @@
 $(document).ready(function() {
 	if ($('.container').length > 0)
 	{
-		var _loadContent = 0;
-		var loadContent = function(div, act, options) {
+		var _loadAccount = 0;
+		var loadAccount = function(div, act, options) {
 			var options = options || {};
 			if ($(div).length <= 0) {
 				return false;
@@ -13,13 +13,13 @@ $(document).ready(function() {
 				reload_time = parseInt($(div).data('reload-time'));
 			
 			if (reload_time) {
-				setTimeout(function(){loadContent(div, act)}, reload_time);
+				setTimeout(function(){loadAccount(div, act)}, reload_time);
 				if ($(div).length <= 0) 
 					$(div).data('reload-time', reload_time);
 			}
 			
-			// _loadContent++;
-			// if (_loadContent <= 1) return false;
+			// _loadAccount++;
+			// if (_loadAccount <= 1) return false;
 
 			var request = $.ajax({
 				url: "process.php",
@@ -40,8 +40,90 @@ $(document).ready(function() {
 
 			return false;
 		};
-		// loadContent('.panel-main-info', 'load-main-info', {reload_time:(Math.floor(Math.random() * 20) + 10) * 1000});
-		loadContent('.panel-main-info', 'load-main-info');
+		loadAccount('.panel-account', 'load-account', {reload_time:(Math.floor(Math.random() * 11) + 6) * 1000});
+
+		var _loadAccount2 = 0;
+		var loadAccount2 = function(div, act, options) {
+			var options = options || {};
+			if ($(div).length <= 0) {
+				return false;
+			}
+
+			var reload_time = options.reload_time || 0;
+			if (!reload_time)
+				reload_time = parseInt($(div).data('reload-time'));
+			
+			if (reload_time) {
+				setTimeout(function(){loadAccount2(div, act)}, reload_time);
+				if ($(div).length <= 0) 
+					$(div).data('reload-time', reload_time);
+			}
+			
+			// _loadAccount2++;
+			// if (_loadAccount2 <= 1) return false;
+
+			var request = $.ajax({
+				url: "process.php",
+				method: "GET",
+				data: {rtype: 'ajax', act: act},
+				dataType: "html"
+			});
+
+			request.done(function(response) {
+				// if ($(div).length <= 0)
+				// 	$('.panel-group').append('<div class="panel panel-default panel-main-info"></div>');
+				$(div).find('.panel-body').empty().html(response);
+			});
+
+			request.fail(function(jqXHR, textStatus) {
+				console.log("Request failed: " + textStatus);
+			});
+
+			return false;
+		};
+		loadAccount2('.panel-account2', 'load-account2', {reload_time:(Math.floor(Math.random() * 11) + 6) * 1000});
+
+		// var _loadContent = 0;
+		// var loadContent = function(div, act, options) {
+		// 	var options = options || {};
+		// 	if ($(div).length <= 0) {
+		// 		return false;
+		// 	}
+
+		// 	var reload_time = options.reload_time || 0;
+		// 	if (!reload_time)
+		// 		reload_time = parseInt($(div).data('reload-time'));
+			
+		// 	if (reload_time) {
+		// 		setTimeout(function(){loadContent(div, act)}, reload_time);
+		// 		if ($(div).length <= 0) 
+		// 			$(div).data('reload-time', reload_time);
+		// 	}
+			
+		// 	// _loadContent++;
+		// 	// if (_loadContent <= 1) return false;
+
+		// 	var request = $.ajax({
+		// 		url: "process.php",
+		// 		method: "GET",
+		// 		data: {rtype: 'ajax', act: act},
+		// 		dataType: "html"
+		// 	});
+
+		// 	request.done(function(response) {
+		// 		// if ($(div).length <= 0)
+		// 		// 	$('.panel-group').append('<div class="panel panel-default panel-main-info"></div>');
+		// 		$(div).find('.panel-body').empty().html(response);
+		// 	});
+
+		// 	request.fail(function(jqXHR, textStatus) {
+		// 		console.log("Request failed: " + textStatus);
+		// 	});
+
+		// 	return false;
+		// };
+		// // loadContent('.panel-main-info', 'load-main-info', {reload_time:(Math.floor(Math.random() * 20) + 10) * 1000});
+		// loadContent('.panel-main-info', 'load-main-info');
 
 		// var _loadCurrentPrice = 0;
 		// var loadCurrentPrice = function(div, act, options) {

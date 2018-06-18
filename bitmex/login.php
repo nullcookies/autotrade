@@ -25,17 +25,17 @@ if (count($_POST) > 0) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Trade via API</title>
+	<title>Login Required</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet">
-	<link href="login-styles.css" rel="stylesheet">
+	<link href="assets/css/login-styles.css" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<!-- <script src="htmlminifier.min.js"></script> -->
-	<script src="scripts.js"></script>
+	<!-- <script src="assets/js/htmlminifier.min.js"></script> -->
+	<script src="assets/js/scripts.js"></script>
 	<!--
 	-->
 </head>

@@ -5,7 +5,7 @@ require_once ("main.php");
 if (!session_id()) session_start();
 // ============================================================ //
 
-require_once ("bitmex-api/BitMex.php");
+require_once ("library/bitmex-api/BitMex.php");
 
 $account = 'signvltk1@gmail.com';
 $apiKey = 'P5RaBUJ-8NZsxG_E5x5p6C_B';
@@ -14,7 +14,8 @@ $bitmex = new BitMex($apiKey, $apiSecret);
 
 $account2 = 'long.vu0104@gmail.com';
 $apiKey2 = 'q1KYRfGHroeROIjRvdsvhJqv';
-$apiSecret2 = 'iCiuNYv_F4rdZkkc2R89bzMLb5KkkINkIkXHpEnN8sp1DEi3';
+// $apiSecret2 = 'iCiuNYv_F4rdZkkc2R89bzMLb5KkkINkIkXHpEnN8sp1DEi3';
+$apiSecret2 = 'FZ-zqEpiqVPlHOtBu4rMbwx26ZeRoZbQ-RzSiyGv6E9c9epy';
 
 // if (count($_POST) > 0 and isset($_POST['rtype']) and $_POST['rtype'] == 'ajax' and isset($_POST['act']) and $_POST['act'] == 'add' and ($user_id or $oauth_uid)) {
 // 	if (!$user_info or (int) $user_info['status'] < 0) {
@@ -48,64 +49,24 @@ $apiSecret2 = 'iCiuNYv_F4rdZkkc2R89bzMLb5KkkINkIkXHpEnN8sp1DEi3';
 //     exit;
 // }
 
-// Process load chat
-if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-main-info') {
-	?>
-	<div class="panel panel-info">
-		<div class="panel-heading">
-			<h5 class="panel-title">Account 1</h5>
-		</div>
-		<div class="panel-body">
-			<table class="table table-bordered table-condensed">
-				<tr>
-					<td><label>Email:</label></td>
-					<td><?php echo $account; ?></td>
-				</tr>
-				<tr>
-					<td><label>API Key:</label></td>
-					<td><?php echo $apiKey; ?></td>
-				</tr>
-				<tr>
-					<td><label>API Secret:</label></td>
-					<td><?php echo $apiSecret; ?></td>
-				</tr>
-			</table>
-		</div>
-	</div>
-	
-	<div class="panel panel-info">
-		<div class="panel-heading">
-			<h5 class="panel-title">Account 2</h5>
-		</div>
-		<div class="panel-body">
-			<table class="table table-bordered table-condensed">
-				<tr>
-					<td><label>Email:</label></td>
-					<td><?php echo $account2; ?></td>
-				</tr>
-				<tr>
-					<td><label>API Key:</label></td>
-					<td><?php echo $apiKey2; ?></td>
-				</tr>
-				<tr>
-					<td><label>API Secret:</label></td>
-					<td><?php echo $apiSecret2; ?></td>
-				</tr>
-			</table>
-		</div>
-	</div>
-	<?php
-	exit;
-}
-
 // Process load
-if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-main-info') {
+if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-account') {
 	$arr = array(
 		'Account' => $account,
 		'API Key' => $apiKey,
 		'API Secret' => $apiSecret,
 	);
-	print_arr1_to_table($arr, 'Current Wallet');
+	print_arr1_to_table($arr);
+	exit;
+}
+
+if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-account2') {
+	$arr = array(
+		'Account' => $account2,
+		'API Key' => $apiKey2,
+		'API Secret' => $apiSecret2,
+	);
+	print_arr1_to_table($arr);
 	exit;
 }
 
