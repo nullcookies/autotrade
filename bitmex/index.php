@@ -17,7 +17,7 @@
 	-->
 </head>
 <body>
-	<div class="container">
+	<div class="container container-fluid">
 		<!-- <h2>Auto Trade Bitmex</h2> -->
 		<!-- <p>The panel-group class clears the bottom-margin. Try to remove the class and see what happens.</p> -->
 		<ul class="nav nav-tabs">
@@ -41,12 +41,14 @@
 						</div>
 					</div>
 
+					<?php /*
 					<div class="panel panel-info panel-wallet">
 						<div class="panel-heading"><h3 class="panel-title">Current Wallet</h3></div>
 						<div class="panel-body">
 							Loading ...
 						</div>
 					</div>
+					*/ ?>
 
 					<div class="panel panel-danger panel-actions">
 						<div class="panel-heading"><h3 class="panel-title">Actions</h3></div>
@@ -66,10 +68,24 @@
 								Loading ...
 							</div>
 						</div>
+
+						<div class="panel panel-info panel-wallet">
+							<div class="panel-heading"><h3 class="panel-title">Wallet 1</h3></div>
+							<div class="panel-body">
+								Loading ...
+							</div>
+						</div>
 					</div>
 					<div id="column-right" class="col-sm-6"> 
 						<div class="panel panel-primary panel-account2">
 							<div class="panel-heading"><h3 class="panel-title">Account 2</h3></div>
+							<div class="panel-body">
+								Loading ...
+							</div>
+						</div>
+
+						<div class="panel panel-info panel-wallet2">
+							<div class="panel-heading"><h3 class="panel-title">Wallet 2</h3></div>
 							<div class="panel-body">
 								Loading ...
 							</div>

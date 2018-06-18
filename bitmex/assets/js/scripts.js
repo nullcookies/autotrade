@@ -1,6 +1,40 @@
 $(document).ready(function() {
 	if ($('.container').length > 0)
 	{
+		var _loadCurrentPrice = 0;
+		var loadCurrentPrice = function(div, act, options) {
+			var options = options || {};
+			if ($(div).length <= 0) {
+				return false;
+			}
+
+			var reload_time = options.reload_time || 0;
+			if (reload_time)
+				setTimeout(function(){loadCurrentPrice(div, act, {reload_time:reload_time})}, reload_time);
+			
+			// _loadCurrentPrice++;
+			// if (_loadCurrentPrice <= 1) return false;
+
+			var request = $.ajax({
+				url: "process.php",
+				method: "GET",
+				data: {rtype: 'ajax', act: act},
+				dataType: "html"
+			});
+
+			request.done(function(response) {
+				$(div).find('.panel-body').empty().html(response);
+				$(div).find('table').effect("highlight", {}, 500);
+			});
+
+			request.fail(function(jqXHR, textStatus) {
+				console.log("Request failed: " + textStatus);
+			});
+
+			return false;
+		};
+		loadCurrentPrice('.panel-current-price', 'load-current-price', {reload_time:(Math.floor(Math.random() * 2) + 2) * 1000});
+		
 		var _loadAccount = 0;
 		var loadAccount = function(div, act, options) {
 			var options = options || {};
@@ -83,6 +117,74 @@ $(document).ready(function() {
 		};
 		loadAccount2('.panel-account2', 'load-account2', {reload_time:(Math.floor(Math.random() * 11) + 6) * 1000});
 
+		var _loadWallet = 0;
+		var loadWallet = function(div, act, options) {
+			var options = options || {};
+			if ($(div).length <= 0) {
+				return false;
+			}
+
+			var reload_time = options.reload_time || 0;
+			if (reload_time)
+				setTimeout(function(){loadWallet(div, act, {reload_time:reload_time})}, reload_time);
+
+			// _loadWallet++;
+			// if (_loadWallet <= 1) return false;
+			
+			var request = $.ajax({
+				url: "process.php",
+				method: "GET",
+				data: {rtype: 'ajax', act: act},
+				dataType: "html"
+			});
+
+			request.done(function(response) {
+				$(div).find('.panel-body').empty().html(response);
+				$(div).find('table').effect("highlight", {}, 500);
+			});
+
+			request.fail(function(jqXHR, textStatus) {
+				console.log("Request failed: " + textStatus);
+			});
+
+			return false;
+		};
+		loadWallet('.panel-wallet', 'load-wallet', {reload_time:(Math.floor(Math.random() * 12) + 7) * 1000});
+
+		var _loadWallet2 = 0;
+		var loadWallet2 = function(div, act, options) {
+			var options = options || {};
+			if ($(div).length <= 0) {
+				return false;
+			}
+
+			var reload_time = options.reload_time || 0;
+			if (reload_time)
+				setTimeout(function(){loadWallet2(div, act, {reload_time:reload_time})}, reload_time);
+
+			// _loadWallet2++;
+			// if (_loadWallet2 <= 1) return false;
+			
+			var request = $.ajax({
+				url: "process.php",
+				method: "GET",
+				data: {rtype: 'ajax', act: act},
+				dataType: "html"
+			});
+
+			request.done(function(response) {
+				$(div).find('.panel-body').empty().html(response);
+				$(div).find('table').effect("highlight", {}, 500);
+			});
+
+			request.fail(function(jqXHR, textStatus) {
+				console.log("Request failed: " + textStatus);
+			});
+
+			return false;
+		};
+		loadWallet2('.panel-wallet2', 'load-wallet2', {reload_time:(Math.floor(Math.random() * 12) + 7) * 1000});
+
 		// var _loadContent = 0;
 		// var loadContent = function(div, act, options) {
 		// 	var options = options || {};
@@ -124,74 +226,6 @@ $(document).ready(function() {
 		// };
 		// // loadContent('.panel-main-info', 'load-main-info', {reload_time:(Math.floor(Math.random() * 20) + 10) * 1000});
 		// loadContent('.panel-main-info', 'load-main-info');
-
-		// var _loadCurrentPrice = 0;
-		// var loadCurrentPrice = function(div, act, options) {
-		// 	var options = options || {};
-		// 	if ($(div).length <= 0) {
-		// 		return false;
-		// 	}
-
-		// 	var reload_time = options.reload_time || 0;
-		// 	if (reload_time)
-		// 		setTimeout(function(){loadCurrentPrice(div, act, {reload_time:reload_time})}, reload_time);
-			
-		// 	// _loadCurrentPrice++;
-		// 	// if (_loadCurrentPrice <= 1) return false;
-
-		// 	var request = $.ajax({
-		// 		url: "process.php",
-		// 		method: "GET",
-		// 		data: {rtype: 'ajax', act: act},
-		// 		dataType: "html"
-		// 	});
-
-		// 	request.done(function(response) {
-		// 		$(div).find('.panel-body').empty().html(response);
-		// 		$(div).find('table').effect("highlight", {}, 500);
-		// 	});
-
-		// 	request.fail(function(jqXHR, textStatus) {
-		// 		console.log("Request failed: " + textStatus);
-		// 	});
-
-		// 	return false;
-		// };
-		// loadCurrentPrice('.panel-current-price', 'load-current-price', {reload_time:(Math.floor(Math.random() * 2) + 2) * 1000});
-
-		// var _loadWallet = 0;
-		// var loadWallet = function(div, act, options) {
-		// 	var options = options || {};
-		// 	if ($(div).length <= 0) {
-		// 		return false;
-		// 	}
-
-		// 	var reload_time = options.reload_time || 0;
-		// 	if (reload_time)
-		// 		setTimeout(function(){loadWallet(div, act, {reload_time:reload_time})}, reload_time);
-
-		// 	// _loadWallet++;
-		// 	// if (_loadWallet <= 1) return false;
-			
-		// 	var request = $.ajax({
-		// 		url: "process.php",
-		// 		method: "GET",
-		// 		data: {rtype: 'ajax', act: act},
-		// 		dataType: "html"
-		// 	});
-
-		// 	request.done(function(response) {
-		// 		$(div).find('.panel-body').empty().html(response);
-		// 		$(div).find('table').effect("highlight", {}, 500);
-		// 	});
-
-		// 	request.fail(function(jqXHR, textStatus) {
-		// 		console.log("Request failed: " + textStatus);
-		// 	});
-
-		// 	return false;
-		// };
-		// loadWallet('.panel-wallet', 'load-wallet', {reload_time:(Math.floor(Math.random() * 21) + 11) * 1000});
 
 		// var _loadListOrder = 0;
 		// var loadListOrder = function(div, act, options) {

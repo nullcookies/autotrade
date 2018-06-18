@@ -1,15 +1,17 @@
-body,table{font-size: 14px;}
+body,table{width: 100%; font-size: 14px;}
+h3{font-size: 14px !important;}
+table{margin-bottom: 0!important; white-space: pre;}
+td{border: 1px solid #eee;}
+td.col-title{width: 40%;}
 .container{width: 100%; padding: 20px;}
 .table td, .table th{padding: 5px;}
-table{width: auto !important; margin-bottom: 0!important;}
-td{border: 1px solid #eee;}
-h3{font-size: 14px !important;}
 .panel{/*float: left;*/margin-bottom: 20px!important;}
 .panel-group{margin-top: 20px;}
-.panel-current-price,.panel-wallet{width: 49%; min-height: 320px; float: left;}
-.panel-wallet{float: right;}
+/*.panel-current-price,.panel-wallet{width: 49%; min-height: 320px; float: left;}*/
+/*.panel-wallet{float: right;}*/
 .panel-actions{clear: both;}
 .panel-group .panel+.panel{margin-top: 0;}
 .panel-orderbook table,.panel-order table{float: left; margin-bottom: 10px!important; margin-left: 10px;}
 .panel-order table{width: 32%!important; float: left;}
 .panel-main-info .panel-info{width: 49%!important; float: left;}
+.panel-body{overflow: scroll;}

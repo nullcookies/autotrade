@@ -36,10 +36,11 @@ function print_arr1_to_table($arr = null, $title = '', $options = null)
 		<div class="panel-body">*/ ?>
 			<table class="table table-bordered table-condensed" <?php if (isset($options['style'])){echo 'style="' . $options['style'] . '"';}?>>
 				<?php
+				if (trim(strlen($title)) > 0) echo '<tr><td class="bg-info" colspan="2">' . $title . '</td></tr>';
 				$i=0;
 				foreach ($arr as $key => $value) {
 					// echo '<tr><td><strong>' . $key . '</strong></td><td><strong>' . ((!is_array($value)) ? $value : var_export($value)) . '</strong></td></tr>';
-					echo '<tr><td' . (($i == 0) ? ' class="bg-info"' : '') . '>' . $key . '</td><td' . (($i == 0) ? ' class="bg-info"' : '') . '><strong>' . ((!is_array($value)) ? $value : json_encode($value)) . '</strong></td></tr>';
+					echo '<tr><td' . (($i == 0) ? ' class="col-title' . ((trim(strlen($title)) <= 0) ? ' bg-info':'') . '"' : '') . '>' . $key . '</td><td' . (($i == 0) ? ' class="col-info' . ((trim(strlen($title)) <= 0) ? ' bg-info':'') . '"' : '') . '><strong>' . ((!is_array($value)) ? $value : json_encode($value)) . '</strong></td></tr>';
 					$i++;
 				}
 				?>
@@ -47,6 +48,15 @@ function print_arr1_to_table($arr = null, $title = '', $options = null)
 		<?php /*</div>
 	</div>*/ ?>
 <?php
+}
+
+function replace_by_star($str = null)
+{
+	$str_new = '';
+	for ($i=0; $i < strlen($str) - 1; $i++) { 
+		$str_new .= '*';
+	}
+	return $str_new;
 }
 
 // ============================================================ //

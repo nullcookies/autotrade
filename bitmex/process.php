@@ -14,8 +14,8 @@ $bitmex = new BitMex($apiKey, $apiSecret);
 
 $account2 = 'long.vu0104@gmail.com';
 $apiKey2 = 'q1KYRfGHroeROIjRvdsvhJqv';
-// $apiSecret2 = 'iCiuNYv_F4rdZkkc2R89bzMLb5KkkINkIkXHpEnN8sp1DEi3';
-$apiSecret2 = 'FZ-zqEpiqVPlHOtBu4rMbwx26ZeRoZbQ-RzSiyGv6E9c9epy';
+$apiSecret2 = 'iCiuNYv_F4rdZkkc2R89bzMLb5KkkINkIkXHpEnN8sp1DEi3';
+$bitmex2 = new BitMex($apiKey2, $apiSecret2);
 
 // if (count($_POST) > 0 and isset($_POST['rtype']) and $_POST['rtype'] == 'ajax' and isset($_POST['act']) and $_POST['act'] == 'add' and ($user_id or $oauth_uid)) {
 // 	if (!$user_info or (int) $user_info['status'] < 0) {
@@ -54,7 +54,7 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 	$arr = array(
 		'Account' => $account,
 		'API Key' => $apiKey,
-		'API Secret' => $apiSecret,
+		'API Secret' => replace_by_star($apiSecret),
 	);
 	print_arr1_to_table($arr);
 	exit;
@@ -64,9 +64,43 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 	$arr = array(
 		'Account' => $account2,
 		'API Key' => $apiKey2,
-		'API Secret' => $apiSecret2,
+		'API Secret' => replace_by_star($apiSecret2),
 	);
 	print_arr1_to_table($arr);
+	exit;
+}
+
+if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-wallet') {
+	$tmp = $bitmex->getWallet();
+	$arr = array(
+		'amount' => ($tmp['amount'] * 0.00000001) . ' BTC',
+		'amount_usd' => '~' . round(($tmp['amount'] * 0.00000001) * ($_SESSION['getTicker']['last']), 3) . ' USD',
+		'account' => $tmp['account'],
+		'currency' => $tmp['currency'],
+		'prevDeposited' => $tmp['prevDeposited'],
+		'prevAmount' => $tmp['prevAmount'],
+		'deposited' => $tmp['deposited'],
+		// 'amount' => $tmp['amount'],
+		'withdrawn' => $tmp['withdrawn'],
+	);
+	print_arr1_to_table($arr, 'Current Wallet');
+	exit;
+}
+
+if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-wallet2') {
+	$tmp = $bitmex2->getWallet();
+	$arr = array(
+		'amount' => ($tmp['amount'] * 0.00000001) . ' BTC',
+		'amount_usd' => '~' . round(($tmp['amount'] * 0.00000001) * ($_SESSION['getTicker']['last']), 3) . ' USD',
+		'account' => $tmp['account'],
+		'currency' => $tmp['currency'],
+		'prevDeposited' => $tmp['prevDeposited'],
+		'prevAmount' => $tmp['prevAmount'],
+		'deposited' => $tmp['deposited'],
+		// 'amount' => $tmp['amount'],
+		'withdrawn' => $tmp['withdrawn'],
+	);
+	print_arr1_to_table($arr, 'Current Wallet');
 	exit;
 }
 
@@ -91,21 +125,6 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 	else $arr['lastChangePcnt'] =  ($arr['lastChangePcnt'] * 100) . '%';
 
 	print_arr1_to_table($arr, 'Current Price');
-	exit;
-}
-
-if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-wallet') {
-	$tmp = $bitmex->getWallet();
-	$arr = array(
-		'account' => $tmp['account'],
-		'currency' => $tmp['currency'],
-		'prevDeposited' => $tmp['prevDeposited'],
-		'prevAmount' => $tmp['prevAmount'],
-		'deposited' => $tmp['deposited'],
-		'amount' => $tmp['amount'],
-		'withdrawn' => $tmp['withdrawn'],
-	);
-	print_arr1_to_table($arr, 'Current Wallet');
 	exit;
 }
 
