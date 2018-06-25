@@ -29,6 +29,7 @@
 			<li><a data-toggle="tab" href="#orderbook">OrderBook</a></li>
 			<li><a data-toggle="tab" href="#orders">Orders</a></li>
 			<li><a data-toggle="tab" href="#order">Order</a></li>
+			<li><a href="logout.php">Logout</a></li>
 		</ul>
 
 		<div class="tab-content">

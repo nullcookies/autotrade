@@ -185,6 +185,8 @@ $(document).ready(function() {
 		};
 		loadWallet2('.panel-wallet2', 'load-wallet2', {reload_time:(Math.floor(Math.random() * 12) + 7) * 1000});
 
+		// --------------------------------------------------------------------------------------------------- //
+		
 		// var _loadContent = 0;
 		// var loadContent = function(div, act, options) {
 		// 	var options = options || {};
@@ -227,39 +229,39 @@ $(document).ready(function() {
 		// // loadContent('.panel-main-info', 'load-main-info', {reload_time:(Math.floor(Math.random() * 20) + 10) * 1000});
 		// loadContent('.panel-main-info', 'load-main-info');
 
-		// var _loadListOrder = 0;
-		// var loadListOrder = function(div, act, options) {
-		// 	var options = options || {};
-		// 	if ($(div).length <= 0) {
-		// 		return false;
-		// 	}
+		var _loadListOrder = 0;
+		var loadListOrder = function(div, act, options) {
+			var options = options || {};
+			if ($(div).length <= 0) {
+				return false;
+			}
 
-		// 	var reload_time = options.reload_time || 0;
-		// 	if (reload_time)
-		// 		setTimeout(function(){loadListOrder(div, act, {reload_time:reload_time})}, reload_time);
+			var reload_time = options.reload_time || 0;
+			if (reload_time)
+				setTimeout(function(){loadListOrder(div, act, {reload_time:reload_time})}, reload_time);
 			
-		// 	_loadListOrder++;
-		// 	if (_loadListOrder <= 1) return false;
+			_loadListOrder++;
+			if (_loadListOrder <= 1) return false;
 			
-		// 	var request = $.ajax({
-		// 		url: "process.php",
-		// 		method: "GET",
-		// 		data: {rtype: 'ajax', act: act},
-		// 		dataType: "html"
-		// 	});
+			var request = $.ajax({
+				url: "process.php",
+				method: "GET",
+				data: {rtype: 'ajax', act: act},
+				dataType: "html"
+			});
 
-		// 	request.done(function(response) {
-		// 		$(div).find('.panel-body').empty().html(response);
-		// 		$(div).find('table').effect("highlight", {}, 500);
-		// 	});
+			request.done(function(response) {
+				$(div).find('.panel-body').empty().html(response);
+				$(div).find('table').effect("highlight", {}, 500);
+			});
 
-		// 	request.fail(function(jqXHR, textStatus) {
-		// 		console.log("Request failed: " + textStatus);
-		// 	});
+			request.fail(function(jqXHR, textStatus) {
+				console.log("Request failed: " + textStatus);
+			});
 
-		// 	return false;
-		// };
-		// loadListOrder('.panel-list-order', 'load-list-order', {reload_time:(Math.floor(Math.random() * 21) + 11) * 1000});
+			return false;
+		};
+		loadListOrder('.panel-list-order', 'load-list-order', {reload_time:(Math.floor(Math.random() * 21) + 11) * 1000});
 
 		// var _loadOpenPositions = 0;
 		// var loadOpenPositions = function(div, act, options) {
@@ -465,7 +467,7 @@ $(document).ready(function() {
 		// };
 		// loadOrder('.panel-order', 'load-order', {reload_time:(Math.floor(Math.random() * 21) + 11) * 1000});
 
-		
+		// --------------------------------------------------------------------------------------------------- //
 		
 		// var submitChat = function() {
 		// 	var inputBox = $(".helpdotcom-post");
@@ -528,9 +530,10 @@ $(document).ready(function() {
 		// });
 
 		// 
+
 	}
 
-	// ------------------------------------------------------------------ //
+	// --------------------------------------------------------------------------------------------------- //
 	
 	// var isMobile = function() {
 	// 	var isMobile = false; //initiate as false

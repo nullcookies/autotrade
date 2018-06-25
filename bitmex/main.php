@@ -1,4 +1,9 @@
 <?php
+if (!defined('IS_VALID')) die('Access denied.');
+
+if (!defined('DS')) define('DS', DIRECTORY_SEPARATOR);
+if (!defined('CUR_DIR')) define('CUR_DIR', dirname(__FILE__));
+
 if (!function_exists("dump")) {
 	function dump($arr)
 	{
@@ -29,7 +34,7 @@ function redirect($url = '/', $time = 0)
 
 function print_arr1_to_table($arr = null, $title = '', $options = null) 
 {
-	if (!$arr) return null;
+	if (!$arr) {echo 'No data found!'; exit;}
 ?>
 	<?php /*<div class="panel <?php if (isset($options['panel'])){echo $options['panel'];}else echo 'panel-default';?>">
 		<?php if ($title): ?><div class="panel-heading"><h3 class="panel-title"><?php echo $title; ?></h3></div><?php endif; ?>

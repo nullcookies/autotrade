@@ -1,8 +1,16 @@
 <?php
 // dump(__FILE__);
+if (!defined('IS_VALID')) define('IS_VALID', 1);
 require_once ("main.php");
 
 if (!session_id()) session_start();
+
+// Check login
+if (!isset($_SESSION['user_name']) or !$_SESSION['user_name']) {
+	echo 'Redirecting ...';
+	redirect('login.php', 0);
+}
+
 // ============================================================ //
 
 require_once ("library/bitmex-api/BitMex.php");
@@ -83,7 +91,7 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 		// 'amount' => $tmp['amount'],
 		'withdrawn' => $tmp['withdrawn'],
 	);
-	print_arr1_to_table($arr, 'Current Wallet');
+	print_arr1_to_table($arr);//, 'Current Wallet'
 	exit;
 }
 
@@ -100,7 +108,7 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 		// 'amount' => $tmp['amount'],
 		'withdrawn' => $tmp['withdrawn'],
 	);
-	print_arr1_to_table($arr, 'Current Wallet');
+	print_arr1_to_table($arr);//, 'Current Wallet'
 	exit;
 }
 
