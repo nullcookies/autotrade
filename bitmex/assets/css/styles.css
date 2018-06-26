@@ -14,4 +14,7 @@ td.col-title{width: 40%;}
 .panel-orderbook table,.panel-order table{float: left; margin-bottom: 10px!important; margin-left: 10px;}
 .panel-order table{width: 32%!important; float: left;}
 .panel-main-info .panel-info{width: 49%!important; float: left;}
-.panel-body{overflow: scroll;}
+
+@media only screen and (max-width: 768px) {
+	.panel-body{overflow-x: scroll;}
+}
