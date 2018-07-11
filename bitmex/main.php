@@ -8,7 +8,7 @@ defined('ROOT_DIR') or define('ROOT_DIR', dirname(__FILE__));
 $cli_mode = (php_sapi_name() == "cli") ? true : false;
 defined('CLI_MODE') or define('CLI_MODE', $cli_mode);
 
-// ============================================================ //
+// ------------------------------------------------------------ //
 
 if (!function_exists("dump")) {
 	function dump($arr)
@@ -19,7 +19,7 @@ if (!function_exists("dump")) {
 	}
 }
 
-function check_login($user = null, $pass = null)
+function func_check_login($user = null, $pass = null)
 {
 	$arr_allowed = array(
 		'admin' => md5(base64_encode('admin')), 
@@ -32,13 +32,13 @@ function check_login($user = null, $pass = null)
 	return null;
 }
 
-function redirect($url = '/', $time = 0)
+function func_redirect($url = '/', $time = 0)
 {
 	echo '<meta http-equiv="refresh" content="' . (int) $time . ';url=' . (string) trim($url) . '"/>';
 	exit;
 }
 
-function print_arr1_to_table($arr = null, $title = '', $options = null) 
+function func_print_arr_to_table($arr = null, $title = '', $options = null) 
 {
 	if (!$arr) {echo 'No data found!'; exit;}
 ?>
@@ -61,11 +61,70 @@ function print_arr1_to_table($arr = null, $title = '', $options = null)
 <?php
 }
 
-function replace_by_star($str = null)
+function func_replace_by_star($str = null)
 {
 	$str_new = '';
 	for ($i=0; $i < strlen($str) - 1; $i++) { 
 		$str_new .= '*';
+	}
+	return $str_new;
+}
+
+function func_cli_print_arr($arr = null, $title = '', $options = null) 
+{
+	if (!$arr) {echo 'No data found!'; exit;}
+	$max_key_length = func_max_key_length($arr);
+	$max_value_length = func_max_value_length($arr);
+
+	echo func_fill_space(' ', $max_key_length + $max_value_length + 5, '-') . "\n";
+	foreach ($arr as $key => $value) {
+		if (is_object($value)) {
+			$max_value_length = strlen(serialize($value));
+			echo '| ' . func_fill_space($key, $max_key_length) . '| ' . serialize($value) . ' |' . "\n";
+		}
+		else {
+			if (strpos($value, '▲') !== false or strpos($value, '▼') !== false)
+				$value .= '   ';
+			if ((strpos($value, '▲') !== false or strpos($value, '▼') !== false) and strpos($value, '%') === false)
+				$value .= ' ';
+			if ((strpos($value, '▲') !== false or strpos($value, '▼') !== false) and strpos($value, '.') === false and strpos($value, '%') === false)
+				$value .= ' ';
+			
+			echo '| ' . func_fill_space($key, $max_key_length) . '| ' . func_fill_space($value, $max_value_length) . ' |' . "\n";
+		}
+	}
+	echo func_fill_space(' ', $max_key_length + $max_value_length + 5, '-') . "\n";
+}
+
+function func_max_key_length($arr = null) 
+{
+	if (!$arr) return 0;
+	$max = 0;
+	foreach ($arr as $key => $value) {
+		if (strlen($key) > $max)
+			$max = strlen($key);
+	}
+	return $max + 1;
+}
+
+function func_max_value_length($arr = null) 
+{
+	if (!$arr) return 0;
+	$max = 0;
+	foreach ($arr as $key => $value) {
+		if (!is_string($value)) continue;
+		if (strlen($value) > $max)
+			$max = strlen($value);
+	}
+	return $max + 1;
+}
+
+function func_fill_space($str = null, $length = 0, $replace_with = ' ')
+{
+	if (!$str or !$length) return $str;
+	$str_new = $str;
+	for ($i=0; $i < ($length - strlen($str)); $i++) { 
+		$str_new .= $replace_with;
 	}
 	return $str_new;
 }

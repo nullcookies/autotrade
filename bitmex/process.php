@@ -10,10 +10,10 @@ if (!session_id()) session_start();
 // Check login
 if (!isset($_SESSION['user_name']) or !$_SESSION['user_name']) {
 	echo 'Redirecting ...';
-	return redirect('login.php');
+	return func_redirect('login.php');
 }
 
-// ============================================================ //
+// ------------------------------------------------------------ //
 
 require_once ("library/bitmex-api/BitMex.php");
 
@@ -47,7 +47,7 @@ $bitmex2 = new BitMex($apiKey2, $apiSecret2);
 	elseif ($arr['lastChangePcnt'] < 0) $arr['lastChangePcnt'] = '<span class="text-danger">▼ ' . ($arr['lastChangePcnt'] * 100) . '%</span>';
 	else $arr['lastChangePcnt'] =  ($arr['lastChangePcnt'] * 100) . '%';
 
-	print_arr1_to_table($arr, 'Current Price');
+	func_print_arr_to_table($arr, 'Current Price');
 	exit;
 // }
 
@@ -63,9 +63,9 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 	$arr = array(
 		'Account' => $account,
 		'API Key' => $apiKey,
-		'API Secret' => replace_by_star($apiSecret),
+		'API Secret' => func_replace_by_star($apiSecret),
 	);
-	print_arr1_to_table($arr);
+	func_print_arr_to_table($arr);
 	exit;
 }
 
@@ -73,9 +73,9 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 	$arr = array(
 		'Account' => $account2,
 		'API Key' => $apiKey2,
-		'API Secret' => replace_by_star($apiSecret2),
+		'API Secret' => func_replace_by_star($apiSecret2),
 	);
-	print_arr1_to_table($arr);
+	func_print_arr_to_table($arr);
 	exit;
 }
 
@@ -92,7 +92,7 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 		// 'amount' => $tmp['amount'],
 		'withdrawn' => $tmp['withdrawn'],
 	);
-	print_arr1_to_table($arr);//, 'Current Wallet'
+	func_print_arr_to_table($arr);//, 'Current Wallet'
 	exit;
 }
 
@@ -109,21 +109,21 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 		// 'amount' => $tmp['amount'],
 		'withdrawn' => $tmp['withdrawn'],
 	);
-	print_arr1_to_table($arr);//, 'Current Wallet'
+	func_print_arr_to_table($arr);//, 'Current Wallet'
 	exit;
 }
 
 if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-list-order') {
 	$arr = $bitmex->getOpenOrders();
-	print_arr1_to_table($arr, 'List Open Order');
+	func_print_arr_to_table($arr, 'List Open Order');
 	exit;
 }
 
 if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-open-positions') {
 	$arr = $bitmex->getOpenPositions();
-	print_arr1_to_table($arr, 'Open Positions');
+	func_print_arr_to_table($arr, 'Open Positions');
 	foreach ($arr as $key => $tmp) {
-		print_arr1_to_table('', $tmp);
+		func_print_arr_to_table('', $tmp);
 		$arr = array(
 			'openingQty' => $tmp['openingQty'],
 			'leverage' => $tmp['leverage'],
@@ -137,7 +137,7 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 			'marginCallPrice' => $tmp['marginCallPrice'],
 			'liquidationPrice' => $tmp['liquidationPrice'],
 		);
-		print_arr1_to_table($arr, '');
+		func_print_arr_to_table($arr, '');
 	}
 	exit;
 }
@@ -156,11 +156,11 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 		'price' => $price,
 		'orderQty' => 1,
 	);
-	print_arr1_to_table($arr, 'Place Order');
+	func_print_arr_to_table($arr, 'Place Order');
 
 	// $bitmex->setLeverage($arr['leverage']);
 	// $arr = $bitmex->createOrder($arr['ordType'], $arr['side'], (int) $arr['price'], (int) $arr['orderQty']);
-	// print_arr1_to_table($arr, 'Place Order');
+	// func_print_arr_to_table($arr, 'Place Order');
 
 	$arr = $bitmex->cancelAllOpenOrders('note to all closed orders at ' . date('H:i:s d/m/Y'));
 	dump($arr); die;
@@ -179,16 +179,16 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 		'marginUsedPcnt' => $tmp['marginUsedPcnt'],
 		'availableMargin' => $tmp['availableMargin'],
 	);
-	print_arr1_to_table($arr, 'Margin');
+	func_print_arr_to_table($arr, 'Margin');
 	exit;
 }
 
 if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-orderbook') {
 	$arr = $bitmex->getOrderBook($depth = 25);
-	// print_arr1_to_table($arr, 'OrderBook');
+	// func_print_arr_to_table($arr, 'OrderBook');
 	if ($arr) {
 		foreach ($arr as $key => $value) {
-			print_arr1_to_table($value);
+			func_print_arr_to_table($value);
 		}
 	}
 	exit;
@@ -196,7 +196,7 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 
 if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-orders') {
 	$arr = $bitmex->getOrders(100);
-	print_arr1_to_table($arr, 'List User Order');
+	func_print_arr_to_table($arr, 'List User Order');
 	exit;
 }
 
@@ -207,12 +207,12 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 		if (!$arr) continue;
 		$arr['$i'] = $i;
 		$arr['$j'] = $j;
-		if ($j>0 and ($j)%3==0) print_arr1_to_table($arr, 'Order', array('style' => 'clear:both;'));
-		else print_arr1_to_table($arr, 'Order');
+		if ($j>0 and ($j)%3==0) func_print_arr_to_table($arr, 'Order', array('style' => 'clear:both;'));
+		else func_print_arr_to_table($arr, 'Order');
 		$j++;
 	}
 	exit;
 }
 
-// ============================================================ //
+// ------------------------------------------------------------ //
 require_once ("footer.php");

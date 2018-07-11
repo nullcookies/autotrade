@@ -4,19 +4,19 @@ defined('IS_VALID') or define('IS_VALID', 1);
 require_once ("main.php");
 
 if (!session_id()) session_start();
-// ============================================================ //
+
+// ------------------------------------------------------------ //
 
 if (isset($_SESSION['user_name']) and $_SESSION['user_name']) {
 	echo 'Redirecting ...';
-	redirect('index.php', 3);
+	return func_redirect('index.php', 3);
 }
 
 if (count($_POST) > 0) {
-	if ($user = check_login($_POST['uname'], $_POST['psw'])) {
+	if ($user = func_check_login($_POST['uname'], $_POST['psw'])) {
 		$_SESSION['user_name'] = $user;
 		$_SESSION['message'] = 'Login successful!';
-		redirect('index.php', 2);
-		exit;
+		return func_redirect('index.php', 2);
 	}
 
 	$_SESSION['message'] = 'Login failed!';
