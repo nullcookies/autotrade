@@ -6,7 +6,7 @@ require_once ("main.php");
 if (!session_id()) session_start();
 // ============================================================ //
 
-if ($_SESSION['user_name']) {
+if (isset($_SESSION['user_name']) and $_SESSION['user_name']) {
 	echo 'Redirecting ...';
 	redirect('index.php', 3);
 }
@@ -44,7 +44,7 @@ if (count($_POST) > 0) {
 	<h2 class="title">Login</h2>
 	<form class="modal-content animate" action="login.php" method="post" enctype="multipart/form-data">
 		<div class="imgcontainer">
-			<?php if ($_SESSION['message']): ?>
+			<?php if (isset($_SESSION['user_name']) and $_SESSION['message']): ?>
 				<div class="alert alert-success">
 					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 					<?php echo $_SESSION['message']; ?>
