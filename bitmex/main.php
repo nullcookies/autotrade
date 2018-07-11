@@ -1,8 +1,14 @@
 <?php
-if (!defined('IS_VALID')) die('Access denied.');
+if (!defined('IS_VALID')) die('Access denied.' . "\n");
 
-if (!defined('DS')) define('DS', DIRECTORY_SEPARATOR);
-if (!defined('CUR_DIR')) define('CUR_DIR', dirname(__FILE__));
+defined('DS') or define('DS', DIRECTORY_SEPARATOR);
+defined('ROOT_DIR') or define('ROOT_DIR', dirname(__FILE__));
+
+// Detect run as CLI mode
+$cli_mode = (php_sapi_name() == "cli") ? true : false;
+defined('CLI_MODE') or define('CLI_MODE', $cli_mode);
+
+// ============================================================ //
 
 if (!function_exists("dump")) {
 	function dump($arr)
@@ -64,4 +70,4 @@ function replace_by_star($str = null)
 	return $str_new;
 }
 
-// ============================================================ //
+

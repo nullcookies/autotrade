@@ -3,15 +3,7 @@ defined('IS_VALID') or define('IS_VALID', 1);
 require_once ("main.php");
 
 // Detect run as CLI mode
-if ($cli_mode) return require_once (ROOT_DIR . DS . 'cli-process.php');
-
-if (!session_id()) session_start();
-
-// Check login
-if (!isset($_SESSION['user_name']) or !$_SESSION['user_name']) {
-	echo 'Redirecting ...';
-	return redirect('login.php');
-}
+if (!$cli_mode) return redirect('index.php');
 
 // ============================================================ //
 
@@ -47,7 +39,7 @@ $bitmex2 = new BitMex($apiKey2, $apiSecret2);
 	elseif ($arr['lastChangePcnt'] < 0) $arr['lastChangePcnt'] = '<span class="text-danger">▼ ' . ($arr['lastChangePcnt'] * 100) . '%</span>';
 	else $arr['lastChangePcnt'] =  ($arr['lastChangePcnt'] * 100) . '%';
 
-	print_arr1_to_table($arr, 'Current Price');
+	dump($arr);
 	exit;
 // }
 
@@ -213,6 +205,3 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 	}
 	exit;
 }
-
-// ============================================================ //
-require_once ("footer.php");
