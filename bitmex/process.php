@@ -192,6 +192,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 			func_print_arr_to_table($arr);
 		}
 	}
+	else func_print_arr_to_table($arr);
 	exit;
 }
 
@@ -237,6 +238,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 			func_print_arr_to_table($arr);
 		}
 	}
+	else func_print_arr_to_table($arr);
 	exit;
 }
 

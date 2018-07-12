@@ -19,5 +19,5 @@ td.col-title{width: 40%;}
 .panel-main-info .panel-info{width: 49%!important; float: left;}
 
 @media only screen and (max-width: 768px) {
-	.panel-body{overflow-x: scroll;}
+	/*.panel-body{overflow-x: scroll;}*/
 }
