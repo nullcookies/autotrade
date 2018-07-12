@@ -201,7 +201,7 @@ class BitMex
 
         $openOrders = array();
         foreach ($orders as $order) {
-            if ($order['ordStatus'] == 'Filled' || $order['ordStatus'] == 'New' || $order['ordStatus'] == 'PartiallyFilled')
+            if ($order['ordStatus'] == 'New' || $order['ordStatus'] == 'PartiallyFilled') // || $order['ordStatus'] == 'Filled'
                 $openOrders[] = $order;
         }
         

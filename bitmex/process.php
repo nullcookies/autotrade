@@ -150,6 +150,96 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 	exit;
 }
 
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-open-positions') {
+	if (is_null($options->bitmex)) $options->bitmex = new BitMex($options->apiKey, $options->apiSecret);
+	$arr = $options->bitmex->getOpenPositions();
+	// func_print_arr_to_table($arr);
+	
+	if (is_array($arr) and count($arr) > 0) {
+		foreach ($arr as $key => $tmp) {
+			// func_print_arr_to_table($tmp);
+			
+			$arr = array(
+				'openingQty' => $tmp['openingQty'],
+				'leverage' => $tmp['leverage'],
+				'realisedPnl' => $tmp['realisedPnl'],
+				'unrealisedGrossPnl' => $tmp['unrealisedGrossPnl'],
+				'unrealisedPnlPcnt' => $tmp['unrealisedPnlPcnt'],
+				'unrealisedRoePcnt' => $tmp['unrealisedRoePcnt'],
+				'avgCostPrice' => $tmp['avgCostPrice'],
+				'avgEntryPrice' => $tmp['avgEntryPrice'],
+				'breakEvenPrice' => $tmp['breakEvenPrice'],
+				'marginCallPrice' => $tmp['marginCallPrice'],
+				'liquidationPrice' => $tmp['liquidationPrice'],
+				'isOpen' => $tmp['isOpen'],
+				'markPrice' => $tmp['markPrice'],
+				'commission' => $tmp['commission'],
+				'initMarginReq' => $tmp['initMarginReq'],
+				'maintMarginReq' => $tmp['maintMarginReq'],
+			);
+			if ($arr['realisedPnl'] < 0) $arr['realisedPnl'] = '<span class="text-danger">' . number_format(($tmp['realisedPnl'] * 0.00000001), 8) . ' XBT</span>';
+			else $arr['realisedPnl'] = '<span class="text-success">' . number_format(($tmp['realisedPnl'] * 0.00000001), 8) . 'XBT</span>';
+			if ($arr['unrealisedGrossPnl'] < 0) $arr['unrealisedGrossPnl'] = '<span class="text-danger">' . number_format(($tmp['unrealisedGrossPnl'] * 0.00000001), 8) . ' XBT</span>';
+			else $arr['unrealisedGrossPnl'] = '<span class="text-success">' . number_format(($tmp['unrealisedGrossPnl'] * 0.00000001), 8) . 'XBT</span>';
+			if ($arr['unrealisedPnlPcnt'] < 0) $arr['unrealisedPnlPcnt'] = '<span class="text-danger">' . ($tmp['unrealisedPnlPcnt'] * 100) . '%</span>';
+			else $arr['unrealisedPnlPcnt'] = '<span class="text-success">' . ($tmp['unrealisedPnlPcnt'] * 100) . '%</span>';
+			if ($arr['unrealisedRoePcnt'] < 0) $arr['unrealisedRoePcnt'] = '<span class="text-danger">' . ($tmp['unrealisedRoePcnt'] * 100) . '%</span>';
+			else $arr['unrealisedRoePcnt'] = '<span class="text-success">' . ($tmp['unrealisedRoePcnt'] * 100) . '%</span>';
+			$arr['leverage'] = '<span class="text-warning"><b>x' . $tmp['leverage'] . '</b></span>';
+			$arr['avgEntryPrice'] = '<span class="text-success">' . $tmp['avgEntryPrice'] . '</span>';
+			$arr['liquidationPrice'] = '<span class="text-danger">' . $tmp['liquidationPrice'] . '</span>';
+
+			func_print_arr_to_table($arr);
+		}
+	}
+	exit;
+}
+
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-open-positions2') {
+	if (is_null($options->bitmex2)) $options->bitmex2 = new BitMex($options->apiKey2, $options->apiSecret2);
+	$arr = $options->bitmex2->getOpenPositions();
+	// func_print_arr_to_table($arr);
+	
+	if (is_array($arr) and count($arr) > 0) {
+		foreach ($arr as $key => $tmp) {
+			// func_print_arr_to_table($tmp);
+			
+			$arr = array(
+				'openingQty' => $tmp['openingQty'],
+				'leverage' => $tmp['leverage'],
+				'realisedPnl' => $tmp['realisedPnl'],
+				'unrealisedGrossPnl' => $tmp['unrealisedGrossPnl'],
+				'unrealisedPnlPcnt' => $tmp['unrealisedPnlPcnt'],
+				'unrealisedRoePcnt' => $tmp['unrealisedRoePcnt'],
+				'avgCostPrice' => $tmp['avgCostPrice'],
+				'avgEntryPrice' => $tmp['avgEntryPrice'],
+				'breakEvenPrice' => $tmp['breakEvenPrice'],
+				'marginCallPrice' => $tmp['marginCallPrice'],
+				'liquidationPrice' => $tmp['liquidationPrice'],
+				'isOpen' => $tmp['isOpen'],
+				'markPrice' => $tmp['markPrice'],
+				'commission' => $tmp['commission'],
+				'initMarginReq' => $tmp['initMarginReq'],
+				'maintMarginReq' => $tmp['maintMarginReq'],
+			);
+			if ($arr['realisedPnl'] < 0) $arr['realisedPnl'] = '<span class="text-danger">' . number_format(($tmp['realisedPnl'] * 0.00000001), 8) . ' XBT</span>';
+			else $arr['realisedPnl'] = '<span class="text-success">' . number_format(($tmp['realisedPnl'] * 0.00000001), 8) . 'XBT</span>';
+			if ($arr['unrealisedGrossPnl'] < 0) $arr['unrealisedGrossPnl'] = '<span class="text-danger">' . number_format(($tmp['unrealisedGrossPnl'] * 0.00000001), 8) . ' XBT</span>';
+			else $arr['unrealisedGrossPnl'] = '<span class="text-success">' . number_format(($tmp['unrealisedGrossPnl'] * 0.00000001), 8) . 'XBT</span>';
+			if ($arr['unrealisedPnlPcnt'] < 0) $arr['unrealisedPnlPcnt'] = '<span class="text-danger">' . ($tmp['unrealisedPnlPcnt'] * 100) . '%</span>';
+			else $arr['unrealisedPnlPcnt'] = '<span class="text-success">' . ($tmp['unrealisedPnlPcnt'] * 100) . '%</span>';
+			if ($arr['unrealisedRoePcnt'] < 0) $arr['unrealisedRoePcnt'] = '<span class="text-danger">' . ($tmp['unrealisedRoePcnt'] * 100) . '%</span>';
+			else $arr['unrealisedRoePcnt'] = '<span class="text-success">' . ($tmp['unrealisedRoePcnt'] * 100) . '%</span>';
+			$arr['leverage'] = '<span class="text-warning"><b>x' . $tmp['leverage'] . '</b></span>';
+			$arr['avgEntryPrice'] = '<span class="text-success">' . $tmp['avgEntryPrice'] . '</span>';
+			$arr['liquidationPrice'] = '<span class="text-danger">' . $tmp['liquidationPrice'] . '</span>';
+
+			func_print_arr_to_table($arr);
+		}
+	}
+	exit;
+}
+
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-open-order') {
 	if (is_null($options->bitmex)) $options->bitmex = new BitMex($options->apiKey, $options->apiSecret);
 	$arr = $options->bitmex->getOpenOrders();
@@ -161,30 +251,6 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 	if (is_null($options->bitmex2)) $options->bitmex2 = new BitMex($options->apiKey2, $options->apiSecret2);
 	$arr = $options->bitmex2->getOpenOrders();
 	func_print_arr_to_table($arr);
-	exit;
-}
-
-if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-open-positions') {
-	if (is_null($options->bitmex)) $options->bitmex = new BitMex($options->apiKey, $options->apiSecret);
-	$arr = $options->bitmex->getOpenPositions();
-	func_print_arr_to_table($arr, 'Open Positions');
-	foreach ($arr as $key => $tmp) {
-		func_print_arr_to_table('', $tmp);
-		$arr = array(
-			'openingQty' => $tmp['openingQty'],
-			'leverage' => $tmp['leverage'],
-			'realisedPnl' => $tmp['realisedPnl'],
-			'unrealisedGrossPnl' => $tmp['unrealisedGrossPnl'],
-			'unrealisedPnlPcnt' => $tmp['unrealisedPnlPcnt'],
-			'unrealisedRoePcnt' => $tmp['unrealisedRoePcnt'],
-			'avgCostPrice' => $tmp['avgCostPrice'],
-			'avgEntryPrice' => $tmp['avgEntryPrice'],
-			'breakEvenPrice' => $tmp['breakEvenPrice'],
-			'marginCallPrice' => $tmp['marginCallPrice'],
-			'liquidationPrice' => $tmp['liquidationPrice'],
-		);
-		func_print_arr_to_table($arr, '');
-	}
 	exit;
 }
 

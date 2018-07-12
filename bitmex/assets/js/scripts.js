@@ -295,6 +295,88 @@ $(document).ready(function() {
 		};
 		loadWallet2('.panel-wallet2', 'load-wallet2', {reload_time:(Math.floor(Math.random() * 12) + 7) * 1000});
 
+		var _loadOpenPositions = 0;
+		var _loadingOpenPositions = 0;
+		var loadOpenPositions = function(div, act, options) {
+			var options = options || {};
+			if ($(div).length <= 0) {
+				return false;
+			}
+
+			var reload_time = options.reload_time || 0;
+			if (reload_time) {
+				setTimeout(function(){loadOpenPositions(div, act, {reload_time:reload_time})}, reload_time);
+				if ($(div).length > 0) $(div).data('reload-time', reload_time);
+			}
+			
+			// _loadOpenPositions++;
+			// if (_loadOpenPositions <= 1) return false;
+			
+			if (_loadingOpenPositions) return false;
+			_loadingOpenPositions = 1;
+			
+			var request = $.ajax({
+				url: "process.php",
+				method: "GET",
+				data: {rtype: 'ajax', act: act},
+				dataType: "html"
+			});
+
+			request.done(function(response) {
+				$(div).find('.panel-body').empty().html(response);
+				$(div).find('table').effect("highlight", {}, 500);
+				_loadingOpenPositions = 0;
+			});
+
+			request.fail(function(jqXHR, textStatus) {
+				console.warn("Request failed: " + textStatus);
+			});
+
+			return false;
+		};
+		loadOpenPositions('.panel-open-positions', 'load-open-positions', {reload_time:(Math.floor(Math.random() * 12) + 7) * 1000});
+
+		var _loadOpenPositions2 = 0;
+		var _loadingOpenPositions2 = 0;
+		var loadOpenPositions2 = function(div, act, options) {
+			var options = options || {};
+			if ($(div).length <= 0) {
+				return false;
+			}
+
+			var reload_time = options.reload_time || 0;
+			if (reload_time) {
+				setTimeout(function(){loadOpenPositions2(div, act, {reload_time:reload_time})}, reload_time);
+				if ($(div).length > 0) $(div).data('reload-time', reload_time);
+			}
+			
+			// _loadOpenPositions2++;
+			// if (_loadOpenPositions2 <= 1) return false;
+			
+			if (_loadingOpenPositions) return false;
+			_loadingOpenPositions2 = 1;
+			
+			var request = $.ajax({
+				url: "process.php",
+				method: "GET",
+				data: {rtype: 'ajax', act: act},
+				dataType: "html"
+			});
+
+			request.done(function(response) {
+				$(div).find('.panel-body').empty().html(response);
+				$(div).find('table').effect("highlight", {}, 500);
+				_loadingOpenPositions2 = 0;
+			});
+
+			request.fail(function(jqXHR, textStatus) {
+				console.warn("Request failed: " + textStatus);
+			});
+
+			return false;
+		};
+		loadOpenPositions2('.panel-open-positions2', 'load-open-positions2', {reload_time:(Math.floor(Math.random() * 12) + 7) * 1000});
+
 		var _loadOpenOrder = 0;
 		var _loadingOpenOrder = 0;
 		var loadOpenOrder = function(div, act, options) {

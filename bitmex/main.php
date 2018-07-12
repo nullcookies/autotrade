@@ -100,7 +100,8 @@ function func_redirect($url = '/', $time = 0)
 
 function func_print_arr_to_table($arr = null, $title = '', $options = null) 
 {
-	if (!$arr) {echo 'No data found!'; exit;}
+	if (!isset($options['show_message'])) $options['show_message'] = 1;
+	if (!$arr and $options['show_message']) {echo 'No data found!'; exit;}
 ?>
 	<?php /*<div class="panel <?php if (isset($options['panel'])){echo $options['panel'];}else echo 'panel-default';?>">
 		<?php if ($title): ?><div class="panel-heading"><h3 class="panel-title"><?php echo $title; ?></h3></div><?php endif; ?>
