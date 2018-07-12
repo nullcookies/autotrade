@@ -24,12 +24,12 @@
 			<li class="active"><a data-toggle="tab" href="#main">Main</a></li>
 			<li><a data-toggle="tab" href="#account">Account</a></li>
 			<li><a data-toggle="tab" href="#margin">Margin</a></li>
-			<li><a data-toggle="tab" href="#list-order">List Open Order</a></li>
+			<!-- <li><a data-toggle="tab" href="#list-order">List Open Order</a></li> -->
 			<li><a data-toggle="tab" href="#open-positions">Open Positions</a></li>
 			<li><a data-toggle="tab" href="#orderbook">OrderBook</a></li>
 			<li><a data-toggle="tab" href="#orders">Orders</a></li>
 			<li><a data-toggle="tab" href="#order">Order</a></li>
-			<li><a href="logout.php">Logout</a></li>
+			<li class="bg-light text-dark"><a href="logout.php">Logout</a></li>
 		</ul>
 
 		<div class="tab-content">
@@ -64,14 +64,19 @@
 				<div class="panel-group row">
 					<div id="column-left" class="col-sm-6">
 						<div class="panel panel-primary panel-account">
-							<div class="panel-heading"><h3 class="panel-title">Account 1</h3></div>
+							<div class="panel-heading"><h3 class="panel-title">Account</h3></div>
 							<div class="panel-body">
 								Loading ...
 							</div>
 						</div>
-
 						<div class="panel panel-info panel-wallet">
-							<div class="panel-heading"><h3 class="panel-title">Wallet 1</h3></div>
+							<div class="panel-heading"><h3 class="panel-title">Wallet</h3></div>
+							<div class="panel-body">
+								Loading ...
+							</div>
+						</div>
+						<div class="panel panel-info panel-open-order">
+							<div class="panel-heading"><h3 class="panel-title">Open Order</h3></div>
 							<div class="panel-body">
 								Loading ...
 							</div>
@@ -84,9 +89,14 @@
 								Loading ...
 							</div>
 						</div>
-
 						<div class="panel panel-info panel-wallet2">
 							<div class="panel-heading"><h3 class="panel-title">Wallet 2</h3></div>
+							<div class="panel-body">
+								Loading ...
+							</div>
+						</div>
+						<div class="panel panel-info panel-open-order2">
+							<div class="panel-heading"><h3 class="panel-title">Open Order 2</h3></div>
 							<div class="panel-body">
 								Loading ...
 							</div>
@@ -106,7 +116,7 @@
 				</div>
 			</div>
 
-			<div id="list-order" class="tab-pane fade">
+			<!-- <div id="list-order" class="tab-pane fade">
 				<div class="panel-group">
 					<div class="panel panel-default panel-list-order">
 						<div class="panel-heading"><h3 class="panel-title">List Open Order</h3></div>
@@ -115,7 +125,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 
 			<div id="open-positions" class="tab-pane fade">
 				<div class="panel-group">

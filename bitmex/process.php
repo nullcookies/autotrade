@@ -5,12 +5,13 @@ require_once ("main.php");
 // Detect run as CLI mode
 if ($cli_mode) return require_once (ROOT_DIR . DS . 'cli-process.php');
 
-if (!session_id()) session_start();
+if (!session_id()) @session_start();
 
 // Check login
 if (!isset($_SESSION['user_name']) or !$_SESSION['user_name']) {
-	echo 'Redirecting ...';
-	return func_redirect('login.php');
+	echo('Redirecting ...');
+	func_redirect('login.php');
+	exit;
 }
 
 global $options;
@@ -95,14 +96,20 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 	exit;
 }
 
-if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-list-order') {
-	$arr = $bitmex->getOpenOrders();
-	func_print_arr_to_table($arr, 'List Open Order');
+if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-open-order') {
+	$arr = $options->bitmex->getOpenOrders();
+	func_print_arr_to_table($arr);
+	exit;
+}
+
+if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-open-order2') {
+	$arr = $options->bitmex2->getOpenOrders();
+	func_print_arr_to_table($arr);
 	exit;
 }
 
 if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-open-positions') {
-	$arr = $bitmex->getOpenPositions();
+	$arr = $options->bitmex->getOpenPositions();
 	func_print_arr_to_table($arr, 'Open Positions');
 	foreach ($arr as $key => $tmp) {
 		func_print_arr_to_table('', $tmp);
@@ -125,10 +132,10 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 }
 
 if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-actions') {
-	// $bitmex->closePosition($price);
-	// $bitmex->editOrderPrice($orderID, $price);
+	// $options->bitmex->closePosition($price);
+	// $options->bitmex->editOrderPrice($orderID, $price);
 
-	$current = $bitmex->getTicker();
+	$current = $options->bitmex->getTicker();
 	// $price = $current['last'];
 	$price = 6401;
 	$arr = array(
@@ -140,17 +147,17 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 	);
 	func_print_arr_to_table($arr, 'Place Order');
 
-	// $bitmex->setLeverage($arr['leverage']);
-	// $arr = $bitmex->createOrder($arr['ordType'], $arr['side'], (int) $arr['price'], (int) $arr['orderQty']);
+	// $options->bitmex->setLeverage($arr['leverage']);
+	// $arr = $options->bitmex->createOrder($arr['ordType'], $arr['side'], (int) $arr['price'], (int) $arr['orderQty']);
 	// func_print_arr_to_table($arr, 'Place Order');
 
-	$arr = $bitmex->cancelAllOpenOrders('note to all closed orders at ' . date('H:i:s d/m/Y'));
+	$arr = $options->bitmex->cancelAllOpenOrders('note to all closed orders at ' . date('H:i:s d/m/Y'));
 	dump($arr); die;
 	exit;
 }
 
 if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-margin') {
-	$tmp = $bitmex->getMargin();
+	$tmp = $options->bitmex->getMargin();
 	$arr = array(
 		'realisedPnl' => $tmp['realisedPnl'],
 		'unrealisedPnl' => $tmp['unrealisedPnl'],
@@ -166,7 +173,7 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 }
 
 if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-orderbook') {
-	$arr = $bitmex->getOrderBook($depth = 25);
+	$arr = $options->bitmex->getOrderBook($depth = 25);
 	// func_print_arr_to_table($arr, 'OrderBook');
 	if ($arr) {
 		foreach ($arr as $key => $value) {
@@ -177,7 +184,7 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 }
 
 if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-orders') {
-	$arr = $bitmex->getOrders(100);
+	$arr = $options->bitmex->getOrders(100);
 	func_print_arr_to_table($arr, 'List User Order');
 	exit;
 }
@@ -185,7 +192,7 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-order') {
 	$j = 0;
 	for ($i=0; $i < 10; $i++) {
-		$arr = $bitmex->getOrder($orderID = $i, $count = 100);
+		$arr = $options->bitmex->getOrder($orderID = $i, $count = 100);
 		if (!$arr) continue;
 		$arr['$i'] = $i;
 		$arr['$j'] = $j;

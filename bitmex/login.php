@@ -3,13 +3,14 @@
 defined('IS_VALID') or define('IS_VALID', 1);
 require_once ("main.php");
 
-if (!session_id()) session_start();
+if (!session_id()) @session_start();
 
 // ------------------------------------------------------------ //
 
 if (isset($_SESSION['user_name']) and $_SESSION['user_name']) {
-	echo 'Redirecting ...';
-	return func_redirect('index.php', 3);
+	echo('Redirecting ...');
+	func_redirect('index.php', 1);
+	exit;
 }
 
 if (count($_POST) > 0) {
