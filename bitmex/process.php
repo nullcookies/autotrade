@@ -14,6 +14,7 @@ if (!isset($_SESSION['user_name']) or !$_SESSION['user_name']) {
 	exit;
 }
 
+// Get global variables
 global $options;
 
 // ------------------------------------------------------------ //
@@ -25,7 +26,7 @@ if (count($_POST) > 0 and isset($_POST['rtype']) and $_POST['rtype'] == 'ajax' a
     exit;
 }
 
-if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-current-price') {
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-current-price') {
 	$arr = func_get_current_price();
 
 	$last_orig = $arr['last'];
@@ -49,20 +50,72 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 	exit;
 }
 
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-chart') {
+	?>
+	<?php /*
+	<div class="btcwdgt-chart">
+		Loading chart ...
+		<script type="text/javascript">
+		(function(b,i,t,C,O,I,N) {
+			window.addEventListener('load',function() {
+			if(b.getElementById(C))return;
+			I=b.createElement(i),N=b.getElementsByTagName(i)[0];
+			I.src=t;I.id=C;N.parentNode.insertBefore(I, N);
+			},false)
+		})(document,'script','https://widgets.bitcoin.com/widget.js','btcwdgt');
+		</script>
+	</div>
+	*/ ?>
+	<div class="chart-content" id="tradingview_88629">
+		Loading chart ...
+		<!-- <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script> -->
+		<script type="text/javascript">
+			new TradingView.widget(
+			{
+				"width": '100%',
+				"height": 400,
+				"autosize": true,
+				"symbol": "BITMEX:XBTUSD",
+				"interval": "60",
+				"container_id": "tradingview_88629",
+				"timezone": "Asia/Hong_Kong",
+				"theme": "Light",
+				"style": "8",
+				"locale": "en",
+				"toolbar_bg": "#f1f3f6",
+				"enable_publishing": false,
+				"allow_symbol_change": true,
+				"studies": [
+					"BB@tv-basicstudies",
+					// "IchimokuCloud@tv-basicstudies",
+					// "MASimple@tv-basicstudies",
+				],
+				"show_popup_button": true,
+				"popup_width": "1150",
+				"popup_height": "650",
+			}
+		);
+		</script>
+	</div>
+	<?php 
+	exit;
+}
+
 // Process load
-if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-account') {
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-account') {
 	$arr = func_get_account_info($options->account, $options->apiKey, $options->apiSecret);
 	func_print_arr_to_table($arr);
 	exit;
 }
 
-if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-account2') {
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-account2') {
 	$arr = func_get_account_info($options->account2, $options->apiKey2, $options->apiSecret2);
 	func_print_arr_to_table($arr);
 	exit;
 }
 
-if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-wallet') {
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-wallet') {
+	if (is_null($options->bitmex)) $options->bitmex = new BitMex($options->apiKey, $options->apiSecret);
 	$tmp = func_get_account_wallet($options->bitmex);
 	$arr = array(
 		'amount' => ($tmp['amount'] * 0.00000001) . ' BTC',
@@ -79,7 +132,8 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 	exit;
 }
 
-if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-wallet2') {
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-wallet2') {
+	if (is_null($options->bitmex2)) $options->bitmex2 = new BitMex($options->apiKey2, $options->apiSecret2);
 	$tmp = func_get_account_wallet($options->bitmex2);
 	$arr = array(
 		'amount' => ($tmp['amount'] * 0.00000001) . ' BTC',
@@ -96,19 +150,22 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 	exit;
 }
 
-if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-open-order') {
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-open-order') {
+	if (is_null($options->bitmex)) $options->bitmex = new BitMex($options->apiKey, $options->apiSecret);
 	$arr = $options->bitmex->getOpenOrders();
 	func_print_arr_to_table($arr);
 	exit;
 }
 
-if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-open-order2') {
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-open-order2') {
+	if (is_null($options->bitmex2)) $options->bitmex2 = new BitMex($options->apiKey2, $options->apiSecret2);
 	$arr = $options->bitmex2->getOpenOrders();
 	func_print_arr_to_table($arr);
 	exit;
 }
 
-if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-open-positions') {
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-open-positions') {
+	if (is_null($options->bitmex)) $options->bitmex = new BitMex($options->apiKey, $options->apiSecret);
 	$arr = $options->bitmex->getOpenPositions();
 	func_print_arr_to_table($arr, 'Open Positions');
 	foreach ($arr as $key => $tmp) {
@@ -131,9 +188,11 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 	exit;
 }
 
-if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-actions') {
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-actions') {
 	// $options->bitmex->closePosition($price);
 	// $options->bitmex->editOrderPrice($orderID, $price);
+
+	if (is_null($options->bitmex)) $options->bitmex = new BitMex($options->apiKey, $options->apiSecret);
 
 	$current = $options->bitmex->getTicker();
 	// $price = $current['last'];
@@ -156,7 +215,8 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 	exit;
 }
 
-if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-margin') {
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-margin') {
+	if (is_null($options->bitmex)) $options->bitmex = new BitMex($options->apiKey, $options->apiSecret);
 	$tmp = $options->bitmex->getMargin();
 	$arr = array(
 		'realisedPnl' => $tmp['realisedPnl'],
@@ -172,7 +232,8 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 	exit;
 }
 
-if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-orderbook') {
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-orderbook') {
+	if (is_null($options->bitmex)) $options->bitmex = new BitMex($options->apiKey, $options->apiSecret);
 	$arr = $options->bitmex->getOrderBook($depth = 25);
 	// func_print_arr_to_table($arr, 'OrderBook');
 	if ($arr) {
@@ -183,13 +244,15 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 	exit;
 }
 
-if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-orders') {
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-orders') {
+	if (is_null($options->bitmex)) $options->bitmex = new BitMex($options->apiKey, $options->apiSecret);
 	$arr = $options->bitmex->getOrders(100);
 	func_print_arr_to_table($arr, 'List User Order');
 	exit;
 }
 
-if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-order') {
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-order') {
+	if (is_null($options->bitmex)) $options->bitmex = new BitMex($options->apiKey, $options->apiSecret);
 	$j = 0;
 	for ($i=0; $i < 10; $i++) {
 		$arr = $options->bitmex->getOrder($orderID = $i, $count = 100);
@@ -202,3 +265,5 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 	}
 	exit;
 }
+
+die('NOT IN AJAX MODE!!!');

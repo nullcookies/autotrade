@@ -5,9 +5,10 @@ require_once ("main.php");
 // Detect run as CLI mode
 if (!$cli_mode) return func_redirect('index.php');
 
-// ------------------------------------------------------------ //
+// Get global variables
+global $options;
 
-// dump(func_fill_space('aaa', '10', '-'));die;
+// ------------------------------------------------------------ //
 
 global $_check_price;
 $_check_price = 0;
@@ -72,9 +73,11 @@ function func_show_account_wallet()
 {
 	global $options;
 	
+	if (is_null($options->bitmex)) $options->bitmex = new BitMex($options->apiKey, $options->apiSecret);
 	$arr1 = func_get_account_wallet($options->bitmex);
 	func_cli_print_arr($arr1);
 
+	if (is_null($options->bitmex)) $options->bitmex2 = new BitMex($options->apiKey2, $options->apiSecret2);
 	$arr2 = func_get_account_wallet($options->bitmex2);
 	func_cli_print_arr($arr2);
 }

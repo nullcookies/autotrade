@@ -11,10 +11,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<!-- <script src="assets/js/htmlminifier.min.js"></script> -->
 	<script src="assets/js/scripts.js"></script>
-	<!--
-	-->
 </head>
 <body>
 	<div class="container container-fluid">
@@ -35,26 +32,30 @@
 		<div class="tab-content">
 			<div id="main" class="tab-pane fade in active">
 				<div class="panel-group">
-					<div class="panel panel-primary panel-current-price">
-						<div class="panel-heading"><h3 class="panel-title">Current Price</h3></div>
-						<div class="panel-body">
+					<div class="panel panel-info panel-chart">
+						<div class="panel-heading"><h3 class="panel-title">Chart</h3></div>
+						<div class="panel-body chart-container tradingview-widget-container">
 							Loading ...
+							<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 						</div>
 					</div>
+				</div>
 
-					<?php /*
-					<div class="panel panel-info panel-wallet">
-						<div class="panel-heading"><h3 class="panel-title">Current Wallet</h3></div>
-						<div class="panel-body">
-							Loading ...
+				<div class="panel-group row">
+					<div id="column-left" class="col-sm-6">
+						<div class="panel panel-primary panel-current-price">
+							<div class="panel-heading"><h3 class="panel-title">Current Price</h3></div>
+							<div class="panel-body">
+								Loading ...
+							</div>
 						</div>
 					</div>
-					*/ ?>
-
-					<div class="panel panel-danger panel-actions">
-						<div class="panel-heading"><h3 class="panel-title">Actions</h3></div>
-						<div class="panel-body">
-							Loading ...
+					<div id="column-right" class="col-sm-6"> 
+						<div class="panel panel-danger panel-actions">
+							<div class="panel-heading"><h3 class="panel-title">Actions</h3></div>
+							<div class="panel-body">
+								Loading ...
+							</div>
 						</div>
 					</div>
 				</div>

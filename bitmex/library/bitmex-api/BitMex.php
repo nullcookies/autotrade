@@ -196,12 +196,12 @@ class BitMex
         );
         
         $orders = $this->authQuery($data);
-        
+
         if (!$orders) return array();
 
         $openOrders = array();
         foreach ($orders as $order) {
-            if ($order['ordStatus'] == 'New' || $order['ordStatus'] == 'PartiallyFilled')
+            if ($order['ordStatus'] == 'Filled' || $order['ordStatus'] == 'New' || $order['ordStatus'] == 'PartiallyFilled')
                 $openOrders[] = $order;
         }
         

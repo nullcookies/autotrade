@@ -8,6 +8,10 @@ defined('ROOT_DIR') or define('ROOT_DIR', dirname(__FILE__));
 $cli_mode = (php_sapi_name() == "cli") ? true : false;
 defined('CLI_MODE') or define('CLI_MODE', $cli_mode);
 
+/* AJAX check  */
+$ajax_mode = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') ? true : false;
+defined('AJAX_MODE') or define('AJAX_MODE', $ajax_mode);
+
 // Set default timezone
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 
@@ -27,18 +31,21 @@ $options->can_run = true;
 $options->account = 'long.vu0104@gmail.com';
 $options->apiKey = 'q1KYRfGHroeROIjRvdsvhJqv';
 $options->apiSecret = 'iCiuNYv_F4rdZkkc2R89bzMLb5KkkINkIkXHpEnN8sp1DEi3';
-$options->bitmex = new BitMex($options->apiKey, $options->apiSecret);
+// $options->bitmex = new BitMex($options->apiKey, $options->apiSecret);
+$options->bitmex = null;
 
 $options->account2 = 'signvltk1@gmail.com';
 $options->apiKey2 = 'P5RaBUJ-8NZsxG_E5x5p6C_B';
 $options->apiSecret2 = 'FZ-zqEpiqVPlHOtBu4rMbwx26ZeRoZbQ-RzSiyGv6E9c9epy';
-$options->bitmex2 = new BitMex($options->apiKey2, $options->apiSecret2);
+// $options->bitmex2 = new BitMex($options->apiKey2, $options->apiSecret2);
+$options->bitmex2 = null;
 
 // ------------------------------------------------------------ //
 
 function func_get_current_price()
 {
 	global $options;
+	if (is_null($options->bitmex)) $options->bitmex = new BitMex($options->apiKey, $options->apiSecret);
 	$arr = $options->bitmex->getTicker();
 	return $arr;
 }

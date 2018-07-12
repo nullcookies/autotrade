@@ -87,6 +87,47 @@ $(document).ready(function() {
 			return false;
 		};
 		loadCurrentPrice('.panel-current-price', 'load-current-price', {reload_time:(Math.floor(Math.random() * 2) + 2) * 1000});
+
+		var _loadChart = 0;
+		var _loadingChart = 0;
+		var loadChart = function(div, act, options) {
+			var options = options || {};
+			if ($(div).length <= 0) {
+				return false;
+			}
+
+			var reload_time = options.reload_time || 0;
+			if (reload_time) {
+				setTimeout(function(){loadChart(div, act, {reload_time:reload_time})}, reload_time);
+				if ($(div).length > 0) $(div).data('reload-time', reload_time);
+			}
+			
+			// _loadChart++;
+			// if (_loadChart <= 1) return false;
+			
+			if (_loadingChart) return false;
+			_loadingChart = 1;
+			
+			var request = $.ajax({
+				url: "process.php",
+				method: "GET",
+				data: {rtype: 'ajax', act: act},
+				dataType: "html"
+			});
+
+			request.done(function(response) {
+				$(div).find('.panel-body').empty().html(response);
+				$(div).find('table').effect("highlight", {}, 500);
+				_loadingChart = 0;
+			});
+
+			request.fail(function(jqXHR, textStatus) {
+				console.warn("Request failed: " + textStatus);
+			});
+
+			return false;
+		};
+		loadChart('.panel-chart', 'load-chart');
 		
 		var _loadAccount = 0;
 		var _loadingAccount = 0;
