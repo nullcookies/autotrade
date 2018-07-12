@@ -13,22 +13,19 @@ if (!isset($_SESSION['user_name']) or !$_SESSION['user_name']) {
 	return func_redirect('login.php');
 }
 
+global $options;
+
 // ------------------------------------------------------------ //
 
-require_once ("library/bitmex-api/BitMex.php");
+if (count($_POST) > 0 and isset($_POST['rtype']) and $_POST['rtype'] == 'ajax' and isset($_POST['act']) and $_POST['act'] == 'put-order') {
+    header('Content-Type: application/json');
+    $res = array('code'=>'OK','desc'=>"DONE");
+    echo json_encode($res);
+    exit;
+}
 
-$account = 'signvltk1@gmail.com';
-$apiKey = 'P5RaBUJ-8NZsxG_E5x5p6C_B';
-$apiSecret = 'FZ-zqEpiqVPlHOtBu4rMbwx26ZeRoZbQ-RzSiyGv6E9c9epy';
-$bitmex = new BitMex($apiKey, $apiSecret);
-
-$account2 = 'long.vu0104@gmail.com';
-$apiKey2 = 'q1KYRfGHroeROIjRvdsvhJqv';
-$apiSecret2 = 'iCiuNYv_F4rdZkkc2R89bzMLb5KkkINkIkXHpEnN8sp1DEi3';
-$bitmex2 = new BitMex($apiKey2, $apiSecret2);
-
-// if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-current-price') {
-	$arr = $bitmex->getTicker();
+if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-current-price') {
+	$arr = func_get_current_price();
 
 	$last_orig = $arr['last'];
 	$last_sess = (isset($_SESSION['getTicker']['last'])) ? $_SESSION['getTicker']['last'] : 0;
@@ -49,38 +46,23 @@ $bitmex2 = new BitMex($apiKey2, $apiSecret2);
 
 	func_print_arr_to_table($arr, 'Current Price');
 	exit;
-// }
-
-if (count($_POST) > 0 and isset($_POST['rtype']) and $_POST['rtype'] == 'ajax' and isset($_POST['act']) and $_POST['act'] == 'put-order') {
-    header('Content-Type: application/json');
-    $res = array('code'=>'OK','desc'=>"DONE");
-    echo json_encode($res);
-    exit;
 }
 
 // Process load
 if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-account') {
-	$arr = array(
-		'Account' => $account,
-		'API Key' => $apiKey,
-		'API Secret' => func_replace_by_star($apiSecret),
-	);
+	$arr = func_get_account_info($options->account, $options->apiKey, $options->apiSecret);
 	func_print_arr_to_table($arr);
 	exit;
 }
 
 if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-account2') {
-	$arr = array(
-		'Account' => $account2,
-		'API Key' => $apiKey2,
-		'API Secret' => func_replace_by_star($apiSecret2),
-	);
+	$arr = func_get_account_info($options->account2, $options->apiKey2, $options->apiSecret2);
 	func_print_arr_to_table($arr);
 	exit;
 }
 
 if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-wallet') {
-	$tmp = $bitmex->getWallet();
+	$tmp = func_get_account_wallet($options->bitmex);
 	$arr = array(
 		'amount' => ($tmp['amount'] * 0.00000001) . ' BTC',
 		'amount_usd' => '~' . round(($tmp['amount'] * 0.00000001) * ($_SESSION['getTicker']['last']), 3) . ' USD',
@@ -97,7 +79,7 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 }
 
 if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and isset($_GET['act']) and $_GET['act'] == 'load-wallet2') {
-	$tmp = $bitmex2->getWallet();
+	$tmp = func_get_account_wallet($options->bitmex2);
 	$arr = array(
 		'amount' => ($tmp['amount'] * 0.00000001) . ' BTC',
 		'amount_usd' => '~' . round(($tmp['amount'] * 0.00000001) * ($_SESSION['getTicker']['last']), 3) . ' USD',
@@ -213,6 +195,3 @@ if (count($_GET) > 0 and isset($_GET['rtype']) and $_GET['rtype'] == 'ajax' and 
 	}
 	exit;
 }
-
-// ------------------------------------------------------------ //
-require_once ("footer.php");

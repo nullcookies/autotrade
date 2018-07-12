@@ -10,6 +10,51 @@ defined('CLI_MODE') or define('CLI_MODE', $cli_mode);
 
 // ------------------------------------------------------------ //
 
+require_once ("library/bitmex-api/BitMex.php");
+
+global $options;
+$options = new stdClass();
+$options->can_run = true;
+
+$options->account = 'signvltk1@gmail.com';
+$options->apiKey = 'P5RaBUJ-8NZsxG_E5x5p6C_B';
+$options->apiSecret = 'FZ-zqEpiqVPlHOtBu4rMbwx26ZeRoZbQ-RzSiyGv6E9c9epy';
+$options->bitmex = new BitMex($options->apiKey, $options->apiSecret);
+
+$options->account2 = 'long.vu0104@gmail.com';
+$options->apiKey2 = 'q1KYRfGHroeROIjRvdsvhJqv';
+$options->apiSecret2 = 'iCiuNYv_F4rdZkkc2R89bzMLb5KkkINkIkXHpEnN8sp1DEi3';
+$options->bitmex2 = new BitMex($options->apiKey2, $options->apiSecret2);
+
+// ------------------------------------------------------------ //
+
+function func_get_current_price()
+{
+	global $options;
+	$arr = $options->bitmex->getTicker();
+	return $arr;
+}
+
+function func_get_account_info($account = null, $apiKey = null, $apiSecret = null, $hide_apiSecret = true)
+{
+	$arr = array(
+		'Account' => $account,
+		'API Key' => $apiKey,
+		'API Secret' => ($hide_apiSecret) ? func_replace_by_star($apiSecret) : $apiSecret,
+	);
+	return $arr;
+}
+
+function func_get_account_wallet($account_info = null)
+{
+	if (!$account_info) return array();
+
+	$arr = $account_info->getWallet();
+	return $arr;
+}
+
+// ------------------------------------------------------------ //
+
 if (!function_exists("dump")) {
 	function dump($arr)
 	{
