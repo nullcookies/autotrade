@@ -4,7 +4,7 @@
 	<title>Trade via API</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="refresh" content="1801">
+	<meta http-equiv="refresh" content="3601">
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet">
 	<link href="assets/css/styles.css" rel="stylesheet">
@@ -35,7 +35,7 @@
 					<div class="panel panel-info panel-chart">
 						<div class="panel-heading"><h3 class="panel-title">Chart</h3></div>
 						<div class="panel-body chart-container tradingview-widget-container">
-							Loading ...
+							<p class="message">Loading ...</p>
 							<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 						</div>
 					</div>
@@ -46,7 +46,7 @@
 						<div class="panel panel-primary panel-current-price">
 							<div class="panel-heading"><h3 class="panel-title">Current Price</h3></div>
 							<div class="panel-body">
-								Loading ...
+								<p class="message">Loading ...</p>
 							</div>
 						</div>
 					</div>
@@ -54,7 +54,7 @@
 						<div class="panel panel-danger panel-actions">
 							<div class="panel-heading"><h3 class="panel-title">Actions</h3></div>
 							<div class="panel-body">
-								Loading ...
+								<p class="message">Loading ...</p>
 							</div>
 						</div>
 					</div>
@@ -66,40 +66,28 @@
 					<div id="column-left" class="col-sm-6">
 						<div class="panel panel-primary panel-account">
 							<div class="panel-heading"><h3 class="panel-title">Account</h3></div>
-							<div class="panel-body">
-								Loading ...
+							<div class="panel-body panel-body-min">
+								<p class="message">Loading ...</p>
 							</div>
 						</div>
 						<div class="panel panel-info panel-wallet">
 							<div class="panel-heading"><h3 class="panel-title">Wallet</h3></div>
 							<div class="panel-body">
-								Loading ...
-							</div>
-						</div>
-						<div class="panel panel-info panel-open-positions">
-							<div class="panel-heading"><h3 class="panel-title">Open Positions</h3></div>
-							<div class="panel-body">
-								Loading ...
+								<p class="message">Loading ...</p>
 							</div>
 						</div>
 					</div>
 					<div id="column-right" class="col-sm-6"> 
 						<div class="panel panel-primary panel-account2">
-							<div class="panel-heading"><h3 class="panel-title">Account 2</h3></div>
-							<div class="panel-body">
-								Loading ...
+							<div class="panel-heading"><h3 class="panel-title">Account</h3></div>
+							<div class="panel-body panel-body-min">
+								<p class="message">Loading ...</p>
 							</div>
 						</div>
 						<div class="panel panel-info panel-wallet2">
-							<div class="panel-heading"><h3 class="panel-title">Wallet 2</h3></div>
+							<div class="panel-heading"><h3 class="panel-title">Wallet</h3></div>
 							<div class="panel-body">
-								Loading ...
-							</div>
-						</div>
-						<div class="panel panel-info panel-open-positions2">
-							<div class="panel-heading"><h3 class="panel-title">Open Positions 2</h3></div>
-							<div class="panel-body">
-								Loading ...
+								<p class="message">Loading ...</p>
 							</div>
 						</div>
 					</div>
@@ -109,18 +97,30 @@
 			<div id="open-orders" class="tab-pane fade">
 				<div class="panel-group row">
 					<div id="column-left" class="col-sm-6">
+						<div class="panel panel-info panel-open-positions">
+							<div class="panel-heading"><h3 class="panel-title">Open Positions</h3></div>
+							<div class="panel-body">
+								<p class="message">Loading ...</p>
+							</div>
+						</div>
 						<div class="panel panel-info panel-open-order">
 							<div class="panel-heading"><h3 class="panel-title">Open Order</h3></div>
 							<div class="panel-body">
-								Loading ...
+								<p class="message">Loading ...</p>
 							</div>
 						</div>
 					</div>
 					<div id="column-right" class="col-sm-6"> 
-						<div class="panel panel-info panel-open-order2">
-							<div class="panel-heading"><h3 class="panel-title">Open Order 2</h3></div>
+						<div class="panel panel-info panel-open-positions2">
+							<div class="panel-heading"><h3 class="panel-title">Open Positions</h3></div>
 							<div class="panel-body">
-								Loading ...
+								<p class="message">Loading ...</p>
+							</div>
+						</div>
+						<div class="panel panel-info panel-open-order2">
+							<div class="panel-heading"><h3 class="panel-title">Open Order</h3></div>
+							<div class="panel-body">
+								<p class="message">Loading ...</p>
 							</div>
 						</div>
 					</div>
@@ -132,7 +132,7 @@
 					<div class="panel panel-default panel-margin">
 						<div class="panel-heading"><h3 class="panel-title">Margin</h3></div>
 						<div class="panel-body">
-							Loading ...
+							<p class="message">Loading ...</p>
 						</div>
 					</div>
 				</div>
@@ -143,7 +143,7 @@
 					<div class="panel panel-default panel-list-order">
 						<div class="panel-heading"><h3 class="panel-title">List Open Order</h3></div>
 						<div class="panel-body">
-							Loading ...
+							<p class="message">Loading ...</p>
 						</div>
 					</div>
 				</div>
@@ -154,7 +154,7 @@
 					<div class="panel panel-default panel-orderbook">
 						<div class="panel-heading"><h3 class="panel-title">OrderBook</h3></div>
 						<div class="panel-body">
-							Loading ...
+							<p class="message">Loading ...</p>
 						</div>
 					</div>
 				</div>
@@ -165,7 +165,7 @@
 					<div class="panel panel-default panel-orders">
 						<div class="panel-heading"><h3 class="panel-title">Orders</h3></div>
 						<div class="panel-body">
-							Loading ...
+							<p class="message">Loading ...</p>
 						</div>
 					</div>
 				</div>
@@ -176,7 +176,7 @@
 					<div class="panel panel-default panel-order">
 						<div class="panel-heading"><h3 class="panel-title">Order</h3></div>
 						<div class="panel-body">
-							Loading ...
+							<p class="message">Loading ...</p>
 						</div>
 					</div>
 				</div>

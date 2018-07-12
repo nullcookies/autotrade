@@ -6,7 +6,7 @@ require_once ("main.php");
 if (!$cli_mode) return func_redirect('index.php');
 
 // Get global variables
-global $options;
+global $environment;
 
 // ------------------------------------------------------------ //
 
@@ -14,14 +14,14 @@ global $_check_price;
 $_check_price = 0;
 function func_show_current_price()
 {
-	global $options;
+	global $environment;
 	global $_check_price;
 	$_check_price++;
 
-	if (date('i') == '03') $options->can_run = false;
+	if (date('i') == '03') $environment->can_run = false;
 	
-	if ($options->can_run) {
-		// echo date('Y-m-d H:i:s') . ' -> ' . $options->can_run . "\n";
+	if ($environment->can_run) {
+		// echo date('Y-m-d H:i:s') . ' -> ' . $environment->can_run . "\n";
 		if ($_check_price > 1) echo "\n";
 		echo 'Time: ' . date('Y-m-d H:i:s') . ' -> ' . $_check_price . "\n";
 
@@ -60,25 +60,25 @@ func_show_current_price();
 
 function func_show_account_info()
 {
-	global $options;
+	global $environment;
 	
-	$arr1 = func_get_account_info($options->account, $options->apiKey, $options->apiSecret, false);
+	$arr1 = func_get_account_info($environment->account, $environment->apiKey, $environment->apiSecret, false);
 	func_cli_print_arr($arr1);
 
-	$arr2 = func_get_account_info($options->account2, $options->apiKey2, $options->apiSecret2, false);
+	$arr2 = func_get_account_info($environment->account2, $environment->apiKey2, $environment->apiSecret2, false);
 	func_cli_print_arr($arr2);
 }
 
 function func_show_account_wallet()
 {
-	global $options;
+	global $environment;
 	
-	if (is_null($options->bitmex)) $options->bitmex = new BitMex($options->apiKey, $options->apiSecret);
-	$arr1 = func_get_account_wallet($options->bitmex);
+	if (is_null($environment->bitmex)) $environment->bitmex = new BitMex($environment->apiKey, $environment->apiSecret);
+	$arr1 = func_get_account_wallet($environment->bitmex);
 	func_cli_print_arr($arr1);
 
-	if (is_null($options->bitmex)) $options->bitmex2 = new BitMex($options->apiKey2, $options->apiSecret2);
-	$arr2 = func_get_account_wallet($options->bitmex2);
+	if (is_null($environment->bitmex)) $environment->bitmex2 = new BitMex($environment->apiKey2, $environment->apiSecret2);
+	$arr2 = func_get_account_wallet($environment->bitmex2);
 	func_cli_print_arr($arr2);
 }
 

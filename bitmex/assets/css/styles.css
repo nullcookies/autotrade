@@ -7,17 +7,19 @@ td.col-title{width: 40%;}
 .table td, .table th{padding: 5px;}
 .panel{/*float: left;*/margin-bottom: 20px!important;}
 .panel-group{margin-top: 20px;}
+.panel-body{margin: 0; padding: 0;}
 /*.panel-current-price,.panel-wallet{width: 49%; min-height: 320px; float: left;}*/
 /*.panel-wallet{float: right;}*/
-/*.panel-current-price,.panel-chart{min-height:500px;max-height:500px;}*/
-/*.chart-container{height:100%}*/
-.chart-content{height:400px}
+/*.panel-current-price,.panel-chart{min-height: 500px;max-height: 500px;}*/
+/*.chart-container{height: 100%}*/
+.chart-content{height: 400px;}
 .panel-actions{clear: both;}
 .panel-group .panel+.panel{margin-top: 0;}
 .panel-orderbook table,.panel-order table{float: left; margin-bottom: 10px!important; margin-left: 10px;}
 .panel-order table{width: 32%!important; float: left;}
 .panel-main-info .panel-info{width: 49%!important; float: left;}
+p.message{margin: 15px;}
 
 @media only screen and (max-width: 768px) {
-	/*.panel-body{overflow-x: scroll;}*/
+	.panel-body-min{overflow-x: scroll;}
 }

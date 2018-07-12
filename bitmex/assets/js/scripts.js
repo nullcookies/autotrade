@@ -169,7 +169,7 @@ $(document).ready(function() {
 
 			return false;
 		};
-		loadAccount('.panel-account', 'load-account', {reload_time:(Math.floor(Math.random() * 11) + 6) * 1000});
+		loadAccount('.panel-account', 'load-account', {reload_time:(Math.floor(Math.random() * 181) + 121) * 1000});
 
 		var _loadAccount2 = 0;
 		var _loadingAccount2 = 0;
@@ -211,7 +211,7 @@ $(document).ready(function() {
 
 			return false;
 		};
-		loadAccount2('.panel-account2', 'load-account2', {reload_time:(Math.floor(Math.random() * 11) + 6) * 1000});
+		loadAccount2('.panel-account2', 'load-account2', {reload_time:(Math.floor(Math.random() * 181) + 121) * 1000});
 
 		var _loadWallet = 0;
 		var _loadingWallet = 0;
@@ -252,7 +252,7 @@ $(document).ready(function() {
 
 			return false;
 		};
-		loadWallet('.panel-wallet', 'load-wallet', {reload_time:(Math.floor(Math.random() * 12) + 7) * 1000});
+		loadWallet('.panel-wallet', 'load-wallet', {reload_time:(Math.floor(Math.random() * 121) + 61) * 1000});
 
 		var _loadWallet2 = 0;
 		var _loadingWallet2 = 0;
@@ -293,7 +293,7 @@ $(document).ready(function() {
 
 			return false;
 		};
-		loadWallet2('.panel-wallet2', 'load-wallet2', {reload_time:(Math.floor(Math.random() * 12) + 7) * 1000});
+		loadWallet2('.panel-wallet2', 'load-wallet2', {reload_time:(Math.floor(Math.random() * 121) + 61) * 1000});
 
 		var _loadOpenPositions = 0;
 		var _loadingOpenPositions = 0;
