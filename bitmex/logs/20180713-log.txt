@@ -1,0 +1,1 @@
+[13-Jul-2018 05:03:10 Asia/Ho_Chi_Minh] PHP Fatal error:  Maximum execution time of 120 seconds exceeded in D:\Projects\mine\autotrade\bitmex\library\bitmex-api\BitMex.php on line 483

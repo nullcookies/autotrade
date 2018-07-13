@@ -190,6 +190,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 			$arr['avgEntryPrice'] = '<span class="text-success">' . $tmp['avgEntryPrice'] . '</span>';
 			$arr['liquidationPrice'] = '<span class="text-danger">' . $tmp['liquidationPrice'] . '</span>';
 			$arr['marginType'] = ($arr['marginType'] == 'LONG') ? '<span class="text-success">' . $arr['marginType'] . '</span>' : '<span class="text-danger">' . $arr['marginType'] . '</span>';
+			$arr['initMarginReq'] = round($tmp['initMarginReq'], 2);
 
 			func_print_arr_to_table($arr);
 		}
@@ -238,6 +239,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 			$arr['avgEntryPrice'] = '<span class="text-success">' . $tmp['avgEntryPrice'] . '</span>';
 			$arr['liquidationPrice'] = '<span class="text-danger">' . $tmp['liquidationPrice'] . '</span>';
 			$arr['marginType'] = ($arr['marginType'] == 'LONG') ? '<span class="text-success">' . $arr['marginType'] . '</span>' : '<span class="text-danger">' . $arr['marginType'] . '</span>';
+			$arr['initMarginReq'] = round($tmp['initMarginReq'], 2);
 
 			func_print_arr_to_table($arr);
 		}
