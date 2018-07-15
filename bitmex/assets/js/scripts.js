@@ -1,4 +1,27 @@
 $(document).ready(function() {
+	var loadSite = function() {
+		var request = $.ajax({
+			url: "process.php",
+			method: "GET",
+			data: {rtype: 'ajax', act: 'load-site'},
+			dataType: "json"
+		});
+
+		request.done(function(response) {
+			$('a.navbar-brand').attr('href', response.site_url);
+
+			$('li[role="presentation"]').each(function(){
+				$(this).off().on('click', function() {
+					$('.navbar-collapse').removeClass('in');
+				});
+			});
+		});
+
+		request.fail(function(jqXHR, textStatus) {
+			console.warn("Request failed: " + textStatus);
+		});
+	}; loadSite();
+
 	if ($('.container').length > 0)
 	{
 		// --------------------------------------------------------------------------------------------------- //
@@ -459,44 +482,49 @@ $(document).ready(function() {
 		};
 		loadOpenOrder2('.panel-open-order2', 'load-open-order2', {reload_time:(Math.floor(Math.random() * 12) + 7) * 1000});
 
+		var _loadMargin = 0;
+		var _loadingOpenOrder2 = 0;
+		var loadOpenOrder2 = function(div, act, options) {
+			var options = options || {};
+			if ($(div).length <= 0) {
+				return false;
+			}
+
+			var reload_time = options.reload_time || 0;
+			if (reload_time) {
+				setTimeout(function(){loadOpenOrder2(div, act, {reload_time:reload_time})}, reload_time);
+				if ($(div).length > 0) $(div).data('reload-time', reload_time);
+			}
+			
+			// _loadOpenOrder2++;
+			// if (_loadOpenOrder2 <= 1) return false;
+			
+			if (_loadingOpenOrder2) return false;
+			_loadingOpenOrder2 = 1;
+			
+			var request = $.ajax({
+				url: "process.php",
+				method: "GET",
+				data: {rtype: 'ajax', act: act},
+				dataType: "html"
+			});
+
+			request.done(function(response) {
+				$(div).find('.panel-body').empty().html(response);
+				$(div).find('table').effect("highlight", {}, 500);
+				_loadingOpenOrder2 = 0;
+			});
+
+			request.fail(function(jqXHR, textStatus) {
+				console.warn("Request failed: " + textStatus);
+			});
+
+			return false;
+		};
+		loadOpenOrder2('.panel-open-order2', 'load-open-order2', {reload_time:(Math.floor(Math.random() * 12) + 7) * 1000});
+
 		// --------------------------------------------------------------------------------------------------- //
 		
-		
-
-		// var _loadOpenPositions = 0;
-		// var loadOpenPositions = function(div, act, options) {
-		// 	var options = options || {};
-		// 	if ($(div).length <= 0) {
-		// 		return false;
-		// 	}
-
-		// 	var reload_time = options.reload_time || 0;
-		// 	if (reload_time)
-		// 		setTimeout(function(){loadOpenPositions(div, act, {reload_time:reload_time})}, reload_time);
-
-		// 	_loadOpenPositions++;
-		// 	if (_loadOpenPositions <= 1) return false;
-			
-		// 	var request = $.ajax({
-		// 		url: "process.php",
-		// 		method: "GET",
-		// 		data: {rtype: 'ajax', act: act},
-		// 		dataType: "html"
-		// 	});
-
-		// 	request.done(function(response) {
-		// 		$(div).find('.panel-body').empty().html(response);
-		// 		$(div).find('table').effect("highlight", {}, 500);
-		// 	});
-
-		// 	request.fail(function(jqXHR, textStatus) {
-		// 		console.log("Request failed: " + textStatus);
-		// 	});
-
-		// 	return false;
-		// };
-		// loadOpenPositions('.panel-open-positions', 'load-open-positions', {reload_time:(Math.floor(Math.random() * 21) + 11) * 1000});
-
 		// var _loadActions = 0;
 		// var loadActions = function(div, act, options) {
 		// 	var options = options || {};
@@ -531,40 +559,7 @@ $(document).ready(function() {
 		// };
 		// loadActions('.panel-actions', 'load-actions');
 
-		// var _loadMargin = 0;
-		// var loadMargin = function(div, act, options) {
-		// 	var options = options || {};
-		// 	if ($(div).length <= 0) {
-		// 		return false;
-		// 	}
-
-		// 	var reload_time = options.reload_time || 0;
-		// 	if (reload_time)
-		// 		setTimeout(function(){loadMargin(div, act, {reload_time:reload_time})}, reload_time);
-
-		// 	_loadMargin++;
-		// 	if (_loadMargin <= 1) return false;
-			
-		// 	var request = $.ajax({
-		// 		url: "process.php",
-		// 		method: "GET",
-		// 		data: {rtype: 'ajax', act: act},
-		// 		dataType: "html"
-		// 	});
-
-		// 	request.done(function(response) {
-		// 		$(div).find('.panel-body').empty().html(response);
-		// 		$(div).find('table').effect("highlight", {}, 500);
-		// 	});
-
-		// 	request.fail(function(jqXHR, textStatus) {
-		// 		console.log("Request failed: " + textStatus);
-		// 	});
-
-		// 	return false;
-		// };
-		// loadMargin('.panel-margin', 'load-margin', {reload_time:(Math.floor(Math.random() * 21) + 11) * 1000});
-
+		
 		// var _loadOrderbook = 0;
 		// var loadOrderbook = function(div, act, options) {
 		// 	var options = options || {};

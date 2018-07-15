@@ -1,12 +1,25 @@
 <?php
 defined('IS_VALID') or define('IS_VALID', 1);
 require_once ("main.php");
+require_once ("library/bitmex-api/BitMex.php");
 
 // Detect run as CLI mode
 if (!$cli_mode) return func_redirect('index.php');
 
 // Get global variables
 global $environment;
+$environment = new stdClass();
+
+$config = func_read_config();
+if (is_array($config) and count($config)) {
+	foreach ($config as $key => $value) {
+		$environment->$key = $value;
+	}
+	// if ($environment->apiKey and $environment->apiSecret)
+	// 	$environment->bitmex = new BitMex($environment->apiKey, $environment->apiSecret);
+	// if ($environment->apiKey2 and $environment->apiSecret2)
+	// 	$environment->bitmex2 = new BitMex($environment->apiKey2, $environment->apiSecret2);
+}
 
 // ------------------------------------------------------------ //
 

@@ -1,6 +1,7 @@
 <?php
 defined('IS_VALID') or define('IS_VALID', 1);
 require_once ("main.php");
+require_once ("library/bitmex-api/BitMex.php");
 
 // Detect run as CLI mode
 if ($cli_mode) return require_once (ROOT_DIR . DS . 'cli-process.php');
@@ -16,6 +17,18 @@ if (!isset($_SESSION['user_name']) or !$_SESSION['user_name']) {
 
 // Get global variables
 global $environment;
+$environment = new stdClass();
+
+$config = func_read_config();
+if (is_array($config) and count($config)) {
+	foreach ($config as $key => $value) {
+		$environment->$key = $value;
+	}
+	// if ($environment->apiKey and $environment->apiSecret)
+	// 	$environment->bitmex = new BitMex($environment->apiKey, $environment->apiSecret);
+	// if ($environment->apiKey2 and $environment->apiSecret2)
+	// 	$environment->bitmex2 = new BitMex($environment->apiKey2, $environment->apiSecret2);
+}
 
 // ------------------------------------------------------------ //
 
@@ -23,6 +36,15 @@ if (count($_POST) > 0 and isset($_POST['rtype']) and $_POST['rtype'] == 'ajax' a
     header('Content-Type: application/json');
     $res = array('code'=>'OK','desc'=>"DONE");
     echo json_encode($res);
+    exit;
+}
+
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-site') {
+	$arr = array(
+		'site_url' => dirname(strtok(func_get_current_url(), '?')) . '/',
+	);
+	header('Content-Type: application/json');
+    echo json_encode($arr);
     exit;
 }
 
@@ -47,6 +69,8 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 	else $arr['lastChangePcnt'] =  ($arr['lastChangePcnt'] * 100) . '%';
 
 	func_print_arr_to_table($arr);
+
+	dump($environment);
 	exit;
 }
 
@@ -298,6 +322,40 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 	}
 	else func_print_arr_to_table($arr);
 	exit;
+	exit;
+}
+
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-margin') {
+	if (is_null($environment->bitmex)) $environment->bitmex = new BitMex($environment->apiKey, $environment->apiSecret);
+	$tmp = func_get_margin($environment->bitmex);
+	$arr = array(
+		'realisedPnl' => $tmp['realisedPnl'],
+		'unrealisedPnl' => $tmp['unrealisedPnl'],
+		'walletBalance' => $tmp['walletBalance'],
+		'marginBalance' => $tmp['marginBalance'],
+		'marginBalancePcnt' => $tmp['marginBalancePcnt'],
+		'marginLeverage' => $tmp['marginLeverage'],
+		'marginUsedPcnt' => $tmp['marginUsedPcnt'],
+		'availableMargin' => $tmp['availableMargin'],
+	);
+	func_print_arr_to_table($arr);
+	exit;
+}
+
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-margin2') {
+	if (is_null($environment->bitmex)) $environment->bitmex = new BitMex($environment->apiKey, $environment->apiSecret);
+	$tmp = func_get_margin($environment->bitmex);
+	$arr = array(
+		'realisedPnl' => $tmp['realisedPnl'],
+		'unrealisedPnl' => $tmp['unrealisedPnl'],
+		'walletBalance' => $tmp['walletBalance'],
+		'marginBalance' => $tmp['marginBalance'],
+		'marginBalancePcnt' => $tmp['marginBalancePcnt'],
+		'marginLeverage' => $tmp['marginLeverage'],
+		'marginUsedPcnt' => $tmp['marginUsedPcnt'],
+		'availableMargin' => $tmp['availableMargin'],
+	);
+	func_print_arr_to_table($arr);
 	exit;
 }
 
