@@ -11,6 +11,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="viewport" content="user-scalable=no,width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0" />
+    <link rel="icon" href="process.php?img=favicon" type="image/png" />
+    <link rel="shortcut icon" href="process.php?img=favicon" type="image/png" />
 	<meta http-equiv="refresh" content="3601" />
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet">
@@ -19,6 +21,11 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="assets/js/scripts.js"></script>
+	<script type="text/javascript">
+		document.addEventListener('gesturestart', function (e) {
+			e.preventDefault();
+		});
+	</script>
 </head>
 <body>
 	<div class="container">
@@ -40,6 +47,7 @@
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<li role="presentation" class="active"><a data-toggle="tab" href="#main">Main</a></li>
+						<li role="presentation"><a data-toggle="tab" href="#chart">Chart</a></li>
 						<li role="presentation"><a data-toggle="tab" href="#account">Account</a></li>
 						<li role="presentation"><a data-toggle="tab" href="#open-orders">Open Orders</a></li>
 						<li role="presentation"><a data-toggle="tab" href="#margin">Margin</a></li>
@@ -54,16 +62,6 @@
 		</nav>
 		<div class="tab-content">
 			<div id="main" class="tab-pane fade in active">
-				<div class="panel-group">
-					<div class="panel panel-info panel-chart">
-						<div class="panel-heading"><h3 class="panel-title">Chart</h3></div>
-						<div class="panel-body chart-container tradingview-widget-container">
-							<p class="message">Loading ...</p>
-							<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-						</div>
-					</div>
-				</div>
-
 				<div class="panel-group row">
 					<div id="column-left" class="col-sm-6">
 						<div class="panel panel-primary panel-current-price">
@@ -79,6 +77,18 @@
 							<div class="panel-body">
 								<p class="message">Loading ...</p>
 							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="chart" class="tab-pane fade in active">
+				<div class="panel-group">
+					<div class="panel panel-info panel-chart">
+						<div class="panel-heading"><h3 class="panel-title">Chart</h3></div>
+						<div class="panel-body chart-container tradingview-widget-container">
+							<p class="message">Loading ...</p>
+							<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 						</div>
 					</div>
 				</div>

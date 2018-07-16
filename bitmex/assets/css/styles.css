@@ -13,7 +13,7 @@ ul.nav li{white-space: nowrap;}
 /*.panel-wallet{float: right;}*/
 /*.panel-current-price,.panel-chart{min-height: 500px;max-height: 500px;}*/
 /*.chart-container{height: 100%}*/
-.chart-content{height: 400px;}
+.chart-content{height: 550px;}
 .panel-actions{clear: both;}
 .panel-group .panel+.panel{margin-top: 0;}
 .panel-orderbook table,.panel-order table{float: left; margin-bottom: 10px!important; margin-left: 10px;}

@@ -531,6 +531,8 @@ class BitMex
         curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($this->ch, CURLOPT_CONNECTTIMEOUT, 0); 
+        curl_setopt($this->ch, CURLOPT_TIMEOUT, 10); //timeout in seconds
         $return = curl_exec($this->ch);
         
         if (!$return) {

@@ -9,6 +9,7 @@ $(document).ready(function() {
 
 		request.done(function(response) {
 			$('a.navbar-brand').attr('href', response.site_url);
+			$('link[rel="icon"]').attr('href', response.favicon);
 
 			$('li[role="presentation"]').each(function(){
 				$(this).off().on('click', function() {

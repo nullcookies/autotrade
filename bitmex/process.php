@@ -6,6 +6,12 @@ require_once ("library/bitmex-api/BitMex.php");
 // Detect run as CLI mode
 if ($cli_mode) return require_once (ROOT_DIR . DS . 'cli-process.php');
 
+// Show image here
+if (isset($_GET['img'])) {
+    func_show_image($_GET['img']);
+}
+
+// Start session
 if (!session_id()) @session_start();
 
 // Check login
@@ -42,6 +48,7 @@ if (count($_POST) > 0 and isset($_POST['rtype']) and $_POST['rtype'] == 'ajax' a
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-site') {
 	$arr = array(
 		'site_url' => dirname(strtok(func_get_current_url(), '?')) . '/',
+		'favicon' => SELF_URL_NO_SCRIPT  . 'process.php?img=favicon',
 	);
 	header('Content-Type: application/json');
     echo json_encode($arr);
@@ -97,7 +104,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 			new TradingView.widget(
 			{
 				"width": '100%',
-				"height": 400,
+				"height": 550,
 				"autosize": true,
 				"symbol": "BITMEX:XBTUSD",
 				"interval": "60",
