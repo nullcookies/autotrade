@@ -104,7 +104,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 			new TradingView.widget(
 			{
 				"width": '100%',
-				"height": 550,
+				"height": 600,
 				"autosize": true,
 				"symbol": "BITMEX:XBTUSD",
 				"interval": "60",

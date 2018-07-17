@@ -49,9 +49,8 @@
 						<li role="presentation" class="active"><a data-toggle="tab" href="#main">Main</a></li>
 						<li role="presentation"><a data-toggle="tab" href="#chart">Chart</a></li>
 						<li role="presentation"><a data-toggle="tab" href="#account">Account</a></li>
-						<li role="presentation"><a data-toggle="tab" href="#open-orders">Open Orders</a></li>
+						<li role="presentation"><a data-toggle="tab" href="#open-orders">Open</a></li>
 						<li role="presentation"><a data-toggle="tab" href="#margin">Margin</a></li>
-						<!-- <li role="presentation"><a data-toggle="tab" href="#list-order">List Open Order</a></li> -->
 						<li role="presentation"><a data-toggle="tab" href="#orderbook">OrderBook</a></li>
 						<li role="presentation"><a data-toggle="tab" href="#orders">Orders</a></li>
 						<li role="presentation"><a data-toggle="tab" href="#order">Order</a></li>
@@ -181,17 +180,6 @@
 				</div>
 			</div>
 
-			<!-- <div id="list-order" class="tab-pane fade">
-				<div class="panel-group">
-					<div class="panel panel-default panel-list-order">
-						<div class="panel-heading"><h3 class="panel-title">List Open Order</h3></div>
-						<div class="panel-body">
-							<p class="message">Loading ...</p>
-						</div>
-					</div>
-				</div>
-			</div> -->
-			
 			<div id="orderbook" class="tab-pane fade">
 				<div class="panel-group">
 					<div class="panel panel-default panel-orderbook">
