@@ -7,7 +7,7 @@ HTTP Keep-Alive: BitMex says that "When using HTTP Keep-Alive, request/response 
 
 ## Usage Example
     <?php
-    require_once ("BitMex.php");
+    require_once("BitMex.php");
     
     $key = "xxxxxxxxxxxxxxxxxxxxxx";
     $secret = "yyyyyyyyyyyyyyyyyyyyyy";

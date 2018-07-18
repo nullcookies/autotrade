@@ -1,0 +1,16 @@
+;<?php
+;die('Access denied.' . "\n"); // For further security
+;/*
+
+[account]
+account = "longersoft@gmail.com"
+apiKey = "EKQuqdZECTzhL0sqloEkhN3yJdqgayMooFH48cM6gVASAODGnyINbZNzQwtzmp5j"
+apiSecret = "nolDDScsMdUS24j7U1J3ZL6giqINL3AbhE4xAMBW4fm8Sdo7DftYYQdyjhVS58wl"
+
+[account2]
+account2 = "signvltk1@gmail.com"
+apiKey2 = "ZYPc7p6jvrOPeRlaYkFgDksNlCICEpTrmpppNmtNxZOGPap8N4af0vLw3sk3d2Bs"
+apiSecret2 = "7BNMudjCqsdMtkUxrBkgK5hRqZmRwevXyxQ6U62StzOYXBWLaHuLhByUJ6f4CCZc"
+
+;*/
+;?>

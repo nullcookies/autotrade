@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Trade on Bitmex via API</title>
+	<title>Trade on Bittrex via API</title>
 	<meta charset="utf-8" />
     <meta name="robots" content="noindex,nofollow" />
     <meta name="googlebot" content="noindex" />

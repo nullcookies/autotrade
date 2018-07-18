@@ -1,11 +1,15 @@
 <?php
 if (!defined('IS_VALID')) die('Access denied.' . "\n");
-require_once ("function.php");
 
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 defined('ROOT_DIR') or define('ROOT_DIR', dirname(__FILE__));
+defined('LIB_DIR') or define('LIB_DIR', ROOT_DIR . DS . 'library');
+defined('COMM_DIR') or define('COMM_DIR', ROOT_DIR . DS . 'common');
 defined('LOGS_DIR') or define('LOGS_DIR', ROOT_DIR . DS . 'logs');
-defined('CONFIG_FILE') or define('CONFIG_FILE', ROOT_DIR . DS . 'config.php');
+// defined('CONFIG_FILE') or define('CONFIG_FILE', ROOT_DIR . DS . 'config.php');
+
+require_once(COMM_DIR . DS . "utility.php");
+require_once(COMM_DIR . DS . "shell.php");
 
 // Detect run as CLI mode
 $cli_mode = (php_sapi_name() == "cli") ? true : false;
@@ -28,7 +32,7 @@ $is_https = isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['
     || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https';
 $root_url = '';
 $http_host = $_SERVER['HTTP_HOST'];
-$root_url = func_clean_path($root_url);
+$root_url = \Utility::func_clean_path($root_url);
 defined('ROOT_URL') or define('ROOT_URL', ($is_https ? 'https' : 'http') . '://' . $http_host . (!empty($root_url) ? '/' . $root_url : ''));
 defined('SELF_URL') or define('SELF_URL', ($is_https ? 'https' : 'http') . '://' . $http_host . $_SERVER['PHP_SELF']);
 defined('SELF_URL_NO_SCRIPT') or define('SELF_URL_NO_SCRIPT', dirname(strtok(SELF_URL, '?')) . '/');
