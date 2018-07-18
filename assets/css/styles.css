@@ -9,7 +9,7 @@ ul.nav li{white-space:nowrap}
 .panel{margin-bottom:20px!important}
 .panel-group{margin-top:20px}
 .panel-body{margin:0;padding:0}
-.chart-content{height:600px}
+.chart-content{height:570px}
 .panel-actions{clear:both}
 .panel-group .panel+.panel{margin-top:0}
 .panel-orderbook table,.panel-order table{float:left;margin-bottom:10px!important;margin-left:10px}

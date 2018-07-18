@@ -106,7 +106,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 			new TradingView.widget(
 			{
 				"width": '100%',
-				"height": 600,
+				"height": 570,
 				"autosize": true,
 				"symbol": "BITMEX:XBTUSD",
 				"interval": "60",
@@ -376,11 +376,11 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 
 	$current = $environment->bitmex->getTicker();
 	// $price = $current['last'];
-	$price = 6401;
+	$price = 7433;
 	$arr = array(
 		'leverage' => 5,
 		'ordType' => 'Limit', // Limit | Market
-		'side' => 'Buy', // Buy | Sell
+		'side' => 'Sell', // Buy | Sell
 		'price' => $price,
 		'orderQty' => 1,
 	);
