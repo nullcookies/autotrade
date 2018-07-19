@@ -12,6 +12,17 @@ if (isset($_GET['img'])) {
     \Utility::func_show_image($_GET['img']);
 }
 
+// Get site info
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-site') {
+	$arr = array(
+		'site_url' => dirname(strtok(\Utility::func_get_current_url(), '?')) . '/',
+		'favicon' => SELF_URL_NO_SCRIPT  . 'process.php?img=favicon',
+	);
+	header('Content-Type: application/json');
+    echo json_encode($arr);
+    exit;
+}
+
 // Start session
 if (!session_id()) @session_start();
 
@@ -44,16 +55,6 @@ if (count($_POST) > 0 and isset($_POST['rtype']) and $_POST['rtype'] == 'ajax' a
     header('Content-Type: application/json');
     $res = array('code'=>'OK','desc'=>"DONE");
     echo json_encode($res);
-    exit;
-}
-
-if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-site') {
-	$arr = array(
-		'site_url' => dirname(strtok(\Utility::func_get_current_url(), '?')) . '/',
-		'favicon' => SELF_URL_NO_SCRIPT  . 'process.php?img=favicon',
-	);
-	header('Content-Type: application/json');
-    echo json_encode($arr);
     exit;
 }
 
