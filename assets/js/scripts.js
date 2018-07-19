@@ -110,7 +110,7 @@ $(document).ready(function() {
 
 			return false;
 		};
-		loadCurrentPrice('.panel-current-price', 'load-current-price', {reload_time:(Math.floor(Math.random() * 2) + 2) * 1000});
+		loadCurrentPrice('.panel-current-price', 'load-current-price', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
 
 		var _loadChart = 0;
 		var _loadingChart = 0;
@@ -358,7 +358,7 @@ $(document).ready(function() {
 
 			return false;
 		};
-		loadOpenPositions('.panel-open-positions', 'load-open-positions', {reload_time:(Math.floor(Math.random() * 12) + 7) * 1000});
+		loadOpenPositions('.panel-open-positions', 'load-open-positions', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
 
 		var _loadOpenPositions2 = 0;
 		var _loadingOpenPositions2 = 0;
@@ -399,7 +399,7 @@ $(document).ready(function() {
 
 			return false;
 		};
-		loadOpenPositions2('.panel-open-positions2', 'load-open-positions2', {reload_time:(Math.floor(Math.random() * 12) + 7) * 1000});
+		loadOpenPositions2('.panel-open-positions2', 'load-open-positions2', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
 
 		var _loadOpenOrder = 0;
 		var _loadingOpenOrder = 0;
@@ -440,7 +440,7 @@ $(document).ready(function() {
 
 			return false;
 		};
-		loadOpenOrder('.panel-open-order', 'load-open-order', {reload_time:(Math.floor(Math.random() * 12) + 7) * 1000});
+		loadOpenOrder('.panel-open-order', 'load-open-order', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
 
 		var _loadOpenOrder2 = 0;
 		var _loadingOpenOrder2 = 0;
@@ -481,7 +481,7 @@ $(document).ready(function() {
 
 			return false;
 		};
-		loadOpenOrder2('.panel-open-order2', 'load-open-order2', {reload_time:(Math.floor(Math.random() * 12) + 7) * 1000});
+		loadOpenOrder2('.panel-open-order2', 'load-open-order2', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
 
 		var _loadMargin = 0;
 		var _loadingOpenOrder2 = 0;
@@ -522,7 +522,7 @@ $(document).ready(function() {
 
 			return false;
 		};
-		loadOpenOrder2('.panel-open-order2', 'load-open-order2', {reload_time:(Math.floor(Math.random() * 12) + 7) * 1000});
+		loadOpenOrder2('.panel-open-order2', 'load-open-order2', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
 
 		// --------------------------------------------------------------------------------------------------- //
 		
