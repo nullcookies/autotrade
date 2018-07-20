@@ -12,6 +12,17 @@ if (isset($_GET['img'])) {
     \Utility::func_show_image($_GET['img']);
 }
 
+// Get site info
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-site') {
+	$arr = array(
+		'site_url' => dirname(strtok(\Utility::func_get_current_url(), '?')) . '/',
+		'favicon' => SELF_URL_NO_SCRIPT  . 'process.php?img=favicon',
+	);
+	header('Content-Type: application/json');
+    echo json_encode($arr);
+    exit;
+}
+
 // Start session
 if (!session_id()) @session_start();
 
@@ -23,7 +34,6 @@ if (!isset($_SESSION['user_name']) or !$_SESSION['user_name']) {
 }
 
 // Get global variables
-global $environment;
 $environment = new stdClass();
 
 $config_file = dirname(__FILE__) . DS . "config.php";
@@ -38,22 +48,16 @@ if (is_array($config) and count($config)) {
 	// 	$environment->bitmex2 = new BitMex($environment->apiKey2, $environment->apiSecret2);
 }
 
+// Check config to run
+if (!$environment->can_run)
+	die('<p class="message">STOP!!!</p>');
+
 // ------------------------------------------------------------ //
 
 if (count($_POST) > 0 and isset($_POST['rtype']) and $_POST['rtype'] == 'ajax' and isset($_POST['act']) and $_POST['act'] == 'put-order') {
     header('Content-Type: application/json');
     $res = array('code'=>'OK','desc'=>"DONE");
     echo json_encode($res);
-    exit;
-}
-
-if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-site') {
-	$arr = array(
-		'site_url' => dirname(strtok(\Utility::func_get_current_url(), '?')) . '/',
-		'favicon' => SELF_URL_NO_SCRIPT  . 'process.php?img=favicon',
-	);
-	header('Content-Type: application/json');
-    echo json_encode($arr);
     exit;
 }
 
@@ -79,7 +83,14 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 
 	\Utility::func_print_arr_to_table($arr);
 
-	dump($environment);
+	exec("ps -U #user# -u #user# u", $output, $result);
+	dump($output);
+	dump($result);
+	// foreach ($output AS $line) {
+	// 	if(strpos($line, "test.php")) echo "found";
+	// }
+
+	// dump($environment);
 	exit;
 }
 

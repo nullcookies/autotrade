@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	var loadSite = function() {
 		var request = $.ajax({
-			url: "process.php",
+			url: ($('.trade').length > 0) ? "process.php" : "index.php",
 			method: "GET",
 			data: {rtype: 'ajax', act: 'load-site'},
 			dataType: "json"
@@ -16,6 +16,8 @@ $(document).ready(function() {
 					$('.navbar-collapse').removeClass('in');
 				});
 			});
+
+			// setTimeout(function(){loadSite(), (Math.floor(Math.random() * 61) + 31) * 1000});
 		});
 
 		request.fail(function(jqXHR, textStatus) {

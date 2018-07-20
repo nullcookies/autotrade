@@ -28,7 +28,7 @@
 	</script>
 </head>
 <body>
-	<div class="container">
+	<div class="container trade">
 		<!-- <h2>Auto Trade Bitmex</h2> -->
 		<!-- <p>The panel-group class clears the bottom-margin. Try to remove the class and see what happens.</p> -->
 		<nav class="navbar navbar-default">
