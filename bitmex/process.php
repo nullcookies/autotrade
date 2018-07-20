@@ -34,7 +34,6 @@ if (!isset($_SESSION['user_name']) or !$_SESSION['user_name']) {
 }
 
 // Get global variables
-global $environment;
 $environment = new stdClass();
 
 $config_file = dirname(__FILE__) . DS . "config.php";
@@ -48,6 +47,10 @@ if (is_array($config) and count($config)) {
 	// if ($environment->apiKey2 and $environment->apiSecret2)
 	// 	$environment->bitmex2 = new BitMex($environment->apiKey2, $environment->apiSecret2);
 }
+
+// Check config to run
+if (!$environment->can_run)
+	die('<p class="message">STOP!!!</p>');
 
 // ------------------------------------------------------------ //
 
@@ -80,7 +83,14 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 
 	\Utility::func_print_arr_to_table($arr);
 
-	dump($environment);
+	exec("ps -U #user# -u #user# u", $output, $result);
+	dump($output);
+	dump($result);
+	// foreach ($output AS $line) {
+	// 	if(strpos($line, "test.php")) echo "found";
+	// }
+
+	// dump($environment);
 	exit;
 }
 

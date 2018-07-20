@@ -12,6 +12,7 @@ require_once(COMM_DIR . DS . "utility.php");
 require_once(COMM_DIR . DS . "shell.php");
 
 // Detect run as CLI mode
+// $isCLI = ( php_sapi_name() == 'cli' );
 $cli_mode = (php_sapi_name() == "cli") ? true : false;
 defined('CLI_MODE') or define('CLI_MODE', $cli_mode);
 

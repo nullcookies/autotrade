@@ -34,7 +34,6 @@ if (!isset($_SESSION['user_name']) or !$_SESSION['user_name']) {
 }
 
 // Get global variables
-global $environment;
 $environment = new stdClass();
 
 $config_file = dirname(__FILE__) . DS . "config.php";

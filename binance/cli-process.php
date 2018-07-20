@@ -8,7 +8,6 @@ require_once(dirname(__FILE__) . DS . "function.php");
 if (!$cli_mode) return \Utility::func_redirect('index.php');
 
 // Get global variables
-global $environment;
 $environment = new stdClass();
 
 $config_file = dirname(__FILE__) . DS . "config.php";
@@ -25,7 +24,6 @@ if (is_array($config) and count($config)) {
 
 // ------------------------------------------------------------ //
 
-global $_check_price;
 $_check_price = 0;
 function func_show_current_price()
 {

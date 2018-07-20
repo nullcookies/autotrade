@@ -59,7 +59,7 @@ if (count($_POST) > 0 and $_POST['uname'] and $_POST['psw']) {
 	</script>
 </head>
 <body>
-	<div class="container">
+	<div class="main-container">
 		<h2 class="title">Login</h2>
 		<form class="modal-content animate" action="login.php" method="post" enctype="multipart/form-data">
 			<div class="imgcontainer">
