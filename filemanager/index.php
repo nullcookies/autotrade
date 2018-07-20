@@ -23,7 +23,7 @@ $use_auth = true;
 // Users: array('Username' => 'Password', 'Username2' => 'Password2', ...), Password has to encripted into MD5
 $auth_users = array(
     'admin' => '67f659bb82e9afcad77cf69a2de8503d', //admin
-    'user' => '827ccb0eea8a706c4c34a16891f84e7b', //12345
+    'user' => '827ccb0eea8a706c4c34a16891f84e7b' //12345
 );
 
 // Readonly users (usernames array)
@@ -77,12 +77,11 @@ $upload_extensions = ''; // 'gif,png,jpg'
 $show_tree_view = false;
 
 //Array of folders excluded from listing
-$GLOBALS['exclude_folders'] = array(
-);
+$GLOBALS['exclude_folders'] = array();
 
 // include user config php file
-if (defined('FM_CONFIG') && is_file(FM_CONFIG) ) {
-	include(FM_CONFIG);
+if (defined('FM_CONFIG') && is_file(FM_CONFIG)) {
+    include(FM_CONFIG);
 }
 
 //--- EDIT BELOW CAREFULLY OR DO NOT EDIT AT ALL
@@ -92,9 +91,9 @@ if (defined('FM_EMBED')) {
     $use_auth = false;
 } else {
     @set_time_limit(600);
-
+    
     date_default_timezone_set($default_timezone);
-
+    
     ini_set('default_charset', 'UTF-8');
     if (version_compare(PHP_VERSION, '5.6.0', '<') && function_exists('mb_internal_encoding')) {
         mb_internal_encoding('UTF-8');
@@ -102,7 +101,7 @@ if (defined('FM_EMBED')) {
     if (function_exists('mb_regex_encoding')) {
         mb_regex_encoding('UTF-8');
     }
-
+    
     session_cache_limiter('');
     session_name('filemanager');
     session_start();
@@ -112,8 +111,7 @@ if (empty($auth_users)) {
     $use_auth = false;
 }
 
-$is_https = isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1)
-    || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https';
+$is_https = isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https';
 
 // clean and check $root_path
 $root_path = rtrim($root_path, '\\/');
@@ -164,9 +162,11 @@ if ($use_auth) {
         unset($_SESSION['logged']);
         fm_show_header_login();
         fm_show_message();
-        ?>
+?>
         <div class="path login-form">
-                <img src="<?php echo FM_SELF_URL ?>?img=logo" alt="File manager" width="159" style="margin:20px;">
+                <img src="<?php
+        echo FM_SELF_URL;
+?>?img=logo" alt="File manager" width="159" style="margin:20px;">
             <form action="" method="post">
                 <label for="fm_usr">Username</label><input type="text" id="fm_usr" name="fm_usr" value="" placeholder="Username" required><br>
                 <label for="fm_pwd">Password</label><input type="password" id="fm_pwd" name="fm_pwd" value="" placeholder="Password" required><br>
@@ -211,29 +211,29 @@ unset($p, $use_auth, $iconv_input_encoding, $use_highlightjs, $highlightjs_style
 
 //AJAX Request
 if (isset($_POST['ajax']) && !FM_READONLY) {
-
+    
     //search : get list of files from the current folder
-    if(isset($_POST['type']) && $_POST['type']=="search") {
-        $dir = $_POST['path'];
+    if (isset($_POST['type']) && $_POST['type'] == "search") {
+        $dir      = $_POST['path'];
         $response = scan($dir);
         echo json_encode($response);
     }
-
+    
     //Send file to mail
-    if (isset($_POST['type']) && $_POST['type']=="mail") {
+    if (isset($_POST['type']) && $_POST['type'] == "mail") {
         //send mail Fn removed.
     }
-
+    
     //backup files
-    if(isset($_POST['type']) && $_POST['type']=="backup") {
-        $file = $_POST['file'];
-        $path = $_POST['path'];
-        $date = date("dMy-His");
-        $newFile = $file.'-'.$date.'.bak';
-        copy($path.'/'.$file, $path.'/'.$newFile) or die("Unable to backup");
+    if (isset($_POST['type']) && $_POST['type'] == "backup") {
+        $file    = $_POST['file'];
+        $path    = $_POST['path'];
+        $date    = date("dMy-His");
+        $newFile = $file . '-' . $date . '.bak';
+        copy($path . '/' . $file, $path . '/' . $newFile) or die("Unable to backup");
         echo "Backup $newFile Created";
     }
-
+    
     exit;
 }
 
@@ -263,18 +263,18 @@ if (isset($_GET['del']) && !FM_READONLY) {
 
 // Create folder
 if (isset($_GET['new']) && isset($_GET['type']) && !FM_READONLY) {
-    $new = strip_tags($_GET['new']);
+    $new  = strip_tags($_GET['new']);
     $type = $_GET['type'];
-    $new = fm_clean_path($new);
-    $new = str_replace('/', '', $new);
+    $new  = fm_clean_path($new);
+    $new  = str_replace('/', '', $new);
     if ($new != '' && $new != '..' && $new != '.') {
         $path = FM_ROOT_PATH;
         if (FM_PATH != '') {
             $path .= '/' . FM_PATH;
         }
-        if($_GET['type']=="file") {
-            if(!file_exists($path . '/' . $new)) {
-                @fopen($path . '/' . $new, 'w') or die('Cannot open file:  '.$new);
+        if ($_GET['type'] == "file") {
+            if (!file_exists($path . '/' . $new)) {
+                @fopen($path . '/' . $new, 'w') or die('Cannot open file:  ' . $new);
                 fm_set_msg(sprintf('File <b>%s</b> created', fm_enc($new)));
             } else {
                 fm_set_msg(sprintf('File <b>%s</b> already exists', fm_enc($new)), 'alert');
@@ -348,7 +348,7 @@ if (isset($_POST['file'], $_POST['copy_to'], $_POST['finish']) && !FM_READONLY) 
     }
     // to
     $copy_to_path = FM_ROOT_PATH;
-    $copy_to = fm_clean_path($_POST['copy_to']);
+    $copy_to      = fm_clean_path($_POST['copy_to']);
     if ($copy_to != '') {
         $copy_to_path .= '/' . $copy_to;
     }
@@ -363,10 +363,10 @@ if (isset($_POST['file'], $_POST['copy_to'], $_POST['finish']) && !FM_READONLY) 
         }
     }
     // move?
-    $move = isset($_POST['move']);
+    $move   = isset($_POST['move']);
     // copy/move
     $errors = 0;
-    $files = $_POST['file'];
+    $files  = $_POST['file'];
     if (is_array($files) && count($files)) {
         foreach ($files as $f) {
             if ($f != '') {
@@ -403,13 +403,13 @@ if (isset($_POST['file'], $_POST['copy_to'], $_POST['finish']) && !FM_READONLY) 
 // Rename
 if (isset($_GET['ren'], $_GET['to']) && !FM_READONLY) {
     // old name
-    $old = $_GET['ren'];
-    $old = fm_clean_path($old);
-    $old = str_replace('/', '', $old);
+    $old  = $_GET['ren'];
+    $old  = fm_clean_path($old);
+    $old  = str_replace('/', '', $old);
     // new name
-    $new = $_GET['to'];
-    $new = fm_clean_path($new);
-    $new = str_replace('/', '', $new);
+    $new  = $_GET['to'];
+    $new  = fm_clean_path($new);
+    $new  = str_replace('/', '', $new);
     // path
     $path = FM_ROOT_PATH;
     if (FM_PATH != '') {
@@ -430,9 +430,9 @@ if (isset($_GET['ren'], $_GET['to']) && !FM_READONLY) {
 
 // Download
 if (isset($_GET['dl'])) {
-    $dl = $_GET['dl'];
-    $dl = fm_clean_path($dl);
-    $dl = str_replace('/', '', $dl);
+    $dl   = $_GET['dl'];
+    $dl   = fm_clean_path($dl);
+    $dl   = str_replace('/', '', $dl);
     $path = FM_ROOT_PATH;
     if (FM_PATH != '') {
         $path .= '/' . FM_PATH;
@@ -457,22 +457,22 @@ if (isset($_GET['dl'])) {
 
 // Upload
 if (!empty($_FILES) && !FM_READONLY) {
-    $f = $_FILES;
+    $f    = $_FILES;
     $path = FM_ROOT_PATH;
     if (FM_PATH != '') {
         $path .= '/' . FM_PATH;
     }
-
-    $errors = 0;
+    
+    $errors  = 0;
     $uploads = 0;
-    $total = count($f['file']['name']);
+    $total   = count($f['file']['name']);
     $allowed = (FM_EXTENSION) ? explode(',', FM_EXTENSION) : false;
-
-    $filename = $f['file']['name'];
-    $tmp_name = $f['file']['tmp_name'];
-    $ext = pathinfo($filename, PATHINFO_EXTENSION);
+    
+    $filename      = $f['file']['name'];
+    $tmp_name      = $f['file']['tmp_name'];
+    $ext           = pathinfo($filename, PATHINFO_EXTENSION);
     $isFileAllowed = ($allowed) ? in_array($ext, $allowed) : true;
-
+    
     if (empty($f['file']['error']) && !empty($tmp_name) && $tmp_name != 'none' && $isFileAllowed) {
         $new = $path . '/' . $f['file']['name'];
         if (is_file($new) and file_exists($new)) {
@@ -497,9 +497,9 @@ if (isset($_POST['group'], $_POST['delete']) && !FM_READONLY) {
     if (FM_PATH != '') {
         $path .= '/' . FM_PATH;
     }
-
+    
     $errors = 0;
-    $files = $_POST['file'];
+    $files  = $_POST['file'];
     if (is_array($files) && count($files)) {
         foreach ($files as $f) {
             if ($f != '') {
@@ -517,7 +517,7 @@ if (isset($_POST['group'], $_POST['delete']) && !FM_READONLY) {
     } else {
         fm_set_msg('Nothing selected', 'alert');
     }
-
+    
     fm_redirect(FM_SELF_URL . '?p=' . urlencode(FM_PATH));
 }
 
@@ -527,27 +527,27 @@ if (isset($_POST['group'], $_POST['zip']) && !FM_READONLY) {
     if (FM_PATH != '') {
         $path .= '/' . FM_PATH;
     }
-
+    
     if (!class_exists('ZipArchive')) {
         fm_set_msg('Operations with archives are not available', 'error');
         fm_redirect(FM_SELF_URL . '?p=' . urlencode(FM_PATH));
     }
-
+    
     $files = $_POST['file'];
     if (!empty($files)) {
         chdir($path);
-
+        
         if (count($files) == 1) {
             $one_file = reset($files);
             $one_file = basename($one_file);
-            $zipname = $one_file . '_' . date('ymd_His') . '.zip';
+            $zipname  = $one_file . '_' . date('ymd_His') . '.zip';
         } else {
             $zipname = 'archive_' . date('ymd_His') . '.zip';
         }
-
+        
         $zipper = new FM_Zipper();
-        $res = $zipper->create($zipname, $files);
-
+        $res    = $zipper->create($zipname, $files);
+        
         if ($res) {
             fm_set_msg(sprintf('Archive <b>%s</b> created', fm_enc($zipname)));
         } else {
@@ -556,7 +556,7 @@ if (isset($_POST['group'], $_POST['zip']) && !FM_READONLY) {
     } else {
         fm_set_msg('Nothing selected', 'alert');
     }
-
+    
     fm_redirect(FM_SELF_URL . '?p=' . urlencode(FM_PATH));
 }
 
@@ -565,20 +565,20 @@ if (isset($_GET['unzip']) && !FM_READONLY) {
     $unzip = $_GET['unzip'];
     $unzip = fm_clean_path($unzip);
     $unzip = str_replace('/', '', $unzip);
-
+    
     $path = FM_ROOT_PATH;
     if (FM_PATH != '') {
         $path .= '/' . FM_PATH;
     }
-
+    
     if (!class_exists('ZipArchive')) {
         fm_set_msg('Operations with archives are not available', 'error');
         fm_redirect(FM_SELF_URL . '?p=' . urlencode(FM_PATH));
     }
-
+    
     if ($unzip != '' && is_file($path . '/' . $unzip)) {
         $zip_path = $path . '/' . $unzip;
-
+        
         //to folder
         $tofolder = '';
         if (isset($_GET['tofolder'])) {
@@ -587,16 +587,16 @@ if (isset($_GET['unzip']) && !FM_READONLY) {
                 $path .= '/' . $tofolder;
             }
         }
-
+        
         $zipper = new FM_Zipper();
-        $res = $zipper->unzip($zip_path, $path);
-
+        $res    = $zipper->unzip($zip_path, $path);
+        
         if ($res) {
             fm_set_msg('Archive unpacked');
         } else {
             fm_set_msg('Archive not unpacked', 'error');
         }
-
+        
     } else {
         fm_set_msg('File not found', 'error');
     }
@@ -609,7 +609,7 @@ if (isset($_POST['chmod']) && !FM_READONLY && !FM_IS_WIN) {
     if (FM_PATH != '') {
         $path .= '/' . FM_PATH;
     }
-
+    
     $file = $_POST['chmod'];
     $file = fm_clean_path($file);
     $file = str_replace('/', '', $file);
@@ -617,7 +617,7 @@ if (isset($_POST['chmod']) && !FM_READONLY && !FM_IS_WIN) {
         fm_set_msg('File not found', 'error');
         fm_redirect(FM_SELF_URL . '?p=' . urlencode(FM_PATH));
     }
-
+    
     $mode = 0;
     if (!empty($_POST['ur'])) {
         $mode |= 0400;
@@ -646,13 +646,13 @@ if (isset($_POST['chmod']) && !FM_READONLY && !FM_IS_WIN) {
     if (!empty($_POST['ox'])) {
         $mode |= 0001;
     }
-
+    
     if (@chmod($path . '/' . $file, $mode)) {
         fm_set_msg('Permissions changed');
     } else {
         fm_set_msg('Permissions not changed', 'error');
     }
-
+    
     fm_redirect(FM_SELF_URL . '?p=' . urlencode(FM_PATH));
 }
 
@@ -674,7 +674,7 @@ $parent = fm_get_parent_path(FM_PATH);
 
 $objects = is_readable($path) ? scandir($path) : array();
 $folders = array();
-$files = array();
+$files   = array();
 if (is_array($objects)) {
     foreach ($objects as $file) {
         if ($file == '.' || $file == '..' && in_array($file, $GLOBALS['exclude_folders'])) {
@@ -703,16 +703,22 @@ if (!empty($folders)) {
 if (isset($_GET['upload']) && !FM_READONLY) {
     fm_show_header(); // HEADER
     fm_show_nav_path(FM_PATH); // current path
-    ?>
+?>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.js"></script>
 
     <div class="path">
         <p><b>Uploading files</b></p>
-        <p class="break-word">Destination folder: <?php echo fm_enc(fm_convert_win(FM_ROOT_PATH . '/' . FM_PATH)) ?></p>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]).'?p='.fm_enc(FM_PATH) ?>" class="dropzone" id="fileuploader" enctype="multipart/form-data">
-            <input type="hidden" name="p" value="<?php echo fm_enc(FM_PATH) ?>">
+        <p class="break-word">Destination folder: <?php
+    echo fm_enc(fm_convert_win(FM_ROOT_PATH . '/' . FM_PATH));
+?></p>
+        <form action="<?php
+    echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?p=' . fm_enc(FM_PATH);
+?>" class="dropzone" id="fileuploader" enctype="multipart/form-data">
+            <input type="hidden" name="p" value="<?php
+    echo fm_enc(FM_PATH);
+?>">
             <div class="fallback">
                 <input name="file" type="file" multiple />
             </div>
@@ -731,29 +737,41 @@ if (isset($_POST['copy']) && !FM_READONLY) {
         fm_set_msg('Nothing selected', 'alert');
         fm_redirect(FM_SELF_URL . '?p=' . urlencode(FM_PATH));
     }
-
+    
     fm_show_header(); // HEADER
     fm_show_nav_path(FM_PATH); // current path
-    ?>
+?>
     <div class="path">
         <p><b>Copying</b></p>
         <form action="" method="post">
-            <input type="hidden" name="p" value="<?php echo fm_enc(FM_PATH) ?>">
+            <input type="hidden" name="p" value="<?php
+    echo fm_enc(FM_PATH);
+?>">
             <input type="hidden" name="finish" value="1">
             <?php
-            foreach ($copy_files as $cf) {
-                echo '<input type="hidden" name="file[]" value="' . fm_enc($cf) . '">' . PHP_EOL;
-            }
-            ?>
-            <p class="break-word">Files: <b><?php echo implode('</b>, <b>', $copy_files) ?></b></p>
-            <p class="break-word">Source folder: <?php echo fm_enc(fm_convert_win(FM_ROOT_PATH . '/' . FM_PATH)) ?><br>
+    foreach ($copy_files as $cf) {
+        echo '<input type="hidden" name="file[]" value="' . fm_enc($cf) . '">' . PHP_EOL;
+    }
+?>
+            <p class="break-word">Files: <b><?php
+    echo implode('</b>, <b>', $copy_files);
+?></b></p>
+            <p class="break-word">Source folder: <?php
+    echo fm_enc(fm_convert_win(FM_ROOT_PATH . '/' . FM_PATH));
+?><br>
                 <label for="inp_copy_to">Destination folder:</label>
-                <?php echo FM_ROOT_PATH ?>/<input type="text" name="copy_to" id="inp_copy_to" value="<?php echo fm_enc(FM_PATH) ?>">
+                <?php
+    echo FM_ROOT_PATH;
+?>/<input type="text" name="copy_to" id="inp_copy_to" value="<?php
+    echo fm_enc(FM_PATH);
+?>">
             </p>
             <p><label><input type="checkbox" name="move" value="1"> Move'</label></p>
             <p>
                 <button type="submit" class="btn"><i class="fa fa-check-circle"></i> Copy </button> &nbsp;
-                <b><a href="?p=<?php echo urlencode(FM_PATH) ?>"><i class="fa fa-times-circle"></i> Cancel</a></b>
+                <b><a href="?p=<?php
+    echo urlencode(FM_PATH);
+?>"><i class="fa fa-times-circle"></i> Cancel</a></b>
             </p>
         </form>
     </div>
@@ -770,35 +788,59 @@ if (isset($_GET['copy']) && !isset($_GET['finish']) && !FM_READONLY) {
         fm_set_msg('File not found', 'error');
         fm_redirect(FM_SELF_URL . '?p=' . urlencode(FM_PATH));
     }
-
+    
     fm_show_header(); // HEADER
     fm_show_nav_path(FM_PATH); // current path
-    ?>
+?>
     <div class="path">
         <p><b>Copying</b></p>
         <p class="break-word">
-            Source path: <?php echo fm_enc(fm_convert_win(FM_ROOT_PATH . '/' . $copy)) ?><br>
-            Destination folder: <?php echo fm_enc(fm_convert_win(FM_ROOT_PATH . '/' . FM_PATH)) ?>
+            Source path: <?php
+    echo fm_enc(fm_convert_win(FM_ROOT_PATH . '/' . $copy));
+?><br>
+            Destination folder: <?php
+    echo fm_enc(fm_convert_win(FM_ROOT_PATH . '/' . FM_PATH));
+?>
         </p>
         <p>
-            <b><a href="?p=<?php echo urlencode(FM_PATH) ?>&amp;copy=<?php echo urlencode($copy) ?>&amp;finish=1"><i class="fa fa-check-circle"></i> Copy</a></b> &nbsp;
-            <b><a href="?p=<?php echo urlencode(FM_PATH) ?>&amp;copy=<?php echo urlencode($copy) ?>&amp;finish=1&amp;move=1"><i class="fa fa-check-circle"></i> Move</a></b> &nbsp;
-            <b><a href="?p=<?php echo urlencode(FM_PATH) ?>"><i class="fa fa-times-circle"></i> Cancel</a></b>
+            <b><a href="?p=<?php
+    echo urlencode(FM_PATH);
+?>&amp;copy=<?php
+    echo urlencode($copy);
+?>&amp;finish=1"><i class="fa fa-check-circle"></i> Copy</a></b> &nbsp;
+            <b><a href="?p=<?php
+    echo urlencode(FM_PATH);
+?>&amp;copy=<?php
+    echo urlencode($copy);
+?>&amp;finish=1&amp;move=1"><i class="fa fa-check-circle"></i> Move</a></b> &nbsp;
+            <b><a href="?p=<?php
+    echo urlencode(FM_PATH);
+?>"><i class="fa fa-times-circle"></i> Cancel</a></b>
         </p>
         <p><i>Select folder</i></p>
         <ul class="folders break-word">
             <?php
-            if ($parent !== false) {
-                ?>
-                <li><a href="?p=<?php echo urlencode($parent) ?>&amp;copy=<?php echo urlencode($copy) ?>"><i class="fa fa-chevron-circle-left"></i> ..</a></li>
+    if ($parent !== false) {
+?>
+                <li><a href="?p=<?php
+        echo urlencode($parent);
+?>&amp;copy=<?php
+        echo urlencode($copy);
+?>"><i class="fa fa-chevron-circle-left"></i> ..</a></li>
             <?php
-            }
-            foreach ($folders as $f) {
-                ?>
-                <li><a href="?p=<?php echo urlencode(trim(FM_PATH . '/' . $f, '/')) ?>&amp;copy=<?php echo urlencode($copy) ?>"><i class="fa fa-folder-o"></i> <?php echo fm_convert_win($f) ?></a></li>
+    }
+    foreach ($folders as $f) {
+?>
+                <li><a href="?p=<?php
+        echo urlencode(trim(FM_PATH . '/' . $f, '/'));
+?>&amp;copy=<?php
+        echo urlencode($copy);
+?>"><i class="fa fa-folder-o"></i> <?php
+        echo fm_convert_win($f);
+?></a></li>
             <?php
-            }
-            ?>
+    }
+?>
         </ul>
     </div>
     <?php
@@ -815,164 +857,234 @@ if (isset($_GET['view'])) {
         fm_set_msg('File not found', 'error');
         fm_redirect(FM_SELF_URL . '?p=' . urlencode(FM_PATH));
     }
-
+    
     fm_show_header(); // HEADER
     fm_show_nav_path(FM_PATH); // current path
-
-    $file_url = FM_ROOT_URL . fm_convert_win((FM_PATH != '' ? '/' . FM_PATH : '') . '/' . $file);
+    
+    $file_url  = FM_ROOT_URL . fm_convert_win((FM_PATH != '' ? '/' . FM_PATH : '') . '/' . $file);
     $file_path = $path . '/' . $file;
-
-    $ext = strtolower(pathinfo($file_path, PATHINFO_EXTENSION));
+    
+    $ext       = strtolower(pathinfo($file_path, PATHINFO_EXTENSION));
     $mime_type = fm_get_mime_type($file_path);
-    $filesize = filesize($file_path);
-
-    $is_zip = false;
+    $filesize  = filesize($file_path);
+    
+    $is_zip   = false;
     $is_image = false;
     $is_audio = false;
     $is_video = false;
-    $is_text = false;
-
+    $is_text  = false;
+    
     $view_title = 'File';
-    $filenames = false; // for zip
-    $content = ''; // for text
-
+    $filenames  = false; // for zip
+    $content    = ''; // for text
+    
     if ($ext == 'zip') {
-        $is_zip = true;
+        $is_zip     = true;
         $view_title = 'Archive';
-        $filenames = fm_get_zif_info($file_path);
+        $filenames  = fm_get_zif_info($file_path);
     } elseif (in_array($ext, fm_get_image_exts())) {
-        $is_image = true;
+        $is_image   = true;
         $view_title = 'Image';
     } elseif (in_array($ext, fm_get_audio_exts())) {
-        $is_audio = true;
+        $is_audio   = true;
         $view_title = 'Audio';
     } elseif (in_array($ext, fm_get_video_exts())) {
-        $is_video = true;
+        $is_video   = true;
         $view_title = 'Video';
     } elseif (in_array($ext, fm_get_text_exts()) || substr($mime_type, 0, 4) == 'text' || in_array($mime_type, fm_get_text_mimes())) {
         $is_text = true;
         $content = file_get_contents($file_path);
     }
-
-    ?>
+    
+?>
     <div class="path">
-        <p class="break-word"><b><?php echo $view_title ?> "<?php echo fm_enc(fm_convert_win($file)) ?>"</b></p>
+        <p class="break-word"><b><?php
+    echo $view_title;
+?> "<?php
+    echo fm_enc(fm_convert_win($file));
+?>"</b></p>
         <p class="break-word">
-            Full path: <?php echo fm_enc(fm_convert_win($file_path)) ?><br>
-            File size: <?php echo fm_get_filesize($filesize) ?><?php if ($filesize >= 1000): ?> (<?php echo sprintf('%s bytes', $filesize) ?>)<?php endif; ?><br>
-           MIME-type: <?php echo $mime_type ?><br>
+            Full path: <?php
+    echo fm_enc(fm_convert_win($file_path));
+?><br>
+            File size: <?php
+    echo fm_get_filesize($filesize);
+?><?php
+    if ($filesize >= 1000):
+?> (<?php
+        echo sprintf('%s bytes', $filesize);
+?>)<?php
+    endif;
+?><br>
+           MIME-type: <?php
+    echo $mime_type;
+?><br>
             <?php
-            // ZIP info
-            if ($is_zip && $filenames !== false) {
-                $total_files = 0;
-                $total_comp = 0;
-                $total_uncomp = 0;
-                foreach ($filenames as $fn) {
-                    if (!$fn['folder']) {
-                        $total_files++;
-                    }
-                    $total_comp += $fn['compressed_size'];
-                    $total_uncomp += $fn['filesize'];
-                }
-                ?>
-                Files in archive: <?php echo $total_files ?><br>
-                Total size: <?php echo fm_get_filesize($total_uncomp) ?><br>
-                Size in archive: <?php echo fm_get_filesize($total_comp) ?><br>
-                Compression: <?php echo round(($total_comp / $total_uncomp) * 100) ?>%<br>
+    // ZIP info
+    if ($is_zip && $filenames !== false) {
+        $total_files  = 0;
+        $total_comp   = 0;
+        $total_uncomp = 0;
+        foreach ($filenames as $fn) {
+            if (!$fn['folder']) {
+                $total_files++;
+            }
+            $total_comp += $fn['compressed_size'];
+            $total_uncomp += $fn['filesize'];
+        }
+?>
+                Files in archive: <?php
+        echo $total_files;
+?><br>
+                Total size: <?php
+        echo fm_get_filesize($total_uncomp);
+?><br>
+                Size in archive: <?php
+        echo fm_get_filesize($total_comp);
+?><br>
+                Compression: <?php
+        echo round(($total_comp / $total_uncomp) * 100);
+?>%<br>
                 <?php
+    }
+    // Image info
+    if ($is_image) {
+        $image_size = getimagesize($file_path);
+        echo 'Image sizes: ' . (isset($image_size[0]) ? $image_size[0] : '0') . ' x ' . (isset($image_size[1]) ? $image_size[1] : '0') . '<br>';
+    }
+    // Text info
+    if ($is_text) {
+        $is_utf8 = fm_is_utf8($content);
+        if (function_exists('iconv')) {
+            if (!$is_utf8) {
+                $content = iconv(FM_ICONV_INPUT_ENC, 'UTF-8//IGNORE', $content);
             }
-            // Image info
-            if ($is_image) {
-                $image_size = getimagesize($file_path);
-                echo 'Image sizes: ' . (isset($image_size[0]) ? $image_size[0] : '0') . ' x ' . (isset($image_size[1]) ? $image_size[1] : '0') . '<br>';
-            }
-            // Text info
-            if ($is_text) {
-                $is_utf8 = fm_is_utf8($content);
-                if (function_exists('iconv')) {
-                    if (!$is_utf8) {
-                        $content = iconv(FM_ICONV_INPUT_ENC, 'UTF-8//IGNORE', $content);
-                    }
-                }
-                echo 'Charset: ' . ($is_utf8 ? 'utf-8' : '8 bit') . '<br>';
-            }
-            ?>
+        }
+        echo 'Charset: ' . ($is_utf8 ? 'utf-8' : '8 bit') . '<br>';
+    }
+?>
         </p>
         <p>
-            <b><a href="?p=<?php echo urlencode(FM_PATH) ?>&amp;dl=<?php echo urlencode($file) ?>"><i class="fa fa-cloud-download"></i> Download</a></b> &nbsp;
-            <b><a href="<?php echo fm_enc($file_url) ?>" target="_blank"><i class="fa fa-external-link-square"></i> Open</a></b> &nbsp;
+            <b><a href="?p=<?php
+    echo urlencode(FM_PATH);
+?>&amp;dl=<?php
+    echo urlencode($file);
+?>"><i class="fa fa-cloud-download"></i> Download</a></b> &nbsp;
+            <b><a href="<?php
+    echo fm_enc($file_url);
+?>" target="_blank"><i class="fa fa-external-link-square"></i> Open</a></b> &nbsp;
             <?php
-            // ZIP actions
-            if (!FM_READONLY && $is_zip && $filenames !== false) {
-                $zip_name = pathinfo($file_path, PATHINFO_FILENAME);
-                ?>
-                <b><a href="?p=<?php echo urlencode(FM_PATH) ?>&amp;unzip=<?php echo urlencode($file) ?>"><i class="fa fa-check-circle"></i> UnZip</a></b> &nbsp;
-                <b><a href="?p=<?php echo urlencode(FM_PATH) ?>&amp;unzip=<?php echo urlencode($file) ?>&amp;tofolder=1" title="UnZip to <?php echo fm_enc($zip_name) ?>"><i class="fa fa-check-circle"></i>
+    // ZIP actions
+    if (!FM_READONLY && $is_zip && $filenames !== false) {
+        $zip_name = pathinfo($file_path, PATHINFO_FILENAME);
+?>
+                <b><a href="?p=<?php
+        echo urlencode(FM_PATH);
+?>&amp;unzip=<?php
+        echo urlencode($file);
+?>"><i class="fa fa-check-circle"></i> UnZip</a></b> &nbsp;
+                <b><a href="?p=<?php
+        echo urlencode(FM_PATH);
+?>&amp;unzip=<?php
+        echo urlencode($file);
+?>&amp;tofolder=1" title="UnZip to <?php
+        echo fm_enc($zip_name);
+?>"><i class="fa fa-check-circle"></i>
                     UnZip to folder</a></b> &nbsp;
                 <?php
-            }
-            if($is_text && !FM_READONLY) {
-            ?>
-            <b><a href="?p=<?php echo urlencode(trim(FM_PATH)) ?>&amp;edit=<?php echo urlencode($file) ?>" class="edit-file"><i class="fa fa-pencil-square"></i> Edit</a></b> &nbsp;
-            <b><a href="?p=<?php echo urlencode(trim(FM_PATH)) ?>&amp;edit=<?php echo urlencode($file) ?>&env=ace" class="edit-file"><i class="fa fa-pencil-square"></i> Advanced Edit</a></b> &nbsp;
-            <?php }
-            if($send_mail && !FM_READONLY) {
-            ?>
-            <b><a href="javascript:mailto('<?php echo urlencode(trim(FM_ROOT_PATH.'/'.FM_PATH)) ?>','<?php echo urlencode($file) ?>')"><i class="fa fa-pencil-square"></i> Mail</a></b> &nbsp;
-            <?php } ?>
-            <b><a href="?p=<?php echo urlencode(FM_PATH) ?>"><i class="fa fa-chevron-circle-left"></i> Back</a></b>
+    }
+    if ($is_text && !FM_READONLY) {
+?>
+            <b><a href="?p=<?php
+        echo urlencode(trim(FM_PATH));
+?>&amp;edit=<?php
+        echo urlencode($file);
+?>" class="edit-file"><i class="fa fa-pencil-square"></i> Edit</a></b> &nbsp;
+            <b><a href="?p=<?php
+        echo urlencode(trim(FM_PATH));
+?>&amp;edit=<?php
+        echo urlencode($file);
+?>&env=ace" class="edit-file"><i class="fa fa-pencil-square"></i> Advanced Edit</a></b> &nbsp;
+            <?php
+    }
+    if ($send_mail && !FM_READONLY) {
+?>
+            <b><a href="javascript:mailto('<?php
+        echo urlencode(trim(FM_ROOT_PATH . '/' . FM_PATH));
+?>','<?php
+        echo urlencode($file);
+?>')"><i class="fa fa-pencil-square"></i> Mail</a></b> &nbsp;
+            <?php
+    }
+?>
+            <b><a href="?p=<?php
+    echo urlencode(FM_PATH);
+?>"><i class="fa fa-chevron-circle-left"></i> Back</a></b>
         </p>
         <?php
-        if ($is_zip) {
-            // ZIP content
-            if ($filenames !== false) {
-                echo '<code class="maxheight">';
-                foreach ($filenames as $fn) {
-                    if ($fn['folder']) {
-                        echo '<b>' . fm_enc($fn['name']) . '</b><br>';
-                    } else {
-                        echo $fn['name'] . ' (' . fm_get_filesize($fn['filesize']) . ')<br>';
-                    }
+    if ($is_zip) {
+        // ZIP content
+        if ($filenames !== false) {
+            echo '<code class="maxheight">';
+            foreach ($filenames as $fn) {
+                if ($fn['folder']) {
+                    echo '<b>' . fm_enc($fn['name']) . '</b><br>';
+                } else {
+                    echo $fn['name'] . ' (' . fm_get_filesize($fn['filesize']) . ')<br>';
                 }
-                echo '</code>';
-            } else {
-                echo '<p>Error while fetching archive info</p>';
             }
-        } elseif ($is_image) {
-            // Image content
-            if (in_array($ext, array('gif', 'jpg', 'jpeg', 'png', 'bmp', 'ico'))) {
-                echo '<p><img src="' . fm_enc($file_url) . '" alt="" class="preview-img"></p>';
-            }
-        } elseif ($is_audio) {
-            // Audio content
-            echo '<p><audio src="' . fm_enc($file_url) . '" controls preload="metadata"></audio></p>';
-        } elseif ($is_video) {
-            // Video content
-            echo '<div class="preview-video"><video src="' . fm_enc($file_url) . '" width="640" height="360" controls preload="metadata"></video></div>';
-        } elseif ($is_text) {
-            if (FM_USE_HIGHLIGHTJS) {
-                // highlight
-                $hljs_classes = array(
-                    'shtml' => 'xml',
-                    'htaccess' => 'apache',
-                    'phtml' => 'php',
-                    'lock' => 'json',
-                    'svg' => 'xml',
-                );
-                $hljs_class = isset($hljs_classes[$ext]) ? 'lang-' . $hljs_classes[$ext] : 'lang-' . $ext;
-                if (empty($ext) || in_array(strtolower($file), fm_get_text_names()) || preg_match('#\.min\.(css|js)$#i', $file)) {
-                    $hljs_class = 'nohighlight';
-                }
-                $content = '<pre class="with-hljs"><code class="' . $hljs_class . '">' . fm_enc($content) . '</code></pre>';
-            } elseif (in_array($ext, array('php', 'php4', 'php5', 'phtml', 'phps'))) {
-                // php highlight
-                $content = highlight_string($content, true);
-            } else {
-                $content = '<pre>' . fm_enc($content) . '</pre>';
-            }
-            echo $content;
+            echo '</code>';
+        } else {
+            echo '<p>Error while fetching archive info</p>';
         }
-        ?>
+    } elseif ($is_image) {
+        // Image content
+        if (in_array($ext, array(
+            'gif',
+            'jpg',
+            'jpeg',
+            'png',
+            'bmp',
+            'ico'
+        ))) {
+            echo '<p><img src="' . fm_enc($file_url) . '" alt="" class="preview-img"></p>';
+        }
+    } elseif ($is_audio) {
+        // Audio content
+        echo '<p><audio src="' . fm_enc($file_url) . '" controls preload="metadata"></audio></p>';
+    } elseif ($is_video) {
+        // Video content
+        echo '<div class="preview-video"><video src="' . fm_enc($file_url) . '" width="640" height="360" controls preload="metadata"></video></div>';
+    } elseif ($is_text) {
+        if (FM_USE_HIGHLIGHTJS) {
+            // highlight
+            $hljs_classes = array(
+                'shtml' => 'xml',
+                'htaccess' => 'apache',
+                'phtml' => 'php',
+                'lock' => 'json',
+                'svg' => 'xml'
+            );
+            $hljs_class   = isset($hljs_classes[$ext]) ? 'lang-' . $hljs_classes[$ext] : 'lang-' . $ext;
+            if (empty($ext) || in_array(strtolower($file), fm_get_text_names()) || preg_match('#\.min\.(css|js)$#i', $file)) {
+                $hljs_class = 'nohighlight';
+            }
+            $content = '<pre class="with-hljs"><code class="' . $hljs_class . '">' . fm_enc($content) . '</code></pre>';
+        } elseif (in_array($ext, array(
+            'php',
+            'php4',
+            'php5',
+            'phtml',
+            'phps'
+        ))) {
+            // php highlight
+            $content = highlight_string($content, true);
+        } else {
+            $content = '<pre>' . fm_enc($content) . '</pre>';
+        }
+        echo $content;
+    }
+?>
     </div>
     <?php
     fm_show_footer();
@@ -988,65 +1100,95 @@ if (isset($_GET['edit'])) {
         fm_set_msg('File not found', 'error');
         fm_redirect(FM_SELF_URL . '?p=' . urlencode(FM_PATH));
     }
-
+    
     fm_show_header(); // HEADER
     fm_show_nav_path(FM_PATH); // current path
-
-    $file_url = FM_ROOT_URL . fm_convert_win((FM_PATH != '' ? '/' . FM_PATH : '') . '/' . $file);
+    
+    $file_url  = FM_ROOT_URL . fm_convert_win((FM_PATH != '' ? '/' . FM_PATH : '') . '/' . $file);
     $file_path = $path . '/' . $file;
-
+    
     //normal editer
     $isNormalEditor = true;
-    if(isset($_GET['env'])) {
-        if($_GET['env'] == "ace") {
+    if (isset($_GET['env'])) {
+        if ($_GET['env'] == "ace") {
             $isNormalEditor = false;
         }
     }
-
+    
     //Save File
-    if(isset($_POST['savedata'])) {
+    if (isset($_POST['savedata'])) {
         $writedata = $_POST['savedata'];
-        $fd=fopen($file_path,"w");
+        $fd        = fopen($file_path, "w");
         @fwrite($fd, $writedata);
         fclose($fd);
         fm_set_msg('File Saved Successfully', 'alert');
     }
-
-    $ext = strtolower(pathinfo($file_path, PATHINFO_EXTENSION));
+    
+    $ext       = strtolower(pathinfo($file_path, PATHINFO_EXTENSION));
     $mime_type = fm_get_mime_type($file_path);
-    $filesize = filesize($file_path);
-    $is_text = false;
-    $content = ''; // for text
-
+    $filesize  = filesize($file_path);
+    $is_text   = false;
+    $content   = ''; // for text
+    
     if (in_array($ext, fm_get_text_exts()) || substr($mime_type, 0, 4) == 'text' || in_array($mime_type, fm_get_text_mimes())) {
         $is_text = true;
         $content = file_get_contents($file_path);
     }
-
-    ?>
+    
+?>
     <div class="path">
         <div class="edit-file-actions">
-            <a title="Cancel" href="?p=<?php echo urlencode(trim(FM_PATH)) ?>&amp;view=<?php echo urlencode($file) ?>"><i class="fa fa-reply-all"></i> Cancel</a>
-            <a title="Backup" href="javascript:backup('<?php echo urlencode($path) ?>','<?php echo urlencode($file) ?>')"><i class="fa fa-database"></i> Backup</a>
-            <?php if($is_text) { ?>
-                <?php if($isNormalEditor) { ?>
-                    <a title="Advanced" href="?p=<?php echo urlencode(trim(FM_PATH)) ?>&amp;edit=<?php echo urlencode($file) ?>&amp;env=ace"><i class="fa fa-paper-plane"></i> Advanced Editor</a>
-                    <button type="button" name="Save" data-url="<?php echo fm_enc($file_url) ?>" onclick="edit_save(this,'nrl')"><i class="fa fa-floppy-o"></i> Save</button>
-                <?php } else { ?>
-                    <a title="Plain Editor" href="?p=<?php echo urlencode(trim(FM_PATH)) ?>&amp;edit=<?php echo urlencode($file) ?>"><i class="fa fa-text-height"></i> Plain Editor</a>
-                    <button type="button" name="Save" data-url="<?php echo fm_enc($file_url) ?>" onclick="edit_save(this,'ace')"><i class="fa fa-floppy-o"></i> Save</button>
-                <?php } ?>
-            <?php } ?>
+            <a title="Cancel" href="?p=<?php
+    echo urlencode(trim(FM_PATH));
+?>&amp;view=<?php
+    echo urlencode($file);
+?>"><i class="fa fa-reply-all"></i> Cancel</a>
+            <a title="Backup" href="javascript:backup('<?php
+    echo urlencode($path);
+?>','<?php
+    echo urlencode($file);
+?>')"><i class="fa fa-database"></i> Backup</a>
+            <?php
+    if ($is_text) {
+?>
+                <?php
+        if ($isNormalEditor) {
+?>
+                    <a title="Advanced" href="?p=<?php
+            echo urlencode(trim(FM_PATH));
+?>&amp;edit=<?php
+            echo urlencode($file);
+?>&amp;env=ace"><i class="fa fa-paper-plane"></i> Advanced Editor</a>
+                    <button type="button" name="Save" data-url="<?php
+            echo fm_enc($file_url);
+?>" onclick="edit_save(this,'nrl')"><i class="fa fa-floppy-o"></i> Save</button>
+                <?php
+        } else {
+?>
+                    <a title="Plain Editor" href="?p=<?php
+            echo urlencode(trim(FM_PATH));
+?>&amp;edit=<?php
+            echo urlencode($file);
+?>"><i class="fa fa-text-height"></i> Plain Editor</a>
+                    <button type="button" name="Save" data-url="<?php
+            echo fm_enc($file_url);
+?>" onclick="edit_save(this,'ace')"><i class="fa fa-floppy-o"></i> Save</button>
+                <?php
+        }
+?>
+            <?php
+    }
+?>
         </div>
         <?php
-        if ($is_text && $isNormalEditor) {
-            echo '<textarea id="normal-editor" rows="33" cols="120" style="width: 99.5%;">'. htmlspecialchars($content) .'</textarea>';
-        } elseif ($is_text) {
-            echo '<div id="editor" contenteditable="true">'. htmlspecialchars($content) .'</div>';
-        } else {
-            fm_set_msg('FILE EXTENSION HAS NOT SUPPORTED', 'error');
-        }
-        ?>
+    if ($is_text && $isNormalEditor) {
+        echo '<textarea id="normal-editor" rows="33" cols="120" style="width: 99.5%;">' . htmlspecialchars($content) . '</textarea>';
+    } elseif ($is_text) {
+        echo '<div id="editor" contenteditable="true">' . htmlspecialchars($content) . '</div>';
+    } else {
+        fm_set_msg('FILE EXTENSION HAS NOT SUPPORTED', 'error');
+    }
+?>
     </div>
     <?php
     fm_show_footer();
@@ -1062,24 +1204,34 @@ if (isset($_GET['chmod']) && !FM_READONLY && !FM_IS_WIN) {
         fm_set_msg('File not found', 'error');
         fm_redirect(FM_SELF_URL . '?p=' . urlencode(FM_PATH));
     }
-
+    
     fm_show_header(); // HEADER
     fm_show_nav_path(FM_PATH); // current path
-
-    $file_url = FM_ROOT_URL . (FM_PATH != '' ? '/' . FM_PATH : '') . '/' . $file;
+    
+    $file_url  = FM_ROOT_URL . (FM_PATH != '' ? '/' . FM_PATH : '') . '/' . $file;
     $file_path = $path . '/' . $file;
-
+    
     $mode = fileperms($path . '/' . $file);
-
-    ?>
+    
+?>
     <div class="path">
-        <p><b><?php echo 'Change Permissions'; ?></b></p>
+        <p><b><?php
+    echo 'Change Permissions';
+?></b></p>
         <p>
-            <?php echo 'Full path:'; ?> <?php echo $file_path ?><br>
+            <?php
+    echo 'Full path:';
+?> <?php
+    echo $file_path;
+?><br>
         </p>
         <form action="" method="post">
-            <input type="hidden" name="p" value="<?php echo fm_enc(FM_PATH) ?>">
-            <input type="hidden" name="chmod" value="<?php echo fm_enc($file) ?>">
+            <input type="hidden" name="p" value="<?php
+    echo fm_enc(FM_PATH);
+?>">
+            <input type="hidden" name="chmod" value="<?php
+    echo fm_enc($file);
+?>">
 
             <table class="compact-table">
                 <tr>
@@ -1090,27 +1242,47 @@ if (isset($_GET['chmod']) && !FM_READONLY && !FM_IS_WIN) {
                 </tr>
                 <tr>
                     <td style="text-align: right"><b>Read</b></td>
-                    <td><label><input type="checkbox" name="ur" value="1"<?php echo ($mode & 00400) ? ' checked' : '' ?>></label></td>
-                    <td><label><input type="checkbox" name="gr" value="1"<?php echo ($mode & 00040) ? ' checked' : '' ?>></label></td>
-                    <td><label><input type="checkbox" name="or" value="1"<?php echo ($mode & 00004) ? ' checked' : '' ?>></label></td>
+                    <td><label><input type="checkbox" name="ur" value="1"<?php
+    echo ($mode & 00400) ? ' checked' : '';
+?>></label></td>
+                    <td><label><input type="checkbox" name="gr" value="1"<?php
+    echo ($mode & 00040) ? ' checked' : '';
+?>></label></td>
+                    <td><label><input type="checkbox" name="or" value="1"<?php
+    echo ($mode & 00004) ? ' checked' : '';
+?>></label></td>
                 </tr>
                 <tr>
                     <td style="text-align: right"><b>Write</b></td>
-                    <td><label><input type="checkbox" name="uw" value="1"<?php echo ($mode & 00200) ? ' checked' : '' ?>></label></td>
-                    <td><label><input type="checkbox" name="gw" value="1"<?php echo ($mode & 00020) ? ' checked' : '' ?>></label></td>
-                    <td><label><input type="checkbox" name="ow" value="1"<?php echo ($mode & 00002) ? ' checked' : '' ?>></label></td>
+                    <td><label><input type="checkbox" name="uw" value="1"<?php
+    echo ($mode & 00200) ? ' checked' : '';
+?>></label></td>
+                    <td><label><input type="checkbox" name="gw" value="1"<?php
+    echo ($mode & 00020) ? ' checked' : '';
+?>></label></td>
+                    <td><label><input type="checkbox" name="ow" value="1"<?php
+    echo ($mode & 00002) ? ' checked' : '';
+?>></label></td>
                 </tr>
                 <tr>
                     <td style="text-align: right"><b>Execute</b></td>
-                    <td><label><input type="checkbox" name="ux" value="1"<?php echo ($mode & 00100) ? ' checked' : '' ?>></label></td>
-                    <td><label><input type="checkbox" name="gx" value="1"<?php echo ($mode & 00010) ? ' checked' : '' ?>></label></td>
-                    <td><label><input type="checkbox" name="ox" value="1"<?php echo ($mode & 00001) ? ' checked' : '' ?>></label></td>
+                    <td><label><input type="checkbox" name="ux" value="1"<?php
+    echo ($mode & 00100) ? ' checked' : '';
+?>></label></td>
+                    <td><label><input type="checkbox" name="gx" value="1"<?php
+    echo ($mode & 00010) ? ' checked' : '';
+?>></label></td>
+                    <td><label><input type="checkbox" name="ox" value="1"<?php
+    echo ($mode & 00001) ? ' checked' : '';
+?>></label></td>
                 </tr>
             </table>
 
             <p>
                 <button type="submit" class="btn"><i class="fa fa-check-circle"></i> Change</button> &nbsp;
-                <b><a href="?p=<?php echo urlencode(FM_PATH) ?>"><i class="fa fa-times-circle"></i> Cancel</a></b>
+                <b><a href="?p=<?php
+    echo urlencode(FM_PATH);
+?>"><i class="fa fa-times-circle"></i> Cancel</a></b>
             </p>
 
         </form>
@@ -1128,133 +1300,301 @@ fm_show_nav_path(FM_PATH); // current path
 // messages
 fm_show_message();
 
-$num_files = count($files);
-$num_folders = count($folders);
+$num_files      = count($files);
+$num_folders    = count($folders);
 $all_files_size = 0;
 ?>
 <form action="" method="post">
-<input type="hidden" name="p" value="<?php echo fm_enc(FM_PATH) ?>">
-<input type="hidden" name="group" value="1">
-<?php if(FM_TREEVIEW) { ?>
-<div class="file-tree-view" id="file-tree-view">
-    <div class="tree-title">Browse</div>
-<?php
-//file tre view
-    echo php_file_tree($_SERVER['DOCUMENT_ROOT'], "javascript:alert('You clicked on [link]');");
-?>
-</div>
-<?php } ?>
-<table class="table" id="main-table"><thead><tr>
-<?php if (!FM_READONLY): ?><th style="width:3%"><label><input type="checkbox" title="Invert selection" onclick="checkbox_toggle()"></label></th><?php endif; ?>
-<th>Name</th><th style="width:10%">Size</th>
-<th style="width:12%">Modified</th>
-<?php if (!FM_IS_WIN): ?><th style="width:6%">Perms</th><th style="width:10%">Owner</th><?php endif; ?>
-<th style="width:<?php if (!FM_READONLY): ?>13<?php else: ?>6.5<?php endif; ?>%">Actions</th></tr></thead>
-<?php
-// link to parent folder
-if ($parent !== false) {
-    ?>
-<tr><?php if (!FM_READONLY): ?><td></td><?php endif; ?><td colspan="<?php echo !FM_IS_WIN ? '6' : '4' ?>"><a href="?p=<?php echo urlencode($parent) ?>"><i class="fa fa-chevron-circle-left"></i> ..</a></td></tr>
-<?php
-}
-foreach ($folders as $f) {
-    $is_link = is_link($path . '/' . $f);
-    $img = $is_link ? 'icon-link_folder' : 'fa fa-folder-o';
-    $modif = date(FM_DATETIME_FORMAT, filemtime($path . '/' . $f));
-    $perms = substr(decoct(fileperms($path . '/' . $f)), -4);
-    if (function_exists('posix_getpwuid') && function_exists('posix_getgrgid')) {
-        $owner = posix_getpwuid(fileowner($path . '/' . $f));
-        $group = posix_getgrgid(filegroup($path . '/' . $f));
-    } else {
-        $owner = array('name' => '?');
-        $group = array('name' => '?');
-    }
-    ?>
-<tr>
-<?php if (!FM_READONLY): ?><td><label><input type="checkbox" name="file[]" value="<?php echo fm_enc($f) ?>"></label></td><?php endif; ?>
-<td><div class="filename"><a href="?p=<?php echo urlencode(trim(FM_PATH . '/' . $f, '/')) ?>"><i class="<?php echo $img ?>"></i> <?php echo fm_convert_win($f) ?></a><?php echo ($is_link ? ' &rarr; <i>' . readlink($path . '/' . $f) . '</i>' : '') ?></div></td>
-<td>Folder</td><td><?php echo $modif ?></td>
-<?php if (!FM_IS_WIN): ?>
-<td><?php if (!FM_READONLY): ?><a title="Change Permissions" href="?p=<?php echo urlencode(FM_PATH) ?>&amp;chmod=<?php echo urlencode($f) ?>"><?php echo $perms ?></a><?php else: ?><?php echo $perms ?><?php endif; ?></td>
-<td><?php echo $owner['name'] . ':' . $group['name'] ?></td>
-<?php endif; ?>
-<td class="inline-actions"><?php if (!FM_READONLY): ?>
-<a title="Delete" href="?p=<?php echo urlencode(FM_PATH) ?>&amp;del=<?php echo urlencode($f) ?>" onclick="return confirm('Delete folder?');"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-<a title="Rename" href="#" onclick="rename('<?php echo fm_enc(FM_PATH) ?>', '<?php echo fm_enc($f) ?>');return false;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-<a title="Copy to..." href="?p=&amp;copy=<?php echo urlencode(trim(FM_PATH . '/' . $f, '/')) ?>"><i class="fa fa-files-o" aria-hidden="true"></i></a>
-<?php endif; ?>
-<a title="Direct link" href="<?php echo fm_enc(FM_ROOT_URL . (FM_PATH != '' ? '/' . FM_PATH : '') . '/' . $f . '/') ?>" target="_blank"><i class="fa fa-link" aria-hidden="true"></i></a>
-</td></tr>
-    <?php
-    flush();
-}
+    <input type="hidden" name="p" value="<?php echo fm_enc(FM_PATH);?>">
+    <input type="hidden" name="group" value="1">
+    <?php if (FM_TREEVIEW) {?>
+        <div class="file-tree-view" id="file-tree-view">
+            <div class="tree-title">Browse</div>
+            <?php
+                //file tre view
+                echo php_file_tree($_SERVER['DOCUMENT_ROOT'], "javascript:alert('You clicked on [link]');");
+            ?>
+        </div>
+    <?php } ?>
+    <table class="table" id="main-table"><thead><tr>
+        <?php if (!FM_READONLY): ?>
+            <th style="width:3%"><label><input type="checkbox" title="Invert selection" onclick="checkbox_toggle()"></label></th>
+        <?php endif;?>
+        <th>Name</th><th style="width:10%">Size</th>
+        <th style="width:12%">Modified</th>
+        <?php
+        if (!FM_IS_WIN):
+        ?><th style="width:6%">Perms</th><th style="width:10%">Owner</th><?php
+        endif;
+        ?>
+        <th style="width:<?php
+        if (!FM_READONLY):
+        ?>13<?php
+        else:
+        ?>6.5<?php
+        endif;
+        ?>%">Actions</th></tr></thead>
+        <?php
+        // link to parent folder
+        if ($parent !== false) {
+        ?>
+        <tr><?php
+            if (!FM_READONLY):
+        ?><td></td><?php
+            endif;
+        ?><td colspan="<?php
+            echo !FM_IS_WIN ? '6' : '4';
+        ?>"><a href="?p=<?php
+            echo urlencode($parent);
+        ?>"><i class="fa fa-chevron-circle-left"></i> ..</a></td></tr>
+        <?php
+        }
+        foreach ($folders as $f) {
+            $is_link = is_link($path . '/' . $f);
+            $img     = $is_link ? 'icon-link_folder' : 'fa fa-folder-o';
+            $modif   = date(FM_DATETIME_FORMAT, filemtime($path . '/' . $f));
+            $perms   = substr(decoct(fileperms($path . '/' . $f)), -4);
+            if (function_exists('posix_getpwuid') && function_exists('posix_getgrgid')) {
+                $owner = posix_getpwuid(fileowner($path . '/' . $f));
+                $group = posix_getgrgid(filegroup($path . '/' . $f));
+            } else {
+                $owner = array(
+                    'name' => '?'
+                );
+                $group = array(
+                    'name' => '?'
+                );
+            }
+        ?>
+        <tr>
+        <?php
+            if (!FM_READONLY):
+        ?><td><label><input type="checkbox" name="file[]" value="<?php
+                echo fm_enc($f);
+        ?>"></label></td><?php
+            endif;
+        ?>
+        <td><div class="filename"><a href="?p=<?php
+            echo urlencode(trim(FM_PATH . '/' . $f, '/'));
+        ?>"><i class="<?php
+            echo $img;
+        ?>"></i> <?php
+            echo fm_convert_win($f);
+        ?></a><?php
+            echo ($is_link ? ' &rarr; <i>' . readlink($path . '/' . $f) . '</i>' : '');
+        ?></div></td>
+        <td>Folder</td><td><?php
+            echo $modif;
+        ?></td>
+        <?php
+            if (!FM_IS_WIN):
+        ?>
+        <td><?php
+                if (!FM_READONLY):
+        ?><a title="Change Permissions" href="?p=<?php
+                    echo urlencode(FM_PATH);
+        ?>&amp;chmod=<?php
+                    echo urlencode($f);
+        ?>"><?php
+                    echo $perms;
+        ?></a><?php
+                else:
+        ?><?php
+                    echo $perms;
+        ?><?php
+                endif;
+        ?></td>
+        <td><?php
+                echo $owner['name'] . ':' . $group['name'];
+        ?></td>
+        <?php
+            endif;
+        ?>
+        <td class="inline-actions"><?php
+            if (!FM_READONLY):
+        ?>
+        <a title="Delete" href="?p=<?php
+                echo urlencode(FM_PATH);
+        ?>&amp;del=<?php
+                echo urlencode($f);
+        ?>" onclick="return confirm('Delete folder?');"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+        <a title="Rename" href="#" onclick="rename('<?php
+                echo fm_enc(FM_PATH);
+        ?>', '<?php
+                echo fm_enc($f);
+        ?>');return false;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+        <a title="Copy to..." href="?p=&amp;copy=<?php
+                echo urlencode(trim(FM_PATH . '/' . $f, '/'));
+        ?>"><i class="fa fa-files-o" aria-hidden="true"></i></a>
+        <?php
+            endif;
+        ?>
+        <a title="Direct link" href="<?php
+            echo fm_enc(FM_ROOT_URL . (FM_PATH != '' ? '/' . FM_PATH : '') . '/' . $f . '/');
+        ?>" target="_blank"><i class="fa fa-link" aria-hidden="true"></i></a>
+        </td></tr>
+            <?php
+            flush();
+        }
 
-foreach ($files as $f) {
-    $is_link = is_link($path . '/' . $f);
-    $img = $is_link ? 'fa fa-file-text-o' : fm_get_file_icon_class($path . '/' . $f);
-    $modif = date(FM_DATETIME_FORMAT, filemtime($path . '/' . $f));
-    $filesize_raw = filesize($path . '/' . $f);
-    $filesize = fm_get_filesize($filesize_raw);
-    $filelink = '?p=' . urlencode(FM_PATH) . '&amp;view=' . urlencode($f);
-    $all_files_size += $filesize_raw;
-    $perms = substr(decoct(fileperms($path . '/' . $f)), -4);
-    if (function_exists('posix_getpwuid') && function_exists('posix_getgrgid')) {
-        $owner = posix_getpwuid(fileowner($path . '/' . $f));
-        $group = posix_getgrgid(filegroup($path . '/' . $f));
-    } else {
-        $owner = array('name' => '?');
-        $group = array('name' => '?');
-    }
-    ?>
-<tr>
-<?php if (!FM_READONLY): ?><td><label><input type="checkbox" name="file[]" value="<?php echo fm_enc($f) ?>"></label></td><?php endif; ?>
-<td><div class="filename"><a href="<?php echo $filelink ?>" title="File info"><i class="<?php echo $img ?>"></i> <?php echo fm_convert_win($f) ?></a><?php echo ($is_link ? ' &rarr; <i>' . readlink($path . '/' . $f) . '</i>' : '') ?></div></td>
-<td><span title="<?php printf('%s bytes', $filesize_raw) ?>"><?php echo $filesize ?></span></td>
-<td><?php echo $modif ?></td>
-<?php if (!FM_IS_WIN): ?>
-<td><?php if (!FM_READONLY): ?><a title="<?php echo 'Change Permissions' ?>" href="?p=<?php echo urlencode(FM_PATH) ?>&amp;chmod=<?php echo urlencode($f) ?>"><?php echo $perms ?></a><?php else: ?><?php echo $perms ?><?php endif; ?></td>
-<td><?php echo fm_enc($owner['name'] . ':' . $group['name']) ?></td>
-<?php endif; ?>
-<td class="inline-actions">
-<?php if (!FM_READONLY): ?>
-<a title="Delete" href="?p=<?php echo urlencode(FM_PATH) ?>&amp;del=<?php echo urlencode($f) ?>" onclick="return confirm('Delete file?');"><i class="fa fa-trash-o"></i></a>
-<a title="Rename" href="#" onclick="rename('<?php echo fm_enc(FM_PATH) ?>', '<?php echo fm_enc($f) ?>');return false;"><i class="fa fa-pencil-square-o"></i></a>
-<a title="Copy to..." href="?p=<?php echo urlencode(FM_PATH) ?>&amp;copy=<?php echo urlencode(trim(FM_PATH . '/' . $f, '/')) ?>"><i class="fa fa-files-o"></i></a>
-<?php endif; ?>
-<a title="Direct link" href="<?php echo fm_enc(FM_ROOT_URL . (FM_PATH != '' ? '/' . FM_PATH : '') . '/' . $f) ?>" target="_blank"><i class="fa fa-link"></i></a>
-<a title="Download" href="?p=<?php echo urlencode(FM_PATH) ?>&amp;dl=<?php echo urlencode($f) ?>"><i class="fa fa-download"></i></a>
-</td></tr>
-    <?php
-    flush();
-}
+        foreach ($files as $f) {
+            $is_link      = is_link($path . '/' . $f);
+            $img          = $is_link ? 'fa fa-file-text-o' : fm_get_file_icon_class($path . '/' . $f);
+            $modif        = date(FM_DATETIME_FORMAT, filemtime($path . '/' . $f));
+            $filesize_raw = filesize($path . '/' . $f);
+            $filesize     = fm_get_filesize($filesize_raw);
+            $filelink     = '?p=' . urlencode(FM_PATH) . '&amp;view=' . urlencode($f);
+            $all_files_size += $filesize_raw;
+            $perms = substr(decoct(fileperms($path . '/' . $f)), -4);
+            if (function_exists('posix_getpwuid') && function_exists('posix_getgrgid')) {
+                $owner = posix_getpwuid(fileowner($path . '/' . $f));
+                $group = posix_getgrgid(filegroup($path . '/' . $f));
+            } else {
+                $owner = array(
+                    'name' => '?'
+                );
+                $group = array(
+                    'name' => '?'
+                );
+            }
+        ?>
+        <tr>
+        <?php
+            if (!FM_READONLY):
+        ?><td><label><input type="checkbox" name="file[]" value="<?php
+                echo fm_enc($f);
+        ?>"></label></td><?php
+            endif;
+        ?>
+        <td><div class="filename"><a href="<?php
+            echo $filelink;
+        ?>" title="File info"><i class="<?php
+            echo $img;
+        ?>"></i> <?php
+            echo fm_convert_win($f);
+        ?></a><?php
+            echo ($is_link ? ' &rarr; <i>' . readlink($path . '/' . $f) . '</i>' : '');
+        ?></div></td>
+        <td><span title="<?php
+            printf('%s bytes', $filesize_raw);
+        ?>"><?php
+            echo $filesize;
+        ?></span></td>
+        <td><?php
+            echo $modif;
+        ?></td>
+        <?php
+            if (!FM_IS_WIN):
+        ?>
+        <td><?php
+                if (!FM_READONLY):
+        ?><a title="<?php
+                    echo 'Change Permissions';
+        ?>" href="?p=<?php
+                    echo urlencode(FM_PATH);
+        ?>&amp;chmod=<?php
+                    echo urlencode($f);
+        ?>"><?php
+                    echo $perms;
+        ?></a><?php
+                else:
+        ?><?php
+                    echo $perms;
+        ?><?php
+                endif;
+        ?></td>
+        <td><?php
+                echo fm_enc($owner['name'] . ':' . $group['name']);
+        ?></td>
+        <?php
+            endif;
+        ?>
+        <td class="inline-actions">
+        <?php
+            if (!FM_READONLY):
+        ?>
+        <a title="Delete" href="?p=<?php
+                echo urlencode(FM_PATH);
+        ?>&amp;del=<?php
+                echo urlencode($f);
+        ?>" onclick="return confirm('Delete file?');"><i class="fa fa-trash-o"></i></a>
+        <a title="Rename" href="#" onclick="rename('<?php
+                echo fm_enc(FM_PATH);
+        ?>', '<?php
+                echo fm_enc($f);
+        ?>');return false;"><i class="fa fa-pencil-square-o"></i></a>
+        <a title="Copy to..." href="?p=<?php
+                echo urlencode(FM_PATH);
+        ?>&amp;copy=<?php
+                echo urlencode(trim(FM_PATH . '/' . $f, '/'));
+        ?>"><i class="fa fa-files-o"></i></a>
+        <?php
+            endif;
+        ?>
+        <a title="Direct link" href="<?php
+            echo fm_enc(FM_ROOT_URL . (FM_PATH != '' ? '/' . FM_PATH : '') . '/' . $f);
+        ?>" target="_blank"><i class="fa fa-link"></i></a>
+        <a title="Download" href="?p=<?php
+            echo urlencode(FM_PATH);
+        ?>&amp;dl=<?php
+            echo urlencode($f);
+        ?>"><i class="fa fa-download"></i></a>
+        </td></tr>
+            <?php
+            flush();
+        }
 
-if (empty($folders) && empty($files)) {
+        if (empty($folders) && empty($files)) {
+        ?>
+        <tr><?php
+            if (!FM_READONLY):
+        ?><td></td><?php
+            endif;
+        ?><td colspan="<?php
+            echo !FM_IS_WIN ? '6' : '4';
+        ?>"><em><?php
+            echo 'Folder is empty';
+        ?></em></td></tr>
+        <?php
+        } else {
+        ?>
+        <tr><?php
+            if (!FM_READONLY):
+        ?><td class="gray"></td><?php
+            endif;
+        ?><td class="gray" colspan="<?php
+            echo !FM_IS_WIN ? '6' : '4';
+        ?>">
+        Full size: <span title="<?php
+            printf('%s bytes', $all_files_size);
+        ?>"><?php
+            echo fm_get_filesize($all_files_size);
+        ?></span>,
+        files: <?php
+            echo $num_files;
+        ?>,
+        folders: <?php
+            echo $num_folders;
+        ?>
+        </td></tr>
+        <?php
+        }
+        ?>
+    </table>
+    <?php
+    if (!FM_READONLY):
     ?>
-<tr><?php if (!FM_READONLY): ?><td></td><?php endif; ?><td colspan="<?php echo !FM_IS_WIN ? '6' : '4' ?>"><em><?php echo 'Folder is empty' ?></em></td></tr>
-<?php
-} else {
-    ?>
-<tr><?php if (!FM_READONLY): ?><td class="gray"></td><?php endif; ?><td class="gray" colspan="<?php echo !FM_IS_WIN ? '6' : '4' ?>">
-Full size: <span title="<?php printf('%s bytes', $all_files_size) ?>"><?php echo fm_get_filesize($all_files_size) ?></span>,
-files: <?php echo $num_files ?>,
-folders: <?php echo $num_folders ?>
-</td></tr>
-<?php
-}
-?>
-</table>
-<?php if (!FM_READONLY): ?>
-<p class="path footer-links"><a href="#/select-all" class="group-btn" onclick="select_all();return false;"><i class="fa fa-check-square"></i> Select all</a> &nbsp;
-<a href="#/unselect-all" class="group-btn" onclick="unselect_all();return false;"><i class="fa fa-window-close"></i> Unselect all</a> &nbsp;
-<a href="#/invert-all" class="group-btn" onclick="invert_all();return false;"><i class="fa fa-th-list"></i> Invert selection</a> &nbsp;
-<input type="submit" class="hidden" name="delete" id="a-delete" value="Delete" onclick="return confirm('Delete selected files and folders?')">
-<a href="javascript:document.getElementById('a-delete').click();" class="group-btn"><i class="fa fa-trash"></i> Delete </a> &nbsp;
-<input type="submit" class="hidden" name="zip" id="a-zip" value="Zip" onclick="return confirm('Create archive?')">
-<a href="javascript:document.getElementById('a-zip').click();" class="group-btn"><i class="fa fa-file-archive-o"></i> Zip </a> &nbsp;
-<input type="submit" class="hidden" name="copy" id="a-copy" value="Copy">
-<a href="javascript:document.getElementById('a-copy').click();" class="group-btn"><i class="fa fa-files-o"></i> Copy </a>
-<!-- <a href="https://github.com/prasathmani/tinyfilemanager" target="_blank" class="float-right" style="color:silver">Tiny File Manager</a></p> -->
-<?php endif; ?>
+    <p class="path footer-links"><a href="#/select-all" class="group-btn" onclick="select_all();return false;"><i class="fa fa-check-square"></i> Select all</a> &nbsp;
+    <a href="#/unselect-all" class="group-btn" onclick="unselect_all();return false;"><i class="fa fa-window-close"></i> Unselect all</a> &nbsp;
+    <a href="#/invert-all" class="group-btn" onclick="invert_all();return false;"><i class="fa fa-th-list"></i> Invert selection</a> &nbsp;
+    <input type="submit" class="hidden" name="delete" id="a-delete" value="Delete" onclick="return confirm('Delete selected files and folders?')">
+    <a href="javascript:document.getElementById('a-delete').click();" class="group-btn"><i class="fa fa-trash"></i> Delete </a> &nbsp;
+    <input type="submit" class="hidden" name="zip" id="a-zip" value="Zip" onclick="return confirm('Create archive?')">
+    <a href="javascript:document.getElementById('a-zip').click();" class="group-btn"><i class="fa fa-file-archive-o"></i> Zip </a> &nbsp;
+    <input type="submit" class="hidden" name="copy" id="a-copy" value="Copy">
+    <a href="javascript:document.getElementById('a-copy').click();" class="group-btn"><i class="fa fa-files-o"></i> Copy </a>
+    <!-- <a href="https://github.com/prasathmani/tinyfilemanager" target="_blank" class="float-right" style="color:silver">Tiny File Manager</a></p> -->
+    <?php endif;?>
 </form>
 
 <?php
@@ -1275,7 +1615,7 @@ function fm_rdelete($path)
         return unlink($path);
     } elseif (is_dir($path)) {
         $objects = scandir($path);
-        $ok = true;
+        $ok      = true;
         if (is_array($objects)) {
             foreach ($objects as $file) {
                 if ($file != '.' && $file != '..') {
@@ -1351,7 +1691,7 @@ function fm_rcopy($path, $dest, $upd = true, $force = true)
             return false;
         }
         $objects = scandir($path);
-        $ok = true;
+        $ok      = true;
         if (is_array($objects)) {
             foreach ($objects as $file) {
                 if ($file != '.' && $file != '..') {
@@ -1419,7 +1759,7 @@ function fm_get_mime_type($file_path)
 {
     if (function_exists('finfo_open')) {
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mime = finfo_file($finfo, $file_path);
+        $mime  = finfo_file($finfo, $file_path);
         finfo_close($finfo);
         return $mime;
     } elseif (function_exists('mime_content_type')) {
@@ -1453,7 +1793,10 @@ function fm_clean_path($path)
 {
     $path = trim($path);
     $path = trim($path, '\\/');
-    $path = str_replace(array('../', '..\\'), '', $path);
+    $path = str_replace(array(
+        '../',
+        '..\\'
+    ), '', $path);
     if ($path == '..') {
         $path = '';
     }
@@ -1511,8 +1854,8 @@ function fm_get_zif_info($path)
         if ($arch) {
             $filenames = array();
             while ($zip_entry = zip_read($arch)) {
-                $zip_name = zip_entry_name($zip_entry);
-                $zip_folder = substr($zip_name, -1) == '/';
+                $zip_name    = zip_entry_name($zip_entry);
+                $zip_folder  = substr($zip_name, -1) == '/';
                 $filenames[] = array(
                     'name' => $zip_name,
                     'filesize' => zip_entry_filesize($zip_entry),
@@ -1543,24 +1886,25 @@ function fm_enc($text)
  * @param string $dir
  * @return json
  */
-function scan($dir){
+function scan($dir)
+{
     $files = array();
-    $_dir = $dir;
-    $dir = FM_ROOT_PATH.'/'.$dir;
+    $_dir  = $dir;
+    $dir   = FM_ROOT_PATH . '/' . $dir;
     // Is there actually such a folder/file?
-    if(file_exists($dir)){
-        foreach(scandir($dir) as $f) {
-            if(!$f || $f[0] == '.') {
+    if (file_exists($dir)) {
+        foreach (scandir($dir) as $f) {
+            if (!$f || $f[0] == '.') {
                 continue; // Ignore hidden files
             }
-
-            if(is_dir($dir . '/' . $f)) {
+            
+            if (is_dir($dir . '/' . $f)) {
                 // The path is a folder
                 $files[] = array(
                     "name" => $f,
                     "type" => "folder",
-                    "path" => $_dir.'/'.$f,
-                    "items" => scan($dir . '/' . $f), // Recursively get the contents of the folder
+                    "path" => $_dir . '/' . $f,
+                    "items" => scan($dir . '/' . $f) // Recursively get the contents of the folder
                 );
             } else {
                 // It is a file
@@ -1577,64 +1921,71 @@ function scan($dir){
 }
 
 /**
-* Scan directory and return tree view
-* @param string $directory
-* @param boolean $first_call
-*/
-function php_file_tree_dir($directory, $first_call = true) {
-	// Recursive function called by php_file_tree() to list directories/files
-
-	$php_file_tree = "";
-	// Get and sort directories/files
-	if( function_exists("scandir") ) $file = scandir($directory);
-	natcasesort($file);
-	// Make directories first
-	$files = $dirs = array();
-	foreach($file as $this_file) {
-		if( is_dir("$directory/$this_file" ) ) {
-      if(!in_array($this_file, $GLOBALS['exclude_folders'])){
-          $dirs[] = $this_file;
-      }
-    } else {
-      $files[] = $this_file;
+ * Scan directory and return tree view
+ * @param string $directory
+ * @param boolean $first_call
+ */
+function php_file_tree_dir($directory, $first_call = true)
+{
+    // Recursive function called by php_file_tree() to list directories/files
+    
+    $php_file_tree = "";
+    // Get and sort directories/files
+    if (function_exists("scandir"))
+        $file = scandir($directory);
+    natcasesort($file);
+    // Make directories first
+    $files = $dirs = array();
+    foreach ($file as $this_file) {
+        if (is_dir("$directory/$this_file")) {
+            if (!in_array($this_file, $GLOBALS['exclude_folders'])) {
+                $dirs[] = $this_file;
+            }
+        } else {
+            $files[] = $this_file;
+        }
     }
-	}
-	$file = array_merge($dirs, $files);
-
-	if( count($file) > 2 ) { // Use 2 instead of 0 to account for . and .. "directories"
-		$php_file_tree = "<ul";
-		if( $first_call ) { $php_file_tree .= " class=\"php-file-tree\""; $first_call = false; }
-		$php_file_tree .= ">";
-		foreach( $file as $this_file ) {
-			if( $this_file != "." && $this_file != ".." ) {
-				if( is_dir("$directory/$this_file") ) {
-					// Directory
-					$php_file_tree .= "<li class=\"pft-directory\"><i class=\"fa fa-folder-o\"></i><a href=\"#\">" . htmlspecialchars($this_file) . "</a>";
-					$php_file_tree .= php_file_tree_dir("$directory/$this_file", false);
-					$php_file_tree .= "</li>";
-				} else {
-					// File
-                    $ext = fm_get_file_icon_class($this_file);
-                    $path = str_replace($_SERVER['DOCUMENT_ROOT'],"",$directory);
-					$link = "?p="."$path" ."&view=".urlencode($this_file);
-					$php_file_tree .= "<li class=\"pft-file\"><a href=\"$link\"> <i class=\"$ext\"></i>" . htmlspecialchars($this_file) . "</a></li>";
-				}
-			}
-		}
-		$php_file_tree .= "</ul>";
-	}
-	return $php_file_tree;
+    $file = array_merge($dirs, $files);
+    
+    if (count($file) > 2) { // Use 2 instead of 0 to account for . and .. "directories"
+        $php_file_tree = "<ul";
+        if ($first_call) {
+            $php_file_tree .= " class=\"php-file-tree\"";
+            $first_call = false;
+        }
+        $php_file_tree .= ">";
+        foreach ($file as $this_file) {
+            if ($this_file != "." && $this_file != "..") {
+                if (is_dir("$directory/$this_file")) {
+                    // Directory
+                    $php_file_tree .= "<li class=\"pft-directory\"><i class=\"fa fa-folder-o\"></i><a href=\"#\">" . htmlspecialchars($this_file) . "</a>";
+                    $php_file_tree .= php_file_tree_dir("$directory/$this_file", false);
+                    $php_file_tree .= "</li>";
+                } else {
+                    // File
+                    $ext  = fm_get_file_icon_class($this_file);
+                    $path = str_replace($_SERVER['DOCUMENT_ROOT'], "", $directory);
+                    $link = "?p=" . "$path" . "&view=" . urlencode($this_file);
+                    $php_file_tree .= "<li class=\"pft-file\"><a href=\"$link\"> <i class=\"$ext\"></i>" . htmlspecialchars($this_file) . "</a></li>";
+                }
+            }
+        }
+        $php_file_tree .= "</ul>";
+    }
+    return $php_file_tree;
 }
 
 /**
  * Scan directory and render tree view
  * @param string $directory
  */
-function php_file_tree($directory) {
+function php_file_tree($directory)
+{
     // Remove trailing slash
     $code = "";
-    if( substr($directory, -1) == "/" ) $directory = substr($directory, 0, strlen($directory) - 1);
-    if(function_exists('php_file_tree_dir')) {
+    if (substr($directory, -1) == "/")
+        $directory = substr($directory, 0, strlen($directory) - 1);
+    if (function_exists('php_file_tree_dir')) {
         $code .= php_file_tree_dir($directory);
         return $code;
     }
@@ -1648,7 +1999,7 @@ function php_file_tree($directory) {
 function fm_set_msg($msg, $status = 'ok')
 {
     $_SESSION['message'] = $msg;
-    $_SESSION['status'] = $status;
+    $_SESSION['status']  = $status;
 }
 
 /**
@@ -1683,52 +2034,123 @@ function fm_get_file_icon_class($path)
 {
     // get extension
     $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
-
+    
     switch ($ext) {
-        case 'ico': case 'gif': case 'jpg': case 'jpeg': case 'jpc': case 'jp2':
-        case 'jpx': case 'xbm': case 'wbmp': case 'png': case 'bmp': case 'tif':
-        case 'tiff': case 'svg':
+        case 'ico':
+        case 'gif':
+        case 'jpg':
+        case 'jpeg':
+        case 'jpc':
+        case 'jp2':
+        case 'jpx':
+        case 'xbm':
+        case 'wbmp':
+        case 'png':
+        case 'bmp':
+        case 'tif':
+        case 'tiff':
+        case 'svg':
             $img = 'fa fa-picture-o';
             break;
-        case 'passwd': case 'ftpquota': case 'sql': case 'js': case 'json': case 'sh':
-        case 'config': case 'twig': case 'tpl': case 'md': case 'gitignore':
-        case 'c': case 'cpp': case 'cs': case 'py': case 'map': case 'lock': case 'dtd':
+        case 'passwd':
+        case 'ftpquota':
+        case 'sql':
+        case 'js':
+        case 'json':
+        case 'sh':
+        case 'config':
+        case 'twig':
+        case 'tpl':
+        case 'md':
+        case 'gitignore':
+        case 'c':
+        case 'cpp':
+        case 'cs':
+        case 'py':
+        case 'map':
+        case 'lock':
+        case 'dtd':
             $img = 'fa fa-file-code-o';
             break;
-        case 'txt': case 'ini': case 'conf': case 'log': case 'htaccess':
+        case 'txt':
+        case 'ini':
+        case 'conf':
+        case 'log':
+        case 'htaccess':
             $img = 'fa fa-file-text-o';
             break;
-        case 'css': case 'less': case 'sass': case 'scss':
+        case 'css':
+        case 'less':
+        case 'sass':
+        case 'scss':
             $img = 'fa fa-css3';
             break;
-        case 'zip': case 'rar': case 'gz': case 'tar': case '7z':
+        case 'zip':
+        case 'rar':
+        case 'gz':
+        case 'tar':
+        case '7z':
             $img = 'fa fa-file-archive-o';
             break;
-        case 'php': case 'php4': case 'php5': case 'phps': case 'phtml':
+        case 'php':
+        case 'php4':
+        case 'php5':
+        case 'phps':
+        case 'phtml':
             $img = 'fa fa-code';
             break;
-        case 'htm': case 'html': case 'shtml': case 'xhtml':
+        case 'htm':
+        case 'html':
+        case 'shtml':
+        case 'xhtml':
             $img = 'fa fa-html5';
             break;
-        case 'xml': case 'xsl':
+        case 'xml':
+        case 'xsl':
             $img = 'fa fa-file-excel-o';
             break;
-        case 'wav': case 'mp3': case 'mp2': case 'm4a': case 'aac': case 'ogg':
-        case 'oga': case 'wma': case 'mka': case 'flac': case 'ac3': case 'tds':
+        case 'wav':
+        case 'mp3':
+        case 'mp2':
+        case 'm4a':
+        case 'aac':
+        case 'ogg':
+        case 'oga':
+        case 'wma':
+        case 'mka':
+        case 'flac':
+        case 'ac3':
+        case 'tds':
             $img = 'fa fa-music';
             break;
-        case 'm3u': case 'm3u8': case 'pls': case 'cue':
+        case 'm3u':
+        case 'm3u8':
+        case 'pls':
+        case 'cue':
             $img = 'fa fa-headphones';
             break;
-        case 'avi': case 'mpg': case 'mpeg': case 'mp4': case 'm4v': case 'flv':
-        case 'f4v': case 'ogm': case 'ogv': case 'mov': case 'mkv': case '3gp':
-        case 'asf': case 'wmv':
+        case 'avi':
+        case 'mpg':
+        case 'mpeg':
+        case 'mp4':
+        case 'm4v':
+        case 'flv':
+        case 'f4v':
+        case 'ogm':
+        case 'ogv':
+        case 'mov':
+        case 'mkv':
+        case '3gp':
+        case 'asf':
+        case 'wmv':
             $img = 'fa fa-file-video-o';
             break;
-        case 'eml': case 'msg':
+        case 'eml':
+        case 'msg':
             $img = 'fa fa-envelope-o';
             break;
-        case 'xls': case 'xlsx':
+        case 'xls':
+        case 'xlsx':
             $img = 'fa fa-file-excel-o';
             break;
         case 'csv':
@@ -1737,22 +2159,35 @@ function fm_get_file_icon_class($path)
         case 'bak':
             $img = 'fa fa-clipboard';
             break;
-        case 'doc': case 'docx':
+        case 'doc':
+        case 'docx':
             $img = 'fa fa-file-word-o';
             break;
-        case 'ppt': case 'pptx':
+        case 'ppt':
+        case 'pptx':
             $img = 'fa fa-file-powerpoint-o';
             break;
-        case 'ttf': case 'ttc': case 'otf': case 'woff':case 'woff2': case 'eot': case 'fon':
+        case 'ttf':
+        case 'ttc':
+        case 'otf':
+        case 'woff':
+        case 'woff2':
+        case 'eot':
+        case 'fon':
             $img = 'fa fa-font';
             break;
         case 'pdf':
             $img = 'fa fa-file-pdf-o';
             break;
-        case 'psd': case 'ai': case 'eps': case 'fla': case 'swf':
+        case 'psd':
+        case 'ai':
+        case 'eps':
+        case 'fla':
+        case 'swf':
             $img = 'fa fa-file-image-o';
             break;
-        case 'exe': case 'msi':
+        case 'exe':
+        case 'msi':
             $img = 'fa fa-file-o';
             break;
         case 'bat':
@@ -1761,7 +2196,7 @@ function fm_get_file_icon_class($path)
         default:
             $img = 'fa fa-info-circle';
     }
-
+    
     return $img;
 }
 
@@ -1817,7 +2252,7 @@ function fm_get_text_mimes()
         'application/javascript',
         'application/x-javascript',
         'image/svg+xml',
-        'message/rfc822',
+        'message/rfc822'
     );
 }
 
@@ -1832,7 +2267,7 @@ function fm_get_text_names()
         'readme',
         'authors',
         'contributors',
-        'changelog',
+        'changelog'
     );
 }
 
@@ -1842,12 +2277,12 @@ function fm_get_text_names()
 class FM_Zipper
 {
     private $zip;
-
+    
     public function __construct()
     {
         $this->zip = new ZipArchive();
     }
-
+    
     /**
      * Create archive with name $filename and files $files (RELATIVE PATHS!)
      * @param string $filename
@@ -1877,7 +2312,7 @@ class FM_Zipper
             return false;
         }
     }
-
+    
     /**
      * Extract archive $filename to folder $path (RELATIVE OR ABSOLUTE PATHS)
      * @param string $filename
@@ -1896,7 +2331,7 @@ class FM_Zipper
         }
         return false;
     }
-
+    
     /**
      * Add file/folder to archive
      * @param string $filename
@@ -1911,7 +2346,7 @@ class FM_Zipper
         }
         return false;
     }
-
+    
     /**
      * Add folder recursively
      * @param string $path
@@ -1952,35 +2387,33 @@ class FM_Zipper
 function fm_show_nav_path($path)
 {
     global $lang;
-    ?>
-<div class="path main-nav">
-
-        <?php
-        $path = fm_clean_path($path);
-        $root_url = "<a href='?p='><i class='fa fa-home' aria-hidden='true' title='" . FM_ROOT_PATH . "'></i></a>";
-        $sep = '<i class="fa fa-caret-right"></i>';
-        if ($path != '') {
-            $exploded = explode('/', $path);
-            $count = count($exploded);
-            $array = array();
-            $parent = '';
-            for ($i = 0; $i < $count; $i++) {
-                $parent = trim($parent . '/' . $exploded[$i], '/');
-                $parent_enc = urlencode($parent);
-                $array[] = "<a href='?p={$parent_enc}'>" . fm_enc(fm_convert_win($exploded[$i])) . "</a>";
-            }
-            $root_url .= $sep . implode($sep, $array);
+?>
+    <div class="path main-nav">
+<?php
+    $path     = fm_clean_path($path);
+    $root_url = "<a href='?p='><i class='fa fa-home' aria-hidden='true' title='" . FM_ROOT_PATH . "'></i></a>";
+    $sep      = '<i class="fa fa-caret-right"></i>';
+    if ($path != '') {
+        $exploded = explode('/', $path);
+        $count    = count($exploded);
+        $array    = array();
+        $parent   = '';
+        for ($i = 0; $i < $count; $i++) {
+            $parent     = trim($parent . '/' . $exploded[$i], '/');
+            $parent_enc = urlencode($parent);
+            $array[]    = "<a href='?p={$parent_enc}'>" . fm_enc(fm_convert_win($exploded[$i])) . "</a>";
         }
-        echo '<div class="break-word float-left">' . $root_url . '</div>';
-        ?>
-
+        $root_url .= $sep . implode($sep, $array);
+    }
+    echo '<div class="break-word float-left">' . $root_url . '</div>';
+?>
         <div class="float-right">
         <?php if (!FM_READONLY): ?>
-        <a title="Search" href="javascript:showSearch('<?php echo urlencode(FM_PATH) ?>')"><i class="fa fa-search"></i></a>
-        <a title="Upload files" href="?p=<?php echo urlencode(FM_PATH) ?>&amp;upload"><i class="fa fa-cloud-upload" aria-hidden="true"></i></a>
-        <a title="New folder" href="#createNewItem" ><i class="fa fa-plus-square"></i></a>
+            <a title="Search" href="javascript:showSearch('<?php echo urlencode(FM_PATH);?>')"><i class="fa fa-search"></i></a>
+            <a title="Upload files" href="?p=<?php echo urlencode(FM_PATH); ?>&amp;upload"><i class="fa fa-cloud-upload" aria-hidden="true"></i></a>
+            <a title="New folder" href="#createNewItem" ><i class="fa fa-plus-square"></i></a>
         <?php endif; ?>
-        <?php if (FM_USE_AUTH): ?><a title="Logout" href="?logout=1"><i class="fa fa-sign-out" aria-hidden="true"></i></a><?php endif; ?>
+        <?php if (FM_USE_AUTH):?><a title="Logout" href="?logout=1"><i class="fa fa-sign-out" aria-hidden="true"></i></a><?php endif;?>
         </div>
 </div>
 <?php
@@ -2009,31 +2442,30 @@ function fm_show_header_login()
     header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
     header("Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0");
     header("Pragma: no-cache");
-
+    
     global $lang;
-    ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>File Manager</title>
-    <meta charset="utf-8">
-    <meta name="Description" CONTENT="Author: CCP Programmers, Tiny PHP File Manager">
-    <meta name="robots" content="noindex,nofollow" />
-    <meta name="googlebot" content="noindex" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="HandheldFriendly" content="true" />
-    <meta name="renderer" content="webkit" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="viewport" content="user-scalable=no,width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0" />
-    <link rel="icon" href="<?php echo FM_SELF_URL ?>?img=favicon" type="image/png">
-    <link rel="shortcut icon" href="<?php echo FM_SELF_URL ?>?img=favicon" type="image/png">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-    <style type="text/css">a img,img{border:none}.filename,td,th{white-space:nowrap}.close,.close:focus,.close:hover,.php-file-tree a,a{text-decoration:none}a,body,code,div,em,form,html,img,label,li,ol,p,pre,small,span,strong,table,td,th,tr,ul{margin:0;padding:0;vertical-align:baseline;outline:0;font-size:100%;background:0 0;border:none;text-decoration:none}p,table,ul{margin-bottom:10px}html{overflow-y:scroll}body{padding:0;font:13px/16px Tahoma,Arial,sans-serif;color:#222;background:#F7F7F7;margin:50px 30px 0}button,input,select,textarea{font-size:inherit;font-family:inherit}a{color:#296ea3}a:hover{color:#b00}img{vertical-align:middle}span{color:#777}small{font-size:11px;color:#999}ul{list-style-type:none;margin-left:0}ul li{padding:3px 0}table{border-collapse:collapse;border-spacing:0;width:100%}.file-tree-view+#main-table{width:75%!important;float:left}td,th{padding:4px 7px;text-align:left;vertical-align:top;border:1px solid #ddd;background:#fff}td.gray,th{background-color:#eee}td.gray span{color:#222}tr:hover td{background-color:#f5f5f5}tr:hover td.gray{background-color:#eee}.table{width:100%;max-width:100%;margin-bottom:1rem}.table td,.table th{padding:.55rem;vertical-align:top;border-top:1px solid #ddd}.table thead th{vertical-align:bottom;border-bottom:2px solid #eceeef}.table tbody+tbody{border-top:2px solid #eceeef}.table .table{background-color:#fff}code,pre{display:block;margin-bottom:10px;font:13px/16px Consolas,'Courier New',Courier,monospace;border:1px dashed #ccc;padding:5px;overflow:auto}.hidden,.modal{display:none}.btn,.close{font-weight:700}pre.with-hljs{padding:0}pre.with-hljs code{margin:0;border:0;overflow:visible}code.maxheight,pre.maxheight{max-height:512px}input[type=checkbox]{margin:0;padding:0}.message,.path{padding:4px 7px;border:1px solid #ddd;background-color:#fff}.fa.fa-caret-right{font-size:1.2em;margin:0 4px;vertical-align:middle;color:#ececec}.fa.fa-home{font-size:1.2em;vertical-align:bottom}#wrapper{min-width:400px;margin:0 auto}.path{margin-bottom:10px}.right{text-align:right}.center,.close,.login-form{text-align:center}.float-right{float:right}.float-left{float:left}.message.ok{border-color:green;color:green}.message.error{border-color:red;color:red}.message.alert{border-color:orange;color:orange}.btn{border:0;background:0 0;padding:0;margin:0;color:#296ea3;cursor:pointer}.btn:hover{color:#b00}.preview-img{max-width:100%;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAKklEQVR42mL5//8/Azbw+PFjrOJMDCSCUQ3EABZc4S0rKzsaSvTTABBgAMyfCMsY4B9iAAAAAElFTkSuQmCC)}.inline-actions>a>i{font-size:1em;margin-left:5px;background:#3785c1;color:#fff;padding:3px;border-radius:3px}.preview-video{position:relative;max-width:100%;height:0;padding-bottom:62.5%;margin-bottom:10px}.preview-video video{position:absolute;width:100%;height:100%;left:0;top:0;background:#000}.compact-table{border:0;width:auto}.compact-table td,.compact-table th{width:100px;border:0;text-align:center}.compact-table tr:hover td{background-color:#fff}.filename{max-width:420px;overflow:hidden;text-overflow:ellipsis}.break-word{word-wrap:break-word;margin-left:30px}.break-word.float-left a{color:#7d7d7d}.break-word+.float-right{padding-right:30px;position:relative}.break-word+.float-right>a{color:#7d7d7d;font-size:1.2em;margin-right:4px}.modal{position:fixed;z-index:1;padding-top:100px;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:#000;background-color:rgba(0,0,0,.4)}#editor,.edit-file-actions{position:absolute;right:30px}.modal-content{background-color:#fefefe;margin:auto;padding:20px;border:1px solid #888;width:80%}.close:focus,.close:hover{color:#000;cursor:pointer}#editor{top:50px;bottom:5px;left:30px}.edit-file-actions{top:0;background:#fff;margin-top:5px}.edit-file-actions>a,.edit-file-actions>button{background:#fff;padding:5px 15px;cursor:pointer;color:#296ea3;border:1px solid #296ea3}.group-btn{background:#fff;padding:2px 6px;border:1px solid;cursor:pointer;color:#296ea3}.main-nav{position:fixed;top:0;left:0;padding:10px 30px 10px 1px;width:100%;background:#fff;color:#000;border:0;box-shadow:0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12),0 2px 4px -1px rgba(0,0,0,.2)}.login-form{width:320px;margin:0 auto;box-shadow:0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12),0 5px 5px -3px rgba(0,0,0,.2)}.login-form label,.path.login-form input{padding:8px;margin:10px}.footer-links{background:0 0;border:0;clear:both}select[name=lang]{border:none;position:relative;text-transform:uppercase;left:-30%;top:12px;color:silver}input[type=search]{height:30px;margin:5px;width:80%;border:1px solid #ccc}.path.login-form input[type=submit]{background-color:#4285f4;color:#fff;border:1px solid;border-radius:2px;font-weight:700;cursor:pointer}.modalDialog{position:fixed;font-family:Arial,Helvetica,sans-serif;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,.8);z-index:99999;opacity:0;-webkit-transition:opacity .4s ease-in;-moz-transition:opacity .4s ease-in;transition:opacity .4s ease-in;pointer-events:none}.modalDialog:target{opacity:1;pointer-events:auto}.modalDialog>.model-wrapper{max-width:400px;position:relative;margin:10% auto;padding:15px;border-radius:2px;background:#fff}.close{float:right;background:#fff;color:#000;line-height:25px;position:absolute;right:0;top:0;width:24px;border-radius:0 5px 0 0;font-size:18px}.close:hover{background:#e4e4e4}.modalDialog p{line-height:30px}div#searchresultWrapper{max-height:320px;overflow:auto}div#searchresultWrapper li{margin:8px 0;list-style:none}li.file:before,li.folder:before{font:normal normal normal 14px/1 FontAwesome;content:"\f016";margin-right:5px}li.folder:before{content:"\f114"}i.fa.fa-folder-o{color:#eeaf4b}i.fa.fa-picture-o{color:#26b99a}i.fa.fa-file-archive-o{color:#da7d7d}.footer-links i.fa.fa-file-archive-o{color:#296ea3}i.fa.fa-css3{color:#f36fa0}i.fa.fa-file-code-o{color:#ec6630}i.fa.fa-code{color:#cc4b4c}i.fa.fa-file-text-o{color:#0096e6}i.fa.fa-html5{color:#d75e72}i.fa.fa-file-excel-o{color:#09c55d}i.fa.fa-file-powerpoint-o{color:#f6712e}.file-tree-view{width:24%;float:left;overflow:auto;border:1px solid #ddd;border-right:0;background:#fff}.file-tree-view .tree-title{background:#eee;padding:9px 2px 9px 10px;font-weight:700}.file-tree-view ul{margin-left:15px;margin-bottom:0}.file-tree-view i{padding-right:3px}.php-file-tree{font-size:100%;letter-spacing:1px;line-height:1.5;margin-left:5px!important}.php-file-tree a{color:#296ea3}.php-file-tree A:hover{color:#b00}.php-file-tree .open{font-style:italic;color:#2183ce}.php-file-tree .closed{font-style:normal}#file-tree-view::-webkit-scrollbar{width:10px;background-color:#F5F5F5}#file-tree-view::-webkit-scrollbar-track{border-radius:10px;background:rgba(0,0,0,.1);border:1px solid #ccc}#file-tree-view::-webkit-scrollbar-thumb{border-radius:10px;background:linear-gradient(left,#fff,#e4e4e4);border:1px solid #aaa}#file-tree-view::-webkit-scrollbar-thumb:hover{background:#fff}#file-tree-view::-webkit-scrollbar-thumb:active{background:linear-gradient(left,#22ADD4,#1E98BA)}.dropzone.dz-message{margin:3.3em 0}</style>
-</head>
-<body>
-<div id="wrapper">
-
+?>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>File Manager</title>
+        <meta charset="utf-8">
+        <meta name="Description" CONTENT="Author: CCP Programmers, Tiny PHP File Manager">
+        <meta name="robots" content="noindex,nofollow" />
+        <meta name="googlebot" content="noindex" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="HandheldFriendly" content="true" />
+        <meta name="renderer" content="webkit" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="viewport" content="user-scalable=no,width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0" />
+        <link rel="icon" href="<?php echo FM_SELF_URL;?>?img=favicon" type="image/png">
+        <link rel="shortcut icon" href="<?php echo FM_SELF_URL;?>?img=favicon" type="image/png"/>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+        <style type="text/css">a img,img{border:none}.filename,td,th{white-space:nowrap}.close,.close:focus,.close:hover,.php-file-tree a,a{text-decoration:none}a,body,code,div,em,form,html,img,label,li,ol,p,pre,small,span,strong,table,td,th,tr,ul{margin:0;padding:0;vertical-align:baseline;outline:0;font-size:100%;background:0 0;border:none;text-decoration:none}p,table,ul{margin-bottom:10px}html{overflow-y:scroll}body{padding:0;font:13px/16px Tahoma,Arial,sans-serif;color:#222;background:#F7F7F7;margin:50px 30px 0}button,input,select,textarea{font-size:inherit;font-family:inherit}a{color:#296ea3}a:hover{color:#b00}img{vertical-align:middle}span{color:#777}small{font-size:11px;color:#999}ul{list-style-type:none;margin-left:0}ul li{padding:3px 0}table{border-collapse:collapse;border-spacing:0;width:100%}.file-tree-view+#main-table{width:75%!important;float:left}td,th{padding:4px 7px;text-align:left;vertical-align:top;border:1px solid #ddd;background:#fff}td.gray,th{background-color:#eee}td.gray span{color:#222}tr:hover td{background-color:#f5f5f5}tr:hover td.gray{background-color:#eee}.table{width:100%;max-width:100%;margin-bottom:1rem}.table td,.table th{padding:.55rem;vertical-align:top;border-top:1px solid #ddd}.table thead th{vertical-align:bottom;border-bottom:2px solid #eceeef}.table tbody+tbody{border-top:2px solid #eceeef}.table .table{background-color:#fff}code,pre{display:block;margin-bottom:10px;font:13px/16px Consolas,'Courier New',Courier,monospace;border:1px dashed #ccc;padding:5px;overflow:auto}.hidden,.modal{display:none}.btn,.close{font-weight:700}pre.with-hljs{padding:0}pre.with-hljs code{margin:0;border:0;overflow:visible}code.maxheight,pre.maxheight{max-height:512px}input[type=checkbox]{margin:0;padding:0}.message,.path{padding:4px 7px;border:1px solid #ddd;background-color:#fff}.fa.fa-caret-right{font-size:1.2em;margin:0 4px;vertical-align:middle;color:#ececec}.fa.fa-home{font-size:1.2em;vertical-align:bottom}#wrapper{min-width:400px;margin:0 auto}.path{margin-bottom:10px}.right{text-align:right}.center,.close,.login-form{text-align:center}.float-right{float:right}.float-left{float:left}.message.ok{border-color:green;color:green}.message.error{border-color:red;color:red}.message.alert{border-color:orange;color:orange}.btn{border:0;background:0 0;padding:0;margin:0;color:#296ea3;cursor:pointer}.btn:hover{color:#b00}.preview-img{max-width:100%;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAKklEQVR42mL5//8/Azbw+PFjrOJMDCSCUQ3EABZc4S0rKzsaSvTTABBgAMyfCMsY4B9iAAAAAElFTkSuQmCC)}.inline-actions>a>i{font-size:1em;margin-left:5px;background:#3785c1;color:#fff;padding:3px;border-radius:3px}.preview-video{position:relative;max-width:100%;height:0;padding-bottom:62.5%;margin-bottom:10px}.preview-video video{position:absolute;width:100%;height:100%;left:0;top:0;background:#000}.compact-table{border:0;width:auto}.compact-table td,.compact-table th{width:100px;border:0;text-align:center}.compact-table tr:hover td{background-color:#fff}.filename{max-width:420px;overflow:hidden;text-overflow:ellipsis}.break-word{word-wrap:break-word;margin-left:30px}.break-word.float-left a{color:#7d7d7d}.break-word+.float-right{padding-right:30px;position:relative}.break-word+.float-right>a{color:#7d7d7d;font-size:1.2em;margin-right:4px}.modal{position:fixed;z-index:1;padding-top:100px;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:#000;background-color:rgba(0,0,0,.4)}#editor,.edit-file-actions{position:absolute;right:30px}.modal-content{background-color:#fefefe;margin:auto;padding:20px;border:1px solid #888;width:80%}.close:focus,.close:hover{color:#000;cursor:pointer}#editor{top:50px;bottom:5px;left:30px}.edit-file-actions{top:0;background:#fff;margin-top:5px}.edit-file-actions>a,.edit-file-actions>button{background:#fff;padding:5px 15px;cursor:pointer;color:#296ea3;border:1px solid #296ea3}.group-btn{background:#fff;padding:2px 6px;border:1px solid;cursor:pointer;color:#296ea3}.main-nav{position:fixed;top:0;left:0;padding:10px 30px 10px 1px;width:100%;background:#fff;color:#000;border:0;box-shadow:0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12),0 2px 4px -1px rgba(0,0,0,.2)}.login-form{width:320px;margin:0 auto;box-shadow:0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12),0 5px 5px -3px rgba(0,0,0,.2)}.login-form label,.path.login-form input{padding:8px;margin:10px}.footer-links{background:0 0;border:0;clear:both}select[name=lang]{border:none;position:relative;text-transform:uppercase;left:-30%;top:12px;color:silver}input[type=search]{height:30px;margin:5px;width:80%;border:1px solid #ccc}.path.login-form input[type=submit]{background-color:#4285f4;color:#fff;border:1px solid;border-radius:2px;font-weight:700;cursor:pointer}.modalDialog{position:fixed;font-family:Arial,Helvetica,sans-serif;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,.8);z-index:99999;opacity:0;-webkit-transition:opacity .4s ease-in;-moz-transition:opacity .4s ease-in;transition:opacity .4s ease-in;pointer-events:none}.modalDialog:target{opacity:1;pointer-events:auto}.modalDialog>.model-wrapper{max-width:400px;position:relative;margin:10% auto;padding:15px;border-radius:2px;background:#fff}.close{float:right;background:#fff;color:#000;line-height:25px;position:absolute;right:0;top:0;width:24px;border-radius:0 5px 0 0;font-size:18px}.close:hover{background:#e4e4e4}.modalDialog p{line-height:30px}div#searchresultWrapper{max-height:320px;overflow:auto}div#searchresultWrapper li{margin:8px 0;list-style:none}li.file:before,li.folder:before{font:normal normal normal 14px/1 FontAwesome;content:"\f016";margin-right:5px}li.folder:before{content:"\f114"}i.fa.fa-folder-o{color:#eeaf4b}i.fa.fa-picture-o{color:#26b99a}i.fa.fa-file-archive-o{color:#da7d7d}.footer-links i.fa.fa-file-archive-o{color:#296ea3}i.fa.fa-css3{color:#f36fa0}i.fa.fa-file-code-o{color:#ec6630}i.fa.fa-code{color:#cc4b4c}i.fa.fa-file-text-o{color:#0096e6}i.fa.fa-html5{color:#d75e72}i.fa.fa-file-excel-o{color:#09c55d}i.fa.fa-file-powerpoint-o{color:#f6712e}.file-tree-view{width:24%;float:left;overflow:auto;border:1px solid #ddd;border-right:0;background:#fff}.file-tree-view .tree-title{background:#eee;padding:9px 2px 9px 10px;font-weight:700}.file-tree-view ul{margin-left:15px;margin-bottom:0}.file-tree-view i{padding-right:3px}.php-file-tree{font-size:100%;letter-spacing:1px;line-height:1.5;margin-left:5px!important}.php-file-tree a{color:#296ea3}.php-file-tree A:hover{color:#b00}.php-file-tree .open{font-style:italic;color:#2183ce}.php-file-tree .closed{font-style:normal}#file-tree-view::-webkit-scrollbar{width:10px;background-color:#F5F5F5}#file-tree-view::-webkit-scrollbar-track{border-radius:10px;background:rgba(0,0,0,.1);border:1px solid #ccc}#file-tree-view::-webkit-scrollbar-thumb{border-radius:10px;background:linear-gradient(left,#fff,#e4e4e4);border:1px solid #aaa}#file-tree-view::-webkit-scrollbar-thumb:hover{background:#fff}#file-tree-view::-webkit-scrollbar-thumb:active{background:linear-gradient(left,#22ADD4,#1E98BA)}.dropzone.dz-message{margin:3.3em 0}</style>
+    </head>
+    <body>
+        <div id="wrapper">
 <?php
 }
 
@@ -2042,7 +2474,7 @@ function fm_show_header_login()
  */
 function fm_show_footer_login()
 {
-    ?>
+?>
 </div>
 </body>
 </html>
@@ -2059,41 +2491,42 @@ function fm_show_header()
     header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
     header("Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0");
     header("Pragma: no-cache");
-
+    
     global $lang;
-    ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>File Manager</title>
-    <meta charset="utf-8">
-    <meta name="Description" CONTENT="Author: CCP Programmers, Tiny PHP File Manager">
-    <meta name="robots" content="noindex,nofollow" />
-    <meta name="googlebot" content="noindex" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="HandheldFriendly" content="true" />
-    <meta name="renderer" content="webkit" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="viewport" content="user-scalable=no,width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0" />
-    <link rel="icon" href="<?php echo FM_SELF_URL ?>?img=favicon" type="image/png">
-    <link rel="shortcut icon" href="<?php echo FM_SELF_URL ?>?img=favicon" type="image/png">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-    <?php if (isset($_GET['view']) && FM_USE_HIGHLIGHTJS): ?>
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/<?php echo FM_HIGHLIGHTJS_STYLE ?>.min.css">
-    <?php endif; ?>
-    <style type="text/css">a img,img{border:none}.filename,td,th{white-space:nowrap}.close,.close:focus,.close:hover,.php-file-tree a,a{text-decoration:none}a,body,code,div,em,form,html,img,label,li,ol,p,pre,small,span,strong,table,td,th,tr,ul{margin:0;padding:0;vertical-align:baseline;outline:0;font-size:100%;background:0 0;border:none;text-decoration:none}p,table,ul{margin-bottom:10px}html{overflow-y:scroll}body{padding:0;font:13px/16px Tahoma,Arial,sans-serif;color:#222;background:#F7F7F7;margin:50px 30px 0}button,input,select,textarea{font-size:inherit;font-family:inherit}a{color:#296ea3}a:hover{color:#b00}img{vertical-align:middle}span{color:#777}small{font-size:11px;color:#999}ul{list-style-type:none;margin-left:0}ul li{padding:3px 0}table{border-collapse:collapse;border-spacing:0;width:100%}.file-tree-view+#main-table{width:75%!important;float:left}td,th{padding:4px 7px;text-align:left;vertical-align:top;border:1px solid #ddd;background:#fff}td.gray,th{background-color:#eee}td.gray span{color:#222}tr:hover td{background-color:#f5f5f5}tr:hover td.gray{background-color:#eee}.table{width:100%;max-width:100%;margin-bottom:1rem}.table td,.table th{padding:.55rem;vertical-align:top;border-top:1px solid #ddd}.table thead th{vertical-align:bottom;border-bottom:2px solid #eceeef}.table tbody+tbody{border-top:2px solid #eceeef}.table .table{background-color:#fff}code,pre{display:block;margin-bottom:10px;font:13px/16px Consolas,'Courier New',Courier,monospace;border:1px dashed #ccc;padding:5px;overflow:auto}.hidden,.modal{display:none}.btn,.close{font-weight:700}pre.with-hljs{padding:0}pre.with-hljs code{margin:0;border:0;overflow:visible}code.maxheight,pre.maxheight{max-height:512px}input[type=checkbox]{margin:0;padding:0}.message,.path{padding:4px 7px;border:1px solid #ddd;background-color:#fff}.fa.fa-caret-right{font-size:1.2em;margin:0 4px;vertical-align:middle;color:#ececec}.fa.fa-home{font-size:1.2em;vertical-align:bottom}#wrapper{min-width:400px;margin:0 auto}.path{margin-bottom:10px}.right{text-align:right}.center,.close,.login-form{text-align:center}.float-right{float:right}.float-left{float:left}.message.ok{border-color:green;color:green}.message.error{border-color:red;color:red}.message.alert{border-color:orange;color:orange}.btn{border:0;background:0 0;padding:0;margin:0;color:#296ea3;cursor:pointer}.btn:hover{color:#b00}.preview-img{max-width:100%;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAKklEQVR42mL5//8/Azbw+PFjrOJMDCSCUQ3EABZc4S0rKzsaSvTTABBgAMyfCMsY4B9iAAAAAElFTkSuQmCC)}.inline-actions>a>i{font-size:1em;margin-left:5px;background:#3785c1;color:#fff;padding:3px;border-radius:3px}.preview-video{position:relative;max-width:100%;height:0;padding-bottom:62.5%;margin-bottom:10px}.preview-video video{position:absolute;width:100%;height:100%;left:0;top:0;background:#000}.compact-table{border:0;width:auto}.compact-table td,.compact-table th{width:100px;border:0;text-align:center}.compact-table tr:hover td{background-color:#fff}.filename{max-width:420px;overflow:hidden;text-overflow:ellipsis}.break-word{word-wrap:break-word;margin-left:30px}.break-word.float-left a{color:#7d7d7d}.break-word+.float-right{padding-right:30px;position:relative}.break-word+.float-right>a{color:#7d7d7d;font-size:1.2em;margin-right:4px}.modal{position:fixed;z-index:1;padding-top:100px;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:#000;background-color:rgba(0,0,0,.4)}#editor,.edit-file-actions{position:absolute;right:30px}.modal-content{background-color:#fefefe;margin:auto;padding:20px;border:1px solid #888;width:80%}.close:focus,.close:hover{color:#000;cursor:pointer}#editor{top:50px;bottom:5px;left:30px}.edit-file-actions{top:0;background:#fff;margin-top:5px}.edit-file-actions>a,.edit-file-actions>button{background:#fff;padding:5px 15px;cursor:pointer;color:#296ea3;border:1px solid #296ea3}.group-btn{background:#fff;padding:2px 6px;border:1px solid;cursor:pointer;color:#296ea3}.main-nav{position:fixed;top:0;left:0;padding:10px 30px 10px 1px;width:100%;background:#fff;color:#000;border:0;box-shadow:0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12),0 2px 4px -1px rgba(0,0,0,.2)}.login-form{width:320px;margin:0 auto;box-shadow:0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12),0 5px 5px -3px rgba(0,0,0,.2)}.login-form label,.path.login-form input{padding:8px;margin:10px}.footer-links{background:0 0;border:0;clear:both}select[name=lang]{border:none;position:relative;text-transform:uppercase;left:-30%;top:12px;color:silver}input[type=search]{height:30px;margin:5px;width:80%;border:1px solid #ccc}.path.login-form input[type=submit]{background-color:#4285f4;color:#fff;border:1px solid;border-radius:2px;font-weight:700;cursor:pointer}.modalDialog{position:fixed;font-family:Arial,Helvetica,sans-serif;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,.8);z-index:99999;opacity:0;-webkit-transition:opacity .4s ease-in;-moz-transition:opacity .4s ease-in;transition:opacity .4s ease-in;pointer-events:none}.modalDialog:target{opacity:1;pointer-events:auto}.modalDialog>.model-wrapper{max-width:400px;position:relative;margin:10% auto;padding:15px;border-radius:2px;background:#fff}.close{float:right;background:#fff;color:#000;line-height:25px;position:absolute;right:0;top:0;width:24px;border-radius:0 5px 0 0;font-size:18px}.close:hover{background:#e4e4e4}.modalDialog p{line-height:30px}div#searchresultWrapper{max-height:320px;overflow:auto}div#searchresultWrapper li{margin:8px 0;list-style:none}li.file:before,li.folder:before{font:normal normal normal 14px/1 FontAwesome;content:"\f016";margin-right:5px}li.folder:before{content:"\f114"}i.fa.fa-folder-o{color:#eeaf4b}i.fa.fa-picture-o{color:#26b99a}i.fa.fa-file-archive-o{color:#da7d7d}.footer-links i.fa.fa-file-archive-o{color:#296ea3}i.fa.fa-css3{color:#f36fa0}i.fa.fa-file-code-o{color:#ec6630}i.fa.fa-code{color:#cc4b4c}i.fa.fa-file-text-o{color:#0096e6}i.fa.fa-html5{color:#d75e72}i.fa.fa-file-excel-o{color:#09c55d}i.fa.fa-file-powerpoint-o{color:#f6712e}.file-tree-view{width:24%;float:left;overflow:auto;border:1px solid #ddd;border-right:0;background:#fff}.file-tree-view .tree-title{background:#eee;padding:9px 2px 9px 10px;font-weight:700}.file-tree-view ul{margin-left:15px;margin-bottom:0}.file-tree-view i{padding-right:3px}.php-file-tree{font-size:100%;letter-spacing:1px;line-height:1.5;margin-left:5px!important}.php-file-tree a{color:#296ea3}.php-file-tree A:hover{color:#b00}.php-file-tree .open{font-style:italic;color:#2183ce}.php-file-tree .closed{font-style:normal}#file-tree-view::-webkit-scrollbar{width:10px;background-color:#F5F5F5}#file-tree-view::-webkit-scrollbar-track{border-radius:10px;background:rgba(0,0,0,.1);border:1px solid #ccc}#file-tree-view::-webkit-scrollbar-thumb{border-radius:10px;background:linear-gradient(left,#fff,#e4e4e4);border:1px solid #aaa}#file-tree-view::-webkit-scrollbar-thumb:hover{background:#fff}#file-tree-view::-webkit-scrollbar-thumb:active{background:linear-gradient(left,#22ADD4,#1E98BA)}</style>
-</head>
-<body>
-<div id="wrapper">
-  <div id="createNewItem" class="modalDialog"><div class="model-wrapper"><a href="#close" title="Close" class="close">X</a><h2>Create New Item</h2><p>
-        <label for="newfile">Item Type &nbsp; : </label><input type="radio" name="newfile" id="newfile" value="file">File <input type="radio" name="newfile" value="folder" checked> Folder<br><label for="newfilename">Item Name : </label><input type="text" name="newfilename" id="newfilename" value=""><br>
-        <input type="submit" name="submit" class="group-btn" value="Create Now" onclick="newfolder('<?php echo fm_enc(FM_PATH) ?>');return false;"></p></div></div>
-    <div id="searchResult" class="modalDialog"><div class="model-wrapper"><a href="#close" title="Close" class="close">X</a>
-    <input type="search" name="search" value="" placeholder="Find a item in current folder...">
-    <h2>Search Results</h2>
-    <div id="searchresultWrapper"></div>
-    </div></div>
+?>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>File Manager</title>
+        <meta charset="utf-8">
+        <meta name="Description" CONTENT="Author: CCP Programmers, Tiny PHP File Manager">
+        <meta name="robots" content="noindex,nofollow" />
+        <meta name="googlebot" content="noindex" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="HandheldFriendly" content="true" />
+        <meta name="renderer" content="webkit" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="viewport" content="user-scalable=no,width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0" />
+        <link rel="icon" href="<?php echo FM_SELF_URL;?>?img=favicon" type="image/png">
+        <link rel="shortcut icon" href="<?php echo FM_SELF_URL;?>?img=favicon" type="image/png">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+        <?php if (isset($_GET['view']) && FM_USE_HIGHLIGHTJS):?>
+            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/<?php echo FM_HIGHLIGHTJS_STYLE;?>.min.css">
+        <?php endif;?>
+        <style type="text/css">a img,img{border:none}.filename,td,th{white-space:nowrap}.close,.close:focus,.close:hover,.php-file-tree a,a{text-decoration:none}a,body,code,div,em,form,html,img,label,li,ol,p,pre,small,span,strong,table,td,th,tr,ul{margin:0;padding:0;vertical-align:baseline;outline:0;font-size:100%;background:0 0;border:none;text-decoration:none}p,table,ul{margin-bottom:10px}html{overflow-y:scroll}body{padding:0;font:13px/16px Tahoma,Arial,sans-serif;color:#222;background:#F7F7F7;margin:50px 30px 0}button,input,select,textarea{font-size:inherit;font-family:inherit}a{color:#296ea3}a:hover{color:#b00}img{vertical-align:middle}span{color:#777}small{font-size:11px;color:#999}ul{list-style-type:none;margin-left:0}ul li{padding:3px 0}table{border-collapse:collapse;border-spacing:0;width:100%}.file-tree-view+#main-table{width:75%!important;float:left}td,th{padding:4px 7px;text-align:left;vertical-align:top;border:1px solid #ddd;background:#fff}td.gray,th{background-color:#eee}td.gray span{color:#222}tr:hover td{background-color:#f5f5f5}tr:hover td.gray{background-color:#eee}.table{width:100%;max-width:100%;margin-bottom:1rem}.table td,.table th{padding:.55rem;vertical-align:top;border-top:1px solid #ddd}.table thead th{vertical-align:bottom;border-bottom:2px solid #eceeef}.table tbody+tbody{border-top:2px solid #eceeef}.table .table{background-color:#fff}code,pre{display:block;margin-bottom:10px;font:13px/16px Consolas,'Courier New',Courier,monospace;border:1px dashed #ccc;padding:5px;overflow:auto}.hidden,.modal{display:none}.btn,.close{font-weight:700}pre.with-hljs{padding:0}pre.with-hljs code{margin:0;border:0;overflow:visible}code.maxheight,pre.maxheight{max-height:512px}input[type=checkbox]{margin:0;padding:0}.message,.path{padding:4px 7px;border:1px solid #ddd;background-color:#fff}.fa.fa-caret-right{font-size:1.2em;margin:0 4px;vertical-align:middle;color:#ececec}.fa.fa-home{font-size:1.2em;vertical-align:bottom}#wrapper{min-width:400px;margin:0 auto}.path{margin-bottom:10px}.right{text-align:right}.center,.close,.login-form{text-align:center}.float-right{float:right}.float-left{float:left}.message.ok{border-color:green;color:green}.message.error{border-color:red;color:red}.message.alert{border-color:orange;color:orange}.btn{border:0;background:0 0;padding:0;margin:0;color:#296ea3;cursor:pointer}.btn:hover{color:#b00}.preview-img{max-width:100%;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAKklEQVR42mL5//8/Azbw+PFjrOJMDCSCUQ3EABZc4S0rKzsaSvTTABBgAMyfCMsY4B9iAAAAAElFTkSuQmCC)}.inline-actions>a>i{font-size:1em;margin-left:5px;background:#3785c1;color:#fff;padding:3px;border-radius:3px}.preview-video{position:relative;max-width:100%;height:0;padding-bottom:62.5%;margin-bottom:10px}.preview-video video{position:absolute;width:100%;height:100%;left:0;top:0;background:#000}.compact-table{border:0;width:auto}.compact-table td,.compact-table th{width:100px;border:0;text-align:center}.compact-table tr:hover td{background-color:#fff}.filename{max-width:420px;overflow:hidden;text-overflow:ellipsis}.break-word{word-wrap:break-word;margin-left:30px}.break-word.float-left a{color:#7d7d7d}.break-word+.float-right{padding-right:30px;position:relative}.break-word+.float-right>a{color:#7d7d7d;font-size:1.2em;margin-right:4px}.modal{position:fixed;z-index:1;padding-top:100px;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:#000;background-color:rgba(0,0,0,.4)}#editor,.edit-file-actions{position:absolute;right:30px}.modal-content{background-color:#fefefe;margin:auto;padding:20px;border:1px solid #888;width:80%}.close:focus,.close:hover{color:#000;cursor:pointer}#editor{top:50px;bottom:5px;left:30px}.edit-file-actions{top:0;background:#fff;margin-top:5px}.edit-file-actions>a,.edit-file-actions>button{background:#fff;padding:5px 15px;cursor:pointer;color:#296ea3;border:1px solid #296ea3}.group-btn{background:#fff;padding:2px 6px;border:1px solid;cursor:pointer;color:#296ea3}.main-nav{position:fixed;top:0;left:0;padding:10px 30px 10px 1px;width:100%;background:#fff;color:#000;border:0;box-shadow:0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12),0 2px 4px -1px rgba(0,0,0,.2)}.login-form{width:320px;margin:0 auto;box-shadow:0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12),0 5px 5px -3px rgba(0,0,0,.2)}.login-form label,.path.login-form input{padding:8px;margin:10px}.footer-links{background:0 0;border:0;clear:both}select[name=lang]{border:none;position:relative;text-transform:uppercase;left:-30%;top:12px;color:silver}input[type=search]{height:30px;margin:5px;width:80%;border:1px solid #ccc}.path.login-form input[type=submit]{background-color:#4285f4;color:#fff;border:1px solid;border-radius:2px;font-weight:700;cursor:pointer}.modalDialog{position:fixed;font-family:Arial,Helvetica,sans-serif;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,.8);z-index:99999;opacity:0;-webkit-transition:opacity .4s ease-in;-moz-transition:opacity .4s ease-in;transition:opacity .4s ease-in;pointer-events:none}.modalDialog:target{opacity:1;pointer-events:auto}.modalDialog>.model-wrapper{max-width:400px;position:relative;margin:10% auto;padding:15px;border-radius:2px;background:#fff}.close{float:right;background:#fff;color:#000;line-height:25px;position:absolute;right:0;top:0;width:24px;border-radius:0 5px 0 0;font-size:18px}.close:hover{background:#e4e4e4}.modalDialog p{line-height:30px}div#searchresultWrapper{max-height:320px;overflow:auto}div#searchresultWrapper li{margin:8px 0;list-style:none}li.file:before,li.folder:before{font:normal normal normal 14px/1 FontAwesome;content:"\f016";margin-right:5px}li.folder:before{content:"\f114"}i.fa.fa-folder-o{color:#eeaf4b}i.fa.fa-picture-o{color:#26b99a}i.fa.fa-file-archive-o{color:#da7d7d}.footer-links i.fa.fa-file-archive-o{color:#296ea3}i.fa.fa-css3{color:#f36fa0}i.fa.fa-file-code-o{color:#ec6630}i.fa.fa-code{color:#cc4b4c}i.fa.fa-file-text-o{color:#0096e6}i.fa.fa-html5{color:#d75e72}i.fa.fa-file-excel-o{color:#09c55d}i.fa.fa-file-powerpoint-o{color:#f6712e}.file-tree-view{width:24%;float:left;overflow:auto;border:1px solid #ddd;border-right:0;background:#fff}.file-tree-view .tree-title{background:#eee;padding:9px 2px 9px 10px;font-weight:700}.file-tree-view ul{margin-left:15px;margin-bottom:0}.file-tree-view i{padding-right:3px}.php-file-tree{font-size:100%;letter-spacing:1px;line-height:1.5;margin-left:5px!important}.php-file-tree a{color:#296ea3}.php-file-tree A:hover{color:#b00}.php-file-tree .open{font-style:italic;color:#2183ce}.php-file-tree .closed{font-style:normal}#file-tree-view::-webkit-scrollbar{width:10px;background-color:#F5F5F5}#file-tree-view::-webkit-scrollbar-track{border-radius:10px;background:rgba(0,0,0,.1);border:1px solid #ccc}#file-tree-view::-webkit-scrollbar-thumb{border-radius:10px;background:linear-gradient(left,#fff,#e4e4e4);border:1px solid #aaa}#file-tree-view::-webkit-scrollbar-thumb:hover{background:#fff}#file-tree-view::-webkit-scrollbar-thumb:active{background:linear-gradient(left,#22ADD4,#1E98BA)}</style>
+    </head>
+    <body>
+    <div id="wrapper">
+        <div id="createNewItem" class="modalDialog"><div class="model-wrapper"><a href="#close" title="Close" class="close">X</a><h2>Create New Item</h2><p>
+            <label for="newfile">Item Type &nbsp; : </label><input type="radio" name="newfile" id="newfile" value="file">File <input type="radio" name="newfile" value="folder" checked> Folder<br><label for="newfilename">Item Name : </label><input type="text" name="newfilename" id="newfilename" value=""><br>
+            <input type="submit" name="submit" class="group-btn" value="Create Now" onclick="newfolder('<?php echo fm_enc(FM_PATH);?>');return false;"></p></div>
+        </div>
+        <div id="searchResult" class="modalDialog"><div class="model-wrapper"><a href="#close" title="Close" class="close">X</a>
+            <input type="search" name="search" value="" placeholder="Find a item in current folder...">
+            <h2>Search Results</h2>
+            <div id="searchresultWrapper"></div>
+        </div></div>
 <?php
 }
 
@@ -2102,19 +2535,27 @@ function fm_show_header()
  */
 function fm_show_footer()
 {
-    ?>
+?>
 </div>
 <script>
 function newfolder(e){var t=document.getElementById("newfilename").value,n=document.querySelector('input[name="newfile"]:checked').value;null!==t&&""!==t&&n&&(window.location.hash="#",window.location.search="p="+encodeURIComponent(e)+"&new="+encodeURIComponent(t)+"&type="+encodeURIComponent(n))}function rename(e,t){var n=prompt("New name",t);null!==n&&""!==n&&n!=t&&(window.location.search="p="+encodeURIComponent(e)+"&ren="+encodeURIComponent(t)+"&to="+encodeURIComponent(n))}function change_checkboxes(e,t){for(var n=e.length-1;n>=0;n--)e[n].checked="boolean"==typeof t?t:!e[n].checked}function get_checkboxes(){for(var e=document.getElementsByName("file[]"),t=[],n=e.length-1;n>=0;n--)(e[n].type="checkbox")&&t.push(e[n]);return t}function select_all(){change_checkboxes(get_checkboxes(),!0)}function unselect_all(){change_checkboxes(get_checkboxes(),!1)}function invert_all(){change_checkboxes(get_checkboxes())}function mailto(e,t){var n=new XMLHttpRequest,a="path="+e+"&file="+t+"&type=mail&ajax=true";n.open("POST","",!0),n.setRequestHeader("Content-type","application/x-www-form-urlencoded"),n.onreadystatechange=function(){4==n.readyState&&200==n.status&&alert(n.responseText)},n.send(a)}function showSearch(e){var t=new XMLHttpRequest,n="path="+e+"&type=search&ajax=true";t.open("POST","",!0),t.setRequestHeader("Content-type","application/x-www-form-urlencoded"),t.onreadystatechange=function(){4==t.readyState&&200==t.status&&(window.searchObj=t.responseText,document.getElementById("searchresultWrapper").innerHTML="",window.location.hash="#searchResult")},t.send(n)}function getSearchResult(e,t){var n=[],a=[];return e.forEach(function(e){"folder"===e.type?(getSearchResult(e.items,t),e.name.toLowerCase().match(t)&&n.push(e)):"file"===e.type&&e.name.toLowerCase().match(t)&&a.push(e)}),{folders:n,files:a}}function checkbox_toggle(){var e=get_checkboxes();e.push(this),change_checkboxes(e)}function backup(e,t){var n=new XMLHttpRequest,a="path="+e+"&file="+t+"&type=backup&ajax=true";return n.open("POST","",!0),n.setRequestHeader("Content-type","application/x-www-form-urlencoded"),n.onreadystatechange=function(){4==n.readyState&&200==n.status&&alert(n.responseText)},n.send(a),!1}function edit_save(e,t){var n="ace"==t?editor.getSession().getValue():document.getElementById("normal-editor").value;if(n){var a=document.createElement("form");a.setAttribute("method","POST"),a.setAttribute("action","");var o=document.createElement("textarea");o.setAttribute("type","textarea"),o.setAttribute("name","savedata");var c=document.createTextNode(n);o.appendChild(c),a.appendChild(o),document.body.appendChild(a),a.submit()}}function init_php_file_tree(){if(document.getElementsByTagName){for(var e=document.getElementsByTagName("LI"),t=0;t<e.length;t++){var n=e[t].className;if(n.indexOf("pft-directory")>-1)for(var a=e[t].childNodes,o=0;o<a.length;o++)"A"==a[o].tagName&&(a[o].onclick=function(){for(var e=this.nextSibling;;){if(null==e)return!1;if("UL"==e.tagName){var t="none"==e.style.display;return e.style.display=t?"block":"none",this.className=t?"open":"closed",!1}e=e.nextSibling}return!1},a[o].className=n.indexOf("open")>-1?"open":"closed"),"UL"==a[o].tagName&&(a[o].style.display=n.indexOf("open")>-1?"block":"none")}return!1}}var searchEl=document.querySelector("input[type=search]"),timeout=null;searchEl.onkeyup=function(e){clearTimeout(timeout);var t=JSON.parse(window.searchObj),n=document.querySelector("input[type=search]").value;timeout=setTimeout(function(){if(n.length>=2){var e=getSearchResult(t,n),a="",o="";e.folders.forEach(function(e){a+='<li class="'+e.type+'"><a href="?p='+e.path+'">'+e.name+"</a></li>"}),e.files.forEach(function(e){o+='<li class="'+e.type+'"><a href="?p='+e.path+"&view="+e.name+'">'+e.name+"</a></li>"}),document.getElementById("searchresultWrapper").innerHTML='<div class="model-wrapper">'+a+o+"</div>"}},500)},window.onload=init_php_file_tree;if(document.getElementById("file-tree-view")){var tableViewHt=document.getElementById("main-table").offsetHeight-2;document.getElementById("file-tree-view").setAttribute("style","height:"+tableViewHt+"px")};
 </script>
-<?php if (isset($_GET['view']) && FM_USE_HIGHLIGHTJS): ?>
+<?php
+    if (isset($_GET['view']) && FM_USE_HIGHLIGHTJS):
+?>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
-<?php endif; ?>
-<?php if (isset($_GET['edit']) && isset($_GET['env']) && FM_EDIT_FILE): ?>
+<?php
+    endif;
+?>
+<?php
+    if (isset($_GET['edit']) && isset($_GET['env']) && FM_EDIT_FILE):
+?>
 <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js"></script>
 <script>var editor = ace.edit("editor");editor.getSession().setMode("ace/mode/javascript");</script>
-<?php endif; ?>
+<?php
+    endif;
+?>
 </body>
 </html>
 <?php
@@ -2127,11 +2568,11 @@ function newfolder(e){var t=document.getElementById("newfilename").value,n=docum
 function fm_show_image($img)
 {
     $modified_time = gmdate('D, d M Y 00:00:00') . ' GMT';
-    $expires_time = gmdate('D, d M Y 00:00:00', strtotime('+1 day')) . ' GMT';
-
-    $img = trim($img);
+    $expires_time  = gmdate('D, d M Y 00:00:00', strtotime('+1 day')) . ' GMT';
+    
+    $img    = trim($img);
     $images = fm_get_images();
-    $image = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAEElEQVR42mL4//8/A0CAAQAI/AL+26JNFgAAAABJRU5ErkJggg==';
+    $image  = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAEElEQVR42mL4//8/A0CAAQAI/AL+26JNFgAAAABJRU5ErkJggg==';
     if (isset($images[$img])) {
         $image = $images[$img];
     }
@@ -2141,7 +2582,7 @@ function fm_show_image($img)
     } else {
         $size = strlen($image);
     }
-
+    
     if (function_exists('header_remove')) {
         header_remove('Cache-Control');
         header_remove('Pragma');
@@ -2149,13 +2590,13 @@ function fm_show_image($img)
         header('Cache-Control:');
         header('Pragma:');
     }
-
+    
     header('Last-Modified: ' . $modified_time, true, 200);
     header('Expires: ' . $expires_time);
     header('Content-Length: ' . $size);
     header('Content-Type: image/png');
     echo $image;
-
+    
     exit;
 }
 
@@ -2253,7 +2694,6 @@ NGG+9AmYL/MDRM5iLo9nqDEYAJWRx5U5o+3SaHRaplS8H+Faf78Yh4bJ8k2Vz24qgJldXj8/DkCf
 wDy8fH/sdpujTD2KxhxM/ueA249E/wTru/Dfl05bPkeC5TI/QOAvbJjL47TnI8BDy+KlOJPV6bJM
 yfg3wNf+r99KxafOibNu5IQvKKsv2x9lTtEFvmGlXq9/rFeL/gnWD2kB6KcwcpB+wP/IyeP2svqp
 9oeiCT9Fr1cL/gmp125aUc4P+B85iX+qJ/la0k/Ze0D0T0j93jXTpv0BYUGhQhdSooYAAAAASUVO
-RK5CYII=',
+RK5CYII='
     );
 }
-?>
