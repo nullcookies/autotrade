@@ -46,10 +46,8 @@ if (count($_POST) > 0 and $_POST['uname'] and $_POST['psw']) {
     <link rel="icon" href="<?php echo SELF_URL_NO_SCRIPT ?>index.php?img=favicon" type="image/png" />
     <link rel="shortcut icon" href="<?php echo SELF_URL_NO_SCRIPT ?>index.php?img=favicon" type="image/png" />
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-	<link href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet">
 	<link href="assets/css/login-styles.css" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="assets/js/scripts.js"></script>
 	<script type="text/javascript">
@@ -74,15 +72,13 @@ if (count($_POST) > 0 and $_POST['uname'] and $_POST['psw']) {
 				*/ ?>
 				<img src="<?php echo SELF_URL_NO_SCRIPT ?>index.php?img=logo" alt="Avatar" class="avatar">
 			</div>
-			<div class="container">
+			<div class="form-group container">
 				<label for="uname"><b>Username</b></label>
-				<input type="text" placeholder="Enter Username" name="uname" required>
+				<input class="form-control" type="text" placeholder="Enter Username" name="uname" required>
 				<label for="psw"><b>Password</b></label>
-				<input type="password" placeholder="Enter Password" name="psw" required>
-				<button type="submit">Login</button>
-				<?php /*
-				<label><input type="checkbox" checked="checked" name="remember"> Remember me</label>
-				*/ ?>
+				<input class="form-control" type="password" placeholder="Enter Password" name="psw" required>
+				<button type="submit" class="btn btn-primary"></span>Login</button>
+				<!-- <label><input type="checkbox" checked="checked" name="remember"> Remember me</label> -->
 			</div>
 			<?php /*
 			<div class="container" style="background-color:#f1f1f1">
