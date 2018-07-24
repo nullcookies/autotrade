@@ -11,39 +11,28 @@
 namespace Longman\TelegramBot\Commands\SystemCommands;
 
 use Longman\TelegramBot\Commands\SystemCommand;
-use Longman\TelegramBot\Request;
 
 /**
- * Start command
+ * New chat title command
  *
- * Gets executed when a user first starts using the bot.
+ * Gets executed when the title of a group or channel gets set.
  */
-class StartCommand extends SystemCommand
+class NewchattitleCommand extends SystemCommand
 {
     /**
      * @var string
      */
-    protected $name = 'start';
+    protected $name = 'newchattitle';
 
     /**
      * @var string
      */
-    protected $description = 'Start command';
-
-    /**
-     * @var string
-     */
-    protected $usage = '/start';
+    protected $description = 'New chat Title';
 
     /**
      * @var string
      */
     protected $version = '1.1.0';
-
-    /**
-     * @var bool
-     */
-    protected $private_only = true;
 
     /**
      * Command execute method
@@ -53,16 +42,9 @@ class StartCommand extends SystemCommand
      */
     public function execute()
     {
-        $message = $this->getMessage();
+        //$message = $this->getMessage();
+        //$new_chat_title = $message->getNewChatTitle();
 
-        $chat_id = $message->getChat()->getId();
-        $text    = 'Hi there!' . PHP_EOL . 'Type /help to see all commands!';
-
-        $data = [
-            'chat_id' => $chat_id,
-            'text'    => $text,
-        ];
-
-        return Request::sendMessage($data);
+        return parent::execute();
     }
 }
