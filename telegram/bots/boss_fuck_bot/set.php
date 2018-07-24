@@ -37,7 +37,9 @@ try {
     $telegram = new Longman\TelegramBot\Telegram($bot_api_key, $bot_username);
 
     // Set webhook
-    $result = $telegram->setWebhook($hook_url);
+    $result = $telegram->setWebhook($hook_url, array(
+        'max_connections' => 100
+    ));
 
     // To use a self-signed certificate, use this line instead
     //$result = $telegram->setWebhook($hook_url, ['certificate' => $certificate_path]);
