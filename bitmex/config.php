@@ -35,16 +35,5 @@ account6 = "long.vu@sunbytes.vn"
 apiKey6 = "TuyDGdoHeK_toQB8-iDP1OoA"
 apiSecret6 = "rm2vVgKwiMedGXX50cul__rhEH-ZJxuv-Duo9OGCBoKexFYA"
 
-[database]
-host = "localhost"
-user = "maatschappelijkwerkonline.nl.us"
-pass = "9XAwTHhb8sDofGbl"
-dbname = "test-11_maatschappelijkwerkonline.nl.db"
-
-[bot]
-token = "623247915:AAFEFveISuzvRtr2UsxZgEDu6DkE2yj_K88"
-user_name = "boss_fuck_bot"
-root_url = "https://test.maatschappelijkwerkonline.nl/testing/autobot/bitmex/"
-
 ;*/
 ;?>

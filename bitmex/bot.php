@@ -27,10 +27,10 @@ $chatId = $updates['result'][0]['message']['chat']['id'];
 $message = $updates['message']['text'];
 // dump($chatId);
 
-$_current_price = 0;
-$_check_price = 0;
-func_show_current_price();
-exit;
+// $_current_price = 0;
+// $_check_price = 0;
+// func_show_current_price();
+// exit;
 
 switch ($message) {
 	case '/start':

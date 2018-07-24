@@ -1,0 +1,20 @@
+Telegram - BOT
+
+/setcommands
+/start - Start BOT
+/help - Show all commands
+/btc - Show BTC price
+
+https://api.telegram.org/bot615876936:AAF_6bub_cjLyiPLJ1BjAxoRqByDaKaYSB4/getme
+{"ok":true,"result":{"id":615876936,"is_bot":true,"first_name":"Boss Baby BOT","username":"boss_fuck_bot"}}
+
+https://api.telegram.org/bot615876936:AAF_6bub_cjLyiPLJ1BjAxoRqByDaKaYSB4/getupdates
+{"ok":true,"result":[]}
+
+https://api.telegram.org/bot615876936:AAF_6bub_cjLyiPLJ1BjAxoRqByDaKaYSB4/getWebhookInfo
+{"ok":true,"result":{"url":"","has_custom_certificate":false,"pending_update_count":0}}
+
+https://api.telegram.org/bot615876936:AAF_6bub_cjLyiPLJ1BjAxoRqByDaKaYSB4/setwebhook?url=
+https://api.telegram.org/bot615876936:AAF_6bub_cjLyiPLJ1BjAxoRqByDaKaYSB4/setwebhook?url=https://test.maatschappelijkwerkonline.nl/testing/autobot/bitmex/bot.php
+
+
