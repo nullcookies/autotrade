@@ -81,10 +81,10 @@ try {
                __DIR__ . '/Commands',
            ],
            // Here you can set some command specific parameters
-           'configs' => [
-               // e.g. Google geocode/timezone api key for /date command
-               'date' => ['google_api_key' => 'your_google_api_key_here'],
-           ],
+           // 'configs' => [
+           //     // e.g. Google geocode/timezone api key for /date command
+           //     'date' => ['google_api_key' => 'your_google_api_key_here'],
+           // ],
         ],
 
         // Define all IDs of admin users
@@ -94,22 +94,22 @@ try {
 
         // Enter your MySQL database credentials
         // // (array) Mysql credentials to connect a database (necessary for [`getUpdates`](#using-getupdates-method) method!).
-        // 'mysql'            => [
-        //     'host'         => '127.0.0.1',
-        //     'port'         => 3306,           // optional
-        //     'user'         => 'root',
-        //     'password'     => 'root',
-        //     'database'     => 'telegram_bot',
-        //     'table_prefix' => 'tbl_prfx_',    // optional
-        //     'encoding'     => 'utf8mb4',      // optional
-        // ],
+        'mysql'            => [
+            'host'         => $environment->host,
+            'port'         => 3306,           // optional
+            'user'         => $environment->user,
+            'password'     => $environment->pass,
+            'database'     => $environment->dbname,
+            // 'table_prefix' => 'tbl_',    // optional
+            'encoding'     => 'utf8mb4',      // optional
+        ],
 
         // Logging (Error, Debug and Raw Updates)
-        //'logging'  => [
-        //    'debug'  => __DIR__ . "/{$bot_username}_debug.log",
-        //    'error'  => __DIR__ . "/{$bot_username}_error.log",
-        //    'update' => __DIR__ . "/{$bot_username}_update.log",
-        //],
+        'logging'  => [
+           'debug'  => LOGS_DIR . "/{$bot_username}_debug.log",
+           'error'  => LOGS_DIR . "/{$bot_username}_error.log",
+           'update' => LOGS_DIR . "/{$bot_username}_update.log",
+        ],
 
         // Set custom Upload and Download paths
         //'paths'    => [
@@ -141,7 +141,7 @@ try {
         // ],
 
         // (string) Override the custom input of your bot (mostly for testing purposes!).
-        'custom_input'     => '{"some":"raw", "json":"update"}',
+        // 'custom_input'     => '{"some":"raw", "json":"update"}',
 
         // Requests Limiter (tries to prevent reaching Telegram API limits)
         'limiter'      => ['enabled' => true],
