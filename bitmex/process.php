@@ -1,8 +1,8 @@
 <?php
 defined('IS_VALID') or define('IS_VALID', 1);
 require_once("../main.php");
+require_once(LIB_DIR . DS . "bitmex-api/BitMex.php");
 require_once(dirname(__FILE__) . DS . "function.php");
-require_once(LIB_DIR . DS ."bitmex-api/BitMex.php");
 
 // Detect run as CLI mode
 if ($cli_mode) return require_once(dirname(__FILE__) . DS . 'cli-process.php');

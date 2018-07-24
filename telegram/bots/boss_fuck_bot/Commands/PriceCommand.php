@@ -48,18 +48,75 @@ class PriceCommand extends UserCommand
      */
     public function execute()
     {
-        //$message = $this->getMessage();
-        //$chat_id = $message->getChat()->getId();
-        //$user_id = $message->getFrom()->getId();
+        $message   = $this->getMessage();
+        $chat_id   = $message->getChat()->getId();
+        $coin_name = trim($message->getText(true));
 
-        $message = $this->getMessage();
-        $chat_id = $message->getChat()->getId();
-        $text    = 'Hi there!' . PHP_EOL . 'Type /help to see all commands!';
+        // If no command parameter is passed, show the list.
+        if ($coin_name === '') {
+            $data['text'] = PHP_EOL;
 
-        $data = [
-            'chat_id' => $chat_id,
-            'text'    => $text,
-        ];
+            require_once(LIB_DIR . DS . "bitmex-api/BitMex.php");
+            require_once(ROOT_DIR . DS . "bitmex/function.php");
+
+            // Get current config
+            global $environment;
+            $environment = new stdClass();
+            
+            $config_file = dirname(__FILE__) . DS . "../config.php";
+            $config = \Utility::func_read_config($config_file);
+            if (is_array($config) and count($config)) {
+                foreach ($config as $key => $value) {
+                    $environment->$key = $value;
+                }
+            }
+            
+            if (!$environment->can_run) {
+                $data['text'] .= PHP_EOL . 'STOP!!!';
+                return Request::sendMessage($data);
+            }
+
+            // echo date('Y-m-d H:i:s') . ' -> ' . $environment->can_run . "\n";
+            // if ($_check_price > 1) 
+            // echo "\n";
+            // echo 'Time: ' . date('Y-m-d H:i:s') . ' -> ' . $_check_price . "\n";
+
+            $arr = func_get_current_price();
+
+            $last_orig = $arr['last'];
+            $last_sess = (isset($_current_price)) ? $_current_price : 0;
+            $_current_price = $last_orig;
+            // $arr['sess_last'] = $last_sess;
+            
+            if (!isset($_current_price)) {
+                if ($arr['lastChangePcnt'] >= 0) $arr['last'] = '⬆ ' . $arr['last'];
+                elseif ($arr['lastChangePcnt'] < 0) $arr['last'] = '⏬ ' . $arr['last'];
+            }
+            else {
+                if ($arr['last'] >= $last_sess) $arr['last'] = '⬆ ' . $arr['last'];
+                elseif ($arr['last'] < $last_sess) $arr['last'] = '⏬ ' . $arr['last'];
+            }
+            if ($arr['lastChangePcnt'] > 0) $arr['lastChangePcnt'] = '⬆ ' . ($arr['lastChangePcnt'] * 100) . '%';
+            elseif ($arr['lastChangePcnt'] < 0) $arr['lastChangePcnt'] = '⏬ ' . ($arr['lastChangePcnt'] * 100) . '%';
+            else $arr['lastChangePcnt'] =  ($arr['lastChangePcnt'] * 100) . '%';
+
+            foreach ($arr as $key => $value) {
+                if (is_object($value)) {
+                    $data['text'] .= $key . ': ' . serialize($value) . PHP_EOL;
+                }
+                else {
+                    $data['text'] .= $key . ': ' . $value . PHP_EOL;
+                }
+            }
+
+            $data['text'] .= PHP_EOL;
+
+            return Request::sendMessage($data);
+        }
+
+        $coin_name = str_replace('/', '', $coin_name);
+        
+        $data['text'] = 'Coin ' . $coin_name . ' not available for now';
 
         return Request::sendMessage($data);
     }
