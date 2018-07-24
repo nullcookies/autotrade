@@ -106,7 +106,7 @@ function func_show_current_price()
 
 		// func_show_account_info();
 
-		sleep(rand(10,15));
+		sleep(15);
 		func_show_current_price();
 	}
 
