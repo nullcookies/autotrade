@@ -12,11 +12,44 @@ if (!$cli_mode) return \Utility::func_redirect('index.php');
 $environment = new stdClass();
 func_bind_current_config();
 
+$botToken = $environment->token;
+$apiURL = "https://api.telegram.org/bot" . $botToken;
+
+$update = file_get_contents($apiURL . '/getupdates');
+// $update = file_get_contents('php://input');
+// dump($update);
+
+$updates = json_decode($update, true);
+// dump($updates);
+
+$chatId = $updates['result'][0]['message']['chat']['id'];
+// $chatId = $updates['message']['chat']['id'];
+$message = $updates['message']['text'];
+// dump($chatId);
+
 $_current_price = 0;
 $_check_price = 0;
 func_show_current_price();
+exit;
+
+switch ($message) {
+	case '/start':
+		sendMessage($chatId, 'start ' . date('H:i:s m/d/Y'));
+		// $_current_price = 0;
+		// $_check_price = 0;
+		// func_show_current_price();
+		break;
+	default:
+		sendMessage($chatId, 'default ' . date('H:i:s m/d/Y'));
+		break;
+}
 
 // ------------------------------------------------------------ //
+
+function sendMessage($chatId, $message) {
+	$url = $GLOBALS[apiURL] . '/sendMessage?chat_id=' . $chatId . '&text=' . urlencode($message);
+	file_get_contents($url);
+}
 
 function func_bind_current_config()
 {
@@ -37,7 +70,7 @@ function func_show_current_price()
 {
 	// Get current config
 	global $environment;
-	func_bind_current_config();
+	// func_bind_current_config();
 	
 	global $_current_price;
 	global $_check_price;
@@ -46,8 +79,8 @@ function func_show_current_price()
 	if ($environment->can_run) {
 		// echo date('Y-m-d H:i:s') . ' -> ' . $environment->can_run . "\n";
 		// if ($_check_price > 1) 
-		echo "\n";
-		echo 'Time: ' . date('Y-m-d H:i:s') . ' -> ' . $_check_price . "\n";
+		// echo "\n";
+		// echo 'Time: ' . date('Y-m-d H:i:s') . ' -> ' . $_check_price . "\n";
 
 		$arr = func_get_current_price();
 
@@ -57,18 +90,19 @@ function func_show_current_price()
 		// $arr['sess_last'] = $last_sess;
 		
 		if (!isset($_current_price)) {
-			if ($arr['lastChangePcnt'] >= 0) $arr['last'] = '> ' . $arr['last'];
-			elseif ($arr['lastChangePcnt'] < 0) $arr['last'] = '< ' . $arr['last'];
+			if ($arr['lastChangePcnt'] >= 0) $arr['last'] = '⬆️ ' . $arr['last'];
+			elseif ($arr['lastChangePcnt'] < 0) $arr['last'] = '⏬ ' . $arr['last'];
 		}
 		else {
-			if ($arr['last'] >= $last_sess) $arr['last'] = '> ' . $arr['last'];
-			elseif ($arr['last'] < $last_sess) $arr['last'] = '< ' . $arr['last'];
+			if ($arr['last'] >= $last_sess) $arr['last'] = '⬆️ ' . $arr['last'];
+			elseif ($arr['last'] < $last_sess) $arr['last'] = '⏬ ' . $arr['last'];
 		}
-		if ($arr['lastChangePcnt'] > 0) $arr['lastChangePcnt'] = '> ' . ($arr['lastChangePcnt'] * 100) . '%';
-		elseif ($arr['lastChangePcnt'] < 0) $arr['lastChangePcnt'] = '< ' . ($arr['lastChangePcnt'] * 100) . '%';
+		if ($arr['lastChangePcnt'] > 0) $arr['lastChangePcnt'] = '⬆️ ' . ($arr['lastChangePcnt'] * 100) . '%';
+		elseif ($arr['lastChangePcnt'] < 0) $arr['lastChangePcnt'] = '⏬ ' . ($arr['lastChangePcnt'] * 100) . '%';
 		else $arr['lastChangePcnt'] =  ($arr['lastChangePcnt'] * 100) . '%';
 
-		\Utility::func_cli_print_arr($arr);
+		global $chatId;
+		sendMessage($chatId, func_telegram_print_arr($arr));
 
 		// func_show_account_info();
 
@@ -79,6 +113,23 @@ function func_show_current_price()
 	else {
 		die('STOP!!!' . "\n");
 	}
+}
+
+function func_telegram_print_arr($arr = null) 
+{
+    if (!$arr) return 'No data found!';
+    $text = "\n";
+    foreach ($arr as $key => $value) {
+        if (is_object($value)) {
+            $text .= $key . ': ' . serialize($value) . "\n";
+        }
+        else {
+            $text .= $key . ': ' . $value . "\n";
+        }
+    }
+    $text .= "\n";
+
+    return $text;
 }
 
 function func_show_account_info()

@@ -65,14 +65,14 @@ try {
 
     // Logging (Error, Debug and Raw Updates)
     Longman\TelegramBot\TelegramLog::initErrorLog(LOGS_DIR . "/{$bot_username}_error.log");
-    Longman\TelegramBot\TelegramLog::initDebugLog(LOGS_DIR . "/{$bot_username}_debug.log");
+    // Longman\TelegramBot\TelegramLog::initDebugLog(LOGS_DIR . "/{$bot_username}_debug.log");
     Longman\TelegramBot\TelegramLog::initUpdateLog(LOGS_DIR . "/{$bot_username}_update.log");
 
     // If you are using a custom Monolog instance for logging, use this instead of the above
     //Longman\TelegramBot\TelegramLog::initialize($your_external_monolog_instance);
 
     // Set custom Upload and Download paths
-    //$telegram->setDownloadPath(__DIR__ . '/Download');
+    $telegram->setDownloadPath(LOGS_DIR);
     //$telegram->setUploadPath(__DIR__ . '/Upload');
 
     // Here you can set some command specific parameters

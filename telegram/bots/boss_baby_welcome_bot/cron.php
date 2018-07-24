@@ -5,12 +5,6 @@
  * Uncommented parameters must be filled
  */
 
-// Your command(s) to run, pass it just like in a message (arguments supported)
-$commands = [
-    '/whoami',
-    "/echo I'm a bot!",
-];
-
 defined('IS_VALID') or define('IS_VALID', 1);
 require_once("../../../main.php");
 
@@ -30,6 +24,12 @@ if (!$environment->can_run) die('STOP!!!');
 
 // Load composer
 require_once LIB_DIR . '/telegram/vendor/autoload.php';
+
+// Your command(s) to run, pass it just like in a message (arguments supported)
+$commands = [
+    '/whoami',
+    "/echo I'm a bot!",
+];
 
 // Add you bot's API key and name
 $bot_api_key  = $environment->token;
@@ -68,14 +68,14 @@ try {
 
     // Logging (Error, Debug and Raw Updates)
     Longman\TelegramBot\TelegramLog::initErrorLog(LOGS_DIR . "/{$bot_username}_error.log");
-    Longman\TelegramBot\TelegramLog::initDebugLog(LOGS_DIR . "/{$bot_username}_debug.log");
+    // Longman\TelegramBot\TelegramLog::initDebugLog(LOGS_DIR . "/{$bot_username}_debug.log");
     Longman\TelegramBot\TelegramLog::initUpdateLog(LOGS_DIR . "/{$bot_username}_update.log");
 
     // If you are using a custom Monolog instance for logging, use this instead of the above
     //Longman\TelegramBot\TelegramLog::initialize($your_external_monolog_instance);
 
     // Set custom Upload and Download paths
-    //$telegram->setDownloadPath(__DIR__ . '/Download');
+    $telegram->setDownloadPath(LOGS_DIR);
     //$telegram->setUploadPath(__DIR__ . '/Upload');
 
     // Here you can set some command specific parameters,
@@ -93,11 +93,11 @@ try {
 
 } catch (Longman\TelegramBot\Exception\TelegramException $e) {
     // Silence is golden!
-    echo '1::'.$e;
+    // echo $e;
     // Log telegram errors
     Longman\TelegramBot\TelegramLog::error($e);
 } catch (Longman\TelegramBot\Exception\TelegramLogException $e) {
     // Silence is golden!
     // Uncomment this to catch log initialisation errors
-    echo $e;
+    // echo $e;
 }

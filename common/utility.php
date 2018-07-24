@@ -142,17 +142,17 @@ class Utility
     <?php
     }
 
-    public static function func_cli_print_arr($arr = null, $title = '', $extra = null) 
+    public static function func_cli_print_arr($arr = null, $title = '', $extra = null, $echo = true) 
     {
         if (!$arr) {echo 'No data found!'; exit;}
         $max_key_length = \Utility::func_max_key_length($arr);
         $max_value_length = \Utility::func_max_value_length($arr);
 
-        echo \Utility::func_fill_space(' ', $max_key_length + $max_value_length + 5, '-') . "\n";
+        $text = \Utility::func_fill_space(' ', $max_key_length + $max_value_length + 5, '-') . "\n";
         foreach ($arr as $key => $value) {
             if (is_object($value)) {
                 $max_value_length = strlen(serialize($value));
-                echo '| ' . \Utility::func_fill_space($key, $max_key_length) . '| ' . serialize($value) . ' |' . "\n";
+                $text .= '| ' . \Utility::func_fill_space($key, $max_key_length) . '| ' . serialize($value) . ' |' . "\n";
             }
             else {
                 if (strpos($value, '▲') !== false or strpos($value, '▼') !== false)
@@ -162,10 +162,13 @@ class Utility
                 if ((strpos($value, '▲') !== false or strpos($value, '▼') !== false) and strpos($value, '.') === false and strpos($value, '%') === false)
                     $value .= ' ';
                 
-                echo '| ' . \Utility::func_fill_space($key, $max_key_length) . '| ' . \Utility::func_fill_space($value, $max_value_length) . ' |' . "\n";
+                $text .= '| ' . \Utility::func_fill_space($key, $max_key_length) . '| ' . \Utility::func_fill_space($value, $max_value_length) . ' |' . "\n";
             }
         }
-        echo \Utility::func_fill_space(' ', $max_key_length + $max_value_length + 5, '-') . "\n";
+        $text .= \Utility::func_fill_space(' ', $max_key_length + $max_value_length + 5, '-') . "\n";
+
+        if ($echo) echo $text;
+        else return $text;
     }
 
     public static function func_max_key_length($arr = null) 
