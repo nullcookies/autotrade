@@ -33,7 +33,7 @@ $bot_api_key  = $environment->token;
 $bot_username = $environment->user_name;
 
 try {
-    $bot = new \BotManager([
+    $bot = new PhpTelegramBot\TelegramBotManager\BotManager([
         // Add you bot's API key and name
         'api_key'      => $bot_api_key,
         'bot_username' => $bot_username,
