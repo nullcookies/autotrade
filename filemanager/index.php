@@ -2109,9 +2109,9 @@ function fm_show_message()
     if (isset($_SESSION['message'])) {
         $class = isset($_SESSION['status']) ? $_SESSION['status'] : 'ok';
         echo '<div class="alert alert-info alert-dismissible">';
-        echo '<span class="glyphicon glyphicon-info-sign"></span>';
+        echo '<span class="glyphicon glyphicon-info-sign"></span>&nbsp;';
         echo '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-        echo '<p class="message ' . $class . '">' . $_SESSION['message'] . '</p>';
+        echo '<span class="message ' . $class . '">' . $_SESSION['message'] . '</span>';
         echo '</div>';
         unset($_SESSION['message']);
         unset($_SESSION['status']);

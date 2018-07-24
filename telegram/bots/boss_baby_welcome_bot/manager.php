@@ -33,7 +33,7 @@ $bot_api_key  = $environment->token;
 $bot_username = $environment->user_name;
 
 try {
-    $bot = new PhpTelegramBot\TelegramBotManager\BotManager([
+    $bot = new TelegramBot\TelegramBotManager\BotManager([
         // Add you bot's API key and name
         'api_key'      => $bot_api_key,
         'bot_username' => $bot_username,
@@ -152,11 +152,12 @@ try {
 
 } catch (Longman\TelegramBot\Exception\TelegramException $e) {
     // Silence is golden!
-    //echo $e;
+    // Default error
+    // echo $e;
     // Log telegram errors
     Longman\TelegramBot\TelegramLog::error($e);
 } catch (Longman\TelegramBot\Exception\TelegramLogException $e) {
     // Silence is golden!
     // Uncomment this to catch log initialisation errors
-    //echo $e;
+    // echo $e;
 }
