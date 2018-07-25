@@ -1,5 +1,4 @@
 <?php
-chdir(__DIR__);
 defined('IS_VALID') or define('IS_VALID', 1);
 require_once("main.php");
 
@@ -16,7 +15,7 @@ if (!session_id()) @session_start();
 
 if (isset($_SESSION['user_name']) and $_SESSION['user_name']) {
 	echo('Redirecting ...');
-	\Utility::func_redirect('index.php', 1);
+	\Utility::redirect('index.php', 1);
 	exit;
 }
 
@@ -24,7 +23,7 @@ if (count($_POST) > 0 and $_POST['uname'] and $_POST['psw']) {
 	if ($user = \Utility::func_check_login($_POST['uname'], $_POST['psw'])) {
 		$_SESSION['user_name'] = $user;
 		$_SESSION['message'] = 'Login successful!';
-		return \Utility::func_redirect('index.php', 2);
+		return \Utility::redirect('index.php', 2);
 	}
 
 	$_SESSION['message'] = 'Login failed!';

@@ -3,8 +3,6 @@
  * Usage on CLI: $ php broadcast.php [telegram-chat-id] [message]
  */
 
-chdir(__DIR__);
-
 // Error handle
 require_once(__DIR__ . "/../error-handle.php");
 

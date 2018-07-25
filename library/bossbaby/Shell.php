@@ -1,6 +1,4 @@
 <?php
-if (!defined('IS_VALID')) die('Access denied.' . "\n");
-
 /**
  * @author     Ashraf M Kaabi
  * @name       Advance Linux Exec

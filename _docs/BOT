@@ -68,3 +68,8 @@ https://github.com/php-telegram-bot/core/wiki/Running-with-cron-(scheduled-comma
 Issues about manager.php
 https://github.com/php-telegram-bot/example-bot/issues/6
 
+Autoload with Composer:
+https://getcomposer.org/doc/articles/autoloader-optimization.md
+https://getcomposer.org/download/
+
+

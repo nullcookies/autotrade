@@ -8,8 +8,6 @@
  * This is a normal behaviour because this address has to be reached only by the Telegram servers.
  */
 
-chdir(__DIR__);
-
 // Error handle
 require_once(__DIR__ . "/../error-handle.php");
 

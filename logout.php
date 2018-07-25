@@ -1,5 +1,4 @@
 <?php
-chdir(__DIR__);
 defined('IS_VALID') or define('IS_VALID', 1);
 require_once("main.php");
 
@@ -29,5 +28,5 @@ if (isset($_SESSION['user_name']))
 	unset($_SESSION['user_name']);
 
 echo('Redirecting ...');
-\Utility::func_redirect('login.php', 1);
+\Utility::redirect('login.php', 1);
 exit;

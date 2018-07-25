@@ -8,8 +8,6 @@
  * https://github.com/php-telegram-bot/telegram-bot-manager#set-extra-bot-parameters
  */
 
-chdir(__DIR__);
-
 // Error handle
 require_once(__DIR__ . "/../error-handle.php");
 

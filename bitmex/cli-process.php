@@ -1,12 +1,11 @@
 <?php
-chdir(__DIR__);
 defined('IS_VALID') or define('IS_VALID', 1);
 require_once("../main.php");
 require_once(LIB_DIR . DS . "bitmex-api/BitMex.php");
-require_once(dirname(__FILE__) . DS . "function.php");
+require_once("function.php");
 
 // Detect run as CLI mode
-if (!$cli_mode) return \Utility::func_redirect('index.php');
+if (!$cli_mode) return \Utility::redirect('index.php');
 
 // Get global variables
 $environment = new stdClass();

@@ -1,21 +1,20 @@
 <?php
-if (!defined('IS_VALID')) die('Access denied.' . "\n");
-
 class Utility
 {
     public static function writeLog($string = null)
     {
         try {
-            $log_file = LOGS_PATH . DS . date('Ymd') . '-log.txt';
+            $log_file = $file ?: LOGS_DIR . DS . date("Ymd") . "-log.txt";
             $str      = '';
             $str .= date('Y-m-d H:i:s') . "\t" . self::getClientIp();
-            $str .= "\r\n" . $string . "\r\n";
+            $str .= "\t" . $string . "\r\n";
             $str = strval($str);
             $fp  = fopen($log_file, 'a');
             fwrite($fp, $str);
             return fclose($fp);
         }
         catch (Exception $e) {
+            return true;
         }
     }
     
@@ -73,7 +72,7 @@ class Utility
             foreach ($objects as $object) { 
                 if ($object != "." && $object != "..") { 
                     if (is_dir($dir . "/" . $object))
-                        rmdir_recursive($dir . "/" . $object);
+                        \Utility::rmdir_recursive($dir . "/" . $object);
                     else
                         unlink($dir . "/" . $object); 
                 } 
@@ -214,46 +213,7 @@ class Utility
         }
         return str_replace('\\', '/', $path);
     }
-
-    public static function func_get_client_ip($checkProxy = true)
-    {
-        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-            $ip = $_SERVER['HTTP_CLIENT_IP'];
-        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        } else {
-            $ip = @$_SERVER['REMOTE_ADDR'];
-        }
-        
-        if (!$ip)
-            $ip = '127.0.0.1';
-        
-        return $ip;
-    }
-
-    public static function func_write_log($string = null, $file = null)
-    {
-        try {
-            $log_file = $file ?: LOGS_DIR . DS . date("Ymd") . "-log.txt";
-            $str      = '';
-            $str .= date('Y-m-d H:i:s') . "\t" . self::func_get_client_ip();
-            $str .= "\t" . $string . "\r\n";
-            $str = strval($str);
-            $fp  = fopen($log_file, 'a');
-            fwrite($fp, $str);
-            return fclose($fp);
-        }
-        catch (Exception $e) {
-            return true;
-        }
-    }
     
-    public static function func_redirect($url = '/', $time = 0)
-    {
-        echo '<meta http-equiv="refresh" content="' . (int) $time . ';url=' . (string) trim($url) . '"/>';
-        exit;
-    }
-
     /**
      * List of query parameters that get automatically dropped when rebuilding
      * the current URL.

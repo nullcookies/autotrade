@@ -5,8 +5,6 @@
  * Uncommented parameters must be filled
  */
 
-chdir(__DIR__);
-
 // Error handle
 require_once(__DIR__ . "/../error-handle.php");
 

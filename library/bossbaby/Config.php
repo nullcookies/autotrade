@@ -1,4 +1,6 @@
 <?php
+namespace BossBabyConfig;
+
 class Config
 {
     public static function read($filename)

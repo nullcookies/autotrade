@@ -1,9 +1,8 @@
 <?php
-chdir(__DIR__);
 defined('IS_VALID') or define('IS_VALID', 1);
 require_once("../main.php");
 require_once(LIB_DIR . DS . "bitmex-api/BitMex.php");
-require_once(dirname(__FILE__) . DS . "function.php");
+require_once("function.php");
 
 // Detect run as CLI mode
 if ($cli_mode) return require_once(dirname(__FILE__) . DS . 'cli-process.php');
@@ -30,7 +29,7 @@ if (!session_id()) @session_start();
 // Check login
 if (!isset($_SESSION['user_name']) or !$_SESSION['user_name']) {
 	echo('Redirecting ...');
-	\Utility::func_redirect('../login.php');
+	\Utility::redirect('../login.php');
 	exit;
 }
 

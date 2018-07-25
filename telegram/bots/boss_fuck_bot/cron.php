@@ -7,8 +7,6 @@
 
 if (!defined('STDIN')) die('Access denied.' . "\n");
 
-chdir(__DIR__);
-
 // Error handle
 require_once(__DIR__ . "/../error-handle.php");
 

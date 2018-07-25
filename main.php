@@ -7,8 +7,20 @@ defined('LIB_DIR') or define('LIB_DIR', ROOT_DIR . DS . 'library');
 defined('LOGS_DIR') or define('LOGS_DIR', ROOT_DIR . DS . 'logs');
 // defined('CONFIG_FILE') or define('CONFIG_FILE', ROOT_DIR . DS . 'config.php');
 
-require_once(LIB_DIR . DS . "bossbaby/utility.php");
-require_once(LIB_DIR . DS . "bossbaby/shell.php");
+set_include_path(get_include_path() . PATH_SEPARATOR . LIB_DIR);
+
+// require_once(LIB_DIR . DS . "bossbaby/utility.php");
+// require_once(LIB_DIR . DS . "bossbaby/shell.php");
+
+// require_once LIB_DIR . '/bossbaby/autoload.php';
+require_once(LIB_DIR . "/bossbaby/Autoloader.php");
+
+new \BossBaby\Config;
+// var_dump($config);
+die;
+
+// Load composer
+require_once LIB_DIR . '/telegram/vendor/autoload.php';
 
 // Detect run as CLI mode
 // $isCLI = ( php_sapi_name() == 'cli' );
