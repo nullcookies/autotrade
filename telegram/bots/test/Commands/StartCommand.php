@@ -14,26 +14,36 @@ use Longman\TelegramBot\Commands\SystemCommand;
 use Longman\TelegramBot\Request;
 
 /**
- * Generic command
+ * Start command
  *
- * Gets executed for generic commands, when no other appropriate one is found.
+ * Gets executed when a user first starts using the bot.
  */
-class GenericCommand extends SystemCommand
+class StartCommand extends SystemCommand
 {
     /**
      * @var string
      */
-    protected $name = 'generic';
+    protected $name = 'start';
 
     /**
      * @var string
      */
-    protected $description = 'Handles generic commands or is executed by default when a command is not found';
+    protected $description = 'Start command';
+
+    /**
+     * @var string
+     */
+    protected $usage = '/start';
 
     /**
      * @var string
      */
     protected $version = '1.1.0';
+
+    /**
+     * @var bool
+     */
+    protected $private_only = true;
 
     /**
      * Command execute method
@@ -44,20 +54,20 @@ class GenericCommand extends SystemCommand
     public function execute()
     {
         $message = $this->getMessage();
-
-        //You can use $command as param
         $chat_id = $message->getChat()->getId();
-        $user_id = $message->getFrom()->getId();
-        $command = $message->getCommand();
+        $from    = $message->getFrom();
+        // $user_id = $message->getFrom()->getId();
 
-        //If the user is an admin and the command is in the format "/whoisXYZ", call the /whois command
-        if (stripos($command, 'whois') === 0 && $this->telegram->isAdmin($user_id)) {
-            return $this->telegram->executeCommand('whois');
-        }
+        if ($from->getFirstName() or $from->getLastName())
+            $caption = sprintf('%s %s', $from->getFirstName(), $from->getLastName());
+        else 
+            $caption = sprintf('%s', $from->getUsername());
+
+        $text = 'Chào ' . $caption . '!' . PHP_EOL . 'Nếu không biết phải làm gì, hãy gõ /menu!';
 
         $data = [
             'chat_id' => $chat_id,
-            'text'    => 'Không có lệnh /' . $command . ' nhé, đừng cố thử 😒',
+            'text'    => $text,
         ];
 
         return Request::sendMessage($data);

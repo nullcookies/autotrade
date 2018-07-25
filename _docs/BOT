@@ -12,12 +12,13 @@ Commands:
 https://core.telegram.org/methods
 https://api.telegram.org/bot585481163:AAEpPfxKDJpEUYtC3FBymi6lhR1ZhiP917w/getme
 https://api.telegram.org/bot585481163:AAEpPfxKDJpEUYtC3FBymi6lhR1ZhiP917w/getupdates
+https://github.com/zavg/php-telegram-bot#send-message
 
 /setcommands
 
 start - Bắt đầu dùng
 menu - Hiển thị danh sách lệnh có thể dùng
-p - Hiển thị giá coin, hoặc BTC
+price - Hiển thị giá coin, hoặc BTC
 
 https://api.telegram.org/bot615876936:AAF_6bub_cjLyiPLJ1BjAxoRqByDaKaYSB4/getme
 {"ok":true,"result":{"id":615876936,"is_bot":true,"first_name":"Boss Baby BOT","username":"boss_fuck_bot"}}
@@ -54,5 +55,9 @@ https://blog.chatfuel.com/help/telegram-messenger/getting-started/how-do-i-chang
 Shell:
 https://github.com/botgram/shell-bot
 
+Keyboard:
+https://github.com/Eleirbag89/TelegramBotPHP
+https://stackoverflow.com/questions/41709382/telegram-bot-inline-keyboard-not-displaying-php
+https://telegram-bot-sdk.readme.io/docs/commands-system
 
 

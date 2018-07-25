@@ -27,8 +27,10 @@ require_once LIB_DIR . '/telegram/vendor/autoload.php';
 
 // Your command(s) to run, pass it just like in a message (arguments supported)
 $commands = [
-    '/whoami',
-    "/echo I'm a bot!",
+    // '/help',
+    // '/whoami',
+    // "/echo I'm a bot!",
+    '/price',
 ];
 
 // Add you bot's API key and name
@@ -37,7 +39,7 @@ $bot_username = $environment->user_name;
 
 // Define all IDs of admin users in this array (leave as empty array if not used)
 $admin_users = [
-//    123,
+   $environment->my_id,
 ];
 
 // Define all paths for your custom commands in this array (leave as empty array if not used)
@@ -46,12 +48,12 @@ $commands_paths = [
 ];
 
 // Enter your MySQL database credentials
-$mysql_credentials = [
-    'host'     => $environment->host,
-    'user'     => $environment->user,
-    'password' => $environment->pass,
-    'database' => $environment->dbname,
-];
+// $mysql_credentials = [
+//     'host'     => $environment->host,
+//     'user'     => $environment->user,
+//     'password' => $environment->pass,
+//     'database' => $environment->dbname,
+// ];
 
 try {
     // Create Telegram API object

@@ -41,6 +41,9 @@ user = "maatschappelijkwerkonline.nl.us"
 pass = "9XAwTHhb8sDofGbl"
 dbname = "test-11_maatschappelijkwerkonline.nl.db"
 
+[telegram]
+my_id = "475001958"
+
 [bot]
 token = "615876936:AAF_6bub_cjLyiPLJ1BjAxoRqByDaKaYSB4"
 user_name = "boss_fuck_bot"

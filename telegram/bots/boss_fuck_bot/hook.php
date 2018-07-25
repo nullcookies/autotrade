@@ -34,7 +34,7 @@ $bot_username = $environment->user_name;
 
 // Define all IDs of admin users in this array (leave as empty array if not used)
 $admin_users = [
-//    123,
+   $environment->my_id,
 ];
 
 // Define all paths for your custom commands in this array (leave as empty array if not used)
@@ -90,6 +90,7 @@ try {
 
 } catch (Longman\TelegramBot\Exception\TelegramException $e) {
     // Silence is golden!
+    // Input is empty!
     // echo $e;
     // Log telegram errors
     Longman\TelegramBot\TelegramLog::error($e);
