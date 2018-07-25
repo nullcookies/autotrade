@@ -5,6 +5,9 @@
  * Uncommented parameters must be filled
  */
 
+if (!defined('STDIN')) die('Access denied.' . "\n");
+
+chdir(__DIR__);
 defined('IS_VALID') or define('IS_VALID', 1);
 require_once("../../../main.php");
 
@@ -27,10 +30,11 @@ require_once LIB_DIR . '/telegram/vendor/autoload.php';
 
 // Your command(s) to run, pass it just like in a message (arguments supported)
 $commands = [
-    // '/help',
     // '/whoami',
     // "/echo I'm a bot!",
     '/price',
+    '/sendlogs',
+    '/cleanup 30',
 ];
 
 // Add you bot's API key and name
@@ -48,12 +52,12 @@ $commands_paths = [
 ];
 
 // Enter your MySQL database credentials
-// $mysql_credentials = [
-//     'host'     => $environment->host,
-//     'user'     => $environment->user,
-//     'password' => $environment->pass,
-//     'database' => $environment->dbname,
-// ];
+$mysql_credentials = [
+    'host'     => $environment->host,
+    'user'     => $environment->user,
+    'password' => $environment->pass,
+    'database' => $environment->dbname,
+];
 
 try {
     // Create Telegram API object
@@ -62,8 +66,8 @@ try {
     // Add commands paths containing your custom commands
     $telegram->addCommandsPaths($commands_paths);
 
-    // Enable admin users
-    $telegram->enableAdmins($admin_users);
+    // // Enable admin users
+    // $telegram->enableAdmins($admin_users);
 
     // Enable MySQL
     //$telegram->enableMySql($mysql_credentials);

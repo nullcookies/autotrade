@@ -8,6 +8,7 @@
  * This is a normal behaviour because this address has to be reached only by the Telegram servers.
  */
 
+chdir(__DIR__);
 defined('IS_VALID') or define('IS_VALID', 1);
 require_once("../../../main.php");
 

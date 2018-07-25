@@ -60,4 +60,10 @@ https://github.com/Eleirbag89/TelegramBotPHP
 https://stackoverflow.com/questions/41709382/telegram-bot-inline-keyboard-not-displaying-php
 https://telegram-bot-sdk.readme.io/docs/commands-system
 
+Cron:
+https://packagist.org/packages/php-telegram-bot/telegram-bot-manager
+https://github.com/php-telegram-bot/core/wiki/Running-with-cron-(scheduled-commands)
+
+Issues about manager.php
+https://github.com/php-telegram-bot/example-bot/issues/6
 

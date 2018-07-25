@@ -1,4 +1,5 @@
 <?php
+chdir(__DIR__);
 defined('IS_VALID') or define('IS_VALID', 1);
 require_once("../main.php");
 require_once(LIB_DIR . DS . "bitmex-api/BitMex.php");
