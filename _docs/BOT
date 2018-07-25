@@ -47,7 +47,7 @@ https://api.telegram.org/bot585481163:AAEpPfxKDJpEUYtC3FBymi6lhR1ZhiP917w/setweb
 https://api.telegram.org/bot585481163:AAEpPfxKDJpEUYtC3FBymi6lhR1ZhiP917w/setwebhook?url=https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_welcome_bot/test.php
 
 https://api.telegram.org/bot623247915:AAFEFveISuzvRtr2UsxZgEDu6DkE2yj_K88/setwebhook?url=
-https://api.telegram.org/bot623247915:AAFEFveISuzvRtr2UsxZgEDu6DkE2yj_K88/setwebhook?url=https://test.maatschappelijkwerkonline.nl/testing/autobot/bitmex/auto.php
+https://api.telegram.org/bot615876936:AAF_6bub_cjLyiPLJ1BjAxoRqByDaKaYSB4/setwebhook?url=https://test.maatschappelijkwerkonline.nl/testing/autobot/bitmex/bot.php
 
 Set avatar:
 https://blog.chatfuel.com/help/telegram-messenger/getting-started/how-do-i-change-my-bots-profile-picture-and-description/
@@ -59,6 +59,7 @@ Keyboard:
 https://github.com/Eleirbag89/TelegramBotPHP
 https://stackoverflow.com/questions/41709382/telegram-bot-inline-keyboard-not-displaying-php
 https://telegram-bot-sdk.readme.io/docs/commands-system
+https://github.com/php-telegram-bot/core/wiki/New-Keyboard-structure-and-how-to-pass-dynamic-arguments
 
 Cron:
 https://packagist.org/packages/php-telegram-bot/telegram-bot-manager

@@ -3,6 +3,9 @@ chdir(__DIR__);
 defined('IS_VALID') or define('IS_VALID', 1);
 require_once("../../main.php");
 
+// // Get BTC price
+// require_once(ROOT_DIR . DS . "bitmex/bot.php");
+
 $botsAdminID    = '475001958';   // Put your Telegram ID here.
 $notifierBotKey = '696118749:AAGofvL9n2Xp-LhBd-jut_QgmnUKV0AsMro'; // Put your notifier bot API Key here.
 

@@ -35,10 +35,18 @@ account6 = "long.vu@sunbytes.vn"
 apiKey6 = "TuyDGdoHeK_toQB8-iDP1OoA"
 apiSecret6 = "rm2vVgKwiMedGXX50cul__rhEH-ZJxuv-Duo9OGCBoKexFYA"
 
+[database]
+host = "localhost"
+user = "maatschappelijkwerkonline.nl.us"
+pass = "9XAwTHhb8sDofGbl"
+dbname = "test-11_maatschappelijkwerkonline.nl.db"
+
+[telegram]
+my_id = "475001958"
+
 [bot]
-token = "615876936:AAF_6bub_cjLyiPLJ1BjAxoRqByDaKaYSB4"
-user_name = "boss_fuck_bot"
-root_url = "https://test.maatschappelijkwerkonline.nl/testing/autobot/bitmex/"
+token = "641704003:AAHSGnyXAigJDwi4dMdG7rUoftCnbHMUWP8"
+user_name = "boss_baby_btc_bot"
 
 ;*/
 ;?>

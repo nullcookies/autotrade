@@ -96,11 +96,15 @@ function func_show_account_wallet()
 {
 	global $environment;
 	
-	if (is_null($environment->bitmex)) $environment->bitmex = new BitMex($environment->apiKey, $environment->apiSecret);
+	if (property_exists('stdClass', 'bitmex') === false or is_null($environment->bitmex))
+		$environment->bitmex = new BitMex($environment->apiKey, $environment->apiSecret);
+	
 	$arr1 = func_get_account_wallet($environment->bitmex);
 	\Utility::func_cli_print_arr($arr1);
 
-	if (is_null($environment->bitmex)) $environment->bitmex2 = new BitMex($environment->apiKey2, $environment->apiSecret2);
+	if (property_exists('stdClass', 'bitmex2') === false or is_null($environment->bitmex2))
+		$environment->bitmex2 = new BitMex($environment->apiKey2, $environment->apiSecret2);
+
 	$arr2 = func_get_account_wallet($environment->bitmex2);
 	\Utility::func_cli_print_arr($arr2);
 }

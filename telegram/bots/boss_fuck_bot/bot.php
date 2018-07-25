@@ -1,49 +1,36 @@
 <?php
+/**
+ * Usage on CLI: $ php broadcast.php [telegram-chat-id] [message]
+ */
+
 chdir(__DIR__);
+
+// Error handle
+require_once(__DIR__ . "/../error-handle.php");
+
 defined('IS_VALID') or define('IS_VALID', 1);
-require_once("../main.php");
+require_once("../../../main.php");
 require_once(LIB_DIR . DS . "bitmex-api/BitMex.php");
-require_once(dirname(__FILE__) . DS . "function.php");
+require_once(ROOT_DIR . DS . "bitmex/function.php");
 
-// Detect run as CLI mode
-if (!$cli_mode) return \Utility::func_redirect('index.php');
+// Load composer
+require_once LIB_DIR . '/telegram/vendor/autoload.php';
 
-// Get global variables
-$environment = new stdClass();
-func_bind_current_config();
+use Longman\TelegramBot\Request;
+use Longman\TelegramBot\Telegram;
 
-$botToken = $environment->token;
-$apiURL = "https://api.telegram.org/bot" . $botToken;
+$API_KEY  = $environment->token;
+$BOT_NAME = $environment->user_name;
 
-$update = file_get_contents($apiURL . '/getupdates');
-if (!$update)
-	$update = file_get_contents('php://input');
-$updates = json_decode($update, true);
-// dump($update);
-// dump($updates);
+$telegram = new Telegram($API_KEY, $BOT_NAME);
 
-$chatId = $updates['result'][0]['message']['chat']['id'];
-if (!$chatId)
-	$chatId = $updates['message']['chat']['id'];
-// dump($chatId);
+// Get the chat id and message text from the CLI parameters.
+$chat_id = isset($argv[1]) ? $argv[1] : $environment->my_id;
+$message = isset($argv[2]) ? $argv[2] : 'Message at ' . date('H:i:s d/m/Y');
 
 $_current_price = 0;
 $_check_price = 0;
 func_show_current_price();
-exit;
-
-$message = $updates['message']['text'];
-switch ($message) {
-	case '/start':
-		sendMessage($chatId, 'start ' . date('H:i:s m/d/Y'));
-		// $_current_price = 0;
-		// $_check_price = 0;
-		// func_show_current_price();
-		break;
-	default:
-		sendMessage($chatId, 'default ' . date('H:i:s m/d/Y'));
-		break;
-}
 
 // ------------------------------------------------------------ //
 
@@ -91,24 +78,47 @@ function func_show_current_price()
 		// $arr['sess_last'] = $last_sess;
 		
 		if (!isset($_current_price)) {
-			if ($arr['lastChangePcnt'] >= 0) $arr['last'] = '⬆️ ' . $arr['last'];
-			elseif ($arr['lastChangePcnt'] < 0) $arr['last'] = '⏬ ' . $arr['last'];
+			if ($arr['lastChangePcnt'] >= 0) $arr['last'] = '👆 ' . $arr['last'];
+			elseif ($arr['lastChangePcnt'] < 0) $arr['last'] = '👇 ' . $arr['last'];
 		}
 		else {
-			if ($arr['last'] >= $last_sess) $arr['last'] = '⬆️ ' . $arr['last'];
-			elseif ($arr['last'] < $last_sess) $arr['last'] = '⏬ ' . $arr['last'];
+			if ($arr['last'] >= $last_sess) $arr['last'] = '👆 ' . $arr['last'];
+			elseif ($arr['last'] < $last_sess) $arr['last'] = '👇 ' . $arr['last'];
 		}
-		if ($arr['lastChangePcnt'] > 0) $arr['lastChangePcnt'] = '⬆️ ' . ($arr['lastChangePcnt'] * 100) . '%';
-		elseif ($arr['lastChangePcnt'] < 0) $arr['lastChangePcnt'] = '⏬ ' . ($arr['lastChangePcnt'] * 100) . '%';
+		if ($arr['lastChangePcnt'] > 0) $arr['lastChangePcnt'] = '👆 ' . ($arr['lastChangePcnt'] * 100) . '%';
+		elseif ($arr['lastChangePcnt'] < 0) $arr['lastChangePcnt'] = '👇 ' . ($arr['lastChangePcnt'] * 100) . '%';
 		else $arr['lastChangePcnt'] =  ($arr['lastChangePcnt'] * 100) . '%';
 
-		global $chatId;
-		sendMessage($chatId, func_telegram_print_arr($arr));
+		$arr['Changed'] = $arr['lastChangePcnt']; unset($arr['lastChangePcnt']);
+
+		// global $chatId;
+		// sendMessage($chatId, func_telegram_print_arr($arr));
+
+		global $chat_id;
+		$message = func_telegram_print_arr($arr);
+
+		$message = str_replace('Symbol:', '', $message);
+
+		if ($chat_id !== '' && $message !== '') {
+			$data = [
+			    'chat_id' => $chat_id,
+			    'text'    => $message,
+			    'parse_mode' => urlencode('HTML'),
+			];
+
+			$result = Request::sendMessage($data);
+
+			// if ($result->isOk()) {
+			//     echo 'Message sent succesfully to: ' . $chat_id;
+			// } else {
+			//     echo 'Sorry message not sent to: ' . $chat_id;
+			// }
+		}
 
 		// func_show_account_info();
 
-		// sleep(15);
-		// func_show_current_price();
+		sleep(30);
+		func_show_current_price();
 	}
 
 	else {
@@ -122,10 +132,10 @@ function func_telegram_print_arr($arr = null)
     $text = "\n";
     foreach ($arr as $key => $value) {
         if (is_object($value)) {
-            $text .= $key . ': ' . serialize($value) . "\n";
+            $text .= ucfirst($key) . ': ' . serialize($value) . "\n";
         }
         else {
-            $text .= $key . ': ' . $value . "\n";
+            $text .= ucfirst($key) . ': ' . $value . "\n";
         }
     }
     $text .= "\n";
@@ -156,7 +166,7 @@ function func_show_account_wallet()
 
 	if (property_exists('stdClass', 'bitmex2') === false or is_null($environment->bitmex2))
 		$environment->bitmex2 = new BitMex($environment->apiKey2, $environment->apiSecret2);
-
+	
 	$arr2 = func_get_account_wallet($environment->bitmex2);
 	\Utility::func_cli_print_arr($arr2);
 }
