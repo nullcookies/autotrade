@@ -40,15 +40,6 @@ class PriceCommand extends UserCommand
      */
     protected $version = '1.1.0';
 
-    public function read_config($file = null)
-    {
-        if (!is_file($file) or !file_exists($file))
-            return null;
-        
-        $arr = parse_ini_file($file);
-        return $arr;
-    }
-
     /**
      * Command execute method
      *
@@ -71,15 +62,15 @@ class PriceCommand extends UserCommand
             $data['text'] = PHP_EOL;
 
             // Get current config
-            $config_file = dirname(__FILE__) . DS . "../config.php";
-            $environment = $this->read_config($config_file);
+            $config_file = __DIR__ . "/../config.php";
+            $environment = parse_ini_file($config_file);
             
             $arr = [
                 'file'    => $config_file,
                 'environment' => $environment,
             ];
 
-            $data['text'] .= json_encode($environment);
+            $data['text'] .= json_encode($arr);
             return Request::sendMessage($data);
 
             
