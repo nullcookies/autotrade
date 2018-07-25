@@ -53,13 +53,17 @@ class StartCommand extends SystemCommand
      */
     public function execute()
     {
-        //$message = $this->getMessage();
-        //$chat_id = $message->getChat()->getId();
-        //$user_id = $message->getFrom()->getId();
-
         $message = $this->getMessage();
         $chat_id = $message->getChat()->getId();
-        $text    = 'Hi there!' . PHP_EOL . 'Type /help to see all commands!';
+        $from    = $message->getFrom();
+        // $user_id = $message->getFrom()->getId();
+
+        if ($from->getFirstName() or $from->getLastName())
+            $caption = sprintf('%s %s', $from->getFirstName(), $from->getLastName());
+        else 
+            $caption = sprintf('%s', $from->getUsername());
+
+        $text = 'Chào ' . $caption . '!' . PHP_EOL . 'Nếu không biết phải làm gì, hãy gõ /menu!';
 
         $data = [
             'chat_id' => $chat_id,

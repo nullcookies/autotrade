@@ -23,7 +23,7 @@ class PriceCommand extends UserCommand
     /**
      * @var string
      */
-    protected $name = 'price';
+    protected $name = 'p';
 
     /**
      * @var string
@@ -33,7 +33,7 @@ class PriceCommand extends UserCommand
     /**
      * @var string
      */
-    protected $usage = '/price';
+    protected $usage = '/p or /p <coin>';
 
     /**
      * @var string
@@ -55,11 +55,12 @@ class PriceCommand extends UserCommand
         $data = [
             'chat_id'    => $chat_id,
             'parse_mode' => 'markdown',
+            'text' => PHP_EOL,
         ];
 
         // If no command parameter is passed, show the list.
         if ($coin_name === '') {
-            $data['text'] = PHP_EOL;
+            // $data['text'] = PHP_EOL;
 
             // Get current config
             $config_file = __DIR__ . "/../config.php";
@@ -70,7 +71,12 @@ class PriceCommand extends UserCommand
                 'environment' => $environment,
             ];
 
-            $data['text'] .= json_encode($arr);
+            // $data['text'] .= json_encode($arr);
+            $data['text'] .= '
+✨ 5 mins -- 25/07/2018 09:34
+Buy:  { total: 317, size: 4,357,494 }
+Sell:  { total: 223, size: 3,788,610 }
+Price: 8372';
             return Request::sendMessage($data);
 
             

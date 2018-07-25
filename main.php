@@ -4,12 +4,11 @@ if (!defined('IS_VALID')) die('Access denied.' . "\n");
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 defined('ROOT_DIR') or define('ROOT_DIR', dirname(__FILE__));
 defined('LIB_DIR') or define('LIB_DIR', ROOT_DIR . DS . 'library');
-defined('COMM_DIR') or define('COMM_DIR', ROOT_DIR . DS . 'common');
 defined('LOGS_DIR') or define('LOGS_DIR', ROOT_DIR . DS . 'logs');
 // defined('CONFIG_FILE') or define('CONFIG_FILE', ROOT_DIR . DS . 'config.php');
 
-require_once(COMM_DIR . DS . "utility.php");
-require_once(COMM_DIR . DS . "shell.php");
+require_once(LIB_DIR . DS . "bossbaby/utility.php");
+require_once(LIB_DIR . DS . "bossbaby/shell.php");
 
 // Detect run as CLI mode
 // $isCLI = ( php_sapi_name() == 'cli' );

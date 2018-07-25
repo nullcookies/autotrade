@@ -15,9 +15,9 @@ https://api.telegram.org/bot585481163:AAEpPfxKDJpEUYtC3FBymi6lhR1ZhiP917w/getupd
 
 /setcommands
 
-start - Start BOT
-help - Show all commands
-price - Show price for any coin, default is BTC
+start - Bắt đầu dùng
+menu - Hiển thị danh sách lệnh có thể dùng
+p - Hiển thị giá coin, hoặc BTC
 
 https://api.telegram.org/bot615876936:AAF_6bub_cjLyiPLJ1BjAxoRqByDaKaYSB4/getme
 {"ok":true,"result":{"id":615876936,"is_bot":true,"first_name":"Boss Baby BOT","username":"boss_fuck_bot"}}
