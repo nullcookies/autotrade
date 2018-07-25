@@ -40,6 +40,15 @@ class PriceCommand extends UserCommand
      */
     protected $version = '1.1.0';
 
+    public function read_config($file = null)
+    {
+        if (!is_file($file) or !file_exists($file))
+            return null;
+        
+        $arr = parse_ini_file($file);
+        return $arr;
+    }
+
     /**
      * Command execute method
      *
@@ -52,24 +61,27 @@ class PriceCommand extends UserCommand
         $chat_id   = $message->getChat()->getId();
         $coin_name = trim($message->getText(true));
 
+        $data = [
+            'chat_id'    => $chat_id,
+            'parse_mode' => 'markdown',
+        ];
+
         // If no command parameter is passed, show the list.
         if ($coin_name === '') {
             $data['text'] = PHP_EOL;
 
-            require_once(LIB_DIR . DS . "bitmex-api/BitMex.php");
-            require_once(ROOT_DIR . DS . "bitmex/function.php");
-
             // Get current config
-            global $environment;
-            $environment = new stdClass();
-            
             $config_file = dirname(__FILE__) . DS . "../config.php";
-            $config = \Utility::func_read_config($config_file);
-            if (is_array($config) and count($config)) {
-                foreach ($config as $key => $value) {
-                    $environment->$key = $value;
-                }
-            }
+            $environment = $this->read_config($config_file);
+            
+            $arr = [
+                'file'    => $config_file,
+                'environment' => $environment,
+            ];
+
+            $data['text'] .= json_encode($environment);
+            return Request::sendMessage($data);
+
             
             if (!$environment->can_run) {
                 $data['text'] .= PHP_EOL . 'STOP!!!';
