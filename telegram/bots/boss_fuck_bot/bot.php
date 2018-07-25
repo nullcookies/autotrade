@@ -8,8 +8,6 @@ chdir(__DIR__);
 // Error handle
 require_once(__DIR__ . "/../error-handle.php");
 
-defined('IS_VALID') or define('IS_VALID', 1);
-require_once("../../../main.php");
 require_once(LIB_DIR . DS . "bitmex-api/BitMex.php");
 require_once(ROOT_DIR . DS . "bitmex/function.php");
 

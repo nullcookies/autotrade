@@ -13,9 +13,6 @@ chdir(__DIR__);
 // Error handle
 require_once(__DIR__ . "/../error-handle.php");
 
-defined('IS_VALID') or define('IS_VALID', 1);
-require_once("../../../main.php");
-
 // Check config to run
 if (!$environment->can_run) die('STOP!!!');
 
