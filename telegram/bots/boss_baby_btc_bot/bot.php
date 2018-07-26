@@ -15,15 +15,13 @@ require_once LIB_DIR . '/telegram/vendor/autoload.php';
 use Longman\TelegramBot\Request;
 use Longman\TelegramBot\Telegram;
 
-dump($environment);die;
-
-$API_KEY  = $environment->token;
-$BOT_NAME = $environment->user_name;
+$API_KEY  = $environment->telegram->bot->{2}->token;
+$BOT_NAME = $environment->telegram->bot->{2}->username;
 
 $telegram = new Telegram($API_KEY, $BOT_NAME);
 
 // Get the chat id and message text from the CLI parameters.
-$chat_id = isset($argv[1]) ? $argv[1] : $environment->my_id;
+$chat_id = isset($argv[1]) ? $argv[1] : $environment->telegram->main->id;
 $message = isset($argv[2]) ? $argv[2] : 'Message at ' . date('H:i:s d/m/Y');
 
 $_current_price = 0;
@@ -106,8 +104,8 @@ function func_show_current_price()
 
 		// func_show_account_info();
 
-		sleep(30);
-		func_show_current_price();
+		// sleep(30);
+		// func_show_current_price();
 	}
 
 	else {
@@ -148,13 +146,13 @@ function func_show_account_wallet()
 	global $environment;
 	
 	if (property_exists('stdClass', 'bitmex') === false or is_null($environment->bitmex))
-		$environment->bitmex = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
+		$environment->bitmex_instance = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
 
 	$arr1 = func_get_account_wallet($environment->bitmex);
 	\BossBaby\Utility::func_cli_print_arr($arr1);
 
 	if (property_exists('stdClass', 'bitmex2') === false or is_null($environment->bitmex2))
-		$environment->bitmex2 = new BitMex($environment->bitmex->{3}->apiKey2, $environment->bitmex->{3}->apiSecret2);
+		$environment->bitmex2_instance = new BitMex($environment->bitmex->{3}->apiKey2, $environment->bitmex->{3}->apiSecret2);
 	
 	$arr2 = func_get_account_wallet($environment->bitmex2);
 	\BossBaby\Utility::func_cli_print_arr($arr2);

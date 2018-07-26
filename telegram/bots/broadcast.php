@@ -1,4 +1,6 @@
 <?php
+if (!defined('STDIN')) die('Access denied.' . "\n");
+
 /**
  * Usage on CLI: $ php broadcast.php [telegram-chat-id] [message]
  */

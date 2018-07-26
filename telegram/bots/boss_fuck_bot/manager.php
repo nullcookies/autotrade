@@ -16,7 +16,7 @@ require_once LIB_DIR . '/telegram/vendor/autoload.php';
 
 // Add you bot's API key and name
 $bot_api_key  = $environment->telegram->bot->{3}->token;
-$bot_username = $environment->telegram->bot->{3}->user_name;
+$bot_username = $environment->telegram->bot->{3}->username;
 
 try {
     $bot = new TelegramBot\TelegramBotManager\BotManager([
@@ -80,19 +80,19 @@ try {
 
         // Define all IDs of admin users
         'admins'       => [
-           $environment->telegram->id,
+           $environment->telegram->main->id,
         ],
 
         // Enter your MySQL database credentials
         // // (array) Mysql credentials to connect a database (necessary for [`getUpdates`](#using-getupdates-method) method!).
         'mysql'            => [
-            'host'         => $environment->database{1}->host,
-            'user'         => $environment->database{1}->user,
-            'password'     => $environment->database{1}->pass,
-            'database'     => $environment->database{1}->name,
-            'port'         => $environment->database{1}->port, // optional
-            'table_prefix' => $environment->database{1}->table_prefix, // optional
-            'encoding'     => $environment->database{1}->encoding, // optional
+            'host'         => $environment->database->{1}->host,
+            'user'         => $environment->database->{1}->user,
+            'password'     => $environment->database->{1}->pass,
+            'database'     => $environment->database->{1}->name,
+            'port'         => $environment->database->{1}->port, // optional
+            'table_prefix' => $environment->database->{1}->table_prefix, // optional
+            'encoding'     => $environment->database->{1}->encoding, // optional
         ],
 
         // Requests Limiter (tries to prevent reaching Telegram API limits)

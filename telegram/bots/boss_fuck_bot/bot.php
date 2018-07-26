@@ -16,7 +16,7 @@ use Longman\TelegramBot\Request;
 use Longman\TelegramBot\Telegram;
 
 $API_KEY  = $environment->telegram->bot->{3}->token;
-$BOT_NAME = $environment->telegram->bot->{3}->user_name;
+$BOT_NAME = $environment->telegram->bot->{3}->username;
 
 $telegram = new Telegram($API_KEY, $BOT_NAME);
 

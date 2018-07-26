@@ -13,7 +13,7 @@ require_once LIB_DIR . '/telegram/vendor/autoload.php';
 
 // Add you bot's API key and name
 $bot_api_key  = $environment->telegram->bot->{3}->token;
-$bot_username = $environment->telegram->bot->{3}->user_name;
+$bot_username = $environment->telegram->bot->{3}->username;
 
 // Define the URL to your hook.php file
 $hook_url     = $environment->telegram->bot->{3}->root_url . 'hook.php';

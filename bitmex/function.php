@@ -4,10 +4,11 @@ if (!defined('IS_VALID')) die('Access denied.' . "\n");
 function func_get_current_price()
 {
 	global $environment;
+
 	if (property_exists('stdClass', 'bitmex') === false or is_null($environment->bitmex))
-		$environment->bitmex = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
+		$environment->bitmex_instance = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
 	
-	$arr = $environment->bitmex->getTicker();
+	$arr = $environment->bitmex_instance->getTicker();
 	if ($arr) {
 		$arr['marketPrice'] = $arr['market_price'];
 		unset($arr['market_price']);

@@ -83,13 +83,13 @@ function func_show_account_wallet()
 	global $environment;
 	
 	if (property_exists('stdClass', 'bitmex') === false or is_null($environment->bitmex))
-		$environment->bitmex = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
+		$environment->bitmex_instance = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
 	
 	$arr1 = func_get_account_wallet($environment->bitmex);
 	\BossBaby\Utility::func_cli_print_arr($arr1);
 
 	if (property_exists('stdClass', 'bitmex2') === false or is_null($environment->bitmex2))
-		$environment->bitmex2 = new BitMex($environment->bitmex->{3}->apiKey2, $environment->bitmex->{3}->apiSecret2);
+		$environment->bitmex2_instance = new BitMex($environment->bitmex->{3}->apiKey2, $environment->bitmex->{3}->apiSecret2);
 
 	$arr2 = func_get_account_wallet($environment->bitmex2);
 	\BossBaby\Utility::func_cli_print_arr($arr2);

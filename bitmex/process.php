@@ -145,7 +145,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-wallet') {
 	if (property_exists('stdClass', 'bitmex') === false or is_null($environment->bitmex))
-		$environment->bitmex = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
+		$environment->bitmex_instance = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
 	
 	$tmp = func_get_account_wallet($environment->bitmex);
 	$arr = array(
@@ -165,7 +165,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-wallet2') {
 	if (property_exists('stdClass', 'bitmex2') === false or is_null($environment->bitmex2))
-		$environment->bitmex2 = new BitMex($environment->bitmex->{3}->apiKey2, $environment->bitmex->{3}->apiSecret2);
+		$environment->bitmex2_instance = new BitMex($environment->bitmex->{3}->apiKey2, $environment->bitmex->{3}->apiSecret2);
 	
 	$tmp = func_get_account_wallet($environment->bitmex2);
 	$arr = array(
@@ -185,7 +185,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-open-positions') {
 	if (property_exists('stdClass', 'bitmex') === false or is_null($environment->bitmex))
-		$environment->bitmex = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
+		$environment->bitmex_instance = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
 	
 	$arr = func_get_open_positions($environment->bitmex);
 	// \BossBaby\Utility::func_print_arr_to_table($arr);
@@ -236,7 +236,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-open-positions2') {
 	if (property_exists('stdClass', 'bitmex2') === false or is_null($environment->bitmex2))
-		$environment->bitmex2 = new BitMex($environment->bitmex->{3}->apiKey2, $environment->bitmex->{3}->apiSecret2);
+		$environment->bitmex2_instance = new BitMex($environment->bitmex->{3}->apiKey2, $environment->bitmex->{3}->apiSecret2);
 	
 	$arr = func_get_open_positions($environment->bitmex2);
 	// \BossBaby\Utility::func_print_arr_to_table($arr);
@@ -287,7 +287,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-open-order') {
 	if (property_exists('stdClass', 'bitmex') === false or is_null($environment->bitmex))
-		$environment->bitmex = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
+		$environment->bitmex_instance = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
 	
 	$arr = func_get_open_orders($environment->bitmex);
 	// \BossBaby\Utility::func_print_arr_to_table($arr);
@@ -315,7 +315,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-open-order2') {
 	if (property_exists('stdClass', 'bitmex2') === false or is_null($environment->bitmex2))
-		$environment->bitmex2 = new BitMex($environment->bitmex->{3}->apiKey2, $environment->bitmex->{3}->apiSecret2);
+		$environment->bitmex2_instance = new BitMex($environment->bitmex->{3}->apiKey2, $environment->bitmex->{3}->apiSecret2);
 	
 	$arr = func_get_open_orders($environment->bitmex2);
 	// \BossBaby\Utility::func_print_arr_to_table($arr);
@@ -344,7 +344,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-margin') {
 	if (property_exists('stdClass', 'bitmex') === false or is_null($environment->bitmex))
-		$environment->bitmex = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
+		$environment->bitmex_instance = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
 	
 	$tmp = func_get_margin($environment->bitmex);
 	$arr = array(
@@ -363,7 +363,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-margin2') {
 	if (property_exists('stdClass', 'bitmex') === false or is_null($environment->bitmex))
-		$environment->bitmex = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
+		$environment->bitmex_instance = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
 	
 	$tmp = func_get_margin($environment->bitmex);
 	$arr = array(
@@ -385,9 +385,9 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 	// $environment->bitmex->editOrderPrice($orderID, $price);
 
 	if (property_exists('stdClass', 'bitmex') === false or is_null($environment->bitmex))
-		$environment->bitmex = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
+		$environment->bitmex_instance = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
 
-	$current = $environment->bitmex->getTicker();
+	$current = $environment->bitmex_instance->getTicker();
 	// $price = $current['last'];
 	$price = 7433;
 	$arr = array(
@@ -410,9 +410,9 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-margin') {
 	if (property_exists('stdClass', 'bitmex') === false or is_null($environment->bitmex))
-		$environment->bitmex = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
+		$environment->bitmex_instance = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
 	
-	$tmp = $environment->bitmex->getMargin();
+	$tmp = $environment->bitmex_instance->getMargin();
 	$arr = array(
 		'realisedPnl' => $tmp['realisedPnl'],
 		'unrealisedPnl' => $tmp['unrealisedPnl'],
@@ -429,9 +429,9 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-orderbook') {
 	if (property_exists('stdClass', 'bitmex') === false or is_null($environment->bitmex))
-		$environment->bitmex = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
+		$environment->bitmex_instance = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
 	
-	$arr = $environment->bitmex->getOrderBook($depth = 25);
+	$arr = $environment->bitmex_instance->getOrderBook($depth = 25);
 	// \BossBaby\Utility::func_print_arr_to_table($arr, 'OrderBook');
 	if ($arr) {
 		foreach ($arr as $key => $value) {
@@ -443,20 +443,20 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-orders') {
 	if (property_exists('stdClass', 'bitmex') === false or is_null($environment->bitmex))
-		$environment->bitmex = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
+		$environment->bitmex_instance = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
 
-	$arr = $environment->bitmex->getOrders(100);
+	$arr = $environment->bitmex_instance->getOrders(100);
 	\BossBaby\Utility::func_print_arr_to_table($arr, 'List User Order');
 	exit;
 }
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-order') {
 	if (property_exists('stdClass', 'bitmex') === false or is_null($environment->bitmex))
-		$environment->bitmex = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
+		$environment->bitmex_instance = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
 	
 	$j = 0;
 	for ($i=0; $i < 10; $i++) {
-		$arr = $environment->bitmex->getOrder($orderID = $i, $count = 100);
+		$arr = $environment->bitmex_instance->getOrder($orderID = $i, $count = 100);
 		if (!$arr) continue;
 		$arr['$i'] = $i;
 		$arr['$j'] = $j;

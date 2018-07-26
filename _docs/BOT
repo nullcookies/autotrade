@@ -13,6 +13,7 @@ https://core.telegram.org/methods
 https://api.telegram.org/bot585481163:AAEpPfxKDJpEUYtC3FBymi6lhR1ZhiP917w/getme
 https://api.telegram.org/bot585481163:AAEpPfxKDJpEUYtC3FBymi6lhR1ZhiP917w/getupdates
 https://github.com/zavg/php-telegram-bot#send-message
+https://irazasyed.github.io/telegram-bot-sdk/usage/commands/
 
 /setcommands
 
@@ -74,3 +75,23 @@ https://getcomposer.org/download/
 https://symfony.com/doc/2.0/components/class_loader.html
 https://github.com/symfony/class-loader
 https://phpenthusiast.com/blog/how-to-autoload-with-composer
+
+
+
+https://api.telegram.org/bot696118749:AAGofvL9n2Xp-LhBd-jut_QgmnUKV0AsMro/setwebhook?url=
+https://api.telegram.org/bot641704003:AAHSGnyXAigJDwi4dMdG7rUoftCnbHMUWP8/setwebhook?url=
+https://api.telegram.org/bot615876936:AAF_6bub_cjLyiPLJ1BjAxoRqByDaKaYSB4/setwebhook?url=
+https://api.telegram.org/bot585481163:AAEpPfxKDJpEUYtC3FBymi6lhR1ZhiP917w/setwebhook?url=
+
+
+
+https://api.telegram.org/bot696118749:AAGofvL9n2Xp-LhBd-jut_QgmnUKV0AsMro/setwebhook?url=https://test.maats
+chappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_notifier_bot//set.php
+https://api.telegram.org/bot641704003:AAHSGnyXAigJDwi4dMdG7rUoftCnbHMUWP8/setwebhook?url=https://test.maats
+chappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_btc_bot//set.php
+https://api.telegram.org/bot615876936:AAF_6bub_cjLyiPLJ1BjAxoRqByDaKaYSB4/setwebhook?url=https://test.maats
+chappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_fuck_bot//set.php
+https://api.telegram.org/bot585481163:AAEpPfxKDJpEUYtC3FBymi6lhR1ZhiP917w/setwebhook?url=https://test.maats
+chappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_welcome_bot//set.php
+
+

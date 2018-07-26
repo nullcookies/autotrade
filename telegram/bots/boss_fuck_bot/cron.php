@@ -24,11 +24,11 @@ $commands = [
 
 // Add you bot's API key and name
 $bot_api_key  = $environment->telegram->bot->{3}->token;
-$bot_username = $environment->telegram->bot->{3}->user_name;
+$bot_username = $environment->telegram->bot->{3}->username;
 
 // Define all IDs of admin users in this array (leave as empty array if not used)
 $admin_users = [
-    $environment->telegram->id,
+    $environment->telegram->main->id,
 ];
 
 // Define all paths for your custom commands in this array (leave as empty array if not used)
@@ -38,10 +38,10 @@ $commands_paths = [
 
 // Enter your MySQL database credentials
 $mysql_credentials = [
-    'host'     => $environment->database{1}->host,
-    'user'     => $environment->database{1}->user,
-    'password' => $environment->database{1}->pass,
-    'database' => $environment->database{1}->name,
+    'host'     => $environment->database->{1}->host,
+    'user'     => $environment->database->{1}->user,
+    'password' => $environment->database->{1}->pass,
+    'database' => $environment->database->{1}->name,
 ];
 
 try {

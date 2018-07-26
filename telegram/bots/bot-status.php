@@ -1,4 +1,6 @@
 <?php
+if (!defined('STDIN')) die('Access denied.' . "\n");
+
 // Error handle
 require_once(__DIR__ . "/error-handle.php");
 
@@ -16,6 +18,12 @@ if ($bots) {
     foreach ($bots as $pos => $bot) {
         $bot = \BossBaby\Utility::array_to_object($bot);
         $botsList[$bot->name] = $bot->token;
+
+        // // Print URLs to check
+        // echo $unset = 'https://api.telegram.org/bot' . $bot->token . '/setwebhook?url=' . "\n";
+        // file_get_contents($unset);
+        // echo $set = 'https://api.telegram.org/bot' . $bot->token . '/setwebhook?url=' . $bot->root_url . 'set.php' . "\n";
+        // file_get_contents($set);
     }
     unset($bots);
 }
