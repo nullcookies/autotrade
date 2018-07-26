@@ -8,7 +8,7 @@
         "installation-source": "",
         "autoload": {
             "bossbaby": {
-                "BossBabt\\": ""
+                "BossBaby\\": ""
             }
         },
         "license": [
