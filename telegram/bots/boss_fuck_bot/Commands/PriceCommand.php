@@ -97,6 +97,8 @@ class PriceCommand extends UserCommand
 
         $coin_name = str_replace('/', '', $coin_name);
         $data['text'] = 'Làm gì có *' . $coin_name . '*, thử lại coi 😒';
+
+        $coin_name = strtoupper($coin_name);
         
         require_once(LIB_DIR . DS . "binance-api/BinanceClass.php");
         $environment->binance_instance = new \Binance($environment->binance->{1}->apiKey, $environment->bitmex->{1}->apiSecret);

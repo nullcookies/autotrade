@@ -33,6 +33,8 @@ class Bittrex
 			curl_setopt($l_curl, CURLOPT_HTTPHEADER, array('apisign:'.hash_hmac('sha512', $l_uri, $this->m_apiSecret)));
 		$l_curlResult = curl_exec($l_curl);
 
+		\BossBaby\Utility::writeLog('CURL Error: ' . curl_error($l_curl));
+
 		return json_decode($l_curlResult);
 	}
 

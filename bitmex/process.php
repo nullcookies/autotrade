@@ -72,9 +72,9 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 	\BossBaby\Utility::func_print_arr_to_table($arr);
 
 	require_once(LIB_DIR . DS . "bittrex-api/Bittrex.php");
-	$bittrex = new \Bittrex($environment->bittrex->{1}->apiKey, $environment->bittrex->{1}->apiSecret);
-	$responce = $bittrex->GetCurrencies();
-	dump($responce);
+	// $bittrex = new \Bittrex($environment->bittrex->{1}->apiKey, $environment->bittrex->{1}->apiSecret);
+	// $responce = $bittrex->GetBalances();
+	// dump($responce);
 
 	exit;
 }
