@@ -25,29 +25,12 @@
 //     die("Hmm, I don't trust you...");
 // }
 
+chdir(__DIR__);
 defined('IS_VALID') or define('IS_VALID', 1);
 require_once("../../main.php");
 
-// Get global variables
-$environment = new stdClass();
-$config_file = dirname(__FILE__) . "/config.php";
-$config      = \Utility::func_read_config($config_file);
-if (is_array($config) and count($config)) {
-    foreach ($config as $key => $value) {
-        $environment->$key = $value;
-    }
-}
-
-// Get global variables
-$notify_environment = new stdClass();
-
-$config_file = dirname(__FILE__) . DS . "boss_baby_notifier_bot/config.php";
-$config      = \Utility::func_read_config($config_file);
-if (is_array($config) and count($config)) {
-    foreach ($config as $key => $value) {
-        $notify_environment->$key = $value;
-    }
-}
+// Check config to run
+if (!$environment->enable) die('STOP!!!');
 
 /**
  * Error handler, passes flow over the exception logger with new ErrorException.
@@ -69,12 +52,12 @@ function log_error($num, $str, $file, $line, $context = null)
  */
 function log_exception($e)
 {
-    global $notify_environment;
+    global $environment;
     
     // setup notifier
-    $API_KEY = $notify_environment->token; // Replace 'XXXXXXXXXX' with your bot's API token
-    $DEV_ID  = $notify_environment->my_id; // Replace 'XXXXXXXXXX' with your Telegram user ID (use /whoami command)
-    
+    $API_KEY = $environment->telegram->bot->{1}->token; // Replace 'XXXXXXXXXX' with your bot's API token
+    $DEV_ID  = $environment->telegram->main->id; // Replace 'XXXXXXXXXX' with your Telegram user ID (use /whoami command)
+
     // get incomming message
     $incoming = file_get_contents('php://input');
     

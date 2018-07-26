@@ -15,13 +15,13 @@ require_once LIB_DIR . '/telegram/vendor/autoload.php';
 use Longman\TelegramBot\Request;
 use Longman\TelegramBot\Telegram;
 
-$API_KEY  = $environment->token;
-$BOT_NAME = $environment->user_name;
+$API_KEY  = $environment->telegram->bot->{3}->token;
+$BOT_NAME = $environment->telegram->bot->{3}->user_name;
 
 $telegram = new Telegram($API_KEY, $BOT_NAME);
 
 // Get the chat id and message text from the CLI parameters.
-$chat_id = isset($argv[1]) ? $argv[1] : $environment->my_id;
+$chat_id = isset($argv[1]) ? $argv[1] : $environment->telegram->id;
 $message = isset($argv[2]) ? $argv[2] : 'Message at ' . date('H:i:s d/m/Y');
 
 $_current_price = 0;
@@ -39,15 +39,6 @@ function func_bind_current_config()
 {
 	// ☺☻♥♦♣♠•◘○◙♂♀♪♫☼►◄↕‼¶§▬↨↑↓→←
 	global $environment;
-	$environment = new stdClass();
-	
-	$config_file = dirname(__FILE__) . DS . "config.php";
-	$config = \Utility::func_read_config($config_file);
-	if (is_array($config) and count($config)) {
-		foreach ($config as $key => $value) {
-			$environment->$key = $value;
-		}
-	}
 }
 
 function func_show_current_price()
@@ -60,8 +51,8 @@ function func_show_current_price()
 	global $_check_price;
 	$_check_price++;
 
-	if ($environment->can_run) {
-		// echo date('Y-m-d H:i:s') . ' -> ' . $environment->can_run . "\n";
+	if ($environment->telegram->bot->{3}->enable) {
+		// echo date('Y-m-d H:i:s') . ' -> ' . $environment->telegram->bot->{3}->enable . "\n";
 		// if ($_check_price > 1) 
 		// echo "\n";
 		// echo 'Time: ' . date('Y-m-d H:i:s') . ' -> ' . $_check_price . "\n";
@@ -143,27 +134,27 @@ function func_show_account_info()
 {
 	global $environment;
 	
-	$arr1 = func_get_account_info($environment->account, $environment->apiKey, $environment->apiSecret, false);
-	\Utility::func_cli_print_arr($arr1);
+	$arr1 = func_get_account_info($environment->telegram->bot->{3}->account, $environment->telegram->bot->{3}->bitmex->{2}->apiKey, $environment->telegram->bot->{3}->bitmex->{2}->apiSecret, false);
+	\BossBaby\Utility::func_cli_print_arr($arr1);
 
-	$arr2 = func_get_account_info($environment->account2, $environment->apiKey2, $environment->apiSecret2, false);
-	\Utility::func_cli_print_arr($arr2);
+	$arr2 = func_get_account_info($environment->telegram->bot->{3}->account2, $environment->telegram->bot->{3}->bitmex->{2}->apiKey2, $environment->telegram->bot->{3}->bitmex->{2}->apiSecret2, false);
+	\BossBaby\Utility::func_cli_print_arr($arr2);
 }
 
 function func_show_account_wallet()
 {
 	global $environment;
 	
-	if (property_exists('stdClass', 'bitmex') === false or is_null($environment->bitmex))
-		$environment->bitmex = new BitMex($environment->apiKey, $environment->apiSecret);
+	if (property_exists('stdClass', 'bitmex') === false or is_null($environment->telegram->bot->{3}->bitmex))
+		$environment->telegram->bot->{3}->bitmex = new BitMex($environment->telegram->bot->{3}->bitmex->{2}->apiKey, $environment->telegram->bot->{3}->bitmex->{2}->apiSecret);
 
-	$arr1 = func_get_account_wallet($environment->bitmex);
-	\Utility::func_cli_print_arr($arr1);
+	$arr1 = func_get_account_wallet($environment->telegram->bot->{3}->bitmex);
+	\BossBaby\Utility::func_cli_print_arr($arr1);
 
-	if (property_exists('stdClass', 'bitmex2') === false or is_null($environment->bitmex2))
-		$environment->bitmex2 = new BitMex($environment->apiKey2, $environment->apiSecret2);
+	if (property_exists('stdClass', 'bitmex2') === false or is_null($environment->telegram->bot->{3}->bitmex2))
+		$environment->telegram->bot->{3}->bitmex2 = new BitMex($environment->telegram->bot->{3}->bitmex->{3}->apiKey2, $environment->telegram->bot->{3}->bitmex->{3}->apiSecret2);
 	
-	$arr2 = func_get_account_wallet($environment->bitmex2);
-	\Utility::func_cli_print_arr($arr2);
+	$arr2 = func_get_account_wallet($environment->telegram->bot->{3}->bitmex2);
+	\BossBaby\Utility::func_cli_print_arr($arr2);
 }
 

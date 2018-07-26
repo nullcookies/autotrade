@@ -1,17 +1,17 @@
 <?php
-namespace BossBaby\Config;
+namespace BossBaby;
 
 class Config
 {
     public static function read($filename)
     {
         $config = include $filename;
-        return $config;
+        return (object) $config;
     }
     
     public static function write($filename, array $config)
     {
-        $config = var_export($config, true);
-        file_put_contents($filename, "<?php return $config ;");
+        $config = var_export((array) $config, true);
+        file_put_contents($filename, "<?php \nreturn $config;");
     }
 }

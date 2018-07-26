@@ -5,7 +5,7 @@ function func_get_current_price()
 {
 	global $environment;
 	if (property_exists('stdClass', 'bitmex') === false or is_null($environment->bitmex))
-		$environment->bitmex = new BitMex($environment->apiKey, $environment->apiSecret);
+		$environment->bitmex = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
 	
 	$arr = $environment->bitmex->getTicker();
 	if ($arr) {
@@ -20,7 +20,7 @@ function func_get_account_info($account = null, $apiKey = null, $apiSecret = nul
 	$arr = array(
 		'Account' => $account,
 		'API Key' => $apiKey,
-		'API Secret' => ($hide_apiSecret) ? \Utility::func_replace_by_star($apiSecret) : $apiSecret,
+		'API Secret' => ($hide_apiSecret) ? \BossBaby\Utility::func_replace_by_star($apiSecret) : $apiSecret,
 	);
 	return $arr;
 }

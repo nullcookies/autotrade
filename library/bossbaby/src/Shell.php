@@ -3,6 +3,9 @@
  * @author     Ashraf M Kaabi
  * @name       Advance Linux Exec
  */
+
+namespace BossBaby;
+
 class Shell
 {
     /**

@@ -58,23 +58,49 @@ return array(
 	'database' => array(
     	'1' => array(
             'host' => 'localhost',
+            'port' => '3306',
             'user' => 'maatschappelijkwerkonline.nl.us',
             'pass' => '9XAwTHhb8sDofGbl',
             'name' => 'test-11_maatschappelijkwerkonline.nl.db',
+            'table_prefix' => '',
+            'encoding' => 'utf8mb4',
         ),
 	),
 	'telegram' => array(
     	'main' => array(
             'id' => '475001958',
+            'api' => 'https://api.telegram.org',
         ),
         'bot' => array(
-            '1' => array(
-            	'name' => '',
-            	'username' => 'boss_fuck_bot',
-            	'token' => '615876936:AAF_6bub_cjLyiPLJ1BjAxoRqByDaKaYSB4',
-            	'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_fuck_bot/'
-            ),
             'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/',
+            '1' => array(
+                'name' => 'Boss Baby Notifier',
+                'username' => 'boss_baby_notifier_bot',
+                'token' => '696118749:AAGofvL9n2Xp-LhBd-jut_QgmnUKV0AsMro',
+                'max_connections' => 40
+                'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_notifier_bot/'
+            ),
+            '2' => array(
+                'name' => 'Boss Baby BTC Price',
+                'username' => 'boss_baby_btc_bot',
+                'token' => '641704003:AAHSGnyXAigJDwi4dMdG7rUoftCnbHMUWP8',
+                'max_connections' => 40
+                'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_btc_bot/'
+            ),
+            '3' => array(
+                'name' => 'Boss Baby BOT',
+                'username' => 'boss_fuck_bot',
+                'token' => '615876936:AAF_6bub_cjLyiPLJ1BjAxoRqByDaKaYSB4',
+                'max_connections' => 40
+                'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_fuck_bot/'
+            ),
+            '4' => array(
+                'name' => 'Boss Baby Welcome',
+                'username' => 'boss_baby_welcome_bot',
+                'token' => '585481163:AAEpPfxKDJpEUYtC3FBymi6lhR1ZhiP917w',
+                'max_connections' => 40
+                'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_welcome_bot/'
+            ),
         ),
 	),
 );

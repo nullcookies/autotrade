@@ -1,4 +1,6 @@
 <?php
+namespace BossBaby;
+
 class Utility
 {
     public static function writeLog($string = null)
@@ -55,7 +57,7 @@ class Utility
     {
         if ($mode && is_dir($dir) and shell_exec('which chmod'))
             @chmod($dir, $mode);
-        is_dir(dirname($dir)) || \Utility::mkdir_recursive(dirname($dir), $mode);
+        is_dir(dirname($dir)) || \BossBaby\Utility::mkdir_recursive(dirname($dir), $mode);
         return is_dir($dir) || @mkdir($dir, $mode);
     }
 
@@ -72,13 +74,34 @@ class Utility
             foreach ($objects as $object) { 
                 if ($object != "." && $object != "..") { 
                     if (is_dir($dir . "/" . $object))
-                        \Utility::rmdir_recursive($dir . "/" . $object);
+                        \BossBaby\Utility::rmdir_recursive($dir . "/" . $object);
                     else
                         unlink($dir . "/" . $object); 
                 } 
             }
             rmdir($dir); 
         } 
+    }
+
+    public static function array_to_object($array = null)
+    {
+        if (!$array) return null;
+        return json_decode(json_encode($array), FALSE);
+    }
+
+    public static function object_to_array($object = null)
+    {
+        if (!$object) return null;
+        if (is_array($object) || is_object($object))
+        {
+            $result = array();
+            foreach ($object as $key => $value)
+            {
+                $result[$key] = self::object_to_array($value);
+            }
+            return $result;
+        }
+        return $object;
     }
 
     // ------------------------------------------------------------ //
@@ -144,14 +167,14 @@ class Utility
     public static function func_cli_print_arr($arr = null, $title = '', $extra = null, $echo = true) 
     {
         if (!$arr) {echo 'No data found!'; exit;}
-        $max_key_length = \Utility::func_max_key_length($arr);
-        $max_value_length = \Utility::func_max_value_length($arr);
+        $max_key_length = \BossBaby\Utility::func_max_key_length($arr);
+        $max_value_length = \BossBaby\Utility::func_max_value_length($arr);
 
-        $text = \Utility::func_fill_space(' ', $max_key_length + $max_value_length + 5, '-') . "\n";
+        $text = \BossBaby\Utility::func_fill_space(' ', $max_key_length + $max_value_length + 5, '-') . "\n";
         foreach ($arr as $key => $value) {
             if (is_object($value)) {
                 $max_value_length = strlen(serialize($value));
-                $text .= '| ' . \Utility::func_fill_space($key, $max_key_length) . '| ' . serialize($value) . ' |' . "\n";
+                $text .= '| ' . \BossBaby\Utility::func_fill_space($key, $max_key_length) . '| ' . serialize($value) . ' |' . "\n";
             }
             else {
                 if (strpos($value, '▲') !== false or strpos($value, '▼') !== false)
@@ -161,10 +184,10 @@ class Utility
                 if ((strpos($value, '▲') !== false or strpos($value, '▼') !== false) and strpos($value, '.') === false and strpos($value, '%') === false)
                     $value .= ' ';
                 
-                $text .= '| ' . \Utility::func_fill_space($key, $max_key_length) . '| ' . \Utility::func_fill_space($value, $max_value_length) . ' |' . "\n";
+                $text .= '| ' . \BossBaby\Utility::func_fill_space($key, $max_key_length) . '| ' . \BossBaby\Utility::func_fill_space($value, $max_value_length) . ' |' . "\n";
             }
         }
-        $text .= \Utility::func_fill_space(' ', $max_key_length + $max_value_length + 5, '-') . "\n";
+        $text .= \BossBaby\Utility::func_fill_space(' ', $max_key_length + $max_value_length + 5, '-') . "\n";
 
         if ($echo) echo $text;
         else return $text;
@@ -411,33 +434,5 @@ yfg3wNf+r99KxafOibNu5IQvKKsv2x9lTtEFvmGlXq9/rFeL/gnWD2kB6KcwcpB+wP/IyeP2svqp
 9oeiCT9Fr1cL/gmp125aUc4P+B85iX+qJ/la0k/Ze0D0T0j93jXTpv0BYUGhQhdSooYAAAAASUVO
 RK5CYII=',
         );
-    }
-}
-
-if (!function_exists("arr")) {
-    function arr($arr)
-    {
-        echo '<pre>';
-        print_r($arr);
-        echo '</pre>';
-    }
-}
-
-if (!function_exists("dump")) {
-    function dump($arr)
-    {
-        echo "<pre>";
-        var_dump($arr);
-        echo "</pre>";
-    }
-}
-
-if (!function_exists("debug")) {
-    function debug($arr)
-    {
-        echo '<pre>';
-        var_dump($arr);
-        echo '</pre>';
-        die;
     }
 }

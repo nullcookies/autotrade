@@ -11,15 +11,12 @@
 // Error handle
 require_once(__DIR__ . "/../error-handle.php");
 
-// Check config to run
-if (!$environment->can_run) die('STOP!!!');
-
 // Load composer
 require_once LIB_DIR . '/telegram/vendor/autoload.php';
 
 // Add you bot's API key and name
-$bot_api_key  = $environment->token;
-$bot_username = $environment->user_name;
+$bot_api_key  = $environment->telegram->bot->{3}->token;
+$bot_username = $environment->telegram->bot->{3}->user_name;
 
 try {
     $bot = new TelegramBot\TelegramBotManager\BotManager([
@@ -33,7 +30,7 @@ try {
         // (array) All options that have to do with the webhook.
         'webhook'      => [
             // When using webhook, this needs to be uncommented and defined
-            'url' => $environment->root_url . 'manager.php',
+            'url' => $environment->telegram->bot->{3}->root_url . 'manager.php',
             // Use self-signed certificate
             // 'certificate' => __DIR__ . '/server.crt',
             // Limit maximum number of connections
@@ -83,19 +80,19 @@ try {
 
         // Define all IDs of admin users
         'admins'       => [
-           $environment->my_id,
+           $environment->telegram->id,
         ],
 
         // Enter your MySQL database credentials
         // // (array) Mysql credentials to connect a database (necessary for [`getUpdates`](#using-getupdates-method) method!).
         'mysql'            => [
-            'host'         => $environment->host,
-            'port'         => 3306,           // optional
-            'user'         => $environment->user,
-            'password'     => $environment->pass,
-            'database'     => $environment->dbname,
-            // 'table_prefix' => 'tbl_',    // optional
-            'encoding'     => 'utf8mb4',      // optional
+            'host'         => $environment->database{1}->host,
+            'user'         => $environment->database{1}->user,
+            'password'     => $environment->database{1}->pass,
+            'database'     => $environment->database{1}->name,
+            'port'         => $environment->database{1}->port, // optional
+            'table_prefix' => $environment->database{1}->table_prefix, // optional
+            'encoding'     => $environment->database{1}->encoding, // optional
         ],
 
         // Requests Limiter (tries to prevent reaching Telegram API limits)

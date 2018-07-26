@@ -5,26 +5,7 @@ defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 defined('ROOT_DIR') or define('ROOT_DIR', dirname(__FILE__));
 defined('LIB_DIR') or define('LIB_DIR', ROOT_DIR . DS . 'library');
 defined('LOGS_DIR') or define('LOGS_DIR', ROOT_DIR . DS . 'logs');
-// defined('CONFIG_FILE') or define('CONFIG_FILE', ROOT_DIR . DS . 'config.php');
-
-set_include_path(get_include_path() . PATH_SEPARATOR . LIB_DIR);
-
-// require_once(LIB_DIR . DS . "bossbaby/utility.php");
-// require_once(LIB_DIR . DS . "bossbaby/shell.php");
-
-// require_once LIB_DIR . '/bossbaby/autoload.php';
-// require_once(LIB_DIR . "/bossbaby/Autoloader.php");
-// require_once LIB_DIR . '/bossbaby/class-loader/ClassLoader.php';
-// use Symfony\Component\ClassLoader\UniversalClassLoader;
-// $loader = new UniversalClassLoader();
-// var_dump($loader);
-// // ... register namespaces and prefixes here - see below
-// $loader->register();
-require_once LIB_DIR . '/bossbaby/vendor/autoload.php';
-
-new \BossBaby\Config;
-// var_dump($config);
-die;
+defined('CONFIG_FILE') or define('CONFIG_FILE', ROOT_DIR . DS . 'config.php');
 
 // Detect run as CLI mode
 // $isCLI = ( php_sapi_name() == 'cli' );
@@ -44,11 +25,54 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 ini_set("log_errors", 1);
 ini_set("error_log", LOGS_DIR . DS . date("Ymd") . "-log.txt");
 
+// Load classes
+require_once LIB_DIR . '/bossbaby/vendor/autoload.php';
+
 $is_https = isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1)
     || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https';
 $root_url = '';
 $http_host = $_SERVER['HTTP_HOST'];
-$root_url = \Utility::func_clean_path($root_url);
+$root_url = \BossBaby\Utility::func_clean_path($root_url);
 defined('ROOT_URL') or define('ROOT_URL', ($is_https ? 'https' : 'http') . '://' . $http_host . (!empty($root_url) ? '/' . $root_url : ''));
 defined('SELF_URL') or define('SELF_URL', ($is_https ? 'https' : 'http') . '://' . $http_host . $_SERVER['PHP_SELF']);
 defined('SELF_URL_NO_SCRIPT') or define('SELF_URL_NO_SCRIPT', dirname(strtok(SELF_URL, '?')) . '/');
+
+// Get global variables
+$environment = \BossBaby\Config::read(CONFIG_FILE);
+$environment = \BossBaby\Utility::array_to_object($environment);
+// var_dump($environment->telegram->bot->{1}->token);
+/*var_dump($environment);
+var_dump(\BossBaby\Utility::object_to_array($environment));*/
+// $file = ROOT_DIR . DS . 'config-' . (date('YmdHi')) . '.php';
+// $config = \BossBaby\Config::write($file, (array) $config);
+// die;
+
+// ------------------------------------------------------------ //
+
+if (!function_exists("arr")) {
+    function arr($arr)
+    {
+        echo '<pre>';
+        print_r($arr);
+        echo '</pre>';
+    }
+}
+
+if (!function_exists("dump")) {
+    function dump($arr)
+    {
+        echo "<pre>";
+        var_dump($arr);
+        echo "</pre>";
+    }
+}
+
+if (!function_exists("debug")) {
+    function debug($arr)
+    {
+        echo '<pre>';
+        var_dump($arr);
+        echo '</pre>';
+        die;
+    }
+}

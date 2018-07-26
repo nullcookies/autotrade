@@ -1,22 +1,7 @@
 {
-    "name": "bossbaby/classes",
-    "type": "library",
-    "description": "PHP Classes",
-    "keywords": ["classes", "php", "bossbaby"],
-    "license": "MIT",
-    "homepage": "https://bitbucket.org/longersoft/autotrade",
-    "support": {
-        "issues": "https://bitbucket.org/longersoft/autotrade/issues",
-        "source": "https://bitbucket.org/longersoft/autotrade"
-    },
-    "authors": [
-        {
-            "name": "Long Vu",
-            "homepage": "https://bitbucket.org/longersoft/autotrade",
-            "role": "Developer"
+    "autoload": {
+        "psr-4": {
+            "BossBaby\\": "src/"
         }
-    ],
-    "require": {
-    },
-    "optimize-autoloader": true
+    }
 }

@@ -28,5 +28,5 @@ if (isset($_SESSION['user_name']))
 	unset($_SESSION['user_name']);
 
 echo('Redirecting ...');
-\Utility::redirect('login.php', 1);
+\BossBaby\Utility::redirect('login.php', 1);
 exit;

@@ -81,12 +81,12 @@ class PriceCommand extends UserCommand
             return Request::sendMessage($data);
 
             
-            if (!$environment->can_run) {
+            if (!$environment->enable) {
                 $data['text'] .= PHP_EOL . 'STOP!!!';
                 return Request::sendMessage($data);
             }
 
-            // echo date('Y-m-d H:i:s') . ' -> ' . $environment->can_run . "\n";
+            // echo date('Y-m-d H:i:s') . ' -> ' . $environment->telegram->bot->{3}->enable . "\n";
             // if ($_check_price > 1) 
             // echo "\n";
             // echo 'Time: ' . date('Y-m-d H:i:s') . ' -> ' . $_check_price . "\n";

@@ -1,17 +1,24 @@
 <?php
-defined('IS_VALID') or define('IS_VALID', 1);
-require_once("../../main.php");
+// Error handle
+require_once(__DIR__ . "/error-handle.php");
 
-// // Get BTC price
-// require_once(ROOT_DIR . DS . "bitmex/bot.php");
-
-$botsAdminID    = '475001958';   // Put your Telegram ID here.
-$notifierBotKey = '696118749:AAGofvL9n2Xp-LhBd-jut_QgmnUKV0AsMro'; // Put your notifier bot API Key here.
+$botsAdminID    = $environment->telegram->main->id; // Put your Telegram ID here.
+$notifierBotKey = $environment->telegram->bot->{1}->token; // Put your notifier bot API Key here.
 
 $botsList = [
-    'Boss Baby BOT' => '615876936:AAF_6bub_cjLyiPLJ1BjAxoRqByDaKaYSB4', // Name (to show in messages) and API KEY for first bot.
-    'Boss Baby Welcome' => '585481163:AAEpPfxKDJpEUYtC3FBymi6lhR1ZhiP917w', // Name and API KEY for second bot. Add more if needed.
+    // 'Boss Baby BOT' => '615876936:AAF_6bub_cjLyiPLJ1BjAxoRqByDaKaYSB4', // Name (to show in messages) and API KEY for first bot.
+    // 'Boss Baby Welcome' => '585481163:AAEpPfxKDJpEUYtC3FBymi6lhR1ZhiP917w', // Name and API KEY for second bot. Add more if needed.
 ];
+
+$bots = (array) $environment->telegram->bot;
+if ($bots) {
+    if (isset($bots['root_url'])) unset($bots['root_url']);
+    foreach ($bots as $pos => $bot) {
+        $bot = \BossBaby\Utility::array_to_object($bot);
+        $botsList[$bot->name] = $bot->token;
+    }
+    unset($bots);
+}
 
 $botsDown = [];
 foreach ($botsList as $botUsername => $apiKey) {

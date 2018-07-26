@@ -5,11 +5,7 @@ require_once(LIB_DIR . DS . "bitmex-api/BitMex.php");
 require_once("function.php");
 
 // Detect run as CLI mode
-if (!$cli_mode) return \Utility::redirect('index.php');
-
-// Get global variables
-$environment = new stdClass();
-func_bind_current_config();
+if (!$cli_mode) return \BossBaby\Utility::redirect('index.php');
 
 $_current_price = 0;
 $_check_price = 0;
@@ -21,15 +17,6 @@ function func_bind_current_config()
 {
 	// ☺☻♥♦♣♠•◘○◙♂♀♪♫☼►◄↕‼¶§▬↨↑↓→←
 	global $environment;
-	$environment = new stdClass();
-	
-	$config_file = dirname(__FILE__) . DS . "config.php";
-	$config = \Utility::func_read_config($config_file);
-	if (is_array($config) and count($config)) {
-		foreach ($config as $key => $value) {
-			$environment->$key = $value;
-		}
-	}
 }
 
 function func_show_current_price()
@@ -42,8 +29,8 @@ function func_show_current_price()
 	global $_check_price;
 	$_check_price++;
 
-	if ($environment->can_run) {
-		// echo date('Y-m-d H:i:s') . ' -> ' . $environment->can_run . "\n";
+	if ($environment->enable) {
+		// echo date('Y-m-d H:i:s') . ' -> ' . $environment->enable . "\n";
 		// if ($_check_price > 1) 
 		echo "\n";
 		echo 'Time: ' . date('Y-m-d H:i:s') . ' -> ' . $_check_price . "\n";
@@ -67,7 +54,7 @@ function func_show_current_price()
 		elseif ($arr['lastChangePcnt'] < 0) $arr['lastChangePcnt'] = '< ' . ($arr['lastChangePcnt'] * 100) . '%';
 		else $arr['lastChangePcnt'] =  ($arr['lastChangePcnt'] * 100) . '%';
 
-		\Utility::func_cli_print_arr($arr);
+		\BossBaby\Utility::func_cli_print_arr($arr);
 
 		// func_show_account_info();
 
@@ -84,11 +71,11 @@ function func_show_account_info()
 {
 	global $environment;
 	
-	$arr1 = func_get_account_info($environment->account, $environment->apiKey, $environment->apiSecret, false);
-	\Utility::func_cli_print_arr($arr1);
+	$arr1 = func_get_account_info($environment->account, $environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret, false);
+	\BossBaby\Utility::func_cli_print_arr($arr1);
 
-	$arr2 = func_get_account_info($environment->account2, $environment->apiKey2, $environment->apiSecret2, false);
-	\Utility::func_cli_print_arr($arr2);
+	$arr2 = func_get_account_info($environment->account2, $environment->bitmex->{2}->apiKey2, $environment->bitmex->{2}->apiSecret2, false);
+	\BossBaby\Utility::func_cli_print_arr($arr2);
 }
 
 function func_show_account_wallet()
@@ -96,15 +83,15 @@ function func_show_account_wallet()
 	global $environment;
 	
 	if (property_exists('stdClass', 'bitmex') === false or is_null($environment->bitmex))
-		$environment->bitmex = new BitMex($environment->apiKey, $environment->apiSecret);
+		$environment->bitmex = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
 	
 	$arr1 = func_get_account_wallet($environment->bitmex);
-	\Utility::func_cli_print_arr($arr1);
+	\BossBaby\Utility::func_cli_print_arr($arr1);
 
 	if (property_exists('stdClass', 'bitmex2') === false or is_null($environment->bitmex2))
-		$environment->bitmex2 = new BitMex($environment->apiKey2, $environment->apiSecret2);
+		$environment->bitmex2 = new BitMex($environment->bitmex->{3}->apiKey2, $environment->bitmex->{3}->apiSecret2);
 
 	$arr2 = func_get_account_wallet($environment->bitmex2);
-	\Utility::func_cli_print_arr($arr2);
+	\BossBaby\Utility::func_cli_print_arr($arr2);
 }
 

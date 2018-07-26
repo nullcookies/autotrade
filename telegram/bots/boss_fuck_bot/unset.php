@@ -8,15 +8,12 @@
 // Error handle
 require_once(__DIR__ . "/../error-handle.php");
 
-// Check config to run
-if (!$environment->can_run) die('STOP!!!');
-
 // Load composer
 require_once LIB_DIR . '/telegram/vendor/autoload.php';
 
 // Add you bot's API key and name
-$bot_api_key  = $environment->token;
-$bot_username = $environment->user_name;
+$bot_api_key  = $environment->telegram->bot->{3}->token;
+$bot_username = $environment->telegram->bot->{3}->user_name;
 
 try {
     // Create Telegram API object

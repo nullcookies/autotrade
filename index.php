@@ -7,13 +7,13 @@ if (!session_id()) @session_start();
 
 // Show image here
 if (isset($_GET['img'])) {
-    \Utility::func_show_image($_GET['img']);
+    \BossBaby\Utility::func_show_image($_GET['img']);
 }
 
 // Get site info
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-site') {
 	$arr = array(
-		'site_url' => dirname(strtok(\Utility::func_get_current_url(), '?')) . '/',
+		'site_url' => dirname(strtok(\BossBaby\Utility::func_get_current_url(), '?')) . '/',
 		'favicon' => SELF_URL_NO_SCRIPT  . 'index.php?img=favicon',
 	);
 	header('Content-Type: application/json');
