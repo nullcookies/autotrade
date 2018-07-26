@@ -66,8 +66,8 @@ class PriceCommand extends UserCommand
             global $environment;
 
             require_once(LIB_DIR . DS . "bitmex-api/BitMex.php");
-            $environment->bitmex = new \Bitmex($environment->bitmex->{1}->apiKey, $environment->bitmex->{1}->apiSecret);
-            $arr = \BossBaby\Bitmex::func_get_current_price($environment->bitmex);
+            $environment->bitmex_instance = new \Bitmex($environment->bitmex->{1}->apiKey, $environment->bitmex->{1}->apiSecret);
+            $arr = \BossBaby\Bitmex::func_get_current_price($environment->bitmex_instance);
 
             $_current_price = 0;
             $last_orig = $arr['last'];

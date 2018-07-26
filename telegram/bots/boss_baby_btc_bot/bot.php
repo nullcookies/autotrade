@@ -7,9 +7,9 @@
 require_once(__DIR__ . "/../error-handle.php");
 
 require_once(LIB_DIR . DS . "bitmex-api/BitMex.php");
-$environment->bitmex = new \Bitmex($environment->bitmex->{1}->apiKey, $environment->bitmex->{1}->apiSecret);
-$environment->bitmex2 = new \Bitmex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
-$environment->bitmex3 = new \Bitmex($environment->bitmex->{3}->apiKey, $environment->bitmex->{3}->apiSecret);
+$environment->bitmex_instance = new \Bitmex($environment->bitmex->{1}->apiKey, $environment->bitmex->{1}->apiSecret);
+$environment->bitmex_instance2 = new \Bitmex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
+$environment->bitmex_instance3 = new \Bitmex($environment->bitmex->{3}->apiKey, $environment->bitmex->{3}->apiSecret);
 
 // Load composer
 require_once LIB_DIR . '/telegram/vendor/autoload.php';
@@ -59,7 +59,7 @@ function func_show_current_price()
 		// echo "\n";
 		// echo 'Time: ' . date('Y-m-d H:i:s') . ' -> ' . $_check_price . "\n";
 
-        $arr = \BossBaby\Bitmex::func_get_current_price($environment->bitmex);
+        $arr = \BossBaby\Bitmex::func_get_current_price($environment->bitmex_instance);
 
 		$last_orig = $arr['last'];
 		$last_sess = (isset($_current_price)) ? $_current_price : 0;
@@ -148,10 +148,10 @@ function func_show_account_wallet()
 {
 	global $environment;
 	
-	$arr1 = \BossBaby\Bitmex::func_get_account_wallet($environment->bitmex2);
+	$arr1 = \BossBaby\Bitmex::func_get_account_wallet($environment->bitmex_instance2);
 	\BossBaby\Utility::func_cli_print_arr($arr1);
 
-	$arr2 = \BossBaby\Bitmex::func_get_account_wallet($environment->bitmex3);
+	$arr2 = \BossBaby\Bitmex::func_get_account_wallet($environment->bitmex_instance3);
 	\BossBaby\Utility::func_cli_print_arr($arr2);
 }
 

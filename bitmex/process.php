@@ -36,9 +36,9 @@ if (!isset($_SESSION['user_name']) or !$_SESSION['user_name']) {
 if (!$environment->enable)
 	die('<p class="message">STOP!!!</p>');
 
-$environment->bitmex = new \Bitmex($environment->bitmex->{1}->apiKey, $environment->bitmex->{1}->apiSecret);
-$environment->bitmex2 = new \Bitmex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
-$environment->bitmex3 = new \Bitmex($environment->bitmex->{3}->apiKey, $environment->bitmex->{3}->apiSecret);
+$environment->bitmex_instance = new \Bitmex($environment->bitmex->{1}->apiKey, $environment->bitmex->{1}->apiSecret);
+$environment->bitmex_instance2 = new \Bitmex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
+$environment->bitmex_instance3 = new \Bitmex($environment->bitmex->{3}->apiKey, $environment->bitmex->{3}->apiSecret);
 
 // ------------------------------------------------------------ //
 
@@ -50,7 +50,7 @@ if (count($_POST) > 0 and isset($_POST['rtype']) and $_POST['rtype'] == 'ajax' a
 }
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-current-price') {
-	$arr = \BossBaby\Bitmex::func_get_current_price($environment->bitmex);
+	$arr = \BossBaby\Bitmex::func_get_current_price($environment->bitmex_instance);
 
 	$last_orig = $arr['last'];
 	$last_sess = (isset($_SESSION['getTicker']['last'])) ? $_SESSION['getTicker']['last'] : 0;
@@ -135,19 +135,19 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 
 // Process load
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-account') {
-	$arr = \BossBaby\Bitmex::func_get_account_info($environment->account, $environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
+	$arr = \BossBaby\Bitmex::func_get_account_info($environment->bitmex->{2}->email, $environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
 	\BossBaby\Utility::func_print_arr_to_table($arr);
 	exit;
 }
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-account2') {
-	$arr = \BossBaby\Bitmex::func_get_account_info($environment->account2, $environment->bitmex->{2}->apiKey2, $environment->bitmex->{2}->apiSecret2);
+	$arr = \BossBaby\Bitmex::func_get_account_info($environment->bitmex->{3}->email, $environment->bitmex->{3}->apiKey2, $environment->bitmex->{3}->apiSecret2);
 	\BossBaby\Utility::func_print_arr_to_table($arr);
 	exit;
 }
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-wallet') {
-	$tmp = \BossBaby\Bitmex::func_get_account_wallet($environment->bitmex2);
+	$tmp = \BossBaby\Bitmex::func_get_account_wallet($environment->bitmex_instance2);
 	$arr = array(
 		'amount' => ($tmp['amount'] * 0.00000001) . ' BTC',
 		'amountFund' => '~' . round(($tmp['amount'] * 0.00000001) * ($_SESSION['getTicker']['last']), 3) . ' USD',
@@ -164,7 +164,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 }
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-wallet2') {
-	$tmp = \BossBaby\Bitmex::func_get_account_wallet($environment->bitmex3);
+	$tmp = \BossBaby\Bitmex::func_get_account_wallet($environment->bitmex_instance3);
 	$arr = array(
 		'amount' => ($tmp['amount'] * 0.00000001) . ' BTC',
 		'amountFund' => '~' . round(($tmp['amount'] * 0.00000001) * ($_SESSION['getTicker']['last']), 3) . ' USD',
@@ -181,7 +181,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 }
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-open-positions') {
-	$arr = \BossBaby\Bitmex::func_get_open_positions($environment->bitmex2);
+	$arr = \BossBaby\Bitmex::func_get_open_positions($environment->bitmex_instance2);
 	// \BossBaby\Utility::func_print_arr_to_table($arr);
 	
 	if (is_array($arr) and count($arr) > 0) {
@@ -229,7 +229,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 }
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-open-positions2') {
-	$arr = \BossBaby\Bitmex::func_get_open_positions($environment->bitmex3);
+	$arr = \BossBaby\Bitmex::func_get_open_positions($environment->bitmex_instance3);
 	// \BossBaby\Utility::func_print_arr_to_table($arr);
 	
 	if (is_array($arr) and count($arr) > 0) {
@@ -277,7 +277,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 }
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-open-order') {
-	$arr = \BossBaby\Bitmex::func_get_open_orders($environment->bitmex2);
+	$arr = \BossBaby\Bitmex::func_get_open_orders($environment->bitmex_instance2);
 	// \BossBaby\Utility::func_print_arr_to_table($arr);
 
 	if (is_array($arr) and count($arr) > 0) {
@@ -302,7 +302,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 }
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-open-order2') {
-	$arr = \BossBaby\Bitmex::func_get_open_orders($environment->bitmex3);
+	$arr = \BossBaby\Bitmex::func_get_open_orders($environment->bitmex_instance3);
 	// \BossBaby\Utility::func_print_arr_to_table($arr);
 
 	if (is_array($arr) and count($arr) > 0) {
@@ -328,7 +328,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 }
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-margin') {
-	$tmp = \BossBaby\Bitmex::func_get_margin($environment->bitmex2);
+	$tmp = \BossBaby\Bitmex::func_get_margin($environment->bitmex_instance2);
 	$arr = array(
 		'realisedPnl' => $tmp['realisedPnl'],
 		'unrealisedPnl' => $tmp['unrealisedPnl'],
@@ -344,7 +344,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 }
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-margin2') {
-	$tmp = \BossBaby\Bitmex::func_get_margin($environment->bitmex3);
+	$tmp = \BossBaby\Bitmex::func_get_margin($environment->bitmex_instance3);
 	$arr = array(
 		'realisedPnl' => $tmp['realisedPnl'],
 		'unrealisedPnl' => $tmp['unrealisedPnl'],

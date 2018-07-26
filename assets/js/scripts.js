@@ -58,7 +58,7 @@ $(document).ready(function() {
 
 		// 	request.done(function(response) {
 		// 		$(div).find('.panel-body').empty().html(response);
-		// 		$(div).find('table').effect("highlight", {}, 500);
+		// 		if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
 		// 		_loadingContent = 0;
 		// 	});
 
@@ -102,7 +102,7 @@ $(document).ready(function() {
 
 			request.done(function(response) {
 				$(div).find('.panel-body').empty().html(response);
-				$(div).find('table').effect("highlight", {}, 500);
+				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
 				_loadingCurrentPrice = 0;
 			});
 
@@ -143,7 +143,7 @@ $(document).ready(function() {
 
 			request.done(function(response) {
 				$(div).find('.panel-body').empty().html(response);
-				$(div).find('table').effect("highlight", {}, 500);
+				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
 				_loadingChart = 0;
 			});
 
@@ -268,7 +268,7 @@ $(document).ready(function() {
 
 			request.done(function(response) {
 				$(div).find('.panel-body').empty().html(response);
-				$(div).find('table').effect("highlight", {}, 500);
+				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
 				_loadingWallet = 0;
 			});
 
@@ -309,7 +309,7 @@ $(document).ready(function() {
 
 			request.done(function(response) {
 				$(div).find('.panel-body').empty().html(response);
-				$(div).find('table').effect("highlight", {}, 500);
+				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
 				_loadingWallet2 = 0;
 			});
 
@@ -350,7 +350,7 @@ $(document).ready(function() {
 
 			request.done(function(response) {
 				$(div).find('.panel-body').empty().html(response);
-				$(div).find('table').effect("highlight", {}, 500);
+				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
 				_loadingOpenPositions = 0;
 			});
 
@@ -391,7 +391,7 @@ $(document).ready(function() {
 
 			request.done(function(response) {
 				$(div).find('.panel-body').empty().html(response);
-				$(div).find('table').effect("highlight", {}, 500);
+				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
 				_loadingOpenPositions2 = 0;
 			});
 
@@ -432,7 +432,7 @@ $(document).ready(function() {
 
 			request.done(function(response) {
 				$(div).find('.panel-body').empty().html(response);
-				$(div).find('table').effect("highlight", {}, 500);
+				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
 				_loadingOpenOrder = 0;
 			});
 
@@ -473,7 +473,7 @@ $(document).ready(function() {
 
 			request.done(function(response) {
 				$(div).find('.panel-body').empty().html(response);
-				$(div).find('table').effect("highlight", {}, 500);
+				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
 				_loadingOpenOrder2 = 0;
 			});
 
@@ -514,7 +514,7 @@ $(document).ready(function() {
 
 			request.done(function(response) {
 				$(div).find('.panel-body').empty().html(response);
-				$(div).find('table').effect("highlight", {}, 500);
+				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
 				_loadingOpenOrder2 = 0;
 			});
 
@@ -551,7 +551,7 @@ $(document).ready(function() {
 
 		// 	request.done(function(response) {
 		// 		$(div).find('.panel-body').empty().html(response);
-		// 		$(div).find('table').effect("highlight", {}, 500);
+		// 		if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
 		// 	});
 
 		// 	request.fail(function(jqXHR, textStatus) {
