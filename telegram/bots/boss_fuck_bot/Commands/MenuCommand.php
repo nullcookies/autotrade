@@ -14,6 +14,8 @@ use Longman\TelegramBot\Commands\Command;
 use Longman\TelegramBot\Commands\UserCommand;
 use Longman\TelegramBot\Request;
 
+use Longman\TelegramBot\Entities\Keyboard;
+
 /**
  * User "/menu" command
  *
@@ -56,6 +58,27 @@ class MenuCommand extends UserCommand
             'chat_id' => $chat_id,
             'parse_mode' => 'markdown',
         ];
+
+        // Hidekeyboard
+        $data = [
+            'chat_id'      => $chat_id,
+            'text'         => 'Keyboard Hidden',
+            'reply_markup' => Keyboard::remove(),
+        ];
+        return Request::sendMessage($data);
+
+        // forcereply
+        $data = [
+            'chat_id'      => $chat_id,
+            'text'         => 'Write something:',
+            'reply_markup' => Keyboard::forceReply(),
+        ];
+        return Request::sendMessage($data);
+
+        // $result = Request::sendPhoto([
+        //     'chat_id' => $chat_id,
+        //     'photo'   => 'https://i.ytimg.com/vi/wfvxTyFJOiU/maxresdefault.jpg',
+        // ]);
 
         // // Works
         // $keyboard = array(
