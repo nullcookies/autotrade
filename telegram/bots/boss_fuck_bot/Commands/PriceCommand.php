@@ -107,7 +107,7 @@ class PriceCommand extends UserCommand
         if ($arr) {
             // \BossBaby\Utility::writeLog('arr:'.serialize($arr).PHP_EOL.'-coin:'.serialize($coin_name));
             // $price = \BossBaby\Telegram::func_telegram_print_arr($arr);
-            $data['text'] = 'Giá của *' . $coin_name . '* trên Binance:' . PHP_EOL . PHP_EOL;
+            $data['text'] = 'Giá *' . $coin_name . '* trên Binance:' . PHP_EOL . PHP_EOL;
             foreach ($arr as $key => $value) {
                 $data['text'] .= str_replace($coin_name, $coin_name . '/', $key) . ': ' . $value . PHP_EOL;
             }
