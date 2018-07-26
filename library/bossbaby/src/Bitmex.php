@@ -3,18 +3,9 @@ namespace BossBaby;
 
 class Bitmex
 {
-    private $bitmex_instance;
-    private $bitmex_instance2;
-
-    public function __construct($bitmex_instance = '', $bitmex_instance2 = '')
+    public static function func_get_current_price($bitmex = null)
     {
-        $this->bitmex_instance  = $bitmex_instance;
-        $this->bitmex_instance2 = $bitmex_instance2;
-    }
-
-    public function func_get_current_price()
-    {
-        $arr = $this->bitmex_instance->getTicker();
+        $arr = $bitmex->getTicker();
         if ($arr) {
             $arr['marketPrice'] = $arr['market_price'];
             unset($arr['market_price']);
@@ -22,7 +13,7 @@ class Bitmex
         return $arr;
     }
 
-    public function func_get_account_info($account = null, $apiKey = null, $apiSecret = null, $hide_apiSecret = true)
+    public static function func_get_account_info($account = null, $apiKey = null, $apiSecret = null, $hide_apiSecret = true)
     {
         $arr = array(
             'Account' => $account,
@@ -32,7 +23,7 @@ class Bitmex
         return $arr;
     }
 
-    public function func_get_account_wallet($account_info = null)
+    public static function func_get_account_wallet($account_info = null)
     {
         if (!$account_info) return array();
 
@@ -40,7 +31,7 @@ class Bitmex
         return $arr;
     }
 
-    public function func_get_open_orders($account_info = null)
+    public static function func_get_open_orders($account_info = null)
     {
         if (!$account_info) return array();
 
@@ -48,7 +39,7 @@ class Bitmex
         return $arr;
     }
 
-    public function func_get_open_positions($account_info = null)
+    public static function func_get_open_positions($account_info = null)
     {
         if (!$account_info) return array();
 
@@ -56,7 +47,7 @@ class Bitmex
         return $arr;
     }
 
-    public function func_get_margin($account_info = null)
+    public static function func_get_margin($account_info = null)
     {
         if (!$account_info) return array();
 

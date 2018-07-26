@@ -55,7 +55,7 @@ class PriceCommand extends UserCommand
         $data = [
             'chat_id'    => $chat_id,
             'parse_mode' => 'markdown',
-            'text' => PHP_EOL,
+            'text' => 'Chưa xong đâu!',
         ];
 
         // If no command parameter is passed, show the list.
@@ -63,64 +63,36 @@ class PriceCommand extends UserCommand
             // $data['text'] = PHP_EOL;
 
             // Get current config
-            $config_file = __DIR__ . "/../config.php";
-            $environment = parse_ini_file($config_file);
-            
-            $arr = [
-                'file'    => $config_file,
-                'environment' => $environment,
-            ];
+            global $environment;
 
-            // $data['text'] .= json_encode($arr);
-//             $data['text'] .= '
-// ✨ 5 mins -- 25/07/2018 09:34
-// Buy:  { total: 317, size: 4,357,494 }
-// Sell:  { total: 223, size: 3,788,610 }
-// Price: 8372';
-            $data['text'] = 'Chưa xong đâu!';
-            return Request::sendMessage($data);
+            require_once(LIB_DIR . DS . "bitmex-api/BitMex.php");
+            $environment->bitmex = new \Bitmex($environment->bitmex->{1}->apiKey, $environment->bitmex->{1}->apiSecret);
+            $arr = \BossBaby\Bitmex::func_get_current_price($environment->bitmex);
 
-            
-            if (!$environment->enable) {
-                $data['text'] .= PHP_EOL . 'STOP!!!';
-                return Request::sendMessage($data);
-            }
-
-            // echo date('Y-m-d H:i:s') . ' -> ' . $environment->enable . "\n";
-            // if ($_check_price > 1) 
-            // echo "\n";
-            // echo 'Time: ' . date('Y-m-d H:i:s') . ' -> ' . $_check_price . "\n";
-
-            $arr = func_get_current_price();
-
+            $_current_price = 0;
             $last_orig = $arr['last'];
             $last_sess = (isset($_current_price)) ? $_current_price : 0;
             $_current_price = $last_orig;
             // $arr['sess_last'] = $last_sess;
             
             if (!isset($_current_price)) {
-                if ($arr['lastChangePcnt'] >= 0) $arr['last'] = '⬆ ' . $arr['last'];
-                elseif ($arr['lastChangePcnt'] < 0) $arr['last'] = '⏬ ' . $arr['last'];
+                if ($arr['lastChangePcnt'] >= 0) $arr['last'] = '👆 ' . $arr['last'];
+                elseif ($arr['lastChangePcnt'] < 0) $arr['last'] = '👇 ' . $arr['last'];
             }
             else {
-                if ($arr['last'] >= $last_sess) $arr['last'] = '⬆ ' . $arr['last'];
-                elseif ($arr['last'] < $last_sess) $arr['last'] = '⏬ ' . $arr['last'];
+                if ($arr['last'] >= $last_sess) $arr['last'] = '👆 ' . $arr['last'];
+                elseif ($arr['last'] < $last_sess) $arr['last'] = '👇 ' . $arr['last'];
             }
-            if ($arr['lastChangePcnt'] > 0) $arr['lastChangePcnt'] = '⬆ ' . ($arr['lastChangePcnt'] * 100) . '%';
-            elseif ($arr['lastChangePcnt'] < 0) $arr['lastChangePcnt'] = '⏬ ' . ($arr['lastChangePcnt'] * 100) . '%';
+            if ($arr['lastChangePcnt'] > 0) $arr['lastChangePcnt'] = '👆 ' . ($arr['lastChangePcnt'] * 100) . '%';
+            elseif ($arr['lastChangePcnt'] < 0) $arr['lastChangePcnt'] = '👇 ' . ($arr['lastChangePcnt'] * 100) . '%';
             else $arr['lastChangePcnt'] =  ($arr['lastChangePcnt'] * 100) . '%';
 
-            foreach ($arr as $key => $value) {
-                if (is_object($value)) {
-                    $data['text'] .= $key . ': ' . serialize($value) . PHP_EOL;
-                }
-                else {
-                    $data['text'] .= $key . ': ' . $value . PHP_EOL;
-                }
-            }
+            $arr['Changed'] = $arr['lastChangePcnt']; unset($arr['lastChangePcnt']);
 
+            $price = \BossBaby\Telegram::func_telegram_print_arr($arr);
+            $price = str_replace('Symbol:', '', $price);
+            $data['text'] = $price;
             $data['text'] .= PHP_EOL;
-
             return Request::sendMessage($data);
         }
 

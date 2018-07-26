@@ -7,7 +7,9 @@
 require_once(__DIR__ . "/../error-handle.php");
 
 require_once(LIB_DIR . DS . "bitmex-api/BitMex.php");
-require_once(ROOT_DIR . DS . "bitmex/function.php");
+$environment->bitmex = new \Bitmex($environment->bitmex->{1}->apiKey, $environment->bitmex->{1}->apiSecret);
+$environment->bitmex2 = new \Bitmex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
+$environment->bitmex3 = new \Bitmex($environment->bitmex->{3}->apiKey, $environment->bitmex->{3}->apiSecret);
 
 // Load composer
 require_once LIB_DIR . '/telegram/vendor/autoload.php';
@@ -57,7 +59,7 @@ function func_show_current_price()
 		// echo "\n";
 		// echo 'Time: ' . date('Y-m-d H:i:s') . ' -> ' . $_check_price . "\n";
 
-		$arr = func_get_current_price();
+        $arr = \BossBaby\Bitmex::func_get_current_price($environment->bitmex);
 
 		$last_orig = $arr['last'];
 		$last_sess = (isset($_current_price)) ? $_current_price : 0;
@@ -82,7 +84,7 @@ function func_show_current_price()
 		// sendMessage($chatId, func_telegram_print_arr($arr));
 
 		global $chat_id;
-		$message = func_telegram_print_arr($arr);
+		$message = \BossBaby\Telegram::func_telegram_print_arr($arr);
 
 		$message = str_replace('Symbol:', '', $message);
 
@@ -130,14 +132,15 @@ function func_telegram_print_arr($arr = null)
     return $text;
 }
 
+
 function func_show_account_info()
 {
 	global $environment;
 	
-	$arr1 = func_get_account_info($environment->account, $environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret, false);
+	$arr1 = \BossBaby\Bitmex::func_get_account_info($environment->bitmex->{2}->email, $environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret, false);
 	\BossBaby\Utility::func_cli_print_arr($arr1);
 
-	$arr2 = func_get_account_info($environment->account2, $environment->bitmex->{2}->apiKey2, $environment->bitmex->{2}->apiSecret2, false);
+	$arr2 = \BossBaby\Bitmex::func_get_account_info($environment->bitmex->{3}->email, $environment->bitmex->{3}->apiKey2, $environment->bitmex->{3}->apiSecret2, false);
 	\BossBaby\Utility::func_cli_print_arr($arr2);
 }
 
@@ -145,16 +148,10 @@ function func_show_account_wallet()
 {
 	global $environment;
 	
-	if (property_exists('stdClass', 'bitmex') === false or is_null($environment->bitmex))
-		$environment->bitmex_instance = new BitMex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
-
-	$arr1 = func_get_account_wallet($environment->bitmex);
+	$arr1 = \BossBaby\Bitmex::func_get_account_wallet($environment->bitmex2);
 	\BossBaby\Utility::func_cli_print_arr($arr1);
 
-	if (property_exists('stdClass', 'bitmex2') === false or is_null($environment->bitmex2))
-		$environment->bitmex2_instance = new BitMex($environment->bitmex->{3}->apiKey2, $environment->bitmex->{3}->apiSecret2);
-	
-	$arr2 = func_get_account_wallet($environment->bitmex2);
+	$arr2 = \BossBaby\Bitmex::func_get_account_wallet($environment->bitmex3);
 	\BossBaby\Utility::func_cli_print_arr($arr2);
 }
 

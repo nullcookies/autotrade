@@ -66,22 +66,10 @@ class PriceCommand extends UserCommand
             global $environment;
 
             require_once(LIB_DIR . DS . "bitmex-api/BitMex.php");
-            $environment->bitmex_instance = new \BitMex($environment->bitmex->{1}->apiKey, $environment->bitmex->{1}->apiSecret);
-            $bitmex = new \BossBaby\Bitmex($environment->bitmex_instance);
-            
-            
-            // $data['text'] .= json_encode($arr);
-//             $data['text'] .= '
-// ✨ 5 mins -- 25/07/2018 09:34
-// Buy:  { total: 317, size: 4,357,494 }
-// Sell:  { total: 223, size: 3,788,610 }
-// Price: 8372';
+            $environment->bitmex = new \Bitmex($environment->bitmex->{1}->apiKey, $environment->bitmex->{1}->apiSecret);
+            $arr = \BossBaby\Bitmex::func_get_current_price($environment->bitmex);
 
             $_current_price = 0;
-            $_check_price = 0;
-            
-            $arr = $bitmex->func_get_current_price();
-
             $last_orig = $arr['last'];
             $last_sess = (isset($_current_price)) ? $_current_price : 0;
             $_current_price = $last_orig;
@@ -101,12 +89,9 @@ class PriceCommand extends UserCommand
 
             $arr['Changed'] = $arr['lastChangePcnt']; unset($arr['lastChangePcnt']);
 
-            // global $chatId;
-            // sendMessage($chatId, func_telegram_print_arr($arr));
-
-            // global $chat_id;
-            $data['text'] = \BossBaby\Telegram::func_telegram_print_arr($arr);
-
+            $price = \BossBaby\Telegram::func_telegram_print_arr($arr);
+            $price = str_replace('Symbol:', '', $price);
+            $data['text'] = $price;
             $data['text'] .= PHP_EOL;
             return Request::sendMessage($data);
         }
