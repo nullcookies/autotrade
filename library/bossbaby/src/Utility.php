@@ -3,7 +3,7 @@ namespace BossBaby;
 
 class Utility
 {
-    public static function writeLog($string = null)
+    public static function writeLog($string = null, $file = null)
     {
         try {
             $log_file = $file ?: LOGS_DIR . DS . date("Ymd") . "-log.txt";

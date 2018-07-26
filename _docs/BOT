@@ -77,6 +77,11 @@ https://symfony.com/doc/2.0/components/class_loader.html
 https://github.com/symfony/class-loader
 https://phpenthusiast.com/blog/how-to-autoload-with-composer
 
+Execute no commands, without /
+https://github.com/php-telegram-bot/core/issues/635
+https://github.com/php-telegram-bot/core/issues/315
+
+
 
 
 https://api.telegram.org/bot696118749:AAGofvL9n2Xp-LhBd-jut_QgmnUKV0AsMro/setwebhook?url=
@@ -94,5 +99,16 @@ https://api.telegram.org/bot615876936:AAF_6bub_cjLyiPLJ1BjAxoRqByDaKaYSB4/setweb
 chappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_fuck_bot//set.php
 https://api.telegram.org/bot585481163:AAEpPfxKDJpEUYtC3FBymi6lhR1ZhiP917w/setwebhook?url=https://test.maats
 chappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_welcome_bot//set.php
+
+
+\BossBaby\Utility::writeLog('update:'.serialize($this->update).PHP_EOL.'-command:'.serialize($command).PHP_EOL.'-last_update_id:'.serialize($this->last_update_id));
+\BossBaby\Utility::writeLog('message:'.serialize($message).PHP_EOL.'-update_type:'.serialize($update_type));
+
+
+
+
+
+
+
 
 

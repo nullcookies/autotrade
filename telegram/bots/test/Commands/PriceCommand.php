@@ -55,7 +55,6 @@ class PriceCommand extends UserCommand
         $data = [
             'chat_id'    => $chat_id,
             'parse_mode' => 'markdown',
-            'text' => 'Chưa xong đâu!',
         ];
 
         // If no command parameter is passed, show the list.

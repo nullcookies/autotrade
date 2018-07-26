@@ -48,6 +48,7 @@ class GenericCommand extends SystemCommand
         //You can use $command as param
         $chat_id = $message->getChat()->getId();
         $user_id = $message->getFrom()->getId();
+        $from    = $message->getFrom();
         $command = $message->getCommand();
 
         //If the user is an admin and the command is in the format "/whoisXYZ", call the /whois command
@@ -55,9 +56,15 @@ class GenericCommand extends SystemCommand
             return $this->telegram->executeCommand('whois');
         }
 
+        if ($from->getFirstName() or $from->getLastName())
+            $caption = sprintf('%s %s', $from->getFirstName(), $from->getLastName());
+        else 
+            $caption = sprintf('%s', $from->getUsername());
+
         $data = [
             'chat_id' => $chat_id,
-            'text'    => 'Không có lệnh /' . $command . ' nhé, đừng cố thử 😒',
+            'parse_mode' => 'markdown',
+            'text'    => 'Không có lệnh /' . $command . ' nhé *' . $caption .'*, đừng cố thử 😒' . PHP_EOL . 'Nếu không biết phải làm gì, hãy gõ /menu!',
         ];
 
         return Request::sendMessage($data);

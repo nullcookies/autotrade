@@ -49,6 +49,33 @@ class GenericmessageCommand extends SystemCommand
      */
     public function executeNoDb()
     {
+        // Don't know why it go here but, process
+        $message = $this->getMessage();
+        $text    = trim($message->getText(true));
+        $chat_id = $message->getChat()->getId();
+        $command = $message->getCommand();
+        $from    = $message->getFrom();
+        $user_id = $message->getFrom()->getId();
+
+        if ($from->getFirstName() or $from->getLastName())
+            $caption = sprintf('%s %s', $from->getFirstName(), $from->getLastName());
+        else 
+            $caption = sprintf('%s', $from->getUsername());
+
+        if (str_replace('/hello ', '', $text) == 'Hello') {
+            $message = 'Chào mày, *' . $caption . '*!';
+        } else {
+            $message = 'Mày muốn gì *' . $caption . '*';
+        }
+
+        $data = [
+            'chat_id'    => $chat_id,
+            'parse_mode' => 'markdown',
+        ];
+
+        $data['text'] = $message;
+        return Request::sendMessage($data);
+
         // Do nothing
         return Request::emptyResponse();
     }
@@ -67,17 +94,9 @@ class GenericmessageCommand extends SystemCommand
         $command = $message->getCommand();
         $text = trim($message->getText(true));
 
-        
         if ($text === 'menu') {
             // 
         }
-
-        $data = [
-            'chat_id' => $chat_id,
-            'text'    => $text . 'Không có lệnh /' . $command . '',
-        ];
-
-        return Request::sendMessage($data);
 
         //If a conversation is busy, execute the conversation command after handling the message
         $conversation = new Conversation(

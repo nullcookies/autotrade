@@ -2205,7 +2205,7 @@ function fm_show_header()
         <link rel="shortcut icon" href="<?php echo FM_SELF_URL;?>?img=favicon" type="image/png">
         <meta http-equiv="refresh" content="3601" />
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-        <!-- <link href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet"> -->
+        <link href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet">
         <?php if (isset($_GET['view']) && FM_USE_HIGHLIGHTJS):?>
             <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/<?php echo FM_HIGHLIGHTJS_STYLE;?>.min.css">
         <?php endif;?>
@@ -2237,7 +2237,7 @@ function fm_show_header()
             }
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script type="text/javascript">
             document.addEventListener('gesturestart', function (e) {

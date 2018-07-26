@@ -55,15 +55,14 @@ class PriceCommand extends UserCommand
         $data = [
             'chat_id'    => $chat_id,
             'parse_mode' => 'markdown',
-            'text' => 'Chưa xong đâu!',
         ];
+
+        // Get current config
+        global $environment;
 
         // If no command parameter is passed, show the list.
         if ($coin_name === '') {
             // $data['text'] = PHP_EOL;
-
-            // Get current config
-            global $environment;
 
             require_once(LIB_DIR . DS . "bitmex-api/BitMex.php");
             $environment->bitmex_instance = new \Bitmex($environment->bitmex->{1}->apiKey, $environment->bitmex->{1}->apiSecret);
@@ -97,8 +96,21 @@ class PriceCommand extends UserCommand
         }
 
         $coin_name = str_replace('/', '', $coin_name);
+        $data['text'] = 'Làm gì có *' . $coin_name . '*, thử lại coi 😒';
         
-        $data['text'] = 'Coin ' . $coin_name . ' not available for now';
+        require_once(LIB_DIR . DS . "binance-api/BinanceClass.php");
+        $environment->binance_instance = new \Binance($environment->binance->{1}->apiKey, $environment->bitmex->{1}->apiSecret);
+        $arr = \BossBaby\Binance::get_coin_price($environment->binance_instance, $coin_name);
+
+        if ($arr) {
+            // \BossBaby\Utility::writeLog('arr:'.serialize($arr).PHP_EOL.'-coin:'.serialize($coin_name));
+            // $price = \BossBaby\Telegram::func_telegram_print_arr($arr);
+            $data['text'] = 'Giá của *' . $coin_name . '* trên Binance:' . PHP_EOL . PHP_EOL;
+            foreach ($arr as $key => $value) {
+                $data['text'] .= str_replace($coin_name, $coin_name . '/', $key) . ': ' . $value . PHP_EOL;
+            }
+        }
+        $data['text'] .= PHP_EOL;
 
         return Request::sendMessage($data);
     }
