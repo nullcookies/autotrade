@@ -71,5 +71,6 @@ https://github.com/php-telegram-bot/example-bot/issues/6
 Autoload with Composer:
 https://getcomposer.org/doc/articles/autoloader-optimization.md
 https://getcomposer.org/download/
-
+https://symfony.com/doc/2.0/components/class_loader.html
+https://github.com/symfony/class-loader
 

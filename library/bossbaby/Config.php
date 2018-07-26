@@ -1,5 +1,5 @@
 <?php
-namespace BossBabyConfig;
+namespace BossBaby\Config;
 
 class Config
 {

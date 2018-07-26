@@ -13,14 +13,18 @@ set_include_path(get_include_path() . PATH_SEPARATOR . LIB_DIR);
 // require_once(LIB_DIR . DS . "bossbaby/shell.php");
 
 // require_once LIB_DIR . '/bossbaby/autoload.php';
-require_once(LIB_DIR . "/bossbaby/Autoloader.php");
+// require_once(LIB_DIR . "/bossbaby/Autoloader.php");
+// require_once LIB_DIR . '/bossbaby/class-loader/ClassLoader.php';
+// use Symfony\Component\ClassLoader\UniversalClassLoader;
+// $loader = new UniversalClassLoader();
+// var_dump($loader);
+// // ... register namespaces and prefixes here - see below
+// $loader->register();
+require_once LIB_DIR . '/bossbaby/vendor/autoload.php';
 
 new \BossBaby\Config;
 // var_dump($config);
 die;
-
-// Load composer
-require_once LIB_DIR . '/telegram/vendor/autoload.php';
 
 // Detect run as CLI mode
 // $isCLI = ( php_sapi_name() == 'cli' );
