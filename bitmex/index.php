@@ -54,7 +54,7 @@
 							<li role="presentation"><a data-toggle="tab" href="#orderbook">OrderBook</a></li>
 							<li role="presentation"><a data-toggle="tab" href="#orders">Orders</a></li>
 							<li role="presentation"><a data-toggle="tab" href="#order">Order</a></li>
-							<li role="presentation" class="bg-light text-dark"><a href="../logout.php">Logout</a></li>
+							<li role="presentation" class="bg-light text-dark"><a href="../logout.php" class="btn-logout">Logout</a></li>
 						</ul>
 					</div>
 				</div>

@@ -131,7 +131,7 @@ function func_show_account_info()
 	$arr1 = \BossBaby\Bitmex::func_get_account_info($environment->bitmex->{2}->email, $environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret, false);
 	\BossBaby\Utility::func_cli_print_arr($arr1);
 
-	$arr2 = \BossBaby\Bitmex::func_get_account_info($environment->bitmex->{3}->email, $environment->bitmex->{3}->apiKey2, $environment->bitmex->{3}->apiSecret2, false);
+	$arr2 = \BossBaby\Bitmex::func_get_account_info($environment->bitmex->{3}->email, $environment->bitmex->{3}->apiKey, $environment->bitmex->{3}->apiSecret, false);
 	\BossBaby\Utility::func_cli_print_arr($arr2);
 }
 

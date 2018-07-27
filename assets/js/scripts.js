@@ -462,7 +462,7 @@ $(document).ready(function() {
 
 			return false;
 		};
-		loadOpenOrder('.panel-open-order', 'load-open-order', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
+		loadOpenOrder('.panel-open-order', 'load-open-order', {reload_time:(Math.floor(Math.random() * 120) + 60) * 1000});
 
 		var _loadOpenOrder2 = 0;
 		var _loadingOpenOrder2 = 0;
@@ -503,7 +503,7 @@ $(document).ready(function() {
 
 			return false;
 		};
-		loadOpenOrder2('.panel-open-order2', 'load-open-order2', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
+		loadOpenOrder2('.panel-open-order2', 'load-open-order2', {reload_time:(Math.floor(Math.random() * 120) + 60) * 1000});
 
 		var _loadMargin = 0;
 		var _loadingMargin = 0;
@@ -544,7 +544,7 @@ $(document).ready(function() {
 
 			return false;
 		};
-		loadMargin('.panel-margin', 'load-margin', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
+		loadMargin('.panel-margin', 'load-margin', {reload_time:(Math.floor(Math.random() * 120) + 60) * 1000});
 
 		var _loadMargin2 = 0;
 		var _loadingMargin2 = 0;
@@ -585,7 +585,7 @@ $(document).ready(function() {
 
 			return false;
 		};
-		loadMargin2('.panel-margin2', 'load-margin2', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
+		loadMargin2('.panel-margin2', 'load-margin2', {reload_time:(Math.floor(Math.random() * 120) + 60) * 1000});
 
 		var _loadOrderbook = 0;
 		var _loadingOrderbook = 0;
@@ -626,7 +626,7 @@ $(document).ready(function() {
 
 			return false;
 		};
-		loadOrderbook('.panel-orderbook', 'load-orderbook', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
+		loadOrderbook('.panel-orderbook', 'load-orderbook', {reload_time:(Math.floor(Math.random() * 120) + 60) * 1000});
 
 		var _loadOrderbook2 = 0;
 		var _loadingOrderbook2 = 0;
@@ -667,7 +667,7 @@ $(document).ready(function() {
 
 			return false;
 		};
-		loadOrderbook2('.panel-orderbook2', 'load-orderbook2', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
+		loadOrderbook2('.panel-orderbook2', 'load-orderbook2', {reload_time:(Math.floor(Math.random() * 120) + 60) * 1000});
 
 		var _loadOrders = 0;
 		var _loadingOrders = 0;
@@ -708,7 +708,7 @@ $(document).ready(function() {
 
 			return false;
 		};
-		loadOrders('.panel-orders', 'load-orders', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
+		loadOrders('.panel-orders', 'load-orders', {reload_time:(Math.floor(Math.random() * 120) + 60) * 1000});
 
 		var _loadOrders2 = 0;
 		var _loadingOrders2 = 0;
@@ -749,7 +749,7 @@ $(document).ready(function() {
 
 			return false;
 		};
-		loadOrders2('.panel-orders2', 'load-orders2', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
+		loadOrders2('.panel-orders2', 'load-orders2', {reload_time:(Math.floor(Math.random() * 120) + 60) * 1000});
 
 		var _loadOrder = 0;
 		var _loadingOrder = 0;
@@ -790,7 +790,7 @@ $(document).ready(function() {
 
 			return false;
 		};
-		loadOrder('.panel-order', 'load-order', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
+		loadOrder('.panel-order', 'load-order', {reload_time:(Math.floor(Math.random() * 120) + 60) * 1000});
 
 		var _loadOrder2 = 0;
 		var _loadingOrder2 = 0;
@@ -831,7 +831,7 @@ $(document).ready(function() {
 
 			return false;
 		};
-		loadOrder2('.panel-order2', 'load-order2', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
+		loadOrder2('.panel-order2', 'load-order2', {reload_time:(Math.floor(Math.random() * 120) + 60) * 1000});
 
 		// --------------------------------------------------------------------------------------------------- //
 		
