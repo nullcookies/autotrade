@@ -321,12 +321,12 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 	}
 	else \BossBaby\Utility::func_print_arr_to_table($arr);
 	exit;
-	exit;
 }
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-margin') {
 	$tmp = \BossBaby\Bitmex::func_get_margin($environment->bitmex_instance2);
 	$arr = array(
+		'amount' => $tmp['amount'],
 		'realisedPnl' => $tmp['realisedPnl'],
 		'unrealisedPnl' => $tmp['unrealisedPnl'],
 		'walletBalance' => $tmp['walletBalance'],
@@ -336,6 +336,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 		'marginUsedPcnt' => $tmp['marginUsedPcnt'],
 		'availableMargin' => $tmp['availableMargin'],
 	);
+	$arr['marginLeverage'] = round($arr['marginLeverage'], 2);
 	\BossBaby\Utility::func_print_arr_to_table($arr);
 	exit;
 }
@@ -343,6 +344,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-margin2') {
 	$tmp = \BossBaby\Bitmex::func_get_margin($environment->bitmex_instance3);
 	$arr = array(
+		'amount' => $tmp['amount'],
 		'realisedPnl' => $tmp['realisedPnl'],
 		'unrealisedPnl' => $tmp['unrealisedPnl'],
 		'walletBalance' => $tmp['walletBalance'],
@@ -352,13 +354,85 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 		'marginUsedPcnt' => $tmp['marginUsedPcnt'],
 		'availableMargin' => $tmp['availableMargin'],
 	);
+	$arr['marginLeverage'] = round($arr['marginLeverage'], 2);
 	\BossBaby\Utility::func_print_arr_to_table($arr);
 	exit;
 }
 
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-orderbook') {
+	$arr = $environment->bitmex_instance2->getOrderBook($depth = 25);
+	// \BossBaby\Utility::func_print_arr_to_table($arr);
+	if ($arr) {
+		foreach ($arr as $key => $value) {
+			\BossBaby\Utility::func_print_arr_to_table($value);
+		}
+	}
+	exit;
+}
+
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-orderbook2') {
+	$arr = $environment->bitmex_instance3->getOrderBook($depth = 25);
+	// \BossBaby\Utility::func_print_arr_to_table($arr);
+	if ($arr) {
+		foreach ($arr as $key => $value) {
+			\BossBaby\Utility::func_print_arr_to_table($value);
+		}
+	}
+	exit;
+}
+
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-orders') {
+	$arr = $environment->bitmex_instance2->getOrders(100);
+	// \BossBaby\Utility::func_print_arr_to_table($arr);
+	if ($arr) {
+		foreach ($arr as $key => $value) {
+			\BossBaby\Utility::func_print_arr_to_table($value);
+		}
+	}
+	exit;
+}
+
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-orders2') {
+	$arr = $environment->bitmex_instance3->getOrders(100);
+	// \BossBaby\Utility::func_print_arr_to_table($arr);
+	if ($arr) {
+		foreach ($arr as $key => $value) {
+			\BossBaby\Utility::func_print_arr_to_table($value);
+		}
+	}
+	exit;
+}
+
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-order') {
+	$j = 0;
+	for ($i=0; $i < 10; $i++) {
+		$arr = $environment->bitmex_instance2->getOrder($orderID = $i, $count = 100);
+		if (!$arr) continue;
+		$arr['i'] = $i;
+		$arr['j'] = $j;
+		if ($j>0 and ($j)%3==0) \BossBaby\Utility::func_print_arr_to_table($arr, 'Order', array('style' => 'clear:both;'));
+		else \BossBaby\Utility::func_print_arr_to_table($arr, 'Order');
+		$j++;
+	}
+	exit;
+}
+
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-order2') {
+	$j = 0;
+	for ($i=0; $i < 10; $i++) {
+		$arr = $environment->bitmex_instance3->getOrder($orderID = $i, $count = 100);
+		if (!$arr) continue;
+		$arr['i'] = $i;
+		$arr['j'] = $j;
+		if ($j>0 and ($j)%3==0) \BossBaby\Utility::func_print_arr_to_table($arr, 'Order', array('style' => 'clear:both;'));
+		else \BossBaby\Utility::func_print_arr_to_table($arr, 'Order');
+		$j++;
+	}
+	exit;
+}
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-actions') {
-	$current = $environment->bitmex->getTicker();
+	$current = $environment->bitmex_instance->getTicker();
 	// $price = $current['last'];
 	$price = 7433;
 	$arr = array(
@@ -376,53 +450,6 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 
 	$arr = $environment->bitmex->cancelAllOpenOrders('note to all closed orders at ' . date('H:i:s d/m/Y'));
 	dump($arr); die;
-	exit;
-}
-
-if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-margin') {
-	$tmp = $environment->bitmex->getMargin();
-	$arr = array(
-		'realisedPnl' => $tmp['realisedPnl'],
-		'unrealisedPnl' => $tmp['unrealisedPnl'],
-		'walletBalance' => $tmp['walletBalance'],
-		'marginBalance' => $tmp['marginBalance'],
-		'marginBalancePcnt' => $tmp['marginBalancePcnt'],
-		'marginLeverage' => $tmp['marginLeverage'],
-		'marginUsedPcnt' => $tmp['marginUsedPcnt'],
-		'availableMargin' => $tmp['availableMargin'],
-	);
-	\BossBaby\Utility::func_print_arr_to_table($arr, 'Margin');
-	exit;
-}
-
-if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-orderbook') {
-	$arr = $environment->bitmex->getOrderBook($depth = 25);
-	// \BossBaby\Utility::func_print_arr_to_table($arr, 'OrderBook');
-	if ($arr) {
-		foreach ($arr as $key => $value) {
-			\BossBaby\Utility::func_print_arr_to_table($value);
-		}
-	}
-	exit;
-}
-
-if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-orders') {
-	$arr = $environment->bitmex->getOrders(100);
-	\BossBaby\Utility::func_print_arr_to_table($arr, 'List User Order');
-	exit;
-}
-
-if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-order') {
-	$j = 0;
-	for ($i=0; $i < 10; $i++) {
-		$arr = $environment->bitmex->getOrder($orderID = $i, $count = 100);
-		if (!$arr) continue;
-		$arr['$i'] = $i;
-		$arr['$j'] = $j;
-		if ($j>0 and ($j)%3==0) \BossBaby\Utility::func_print_arr_to_table($arr, 'Order', array('style' => 'clear:both;'));
-		else \BossBaby\Utility::func_print_arr_to_table($arr, 'Order');
-		$j++;
-	}
 	exit;
 }
 

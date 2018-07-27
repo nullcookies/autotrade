@@ -25,8 +25,28 @@ $(document).ready(function() {
 		});
 	}; loadSite();
 
-	if ($('.container').length > 0)
+	if ($('.container-bitmex').length > 0)
 	{
+		var click_tab = function() {
+			if (window.location.hash) {
+				var hash = window.location.hash.substring(1);
+				var elem = $('a[href="#' + hash + '"]');
+				if (elem.attr('aria-expanded') != 'true') {
+					elem.click();
+					clearInterval(click_hash);
+				}
+			}
+		};
+		var click_hash = setInterval(click_tab, 1000);
+
+		var  add_hash = function() {
+			$('a[data-toggle="tab"]').each(function(){
+				$(this).on('click', function(){
+					window.location.hash = $(this).attr('href');
+				});
+			});
+		}; add_hash();
+
 		// --------------------------------------------------------------------------------------------------- //
 		
 		// var _loadContent = 0;
@@ -486,8 +506,8 @@ $(document).ready(function() {
 		loadOpenOrder2('.panel-open-order2', 'load-open-order2', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
 
 		var _loadMargin = 0;
-		var _loadingOpenOrder2 = 0;
-		var loadOpenOrder2 = function(div, act, options) {
+		var _loadingMargin = 0;
+		var loadMargin = function(div, act, options) {
 			var options = options || {};
 			if ($(div).length <= 0) {
 				return false;
@@ -495,15 +515,15 @@ $(document).ready(function() {
 
 			var reload_time = options.reload_time || 0;
 			if (reload_time) {
-				setTimeout(function(){loadOpenOrder2(div, act, {reload_time:reload_time})}, reload_time);
+				setTimeout(function(){loadMargin(div, act, {reload_time:reload_time})}, reload_time);
 				if ($(div).length > 0) $(div).data('reload-time', reload_time);
 			}
 			
-			// _loadOpenOrder2++;
-			// if (_loadOpenOrder2 <= 1) return false;
+			// _loadMargin++;
+			// if (_loadMargin <= 1) return false;
 			
-			if (_loadingOpenOrder2) return false;
-			_loadingOpenOrder2 = 1;
+			if (_loadingMargin) return false;
+			_loadingMargin = 1;
 			
 			var request = $.ajax({
 				url: "process.php",
@@ -515,7 +535,7 @@ $(document).ready(function() {
 			request.done(function(response) {
 				$(div).find('.panel-body').empty().html(response);
 				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
-				_loadingOpenOrder2 = 0;
+				_loadingMargin = 0;
 			});
 
 			request.fail(function(jqXHR, textStatus) {
@@ -524,7 +544,294 @@ $(document).ready(function() {
 
 			return false;
 		};
-		loadOpenOrder2('.panel-open-order2', 'load-open-order2', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
+		loadMargin('.panel-margin', 'load-margin', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
+
+		var _loadMargin2 = 0;
+		var _loadingMargin2 = 0;
+		var loadMargin2 = function(div, act, options) {
+			var options = options || {};
+			if ($(div).length <= 0) {
+				return false;
+			}
+
+			var reload_time = options.reload_time || 0;
+			if (reload_time) {
+				setTimeout(function(){loadMargin2(div, act, {reload_time:reload_time})}, reload_time);
+				if ($(div).length > 0) $(div).data('reload-time', reload_time);
+			}
+			
+			// _loadMargin2++;
+			// if (_loadMargin2 <= 1) return false;
+			
+			if (_loadingMargin2) return false;
+			_loadingMargin2 = 1;
+			
+			var request = $.ajax({
+				url: "process.php",
+				method: "GET",
+				data: {rtype: 'ajax', act: act},
+				dataType: "html"
+			});
+
+			request.done(function(response) {
+				$(div).find('.panel-body').empty().html(response);
+				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
+				_loadingMargin2 = 0;
+			});
+
+			request.fail(function(jqXHR, textStatus) {
+				console.warn("Request failed: " + textStatus);
+			});
+
+			return false;
+		};
+		loadMargin2('.panel-margin2', 'load-margin2', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
+
+		var _loadOrderbook = 0;
+		var _loadingOrderbook = 0;
+		var loadOrderbook = function(div, act, options) {
+			var options = options || {};
+			if ($(div).length <= 0) {
+				return false;
+			}
+
+			var reload_time = options.reload_time || 0;
+			if (reload_time) {
+				setTimeout(function(){loadOrderbook(div, act, {reload_time:reload_time})}, reload_time);
+				if ($(div).length > 0) $(div).data('reload-time', reload_time);
+			}
+			
+			// _loadOrderbook++;
+			// if (_loadOrderbook <= 1) return false;
+			
+			if (_loadingOrderbook) return false;
+			_loadingOrderbook = 1;
+			
+			var request = $.ajax({
+				url: "process.php",
+				method: "GET",
+				data: {rtype: 'ajax', act: act},
+				dataType: "html"
+			});
+
+			request.done(function(response) {
+				$(div).find('.panel-body').empty().html(response);
+				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
+				_loadingOrderbook = 0;
+			});
+
+			request.fail(function(jqXHR, textStatus) {
+				console.warn("Request failed: " + textStatus);
+			});
+
+			return false;
+		};
+		loadOrderbook('.panel-orderbook', 'load-orderbook', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
+
+		var _loadOrderbook2 = 0;
+		var _loadingOrderbook2 = 0;
+		var loadOrderbook2 = function(div, act, options) {
+			var options = options || {};
+			if ($(div).length <= 0) {
+				return false;
+			}
+
+			var reload_time = options.reload_time || 0;
+			if (reload_time) {
+				setTimeout(function(){loadOrderbook2(div, act, {reload_time:reload_time})}, reload_time);
+				if ($(div).length > 0) $(div).data('reload-time', reload_time);
+			}
+			
+			// _loadOrderbook2++;
+			// if (_loadOrderbook2 <= 1) return false;
+			
+			if (_loadingOrderbook2) return false;
+			_loadingOrderbook2 = 1;
+			
+			var request = $.ajax({
+				url: "process.php",
+				method: "GET",
+				data: {rtype: 'ajax', act: act},
+				dataType: "html"
+			});
+
+			request.done(function(response) {
+				$(div).find('.panel-body').empty().html(response);
+				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
+				_loadingOrderbook2 = 0;
+			});
+
+			request.fail(function(jqXHR, textStatus) {
+				console.warn("Request failed: " + textStatus);
+			});
+
+			return false;
+		};
+		loadOrderbook2('.panel-orderbook2', 'load-orderbook2', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
+
+		var _loadOrders = 0;
+		var _loadingOrders = 0;
+		var loadOrders = function(div, act, options) {
+			var options = options || {};
+			if ($(div).length <= 0) {
+				return false;
+			}
+
+			var reload_time = options.reload_time || 0;
+			if (reload_time) {
+				setTimeout(function(){loadOrders(div, act, {reload_time:reload_time})}, reload_time);
+				if ($(div).length > 0) $(div).data('reload-time', reload_time);
+			}
+			
+			// _loadOrders++;
+			// if (_loadOrders <= 1) return false;
+			
+			if (_loadingOrders) return false;
+			_loadingOrders = 1;
+			
+			var request = $.ajax({
+				url: "process.php",
+				method: "GET",
+				data: {rtype: 'ajax', act: act},
+				dataType: "html"
+			});
+
+			request.done(function(response) {
+				$(div).find('.panel-body').empty().html(response);
+				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
+				_loadingOrders = 0;
+			});
+
+			request.fail(function(jqXHR, textStatus) {
+				console.warn("Request failed: " + textStatus);
+			});
+
+			return false;
+		};
+		loadOrders('.panel-orders', 'load-orders', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
+
+		var _loadOrders2 = 0;
+		var _loadingOrders2 = 0;
+		var loadOrders2 = function(div, act, options) {
+			var options = options || {};
+			if ($(div).length <= 0) {
+				return false;
+			}
+
+			var reload_time = options.reload_time || 0;
+			if (reload_time) {
+				setTimeout(function(){loadOrders2(div, act, {reload_time:reload_time})}, reload_time);
+				if ($(div).length > 0) $(div).data('reload-time', reload_time);
+			}
+			
+			// _loadOrders2++;
+			// if (_loadOrders2 <= 1) return false;
+			
+			if (_loadingOrders2) return false;
+			_loadingOrders2 = 1;
+			
+			var request = $.ajax({
+				url: "process.php",
+				method: "GET",
+				data: {rtype: 'ajax', act: act},
+				dataType: "html"
+			});
+
+			request.done(function(response) {
+				$(div).find('.panel-body').empty().html(response);
+				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
+				_loadingOrders2 = 0;
+			});
+
+			request.fail(function(jqXHR, textStatus) {
+				console.warn("Request failed: " + textStatus);
+			});
+
+			return false;
+		};
+		loadOrders2('.panel-orders2', 'load-orders2', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
+
+		var _loadOrder = 0;
+		var _loadingOrder = 0;
+		var loadOrder = function(div, act, options) {
+			var options = options || {};
+			if ($(div).length <= 0) {
+				return false;
+			}
+
+			var reload_time = options.reload_time || 0;
+			if (reload_time) {
+				setTimeout(function(){loadOrder(div, act, {reload_time:reload_time})}, reload_time);
+				if ($(div).length > 0) $(div).data('reload-time', reload_time);
+			}
+			
+			// _loadOrder++;
+			// if (_loadOrder <= 1) return false;
+			
+			if (_loadingOrder) return false;
+			_loadingOrder = 1;
+			
+			var request = $.ajax({
+				url: "process.php",
+				method: "GET",
+				data: {rtype: 'ajax', act: act},
+				dataType: "html"
+			});
+
+			request.done(function(response) {
+				$(div).find('.panel-body').empty().html(response);
+				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
+				_loadingOrder = 0;
+			});
+
+			request.fail(function(jqXHR, textStatus) {
+				console.warn("Request failed: " + textStatus);
+			});
+
+			return false;
+		};
+		loadOrder('.panel-order', 'load-order', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
+
+		var _loadOrder2 = 0;
+		var _loadingOrder2 = 0;
+		var loadOrder2 = function(div, act, options) {
+			var options = options || {};
+			if ($(div).length <= 0) {
+				return false;
+			}
+
+			var reload_time = options.reload_time || 0;
+			if (reload_time) {
+				setTimeout(function(){loadOrder2(div, act, {reload_time:reload_time})}, reload_time);
+				if ($(div).length > 0) $(div).data('reload-time', reload_time);
+			}
+			
+			// _loadOrder2++;
+			// if (_loadOrder2 <= 1) return false;
+			
+			if (_loadingOrder2) return false;
+			_loadingOrder2 = 1;
+			
+			var request = $.ajax({
+				url: "process.php",
+				method: "GET",
+				data: {rtype: 'ajax', act: act},
+				dataType: "html"
+			});
+
+			request.done(function(response) {
+				$(div).find('.panel-body').empty().html(response);
+				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
+				_loadingOrder2 = 0;
+			});
+
+			request.fail(function(jqXHR, textStatus) {
+				console.warn("Request failed: " + textStatus);
+			});
+
+			return false;
+		};
+		loadOrder2('.panel-order2', 'load-order2', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
 
 		// --------------------------------------------------------------------------------------------------- //
 		
@@ -561,109 +868,6 @@ $(document).ready(function() {
 		// 	return false;
 		// };
 		// loadActions('.panel-actions', 'load-actions');
-
-		
-		// var _loadOrderbook = 0;
-		// var loadOrderbook = function(div, act, options) {
-		// 	var options = options || {};
-		// 	if ($(div).length <= 0) {
-		// 		return false;
-		// 	}
-
-		// 	var reload_time = options.reload_time || 0;
-		// 	if (reload_time)
-		// 		setTimeout(function(){loadOrderbook(div, act, {reload_time:reload_time})}, reload_time);
-
-		// 	_loadOrderbook++;
-		// 	if (_loadOrderbook <= 1) return false;
-			
-		// 	var request = $.ajax({
-		// 		url: "process.php",
-		// 		method: "GET",
-		// 		data: {rtype: 'ajax', act: act},
-		// 		dataType: "html"
-		// 	});
-
-		// 	request.done(function(response) {
-		// 		$(div).find('.panel-body').empty().html(response);
-		// 		$(div).find('table').effect("highlight", {}, 500);
-		// 	});
-
-		// 	request.fail(function(jqXHR, textStatus) {
-		// 		console.log("Request failed: " + textStatus);
-		// 	});
-
-		// 	return false;
-		// };
-		// loadOrderbook('.panel-orderbook', 'load-orderbook', {reload_time:(Math.floor(Math.random() * 21) + 11) * 1000});
-
-		// var _loadOrders = 0;
-		// var loadOrders = function(div, act, options) {
-		// 	var options = options || {};
-		// 	if ($(div).length <= 0) {
-		// 		return false;
-		// 	}
-
-		// 	var reload_time = options.reload_time || 0;
-		// 	if (reload_time)
-		// 		setTimeout(function(){loadOrders(div, act, {reload_time:reload_time})}, reload_time);
-			
-		// 	_loadOrders++;
-		// 	if (_loadOrders <= 1) return false;
-
-		// 	var request = $.ajax({
-		// 		url: "process.php",
-		// 		method: "GET",
-		// 		data: {rtype: 'ajax', act: act},
-		// 		dataType: "html"
-		// 	});
-
-		// 	request.done(function(response) {
-		// 		$(div).find('.panel-body').empty().html(response);
-		// 		$(div).find('table').effect("highlight", {}, 500);
-		// 	});
-
-		// 	request.fail(function(jqXHR, textStatus) {
-		// 		console.log("Request failed: " + textStatus);
-		// 	});
-
-		// 	return false;
-		// };
-		// loadOrders('.panel-orders', 'load-orders', {reload_time:(Math.floor(Math.random() * 21) + 11) * 1000});
-
-		// var _loadOrder = 0;
-		// var loadOrder = function(div, act, options) {
-		// 	var options = options || {};
-		// 	if ($(div).length <= 0) {
-		// 		return false;
-		// 	}
-
-		// 	var reload_time = options.reload_time || 0;
-		// 	if (reload_time)
-		// 		setTimeout(function(){loadOrder(div, act, {reload_time:reload_time})}, reload_time);
-			
-		// 	_loadOrder++;
-		// 	if (_loadOrder <= 1) return false;
-
-		// 	var request = $.ajax({
-		// 		url: "process.php",
-		// 		method: "GET",
-		// 		data: {rtype: 'ajax', act: act},
-		// 		dataType: "html"
-		// 	});
-
-		// 	request.done(function(response) {
-		// 		$(div).find('.panel-body').empty().html(response);
-		// 		$(div).find('table').effect("highlight", {}, 500);
-		// 	});
-
-		// 	request.fail(function(jqXHR, textStatus) {
-		// 		console.log("Request failed: " + textStatus);
-		// 	});
-
-		// 	return false;
-		// };
-		// loadOrder('.panel-order', 'load-order', {reload_time:(Math.floor(Math.random() * 21) + 11) * 1000});
 
 		// --------------------------------------------------------------------------------------------------- //
 		

@@ -4,7 +4,7 @@ if (!defined('STDIN')) die('Access denied.' . "\n");
 // Error handle
 require_once(__DIR__ . "/error-handle.php");
 
-if (date('H') == '06' and date('m') == '30') {
+if (date('H') == '06' and date('i') == '30') {
     require_once(__DIR__ . '/broadcast.php');
     exit;
 }

@@ -12,8 +12,8 @@ ul.nav li{white-space:nowrap}
 .chart-content{height:570px}
 .panel-actions{clear:both}
 .panel-group .panel+.panel{margin-top:0}
-.panel-orderbook table,.panel-order table{float:left;margin-bottom:10px!important;margin-left:10px}
-.panel-order table{width:32%!important;float:left}
+/*.panel-orderbook table,.panel-order table{float:left;margin-bottom:10px!important;margin-left:10px}*/
+/*.panel-order table{width:32%!important;float:left}*/
 .panel-main-info .panel-info{width:49%!important;float:left}
 p.message{margin:15px}
 ul.navbar-nav{margin-top:0}
