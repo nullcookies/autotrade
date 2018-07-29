@@ -67,9 +67,9 @@ $(document).ready(function() {
 							var func = $('.' + block).find('.panel-body').attr('function');
 							var panel = '.' + block;
 							var act = block.replace(/panel/gi, "load");
-							if (func != 'undefined') {
+							if (func != '' && func != 'undefined') {
 								var funcCall = func + "('" + panel + "', '" + act + "');";
-								var ret = eval(funcCall);
+								var ret = eval('' + funcCall);
 							}
 						}
 						blockList = [];
