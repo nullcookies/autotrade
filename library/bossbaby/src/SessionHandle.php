@@ -8,7 +8,7 @@ class SessionHandle
 
     function open($savePath, $sessionName)
     {
-        $this->savePath = LOGS_DIR; // Ignore savepath and use our own to keep it safe from automatic GC
+        $this->savePath = __DIR__ . '/../'; // $savePath; // Ignore savepath and use our own to keep it safe from automatic GC
         $this->lifetime = 24 * 3600; // 1 hour minimum session duration
         if (!is_dir($this->savePath)) {
             mkdir($this->savePath, 0777);
