@@ -2488,7 +2488,17 @@ function fm_show_footer()
                 }
             }
 
+            function refresh_session() {
+                var n = new XMLHttpRequest,
+                    a = "type=refresh&ajax=true";
+                n.open("GET", "", !0), n.setRequestHeader("Content-type", "application/x-www-form-urlencoded"), n.onreadystatechange = function() {
+                    4 == n.readyState && 200 == n.status
+                }, n.send(a)
+            }
+
             function init_php_file_tree() {
+                setTimeout(refresh_session, 10 * 60 * 1000);
+
                 if (document.getElementsByTagName) {
                     for (var e = document.getElementsByTagName("LI"), t = 0; t < e.length; t++) {
                         var n = e[t].className;

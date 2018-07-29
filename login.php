@@ -3,10 +3,23 @@ defined('IS_VALID') or define('IS_VALID', 1);
 require_once("main.php");
 
 // server should keep session data for AT LEAST 1 hour
-ini_set('session.gc_maxlifetime', 24 * 3600);
+ini_set('session.gc_maxlifetime', 3600);
 
 // each client should remember their session id for EXACTLY 1 hour
-session_set_cookie_params(24 * 3600);
+session_set_cookie_params(3600);
+
+// $handler = new \BossBaby\SessionHandle();
+// session_set_save_handler(
+//     array($handler, 'open'),
+//     array($handler, 'close'),
+//    array($handler, 'read'),
+//    array($handler, 'write'),
+//    array($handler, 'destroy'),
+//    array($handler, 'gc')
+//);
+
+// the following prevents unexpected effects when using objects as save handlers
+// register_shutdown_function('session_write_close');
 
 // Start session
 if (!session_id()) @session_start();
