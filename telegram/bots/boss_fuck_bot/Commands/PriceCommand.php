@@ -50,70 +50,39 @@ class PriceCommand extends UserCommand
     {
         $message   = $this->getMessage();
         $chat_id   = $message->getChat()->getId();
-        $coin_name = trim($message->getText(true));
 
         $data = [
             'chat_id'    => $chat_id,
             'parse_mode' => 'markdown',
         ];
 
-        // Get current config
-        global $environment;
+        // // Get current config
+        // global $environment;
+
+        $coin_name = trim($message->getText(true));
+        $coin_name = str_replace('/', '', $coin_name);
 
         // If no command parameter is passed, show the list.
         if ($coin_name === '') {
             // $data['text'] = PHP_EOL;
 
-            require_once(LIB_DIR . DS . "bitmex-api/BitMex.php");
-            $environment->bitmex_instance = new \Bitmex($environment->bitmex->{1}->apiKey, $environment->bitmex->{1}->apiSecret);
-            $arr = \BossBaby\Bitmex::func_get_current_price($environment->bitmex_instance);
+            // Format current XBT's price
+            $price = \BossBaby\Telegram::format_xbt_price_for_telegram();
 
-            $_current_price = 0;
-            $last_orig = $arr['last'];
-            $last_sess = (isset($_current_price)) ? $_current_price : 0;
-            $_current_price = $last_orig;
-            // $arr['sess_last'] = $last_sess;
-            
-            if (!isset($_current_price)) {
-                if ($arr['lastChangePcnt'] >= 0) $arr['last'] = '👆 ' . $arr['last'];
-                elseif ($arr['lastChangePcnt'] < 0) $arr['last'] = '👇 ' . $arr['last'];
-            }
-            else {
-                if ($arr['last'] >= $last_sess) $arr['last'] = '👆 ' . $arr['last'];
-                elseif ($arr['last'] < $last_sess) $arr['last'] = '👇 ' . $arr['last'];
-            }
-            if ($arr['lastChangePcnt'] > 0) $arr['lastChangePcnt'] = '👆 ' . ($arr['lastChangePcnt'] * 100) . '%';
-            elseif ($arr['lastChangePcnt'] < 0) $arr['lastChangePcnt'] = '👇 ' . ($arr['lastChangePcnt'] * 100) . '%';
-            else $arr['lastChangePcnt'] =  ($arr['lastChangePcnt'] * 100) . '%';
-
-            $arr['Changed'] = $arr['lastChangePcnt']; unset($arr['lastChangePcnt']);
-
-            $price = \BossBaby\Telegram::func_telegram_print_arr($arr);
-            $price = str_replace('Symbol:', '', $price);
-            $data['text'] = $price;
-            $data['text'] .= PHP_EOL;
+            $data['text'] = $price . PHP_EOL;
             return Request::sendMessage($data);
         }
 
-        $coin_name = str_replace('/', '', $coin_name);
         $data['text'] = 'Làm gì có *' . $coin_name . '*, thử lại coi 😒';
 
-        $coin_name = strtoupper($coin_name);
-        
-        require_once(LIB_DIR . DS . "binance-api/BinanceClass.php");
-        $environment->binance_instance = new \Binance($environment->binance->{1}->apiKey, $environment->bitmex->{1}->apiSecret);
-        $arr = \BossBaby\Binance::get_coin_price($environment->binance_instance, $coin_name);
-
-        if ($arr) {
-            // \BossBaby\Utility::writeLog('arr:'.serialize($arr).PHP_EOL.'-coin:'.serialize($coin_name));
-            // $price = \BossBaby\Telegram::func_telegram_print_arr($arr);
-            $data['text'] = 'Giá *' . $coin_name . '* trên Binance:' . PHP_EOL . PHP_EOL;
-            foreach ($arr as $key => $value) {
-                $data['text'] .= str_replace($coin_name, $coin_name . '/', $key) . ': ' . $value . PHP_EOL;
-            }
+        // Format current ALT's price
+        $price = \BossBaby\Telegram::format_alt_price_for_telegram($coin_name);
+        if ($price) {
+            $data['text'] = $price;
+            return Request::sendMessage($data);
         }
+        
         $data['text'] .= PHP_EOL;
-
         return Request::sendMessage($data);
     }
 }

@@ -138,7 +138,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 }
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-account2') {
-	$arr = \BossBaby\Bitmex::func_get_account_info($environment->bitmex->{3}->email, $environment->bitmex->{3}->apiKey2, $environment->bitmex->{3}->apiSecret2);
+	$arr = \BossBaby\Bitmex::func_get_account_info($environment->bitmex->{3}->email, $environment->bitmex->{3}->apiKey, $environment->bitmex->{3}->apiSecret);
 	\BossBaby\Utility::func_print_arr_to_table($arr);
 	exit;
 }
@@ -278,9 +278,8 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 	// \BossBaby\Utility::func_print_arr_to_table($arr);
 
 	if (is_array($arr) and count($arr) > 0) {
-		foreach ($arr as $key => $tmp) {
+		foreach ($arr as $i => $tmp) {
 			// \BossBaby\Utility::func_print_arr_to_table($tmp);
-			
 			$arr = array(
 				// 'orderID' => $tmp['orderID'],
 				'side' => $tmp['side'],
@@ -291,7 +290,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 				'execInst' => $tmp['execInst'],
 				'ordStatus' => $tmp['ordStatus'],
 			);
-			\BossBaby\Utility::func_print_arr_to_table($arr);
+			\BossBaby\Utility::func_print_arr_to_table($arr, 'Opening ' . ($i+1));
 		}
 	}
 	else \BossBaby\Utility::func_print_arr_to_table($arr);
@@ -303,9 +302,8 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 	// \BossBaby\Utility::func_print_arr_to_table($arr);
 
 	if (is_array($arr) and count($arr) > 0) {
-		foreach ($arr as $key => $tmp) {
+		foreach ($arr as $i => $tmp) {
 			// \BossBaby\Utility::func_print_arr_to_table($tmp);
-			
 			$arr = array(
 				// 'orderID' => $tmp['orderID'],
 				'side' => $tmp['side'],
@@ -316,17 +314,17 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 				'execInst' => $tmp['execInst'],
 				'ordStatus' => $tmp['ordStatus'],
 			);
-			\BossBaby\Utility::func_print_arr_to_table($arr);
+			\BossBaby\Utility::func_print_arr_to_table($arr, 'Opening ' . ($i+1));
 		}
 	}
 	else \BossBaby\Utility::func_print_arr_to_table($arr);
-	exit;
 	exit;
 }
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-margin') {
 	$tmp = \BossBaby\Bitmex::func_get_margin($environment->bitmex_instance2);
 	$arr = array(
+		'amount' => $tmp['amount'],
 		'realisedPnl' => $tmp['realisedPnl'],
 		'unrealisedPnl' => $tmp['unrealisedPnl'],
 		'walletBalance' => $tmp['walletBalance'],
@@ -336,6 +334,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 		'marginUsedPcnt' => $tmp['marginUsedPcnt'],
 		'availableMargin' => $tmp['availableMargin'],
 	);
+	$arr['marginLeverage'] = round($arr['marginLeverage'], 2);
 	\BossBaby\Utility::func_print_arr_to_table($arr);
 	exit;
 }
@@ -343,6 +342,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-margin2') {
 	$tmp = \BossBaby\Bitmex::func_get_margin($environment->bitmex_instance3);
 	$arr = array(
+		'amount' => $tmp['amount'],
 		'realisedPnl' => $tmp['realisedPnl'],
 		'unrealisedPnl' => $tmp['unrealisedPnl'],
 		'walletBalance' => $tmp['walletBalance'],
@@ -352,13 +352,127 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 		'marginUsedPcnt' => $tmp['marginUsedPcnt'],
 		'availableMargin' => $tmp['availableMargin'],
 	);
+	$arr['marginLeverage'] = round($arr['marginLeverage'], 2);
 	\BossBaby\Utility::func_print_arr_to_table($arr);
 	exit;
 }
 
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-orderbook') {
+	$tmp = $environment->bitmex_instance2->getOrderBook($depth = 10);
+	// \BossBaby\Utility::func_print_arr_to_table($tmp);
+	if ($tmp) {
+		foreach ($tmp as $i => $arr) {
+			\BossBaby\Utility::func_print_arr_to_table($arr, 'Orderbook ' . ($i+1));
+		}
+	}
+	else \BossBaby\Utility::func_print_arr_to_table($tmp);
+	exit;
+}
+
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-orderbook2') {
+	$tmp = $environment->bitmex_instance3->getOrderBook($depth = 10);
+	// \BossBaby\Utility::func_print_arr_to_table($tmp);
+	if ($tmp) {
+		foreach ($tmp as $i => $arr) {
+			\BossBaby\Utility::func_print_arr_to_table($arr, 'Orderbook ' . ($i+1));
+		}
+	}
+	else \BossBaby\Utility::func_print_arr_to_table($tmp);
+	exit;
+}
+
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-orders') {
+	$tmp = $environment->bitmex_instance2->getOrders(10);
+	krsort($tmp);
+	// \BossBaby\Utility::func_print_arr_to_table($tmp);
+	if ($tmp) {
+		foreach ($tmp as $i => $arr) {
+			$arr_tmp = [];
+			$arr_tmp['side'] = $arr['side'];
+			$arr_tmp['orderQty'] = $arr['orderQty'];
+			$arr_tmp['price'] = $arr['price'];
+			$arr_tmp['ordType'] = $arr['ordType'];
+			$arr_tmp['timeInForce'] = $arr['timeInForce'];
+			$arr_tmp['ordStatus'] = $arr['ordStatus'];
+			$arr_tmp['cumQty'] = $arr['cumQty'];
+			$arr_tmp['avgPx'] = $arr['avgPx'];
+			$arr_tmp['timestamp'] = $arr['timestamp'];
+			$arr = $arr_tmp;
+			\BossBaby\Utility::func_print_arr_to_table($arr, 'Orders ' . ($i+1));
+		}
+	}
+	else \BossBaby\Utility::func_print_arr_to_table($tmp);
+	exit;
+}
+
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-orders2') {
+	$tmp = $environment->bitmex_instance3->getOrders(10);
+	krsort($tmp);
+	// \BossBaby\Utility::func_print_arr_to_table($tmp);
+	if ($tmp) {
+		foreach ($tmp as $i => $arr) {
+			$arr_tmp = [];
+			$arr_tmp['side'] = $arr['side'];
+			$arr_tmp['orderQty'] = $arr['orderQty'];
+			$arr_tmp['price'] = $arr['price'];
+			$arr_tmp['ordType'] = $arr['ordType'];
+			$arr_tmp['timeInForce'] = $arr['timeInForce'];
+			$arr_tmp['ordStatus'] = $arr['ordStatus'];
+			$arr_tmp['cumQty'] = $arr['cumQty'];
+			$arr_tmp['avgPx'] = $arr['avgPx'];
+			$arr_tmp['timestamp'] = $arr['timestamp'];
+			$arr = $arr_tmp;
+			\BossBaby\Utility::func_print_arr_to_table($arr, 'Orders ' . ($i+1));
+		}
+	}
+	else \BossBaby\Utility::func_print_arr_to_table($tmp);
+	exit;
+}
+
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-order') {
+	for ($i=0; $i < 10; $i++) {
+		$arr = $environment->bitmex_instance2->getOrder($orderID = $i, $count = 10);
+		if (!$arr) continue;
+		$arr_tmp = [];
+		$arr_tmp['side'] = $arr['side'];
+		$arr_tmp['orderQty'] = $arr['orderQty'];
+		$arr_tmp['price'] = $arr['price'];
+		$arr_tmp['ordType'] = $arr['ordType'];
+		$arr_tmp['timeInForce'] = $arr['timeInForce'];
+		$arr_tmp['ordStatus'] = $arr['ordStatus'];
+		$arr_tmp['simpleLeavesQty'] = $arr['simpleLeavesQty'];
+		$arr_tmp['cumQty'] = $arr['cumQty'];
+		$arr_tmp['avgPx'] = $arr['avgPx'];
+		$arr_tmp['timestamp'] = $arr['timestamp'];
+		$arr = $arr_tmp;
+		\BossBaby\Utility::func_print_arr_to_table($arr, 'Order ' . ($i+1));
+	}
+	exit;
+}
+
+if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-order2') {
+	for ($i=0; $i < 10; $i++) {
+		$arr = $environment->bitmex_instance3->getOrder($orderID = $i, $count = 10);
+		if (!$arr) continue;
+		$arr_tmp = [];
+		$arr_tmp['side'] = $arr['side'];
+		$arr_tmp['orderQty'] = $arr['orderQty'];
+		$arr_tmp['price'] = $arr['price'];
+		$arr_tmp['ordType'] = $arr['ordType'];
+		$arr_tmp['timeInForce'] = $arr['timeInForce'];
+		$arr_tmp['ordStatus'] = $arr['ordStatus'];
+		$arr_tmp['simpleLeavesQty'] = $arr['simpleLeavesQty'];
+		$arr_tmp['cumQty'] = $arr['cumQty'];
+		$arr_tmp['avgPx'] = $arr['avgPx'];
+		$arr_tmp['timestamp'] = $arr['timestamp'];
+		$arr = $arr_tmp;
+		\BossBaby\Utility::func_print_arr_to_table($arr, 'Order ' . ($i+1));
+	}
+	exit;
+}
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-actions') {
-	$current = $environment->bitmex->getTicker();
+	$current = $environment->bitmex_instance->getTicker();
 	// $price = $current['last'];
 	$price = 7433;
 	$arr = array(
@@ -376,53 +490,6 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 
 	$arr = $environment->bitmex->cancelAllOpenOrders('note to all closed orders at ' . date('H:i:s d/m/Y'));
 	dump($arr); die;
-	exit;
-}
-
-if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-margin') {
-	$tmp = $environment->bitmex->getMargin();
-	$arr = array(
-		'realisedPnl' => $tmp['realisedPnl'],
-		'unrealisedPnl' => $tmp['unrealisedPnl'],
-		'walletBalance' => $tmp['walletBalance'],
-		'marginBalance' => $tmp['marginBalance'],
-		'marginBalancePcnt' => $tmp['marginBalancePcnt'],
-		'marginLeverage' => $tmp['marginLeverage'],
-		'marginUsedPcnt' => $tmp['marginUsedPcnt'],
-		'availableMargin' => $tmp['availableMargin'],
-	);
-	\BossBaby\Utility::func_print_arr_to_table($arr, 'Margin');
-	exit;
-}
-
-if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-orderbook') {
-	$arr = $environment->bitmex->getOrderBook($depth = 25);
-	// \BossBaby\Utility::func_print_arr_to_table($arr, 'OrderBook');
-	if ($arr) {
-		foreach ($arr as $key => $value) {
-			\BossBaby\Utility::func_print_arr_to_table($value);
-		}
-	}
-	exit;
-}
-
-if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-orders') {
-	$arr = $environment->bitmex->getOrders(100);
-	\BossBaby\Utility::func_print_arr_to_table($arr, 'List User Order');
-	exit;
-}
-
-if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-order') {
-	$j = 0;
-	for ($i=0; $i < 10; $i++) {
-		$arr = $environment->bitmex->getOrder($orderID = $i, $count = 100);
-		if (!$arr) continue;
-		$arr['$i'] = $i;
-		$arr['$j'] = $j;
-		if ($j>0 and ($j)%3==0) \BossBaby\Utility::func_print_arr_to_table($arr, 'Order', array('style' => 'clear:both;'));
-		else \BossBaby\Utility::func_print_arr_to_table($arr, 'Order');
-		$j++;
-	}
 	exit;
 }
 

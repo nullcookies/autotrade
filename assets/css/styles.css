@@ -4,6 +4,7 @@ table{margin-bottom:0!important;white-space:pre}
 td{border:1px solid #eee}
 td.col-title{width:40%}
 ul.nav li{white-space:nowrap}
+div.navbar-collapse{font-weight:bold}
 .container{width:100%;padding:20px}
 .table td,.table th{padding:5px}
 .panel{margin-bottom:20px!important}
@@ -12,15 +13,15 @@ ul.nav li{white-space:nowrap}
 .chart-content{height:570px}
 .panel-actions{clear:both}
 .panel-group .panel+.panel{margin-top:0}
-.panel-orderbook table,.panel-order table{float:left;margin-bottom:10px!important;margin-left:10px}
-.panel-order table{width:32%!important;float:left}
+/*.panel-orderbook table,.panel-order table{float:left;margin-bottom:10px!important;margin-left:10px}*/
+/*.panel-order table{width:32%!important;float:left}*/
 .panel-main-info .panel-info{width:49%!important;float:left}
 p.message{margin:15px}
 ul.navbar-nav{margin-top:0}
 body::-webkit-scrollbar{width:0.2em}
 body::-webkit-scrollbar-track{-webkit-box-shadow:inset 0 0 2px rgba(0,0,0,0.3)}
 body::-webkit-scrollbar-thumb{background-color:darkgrey;outline:1px solid slategrey}
-
+a.btn-logout{color:#343a40;font-weight:normal}
 @media only screen and (max-width: 768px) {
 	.panel-body-min{overflow-x:scroll}
 }

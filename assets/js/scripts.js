@@ -12,7 +12,7 @@ $(document).ready(function() {
 			$('link[rel="icon"]').attr('href', response.favicon);
 
 			$('li[role="presentation"]').each(function(){
-				$(this).off().on('click', function() {
+				$(this).off().on('click', function(){
 					$('.navbar-collapse').removeClass('in');
 				});
 			});
@@ -25,8 +25,59 @@ $(document).ready(function() {
 		});
 	}; loadSite();
 
-	if ($('.container').length > 0)
+	if ($('.container-bitmex').length > 0)
 	{
+		var click_tab = function() {
+			if (window.location.hash) {
+				var hash = window.location.hash.substring(1);
+				var elem = $('a[href="#' + hash + '"]');
+				if (elem.attr('aria-expanded') != 'true') {
+					elem.click();
+					clearInterval(click_hash);
+				}
+			}
+		};
+		var click_hash = setInterval(click_tab, 1000);
+
+		var  add_hash = function() {
+			$('a[data-toggle="tab"]').each(function() {
+				$(this).on('click', function(){
+					var hash = $(this).attr('href');
+					window.location.hash = hash;
+
+					var blockList = [];
+					var ignoreList = ['panel', 'panel-primary', 'panel-default', 'panel-info', 'panel-success', 'panel-danger'];
+					if (hash.length > 0 && hash != '#main' && hash != '#chart') {
+						$(hash).find('div.panel').each(function(){
+							var classList = $(this).prop('className').split(' ');
+							if (classList.length) {
+								var i;
+								for (i = 0; i < classList.length; i++) { 
+									var class_name = classList[i];
+									if (!ignoreList.includes(class_name) && !blockList.includes(class_name)) 
+										blockList.push(class_name);
+								}
+							}
+						});
+					}
+					
+					if (blockList.length) {
+						for (i = 0; i < blockList.length; i++) {
+							var block = blockList[i];
+							var func = $('.' + block).find('.panel-body').attr('function');
+							var panel = '.' + block;
+							var act = block.replace(/panel/gi, "load");
+							if (func != 'undefined') {
+								var funcCall = func + "('" + panel + "', '" + act + "');";
+								var ret = eval(funcCall);
+							}
+						}
+						blockList = [];
+					}
+				});
+			});
+		}; add_hash();
+
 		// --------------------------------------------------------------------------------------------------- //
 		
 		// var _loadContent = 0;
@@ -36,6 +87,8 @@ $(document).ready(function() {
 		// 	if ($(div).length <= 0) {
 		// 		return false;
 		// 	}
+
+		// $(div).find('.panel-body').attr('function', 'loadContent');
 
 		// 	var reload_time = options.reload_time || 0;
 		// 	if (reload_time) {
@@ -58,7 +111,7 @@ $(document).ready(function() {
 
 		// 	request.done(function(response) {
 		// 		$(div).find('.panel-body').empty().html(response);
-		// 		if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
+		// 		$(div).find('table').effect("highlight", {}, 500);
 		// 		_loadingContent = 0;
 		// 	});
 
@@ -102,7 +155,7 @@ $(document).ready(function() {
 
 			request.done(function(response) {
 				$(div).find('.panel-body').empty().html(response);
-				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
+				$(div).find('table').effect("highlight", {}, 500);
 				_loadingCurrentPrice = 0;
 			});
 
@@ -143,7 +196,7 @@ $(document).ready(function() {
 
 			request.done(function(response) {
 				$(div).find('.panel-body').empty().html(response);
-				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
+				$(div).find('table').effect("highlight", {}, 500);
 				_loadingChart = 0;
 			});
 
@@ -162,6 +215,8 @@ $(document).ready(function() {
 			if ($(div).length <= 0) {
 				return false;
 			}
+
+			$(div).find('.panel-body').attr('function', 'loadAccount');
 
 			var reload_time = options.reload_time || 0;
 			if (reload_time) {
@@ -183,9 +238,8 @@ $(document).ready(function() {
 			});
 
 			request.done(function(response) {
-				// if ($(div).length <= 0)
-				// 	$('.panel-group').append('<div class="panel panel-default panel-main-info"></div>');
 				$(div).find('.panel-body').empty().html(response);
+				$(div).find('table').effect("highlight", {}, 500);
 				_loadingAccount = 0;
 			});
 
@@ -204,6 +258,8 @@ $(document).ready(function() {
 			if ($(div).length <= 0) {
 				return false;
 			}
+
+			$(div).find('.panel-body').attr('function', 'loadAccount2');
 
 			var reload_time = options.reload_time || 0;
 			if (reload_time) {
@@ -225,9 +281,8 @@ $(document).ready(function() {
 			});
 
 			request.done(function(response) {
-				// if ($(div).length <= 0)
-				// 	$('.panel-group').append('<div class="panel panel-default panel-main-info"></div>');
 				$(div).find('.panel-body').empty().html(response);
+				$(div).find('table').effect("highlight", {}, 500);
 				_loadingAccount2 = 0;
 			});
 
@@ -246,6 +301,8 @@ $(document).ready(function() {
 			if ($(div).length <= 0) {
 				return false;
 			}
+
+			$(div).find('.panel-body').attr('function', 'loadWallet');
 
 			var reload_time = options.reload_time || 0;
 			if (reload_time) {
@@ -268,7 +325,7 @@ $(document).ready(function() {
 
 			request.done(function(response) {
 				$(div).find('.panel-body').empty().html(response);
-				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
+				$(div).find('table').effect("highlight", {}, 500);
 				_loadingWallet = 0;
 			});
 
@@ -287,6 +344,8 @@ $(document).ready(function() {
 			if ($(div).length <= 0) {
 				return false;
 			}
+
+			$(div).find('.panel-body').attr('function', 'loadWallet2');
 
 			var reload_time = options.reload_time || 0;
 			if (reload_time) {
@@ -309,7 +368,7 @@ $(document).ready(function() {
 
 			request.done(function(response) {
 				$(div).find('.panel-body').empty().html(response);
-				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
+				$(div).find('table').effect("highlight", {}, 500);
 				_loadingWallet2 = 0;
 			});
 
@@ -328,6 +387,8 @@ $(document).ready(function() {
 			if ($(div).length <= 0) {
 				return false;
 			}
+
+			$(div).find('.panel-body').attr('function', 'loadOpenPositions');
 
 			var reload_time = options.reload_time || 0;
 			if (reload_time) {
@@ -350,7 +411,7 @@ $(document).ready(function() {
 
 			request.done(function(response) {
 				$(div).find('.panel-body').empty().html(response);
-				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
+				$(div).find('table').effect("highlight", {}, 500);
 				_loadingOpenPositions = 0;
 			});
 
@@ -369,6 +430,8 @@ $(document).ready(function() {
 			if ($(div).length <= 0) {
 				return false;
 			}
+
+			$(div).find('.panel-body').attr('function', 'loadOpenPositions2');
 
 			var reload_time = options.reload_time || 0;
 			if (reload_time) {
@@ -391,7 +454,7 @@ $(document).ready(function() {
 
 			request.done(function(response) {
 				$(div).find('.panel-body').empty().html(response);
-				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
+				$(div).find('table').effect("highlight", {}, 500);
 				_loadingOpenPositions2 = 0;
 			});
 
@@ -410,6 +473,8 @@ $(document).ready(function() {
 			if ($(div).length <= 0) {
 				return false;
 			}
+
+			$(div).find('.panel-body').attr('function', 'loadOpenOrder');
 
 			var reload_time = options.reload_time || 0;
 			if (reload_time) {
@@ -432,7 +497,7 @@ $(document).ready(function() {
 
 			request.done(function(response) {
 				$(div).find('.panel-body').empty().html(response);
-				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
+				$(div).find('table').effect("highlight", {}, 500);
 				_loadingOpenOrder = 0;
 			});
 
@@ -442,7 +507,7 @@ $(document).ready(function() {
 
 			return false;
 		};
-		loadOpenOrder('.panel-open-order', 'load-open-order', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
+		loadOpenOrder('.panel-open-order', 'load-open-order', {reload_time:(Math.floor(Math.random() * 120) + 60) * 1000});
 
 		var _loadOpenOrder2 = 0;
 		var _loadingOpenOrder2 = 0;
@@ -452,6 +517,8 @@ $(document).ready(function() {
 				return false;
 			}
 
+			$(div).find('.panel-body').attr('function', 'loadOpenOrder2');
+
 			var reload_time = options.reload_time || 0;
 			if (reload_time) {
 				setTimeout(function(){loadOpenOrder2(div, act, {reload_time:reload_time})}, reload_time);
@@ -473,7 +540,7 @@ $(document).ready(function() {
 
 			request.done(function(response) {
 				$(div).find('.panel-body').empty().html(response);
-				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
+				$(div).find('table').effect("highlight", {}, 500);
 				_loadingOpenOrder2 = 0;
 			});
 
@@ -483,27 +550,29 @@ $(document).ready(function() {
 
 			return false;
 		};
-		loadOpenOrder2('.panel-open-order2', 'load-open-order2', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
+		loadOpenOrder2('.panel-open-order2', 'load-open-order2', {reload_time:(Math.floor(Math.random() * 120) + 60) * 1000});
 
 		var _loadMargin = 0;
-		var _loadingOpenOrder2 = 0;
-		var loadOpenOrder2 = function(div, act, options) {
+		var _loadingMargin = 0;
+		var loadMargin = function(div, act, options) {
 			var options = options || {};
 			if ($(div).length <= 0) {
 				return false;
 			}
 
+			$(div).find('.panel-body').attr('function', 'loadMargin');
+
 			var reload_time = options.reload_time || 0;
 			if (reload_time) {
-				setTimeout(function(){loadOpenOrder2(div, act, {reload_time:reload_time})}, reload_time);
+				setTimeout(function(){loadMargin(div, act, {reload_time:reload_time})}, reload_time);
 				if ($(div).length > 0) $(div).data('reload-time', reload_time);
 			}
 			
-			// _loadOpenOrder2++;
-			// if (_loadOpenOrder2 <= 1) return false;
+			// _loadMargin++;
+			// if (_loadMargin <= 1) return false;
 			
-			if (_loadingOpenOrder2) return false;
-			_loadingOpenOrder2 = 1;
+			if (_loadingMargin) return false;
+			_loadingMargin = 1;
 			
 			var request = $.ajax({
 				url: "process.php",
@@ -514,8 +583,8 @@ $(document).ready(function() {
 
 			request.done(function(response) {
 				$(div).find('.panel-body').empty().html(response);
-				if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
-				_loadingOpenOrder2 = 0;
+				$(div).find('table').effect("highlight", {}, 500);
+				_loadingMargin = 0;
 			});
 
 			request.fail(function(jqXHR, textStatus) {
@@ -524,7 +593,308 @@ $(document).ready(function() {
 
 			return false;
 		};
-		loadOpenOrder2('.panel-open-order2', 'load-open-order2', {reload_time:(Math.floor(Math.random() * 15) + 10) * 1000});
+		loadMargin('.panel-margin', 'load-margin', {reload_time:(Math.floor(Math.random() * 120) + 60) * 1000});
+
+		var _loadMargin2 = 0;
+		var _loadingMargin2 = 0;
+		var loadMargin2 = function(div, act, options) {
+			var options = options || {};
+			if ($(div).length <= 0) {
+				return false;
+			}
+
+			$(div).find('.panel-body').attr('function', 'loadMargin2');
+
+			var reload_time = options.reload_time || 0;
+			if (reload_time) {
+				setTimeout(function(){loadMargin2(div, act, {reload_time:reload_time})}, reload_time);
+				if ($(div).length > 0) $(div).data('reload-time', reload_time);
+			}
+			
+			// _loadMargin2++;
+			// if (_loadMargin2 <= 1) return false;
+			
+			if (_loadingMargin2) return false;
+			_loadingMargin2 = 1;
+			
+			var request = $.ajax({
+				url: "process.php",
+				method: "GET",
+				data: {rtype: 'ajax', act: act},
+				dataType: "html"
+			});
+
+			request.done(function(response) {
+				$(div).find('.panel-body').empty().html(response);
+				$(div).find('table').effect("highlight", {}, 500);
+				_loadingMargin2 = 0;
+			});
+
+			request.fail(function(jqXHR, textStatus) {
+				console.warn("Request failed: " + textStatus);
+			});
+
+			return false;
+		};
+		loadMargin2('.panel-margin2', 'load-margin2', {reload_time:(Math.floor(Math.random() * 120) + 60) * 1000});
+
+		var _loadOrderbook = 0;
+		var _loadingOrderbook = 0;
+		var loadOrderbook = function(div, act, options) {
+			var options = options || {};
+			if ($(div).length <= 0) {
+				return false;
+			}
+
+			$(div).find('.panel-body').attr('function', 'loadOrderbook');
+
+			var reload_time = options.reload_time || 0;
+			if (reload_time) {
+				setTimeout(function(){loadOrderbook(div, act, {reload_time:reload_time})}, reload_time);
+				if ($(div).length > 0) $(div).data('reload-time', reload_time);
+			}
+			
+			// _loadOrderbook++;
+			// if (_loadOrderbook <= 1) return false;
+			
+			if (_loadingOrderbook) return false;
+			_loadingOrderbook = 1;
+			
+			var request = $.ajax({
+				url: "process.php",
+				method: "GET",
+				data: {rtype: 'ajax', act: act},
+				dataType: "html"
+			});
+
+			request.done(function(response) {
+				$(div).find('.panel-body').empty().html(response);
+				$(div).find('table').effect("highlight", {}, 500);
+				_loadingOrderbook = 0;
+			});
+
+			request.fail(function(jqXHR, textStatus) {
+				console.warn("Request failed: " + textStatus);
+			});
+
+			return false;
+		};
+		loadOrderbook('.panel-orderbook', 'load-orderbook', {reload_time:(Math.floor(Math.random() * 120) + 60) * 1000});
+
+		var _loadOrderbook2 = 0;
+		var _loadingOrderbook2 = 0;
+		var loadOrderbook2 = function(div, act, options) {
+			var options = options || {};
+			if ($(div).length <= 0) {
+				return false;
+			}
+
+			$(div).find('.panel-body').attr('function', 'loadOrderbook2');
+
+			var reload_time = options.reload_time || 0;
+			if (reload_time) {
+				setTimeout(function(){loadOrderbook2(div, act, {reload_time:reload_time})}, reload_time);
+				if ($(div).length > 0) $(div).data('reload-time', reload_time);
+			}
+			
+			// _loadOrderbook2++;
+			// if (_loadOrderbook2 <= 1) return false;
+			
+			if (_loadingOrderbook2) return false;
+			_loadingOrderbook2 = 1;
+			
+			var request = $.ajax({
+				url: "process.php",
+				method: "GET",
+				data: {rtype: 'ajax', act: act},
+				dataType: "html"
+			});
+
+			request.done(function(response) {
+				$(div).find('.panel-body').empty().html(response);
+				$(div).find('table').effect("highlight", {}, 500);
+				_loadingOrderbook2 = 0;
+			});
+
+			request.fail(function(jqXHR, textStatus) {
+				console.warn("Request failed: " + textStatus);
+			});
+
+			return false;
+		};
+		loadOrderbook2('.panel-orderbook2', 'load-orderbook2', {reload_time:(Math.floor(Math.random() * 120) + 60) * 1000});
+
+		var _loadOrders = 0;
+		var _loadingOrders = 0;
+		var loadOrders = function(div, act, options) {
+			var options = options || {};
+			if ($(div).length <= 0) {
+				return false;
+			}
+
+			$(div).find('.panel-body').attr('function', 'loadOrders');
+
+			var reload_time = options.reload_time || 0;
+			if (reload_time) {
+				setTimeout(function(){loadOrders(div, act, {reload_time:reload_time})}, reload_time);
+				if ($(div).length > 0) $(div).data('reload-time', reload_time);
+			}
+			
+			// _loadOrders++;
+			// if (_loadOrders <= 1) return false;
+			
+			if (_loadingOrders) return false;
+			_loadingOrders = 1;
+			
+			var request = $.ajax({
+				url: "process.php",
+				method: "GET",
+				data: {rtype: 'ajax', act: act},
+				dataType: "html"
+			});
+
+			request.done(function(response) {
+				$(div).find('.panel-body').empty().html(response);
+				$(div).find('table').effect("highlight", {}, 500);
+				_loadingOrders = 0;
+			});
+
+			request.fail(function(jqXHR, textStatus) {
+				console.warn("Request failed: " + textStatus);
+			});
+
+			return false;
+		};
+		loadOrders('.panel-orders', 'load-orders', {reload_time:(Math.floor(Math.random() * 120) + 60) * 1000});
+
+		var _loadOrders2 = 0;
+		var _loadingOrders2 = 0;
+		var loadOrders2 = function(div, act, options) {
+			var options = options || {};
+			if ($(div).length <= 0) {
+				return false;
+			}
+
+			$(div).find('.panel-body').attr('function', 'loadOrders2');
+
+			var reload_time = options.reload_time || 0;
+			if (reload_time) {
+				setTimeout(function(){loadOrders2(div, act, {reload_time:reload_time})}, reload_time);
+				if ($(div).length > 0) $(div).data('reload-time', reload_time);
+			}
+			
+			// _loadOrders2++;
+			// if (_loadOrders2 <= 1) return false;
+			
+			if (_loadingOrders2) return false;
+			_loadingOrders2 = 1;
+			
+			var request = $.ajax({
+				url: "process.php",
+				method: "GET",
+				data: {rtype: 'ajax', act: act},
+				dataType: "html"
+			});
+
+			request.done(function(response) {
+				$(div).find('.panel-body').empty().html(response);
+				$(div).find('table').effect("highlight", {}, 500);
+				_loadingOrders2 = 0;
+			});
+
+			request.fail(function(jqXHR, textStatus) {
+				console.warn("Request failed: " + textStatus);
+			});
+
+			return false;
+		};
+		loadOrders2('.panel-orders2', 'load-orders2', {reload_time:(Math.floor(Math.random() * 120) + 60) * 1000});
+
+		var _loadOrder = 0;
+		var _loadingOrder = 0;
+		var loadOrder = function(div, act, options) {
+			var options = options || {};
+			if ($(div).length <= 0) {
+				return false;
+			}
+
+			$(div).find('.panel-body').attr('function', 'loadOrder');
+
+			var reload_time = options.reload_time || 0;
+			if (reload_time) {
+				setTimeout(function(){loadOrder(div, act, {reload_time:reload_time})}, reload_time);
+				if ($(div).length > 0) $(div).data('reload-time', reload_time);
+			}
+			
+			// _loadOrder++;
+			// if (_loadOrder <= 1) return false;
+			
+			if (_loadingOrder) return false;
+			_loadingOrder = 1;
+			
+			var request = $.ajax({
+				url: "process.php",
+				method: "GET",
+				data: {rtype: 'ajax', act: act},
+				dataType: "html"
+			});
+
+			request.done(function(response) {
+				$(div).find('.panel-body').empty().html(response);
+				$(div).find('table').effect("highlight", {}, 500);
+				_loadingOrder = 0;
+			});
+
+			request.fail(function(jqXHR, textStatus) {
+				console.warn("Request failed: " + textStatus);
+			});
+
+			return false;
+		};
+		loadOrder('.panel-order', 'load-order', {reload_time:(Math.floor(Math.random() * 120) + 60) * 1000});
+
+		var _loadOrder2 = 0;
+		var _loadingOrder2 = 0;
+		var loadOrder2 = function(div, act, options) {
+			var options = options || {};
+			if ($(div).length <= 0) {
+				return false;
+			}
+
+			$(div).find('.panel-body').attr('function', 'loadOrder2');
+
+			var reload_time = options.reload_time || 0;
+			if (reload_time) {
+				setTimeout(function(){loadOrder2(div, act, {reload_time:reload_time})}, reload_time);
+				if ($(div).length > 0) $(div).data('reload-time', reload_time);
+			}
+			
+			// _loadOrder2++;
+			// if (_loadOrder2 <= 1) return false;
+			
+			if (_loadingOrder2) return false;
+			_loadingOrder2 = 1;
+			
+			var request = $.ajax({
+				url: "process.php",
+				method: "GET",
+				data: {rtype: 'ajax', act: act},
+				dataType: "html"
+			});
+
+			request.done(function(response) {
+				$(div).find('.panel-body').empty().html(response);
+				$(div).find('table').effect("highlight", {}, 500);
+				_loadingOrder2 = 0;
+			});
+
+			request.fail(function(jqXHR, textStatus) {
+				console.warn("Request failed: " + textStatus);
+			});
+
+			return false;
+		};
+		loadOrder2('.panel-order2', 'load-order2', {reload_time:(Math.floor(Math.random() * 120) + 60) * 1000});
 
 		// --------------------------------------------------------------------------------------------------- //
 		
@@ -551,7 +921,7 @@ $(document).ready(function() {
 
 		// 	request.done(function(response) {
 		// 		$(div).find('.panel-body').empty().html(response);
-		// 		if ($(div).find('table').length) $(div).find('table').effect("highlight", {}, 500);
+		// 		$(div).find('table').effect("highlight", {}, 500);
 		// 	});
 
 		// 	request.fail(function(jqXHR, textStatus) {
@@ -561,109 +931,6 @@ $(document).ready(function() {
 		// 	return false;
 		// };
 		// loadActions('.panel-actions', 'load-actions');
-
-		
-		// var _loadOrderbook = 0;
-		// var loadOrderbook = function(div, act, options) {
-		// 	var options = options || {};
-		// 	if ($(div).length <= 0) {
-		// 		return false;
-		// 	}
-
-		// 	var reload_time = options.reload_time || 0;
-		// 	if (reload_time)
-		// 		setTimeout(function(){loadOrderbook(div, act, {reload_time:reload_time})}, reload_time);
-
-		// 	_loadOrderbook++;
-		// 	if (_loadOrderbook <= 1) return false;
-			
-		// 	var request = $.ajax({
-		// 		url: "process.php",
-		// 		method: "GET",
-		// 		data: {rtype: 'ajax', act: act},
-		// 		dataType: "html"
-		// 	});
-
-		// 	request.done(function(response) {
-		// 		$(div).find('.panel-body').empty().html(response);
-		// 		$(div).find('table').effect("highlight", {}, 500);
-		// 	});
-
-		// 	request.fail(function(jqXHR, textStatus) {
-		// 		console.log("Request failed: " + textStatus);
-		// 	});
-
-		// 	return false;
-		// };
-		// loadOrderbook('.panel-orderbook', 'load-orderbook', {reload_time:(Math.floor(Math.random() * 21) + 11) * 1000});
-
-		// var _loadOrders = 0;
-		// var loadOrders = function(div, act, options) {
-		// 	var options = options || {};
-		// 	if ($(div).length <= 0) {
-		// 		return false;
-		// 	}
-
-		// 	var reload_time = options.reload_time || 0;
-		// 	if (reload_time)
-		// 		setTimeout(function(){loadOrders(div, act, {reload_time:reload_time})}, reload_time);
-			
-		// 	_loadOrders++;
-		// 	if (_loadOrders <= 1) return false;
-
-		// 	var request = $.ajax({
-		// 		url: "process.php",
-		// 		method: "GET",
-		// 		data: {rtype: 'ajax', act: act},
-		// 		dataType: "html"
-		// 	});
-
-		// 	request.done(function(response) {
-		// 		$(div).find('.panel-body').empty().html(response);
-		// 		$(div).find('table').effect("highlight", {}, 500);
-		// 	});
-
-		// 	request.fail(function(jqXHR, textStatus) {
-		// 		console.log("Request failed: " + textStatus);
-		// 	});
-
-		// 	return false;
-		// };
-		// loadOrders('.panel-orders', 'load-orders', {reload_time:(Math.floor(Math.random() * 21) + 11) * 1000});
-
-		// var _loadOrder = 0;
-		// var loadOrder = function(div, act, options) {
-		// 	var options = options || {};
-		// 	if ($(div).length <= 0) {
-		// 		return false;
-		// 	}
-
-		// 	var reload_time = options.reload_time || 0;
-		// 	if (reload_time)
-		// 		setTimeout(function(){loadOrder(div, act, {reload_time:reload_time})}, reload_time);
-			
-		// 	_loadOrder++;
-		// 	if (_loadOrder <= 1) return false;
-
-		// 	var request = $.ajax({
-		// 		url: "process.php",
-		// 		method: "GET",
-		// 		data: {rtype: 'ajax', act: act},
-		// 		dataType: "html"
-		// 	});
-
-		// 	request.done(function(response) {
-		// 		$(div).find('.panel-body').empty().html(response);
-		// 		$(div).find('table').effect("highlight", {}, 500);
-		// 	});
-
-		// 	request.fail(function(jqXHR, textStatus) {
-		// 		console.log("Request failed: " + textStatus);
-		// 	});
-
-		// 	return false;
-		// };
-		// loadOrder('.panel-order', 'load-order', {reload_time:(Math.floor(Math.random() * 21) + 11) * 1000});
 
 		// --------------------------------------------------------------------------------------------------- //
 		

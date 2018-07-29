@@ -51,61 +51,62 @@ class GenericmessageCommand extends SystemCommand
     {
         // Don't know why it go here but, process
         $message = $this->getMessage();
-        $text    = trim($message->getText(true));
         $chat_id = $message->getChat()->getId();
         $command = $message->getCommand();
+        $text    = trim($message->getText(true));
         $from    = $message->getFrom();
         $user_id = $message->getFrom()->getId();
-
 
         $data = [
             'chat_id'    => $chat_id,
             'parse_mode' => 'markdown',
         ];
 
-        $coin_name = str_replace('/', '', $text);
-        $coin_name = strtoupper($coin_name);
-
-        // Get current config
-        global $environment;
+        // // Get current config
+        // global $environment;
         
-        require_once(LIB_DIR . DS . "binance-api/BinanceClass.php");
-        $environment->binance_instance = new \Binance($environment->binance->{1}->apiKey, $environment->bitmex->{1}->apiSecret);
-        $arr = \BossBaby\Binance::get_coin_price($environment->binance_instance, $coin_name);
+        // Process show price of coin
+        $coin_name = str_replace('/', '', $text);
 
-        if ($arr) {
-            // \BossBaby\Utility::writeLog('arr:'.serialize($arr).PHP_EOL.'-coin:'.serialize($coin_name));
-            // $price = \BossBaby\Telegram::func_telegram_print_arr($arr);
-            $data['text'] = 'Giá *' . $coin_name . '* trên Binance:' . PHP_EOL . PHP_EOL;
-            foreach ($arr as $key => $value) {
-                $data['text'] .= str_replace($coin_name, $coin_name . '/', $key) . ': ' . $value . PHP_EOL;
-            }
-            $data['text'] .= PHP_EOL;
+        // Format current ALT's price
+        $price = \BossBaby\Telegram::format_alt_price_for_telegram($coin_name);
+        if ($price) {
+            $data['text'] = $price;
             return Request::sendMessage($data);
         }
 
-
+        // Get user-name
         if ($from->getFirstName() or $from->getLastName())
             $caption = sprintf('%s %s', $from->getFirstName(), $from->getLastName());
         else 
             $caption = sprintf('%s', $from->getUsername());
 
+        // Process Hello
         if (str_replace('/hello ', '', $text) == 'Hello') {
             $message = 'Chào mày, *' . $caption . '*!';
-        } else {
-            $message = 'Mày muốn gì *' . $caption . '*';
         }
 
-        $data = [
-            'chat_id'    => $chat_id,
-            'parse_mode' => 'markdown',
-        ];
+        // Process menu
+        elseif (str_replace('/hello ', '', $text) == 'menu') {
+            $message = '*Danh sách các lệnh có thể dùng*:' . PHP_EOL;
+            $message .= PHP_EOL;
+            // $data['text'] .= '/start - cái này khỏi nói làm gì' . PHP_EOL;
+            // $data['text'] .= '/menu - hiển thị danh sách lệnh có thể dùng' . PHP_EOL;
+            $message .= '/price - xem giá coin, mặc định là BTC' . PHP_EOL;
+            $message .= PHP_EOL;
+            $message .= 'tạm thời vậy thôi!!!' . PHP_EOL;
+        }
+
+        // Nothing to do
+        else {
+            $message = 'Mày muốn gì *' . $caption . '*';
+        }
 
         $data['text'] = $message;
         return Request::sendMessage($data);
 
-        // Do nothing
-        return Request::emptyResponse();
+        // // Do nothing
+        // return Request::emptyResponse();
     }
 
     /**
