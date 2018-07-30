@@ -536,10 +536,10 @@ class Telegram
             //This is to prevent executing a DB query without a valid connection
             $this->last_command_response = $command_obj->preExecute();
 
-            // // BossBaby-custom
-            // if ($this->last_command_response instanceof \Longman\TelegramBot\Entities\ServerResponse) {
-            //     throw new Exception("Error Processing Request", $this->last_command_response->description);
-            // }
+            // BossBaby-custom
+            if ($this->last_command_response instanceof \Longman\TelegramBot\Entities\ServerResponse) {
+                throw new TelegramException($this->last_command_response);
+            }
 
             //Botan.io integration, send report after executing the command
             if ($this->botan_enabled) {

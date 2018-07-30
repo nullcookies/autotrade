@@ -5,7 +5,7 @@
  * Uncommented parameters must be filled
  */
 
-if (!defined('STDIN')) die('Access denied.' . "\n");
+// if (!defined('STDIN')) die('Access denied.' . "\n");
 
 // Error handle
 require_once __DIR__ . '/../error-handle.php';
@@ -85,9 +85,12 @@ function run_cron() {
         $telegram->enableLimiter();
 
         // Run user selected commands
-        $telegram->runCommands($commands);
+        $last_command_response = $telegram->runCommands($commands);
+
+        dump('$last_command_response:'); dump($last_command_response);
 
     } catch (Longman\TelegramBot\Exception\TelegramException $e) {
+        dump('TelegramException:'); dump($e);
         // Silence is golden!
         // echo $e;
         // Log telegram errors
@@ -96,6 +99,7 @@ function run_cron() {
         // Silence is golden!
         // Uncomment this to catch log initialisation errors
         // echo $e;
+        dump('TelegramLogException:'); dump($e);
     }
 
     // sleep(10);

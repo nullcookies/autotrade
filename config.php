@@ -102,5 +102,41 @@ return array(
                 'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_btc_bot/'
             ),
         ),
+        'channel' => array(
+            '1' => array(
+                'id' => -1001385457186,
+                'name' => 'Boss Baby BOT',
+                'username' => 'channel_boss_baby_bot',
+                'root_url' => 'https://t.me/channel_boss_baby_bot',
+            ),
+        ),
+        'group' => array(
+            '1' => array(
+                'id' => -285042211,
+                'name' => 'Boss Baby BOT',
+                'username' => '',
+                'root_url' => '',
+            ),
+            '2' => array(
+                'id' => -285042211,
+                'name' => 'Boss Baby BOT',
+                'username' => '',
+                'root_url' => '',
+            ),
+            '3' => array(
+                'id' => -1001178093869,
+                'name' => 'BítMết',
+                'username' => '',
+                'root_url' => '',
+            ),
+        ),
+        'users' => array(
+            '1' => array(
+                'id' => '',
+                'name' => '',
+                'username' => '',
+                'root_url' => '',
+            ),
+        ),
 	),
 );

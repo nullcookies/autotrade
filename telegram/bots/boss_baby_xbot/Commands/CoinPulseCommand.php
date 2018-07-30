@@ -48,16 +48,17 @@ class CoinPulseCommand extends UserCommand
      */
     public function execute()
     {
+        // Get current config
+        global $environment;
+
         $message   = $this->getMessage();
-        $chat_id   = $message->getChat()->getId();
+        // $chat_id   = $message->getChat()->getId();
+        $chat_id   = $environment->telegram->channel->{1}->id;
 
         $data = [
             'chat_id'    => $chat_id,
             'parse_mode' => 'markdown',
         ];
-
-        // // Get current config
-        // global $environment;
 
         $coin_name = trim($message->getText(true));
         $coin_name = str_replace('/', '', $coin_name);
