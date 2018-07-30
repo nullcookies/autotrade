@@ -9,7 +9,7 @@
  */
 
 // Error handle
-require_once(__DIR__ . "/../error-handle.php");
+require_once __DIR__ . '/../error-handle.php';
 
 // Load composer
 require_once LIB_DIR . '/telegram/vendor/autoload.php';

@@ -9,10 +9,7 @@
  */
 
 // Error handle
-require_once(__DIR__ . "/../error-handle.php");
-
-// Check config to run
-if (!$environment->enable) die('STOP!!!');
+require_once __DIR__ . '/../error-handle.php';
 
 // Load composer
 require_once LIB_DIR . '/telegram/vendor/autoload.php';

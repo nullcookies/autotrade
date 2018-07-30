@@ -1,7 +1,6 @@
 <?php
 defined('IS_VALID') or define('IS_VALID', 1);
-require_once("../main.php");
-require_once(LIB_DIR . DS . "bitmex-api/BitMex.php");
+require_once __DIR__ . '/../main.php';
 
 // Detect run as CLI mode
 if ($cli_mode) return require_once(dirname(__FILE__) . DS . 'cli-process.php');
@@ -70,11 +69,6 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 	else $arr['lastChangePcnt'] =  ($arr['lastChangePcnt'] * 100) . '%';
 
 	\BossBaby\Utility::func_print_arr_to_table($arr);
-
-	require_once(LIB_DIR . DS . "bittrex-api/Bittrex.php");
-	// $bittrex = new \Bittrex($environment->bittrex->{1}->apiKey, $environment->bittrex->{1}->apiSecret);
-	// $responce = $bittrex->GetBalances();
-	// dump($responce);
 
 	exit;
 }

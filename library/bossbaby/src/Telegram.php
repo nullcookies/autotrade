@@ -25,7 +25,6 @@ class Telegram
         global $environment;
         $price = '';
 
-        require_once(LIB_DIR . DS . "bitmex-api/BitMex.php");
         $environment->bitmex_instance = new \Bitmex($environment->bitmex->{1}->apiKey, $environment->bitmex->{1}->apiSecret);
         $arr = \BossBaby\Bitmex::func_get_current_price($environment->bitmex_instance);
 
@@ -59,16 +58,28 @@ class Telegram
     {
         global $environment;
         $price = '';
-
-        require_once(LIB_DIR . DS . "binance-api/BinanceClass.php");
         $coin_name = strtoupper($coin_name);
+        
         $environment->binance_instance = new \Binance($environment->binance->{1}->apiKey, $environment->bitmex->{1}->apiSecret);
         $arr = \BossBaby\Binance::get_coin_price($environment->binance_instance, $coin_name);
 
         if ($arr) {
             // \BossBaby\Utility::writeLog('arr:'.serialize($arr).PHP_EOL.'-coin:'.serialize($coin_name));
             // $price = \BossBaby\Telegram::func_telegram_print_arr($arr);
-            $price = 'Giá *' . $coin_name . '* trên Binance:' . PHP_EOL . PHP_EOL;
+            $price .= 'Giá *' . $coin_name . '* trên Binance:' . PHP_EOL . PHP_EOL;
+            foreach ($arr as $key => $value) {
+                $price .= str_replace($coin_name, $coin_name . '/', $key) . ': ' . $value . PHP_EOL;
+            }
+        }
+
+        $environment->bittrex_instance = new \Bittrex($environment->bittrex->{1}->apiKey, $environment->bittrex->{1}->apiSecret);
+        $arr = \BossBaby\Bittrex::get_coin_price($environment->bittrex_instance, $coin_name);
+
+        if ($arr) {
+            $price .= PHP_EOL . PHP_EOL;
+            // \BossBaby\Utility::writeLog('arr:'.serialize($arr).PHP_EOL.'-coin:'.serialize($coin_name));
+            // $price = \BossBaby\Telegram::func_telegram_print_arr($arr);
+            $price .= 'Giá *' . $coin_name . '* trên Bittrex:' . PHP_EOL . PHP_EOL;
             foreach ($arr as $key => $value) {
                 $price .= str_replace($coin_name, $coin_name . '/', $key) . ': ' . $value . PHP_EOL;
             }

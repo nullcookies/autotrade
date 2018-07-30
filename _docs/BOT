@@ -106,10 +106,17 @@ chappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_welcome_bot//set
 \BossBaby\Utility::writeLog('message:'.serialize($message).PHP_EOL.'-update_type:'.serialize($update_type));
 
 
+-----
+Bittrex:
+2018-07-30 13:37:58	::1	CURL Error: error setting certificate verify locations:
+  CAfile: D:\Projects\frameworks\symfony\code\cacert.pem
+  CApath: none
+
+C:\WAMP\wamp64\bin\php\php7.0.10\phpForApache.ini
+curl.cainfo = "D:\Projects\frameworks\symfony\code\cacert.pem"
 
 
-
-
-
-
+2018-07-30 15:40:52	149.154.167.229	coins:a:3:{i:0;s:7:"BTC-TRX";i:1;s:7:"ETH-TRX";i:2;s:7:"USD-TRX";}
+-coin:s:3:"TRX";
+2018-07-30 15:40:52	149.154.167.229	tmp:O:8:"stdClass":3:{s:7:"success";b:1;s:7:"message";s:0:"";s:6:"result";O:8:"stdClass":3:{s:3:"Bid";d:4.51E-6;s:3:"Ask";d:4.5299999999999998E-6;s:4:"Last";d:4.51E-6;}}
 

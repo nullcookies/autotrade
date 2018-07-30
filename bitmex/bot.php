@@ -1,7 +1,6 @@
 <?php
 defined('IS_VALID') or define('IS_VALID', 1);
-require_once("../main.php");
-require_once(LIB_DIR . DS . "bitmex-api/BitMex.php");
+require_once __DIR__ . '/../main.php';
 
 // Detect run as CLI mode
 if (!$cli_mode) return \BossBaby\Utility::redirect('index.php');

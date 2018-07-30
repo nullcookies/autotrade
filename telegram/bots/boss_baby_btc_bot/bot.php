@@ -4,9 +4,9 @@
  */
 
 // Error handle
-require_once(__DIR__ . "/../error-handle.php");
+require_once __DIR__ . '/../error-handle.php';
 
-require_once(LIB_DIR . DS . "bitmex-api/BitMex.php");
+require_once LIB_DIR . '/bitmex-api/BitMex.php';
 $environment->bitmex_instance = new \Bitmex($environment->bitmex->{1}->apiKey, $environment->bitmex->{1}->apiSecret);
 $environment->bitmex_instance2 = new \Bitmex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
 $environment->bitmex_instance3 = new \Bitmex($environment->bitmex->{3}->apiKey, $environment->bitmex->{3}->apiSecret);

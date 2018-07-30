@@ -27,6 +27,9 @@ ini_set("error_log", LOGS_DIR . DS . date("Ymd") . "-log.txt");
 
 // Load classes
 require_once LIB_DIR . '/bossbaby/vendor/autoload.php';
+require_once LIB_DIR . '/bitmex-api/BitMex.php';
+require_once LIB_DIR . '/binance-api/BinanceClass.php';
+require_once LIB_DIR . '/bittrex-api/Bittrex.php';
 
 $is_https = isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1)
     || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https';
@@ -40,12 +43,6 @@ defined('SELF_URL_NO_SCRIPT') or define('SELF_URL_NO_SCRIPT', dirname(strtok(SEL
 // Get global variables
 $environment = \BossBaby\Config::read(CONFIG_FILE);
 $environment = \BossBaby\Utility::array_to_object($environment);
-// var_dump($environment->telegram->bot->{1}->token);
-/*var_dump($environment);
-var_dump(\BossBaby\Utility::object_to_array($environment));*/
-// $file = ROOT_DIR . DS . 'config-' . (date('YmdHi')) . '.php';
-// $config = \BossBaby\Config::write($file, (array) $config);
-// die;
 
 // ------------------------------------------------------------ //
 
