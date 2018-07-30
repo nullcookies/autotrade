@@ -82,6 +82,8 @@ Execute no commands, without /
 https://github.com/php-telegram-bot/core/issues/635
 https://github.com/php-telegram-bot/core/issues/315
 
+Add BOT to a channel:
+https://stackoverflow.com/questions/33126743/how-do-i-add-my-bot-to-a-channel
 
 
 
@@ -119,4 +121,24 @@ curl.cainfo = "D:\Projects\frameworks\symfony\code\cacert.pem"
 2018-07-30 15:40:52	149.154.167.229	coins:a:3:{i:0;s:7:"BTC-TRX";i:1;s:7:"ETH-TRX";i:2;s:7:"USD-TRX";}
 -coin:s:3:"TRX";
 2018-07-30 15:40:52	149.154.167.229	tmp:O:8:"stdClass":3:{s:7:"success";b:1;s:7:"message";s:0:"";s:6:"result";O:8:"stdClass":3:{s:3:"Bid";d:4.51E-6;s:3:"Ask";d:4.5299999999999998E-6;s:4:"Last";d:4.51E-6;}}
+
+https://bittrex.com/api/v1.1/public/getticker?market=BTC-TRX
+{"success":true,"message":"","result":{"Bid":0.00000449,"Ask":0.00000450,"Last":0.00000450}}
+
+HitBTC:
+https://github.com/hitbtc-com/hitbtc-php-sdk
+
+
+Group: Boss Baby BOT
+-285042211
+
+Group: BítMết
+-1001178093869
+
+BOT: Boss Baby BOT (@boss_baby_xbot)
+475001958
+
+Channel: Boss Baby BOT (https://t.me/channel_boss_baby_bot)
+-1001385457186
+
 

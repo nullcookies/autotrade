@@ -8,7 +8,7 @@ class Binance
         if (!is_object($binance) or !$coin) return [];
 
         $tmp = $binance->prices();
-        // \BossBaby\Utility::writeLog('tmp:'.serialize($tmp).PHP_EOL.'-coin:'.serialize($coin));
+        // \BossBaby\Utility::writeLog('coin:'.serialize($coin).PHP_EOL.'-tmp:'.serialize($tmp));
 
         $arr = [];
         if ($tmp) {

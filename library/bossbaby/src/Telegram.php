@@ -66,7 +66,7 @@ class Telegram
         if ($arr) {
             // \BossBaby\Utility::writeLog('arr:'.serialize($arr).PHP_EOL.'-coin:'.serialize($coin_name));
             // $price = \BossBaby\Telegram::func_telegram_print_arr($arr);
-            $price .= 'Giá *' . $coin_name . '* trên Binance:' . PHP_EOL . PHP_EOL;
+            $price .= 'Giá *' . $coin_name . '* trên Binance:' . PHP_EOL;
             foreach ($arr as $key => $value) {
                 $price .= str_replace($coin_name, $coin_name . '/', $key) . ': ' . $value . PHP_EOL;
             }
@@ -76,12 +76,12 @@ class Telegram
         $arr = \BossBaby\Bittrex::get_coin_price($environment->bittrex_instance, $coin_name);
 
         if ($arr) {
-            $price .= PHP_EOL . PHP_EOL;
+            $price .= PHP_EOL;
             // \BossBaby\Utility::writeLog('arr:'.serialize($arr).PHP_EOL.'-coin:'.serialize($coin_name));
             // $price = \BossBaby\Telegram::func_telegram_print_arr($arr);
-            $price .= 'Giá *' . $coin_name . '* trên Bittrex:' . PHP_EOL . PHP_EOL;
+            $price .= 'Giá *' . $coin_name . '* trên Bittrex:' . PHP_EOL;
             foreach ($arr as $key => $value) {
-                $price .= str_replace($coin_name, $coin_name . '/', $key) . ': ' . $value . PHP_EOL;
+                $price .= str_replace('-', '/', $key) . ': ' . $value . PHP_EOL;
             }
         }
 

@@ -36,13 +36,13 @@ $commands_paths = [
    __DIR__ . '/Commands/',
 ];
 
-// Enter your MySQL database credentials
-$mysql_credentials = [
-    'host'     => $environment->database->{1}->host,
-    'user'     => $environment->database->{1}->user,
-    'password' => $environment->database->{1}->pass,
-    'database' => $environment->database->{1}->name,
-];
+// // Enter your MySQL database credentials
+// $mysql_credentials = [
+//     'host'     => $environment->database->{1}->host,
+//     'user'     => $environment->database->{1}->user,
+//     'password' => $environment->database->{1}->pass,
+//     'database' => $environment->database->{1}->name,
+// ];
 
 try {
     // Create Telegram API object

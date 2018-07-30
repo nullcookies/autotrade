@@ -55,6 +55,13 @@ return array(
             'apiSecret' => 'ab8d1c6e472d4a8c80814f7bfea72cb4',
         ),
 	),
+    'hitbtc' => array(
+        '1' => array(
+            'email' => 'longersoft@gmail.com',
+            'apiKey' => '02f579ffe38442e597470a2e92475e21',
+            'apiSecret' => 'c24a87babb78495e6e43171bf4291767',
+        ),
+    ),
 	'database' => array(
     	'1' => array(
             'host' => 'localhost',

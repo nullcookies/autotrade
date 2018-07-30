@@ -18,18 +18,16 @@ class Bittrex
         // $responce = $client->getBalances();
         // dump($client);
 
-        $coins = [];
-        $coins[] = 'BTC-' . $coin;
-        $coins[] = 'ETH-' . $coin;
-        $coins[] = 'USD-' . $coin;
-        // \BossBaby\Utility::writeLog('coins:'.serialize($coins).PHP_EOL.'-coin:'.serialize($coin));
+        $markets = ['BTC', 'ETH', 'USDT', 'USD'];
+        // \BossBaby\Utility::writeLog('coin:'.serialize($coin).PHP_EOL.'-markets:'.serialize($markets));
 
         $arr = [];
-        foreach ($coins as $coin) {
-            $tmp = $bittrex->GetTicker($coin);
+        foreach ($markets as $item) {
+            $market = $item . '-' . $coin;
+            $tmp = $bittrex->GetTicker($market);
             // \BossBaby\Utility::writeLog('tmp:'.serialize($tmp));
             if ($tmp->success) {
-                $arr[$coin] = $tmp->result->Last;
+                $arr[$coin . '/' . $item] = number_format($tmp->result->Last, 8);
             }
         }
 
