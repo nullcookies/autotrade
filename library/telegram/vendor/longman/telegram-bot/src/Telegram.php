@@ -537,7 +537,7 @@ class Telegram
             $this->last_command_response = $command_obj->preExecute();
 
             // BossBaby-custom
-            if ($this->last_command_response instanceof \Longman\TelegramBot\Entities\ServerResponse) {
+            if ($this->last_command_response instanceof \Longman\TelegramBot\Entities\ServerResponse and $this->last_command_response->ok === false) {
                 throw new TelegramException($this->last_command_response);
             }
 

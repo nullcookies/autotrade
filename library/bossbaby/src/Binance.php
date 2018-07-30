@@ -21,4 +21,14 @@ class Binance
         // \BossBaby\Utility::writeLog('arr:'.serialize($arr).PHP_EOL.'-coin:'.serialize($coin));
         return $arr;
     }
+
+    public static function get_list_coin($binance = null)
+    {
+        if (!is_object($binance)) return [];
+
+        $arr = $binance->prices();
+        // \BossBaby\Utility::writeLog('tmp:'.serialize($tmp));
+
+        return $arr;
+    }
 }

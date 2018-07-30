@@ -5,7 +5,7 @@
  * Uncommented parameters must be filled
  */
 
-// if (!defined('STDIN')) die('Access denied.' . "\n");
+if (!defined('STDIN')) die('Access denied.' . "\n");
 
 // Error handle
 require_once __DIR__ . '/../error-handle.php';
@@ -19,8 +19,9 @@ run_cron();
 function run_cron() {
     global $environment;
     global $i;
+    
     $i++;
-    if (!$i > 5) die('STOP!');
+    if ($i > 5) die('STOP!');
 
     // Your command(s) to run, pass it just like in a message (arguments supported)
     $commands = [
@@ -87,10 +88,10 @@ function run_cron() {
         // Run user selected commands
         $last_command_response = $telegram->runCommands($commands);
 
-        dump('$last_command_response:'); dump($last_command_response);
+        // dump('$last_command_response:'); dump($last_command_response);
 
     } catch (Longman\TelegramBot\Exception\TelegramException $e) {
-        dump('TelegramException:'); dump($e);
+        // dump('TelegramException:'); dump($e);
         // Silence is golden!
         // echo $e;
         // Log telegram errors
@@ -99,9 +100,9 @@ function run_cron() {
         // Silence is golden!
         // Uncomment this to catch log initialisation errors
         // echo $e;
-        dump('TelegramLogException:'); dump($e);
+        // dump('TelegramLogException:'); dump($e);
     }
 
-    // sleep(10);
-    // run_cron();
+    sleep(10);
+    run_cron();
 }

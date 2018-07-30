@@ -58,29 +58,22 @@ class CoinPulseCommand extends UserCommand
         $data = [
             'chat_id'    => $chat_id,
             'parse_mode' => 'markdown',
+            'text' => PHP_EOL,
         ];
 
-        $coin_name = trim($message->getText(true));
-        $coin_name = str_replace('/', '', $coin_name);
+        $data['text'] .= 'Message at ' . date('H:i:s d/m/Y');
 
-        // If no command parameter is passed, show the list.
-        if ($coin_name === '') {
-            // $data['text'] = PHP_EOL;
+        $list_coin = \BossBaby\Binance::get_list_coin();
+        if (is_array($list_coin) and count($list_coin)) {
+            $file = LOGS_DIR . '/binance_coins.php';
 
-            // Format current XBT's price
-            $price = \BossBaby\Telegram::format_xbt_price_for_telegram();
-
-            $data['text'] = $price . PHP_EOL;
-            return Request::sendMessage($data);
-        }
-
-        $data['text'] = 'Làm gì có *' . $coin_name . '*, thử lại coi 😒';
-
-        // Format current ALT's price
-        $price = \BossBaby\Telegram::format_alt_price_for_telegram($coin_name);
-        if ($price) {
-            $data['text'] = $price;
-            return Request::sendMessage($data);
+            if (is_file($file) and file_exists($file)) {
+                $old_data = \BossBaby\Config::read($file);
+                $data['text'] .= serialize($old_data);
+            }
+            else {
+                \BossBaby\Config::write($file, $list_coin);
+            }
         }
         
         $data['text'] .= PHP_EOL;

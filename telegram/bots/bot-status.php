@@ -4,10 +4,11 @@ if (!defined('STDIN')) die('Access denied.' . "\n");
 // Error handle
 require_once __DIR__ . '/error-handle.php';
 
-if (date('H') == '06' and date('i') == '30') {
-    require_once __DIR__ . '/broadcast.php';
-    exit;
-}
+require_once __DIR__ . '/boss_baby_xbot/coin-pulse.php';
+// if (date('H') == '06' and date('i') == '30') {
+//     require_once __DIR__ . '/broadcast.php';
+//     exit;
+// }
 
 $botsAdminID    = $environment->telegram->main->id; // Put your Telegram ID here.
 $notifierBotKey = $environment->telegram->bot->{1}->token; // Put your notifier bot API Key here.
