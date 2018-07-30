@@ -1,29 +1,34 @@
 <?php
 /**
  * README
- * This configuration file is intended to run the bot with the webhook method.
+ * This configuration file is intended to run a list of commands with crontab.
  * Uncommented parameters must be filled
- *
- * Please note that if you open this file with your browser you'll get the "Input is empty!" Exception.
- * This is a normal behaviour because this address has to be reached only by the Telegram servers.
  */
+
+if (!defined('STDIN')) die('Access denied.' . "\n");
 
 // Error handle
 require_once(__DIR__ . "/../error-handle.php");
 
-// Check config to run
-if (!$environment->enable) die('STOP!!!');
-
 // Load composer
 require_once LIB_DIR . '/telegram/vendor/autoload.php';
 
+// Your command(s) to run, pass it just like in a message (arguments supported)
+$commands = [
+    '/whoami',
+    "/echo I'm a bot!",
+    '/price',
+    '/sendlogs',
+    '/cleanup 30',
+];
+
 // Add you bot's API key and name
-$bot_api_key  = $environment->telegram->bot->{3}->token;
-$bot_username = $environment->telegram->bot->{3}->username;
+$bot_api_key  = $environment->telegram->bot->{1}->token;
+$bot_username = $environment->telegram->bot->{1}->username;
 
 // Define all IDs of admin users in this array (leave as empty array if not used)
 $admin_users = [
-   $environment->telegram->main->id,
+    $environment->telegram->main->id,
 ];
 
 // Define all paths for your custom commands in this array (leave as empty array if not used)
@@ -46,8 +51,8 @@ try {
     // Add commands paths containing your custom commands
     $telegram->addCommandsPaths($commands_paths);
 
-    // Enable admin users
-    $telegram->enableAdmins($admin_users);
+    // // Enable admin users
+    // $telegram->enableAdmins($admin_users);
 
     // Enable MySQL
     //$telegram->enableMySql($mysql_credentials);
@@ -64,8 +69,8 @@ try {
     $telegram->setDownloadPath(LOGS_DIR);
     //$telegram->setUploadPath(__DIR__ . '/Upload');
 
-    // Here you can set some command specific parameters
-    // e.g. Google geocode/timezone api key for /date command
+    // Here you can set some command specific parameters,
+    // e.g. Google geocode/timezone api key for /date command:
     //$telegram->setCommandConfig('date', ['google_api_key' => 'your_google_api_key_here']);
 
     // Botan.io integration
@@ -74,12 +79,11 @@ try {
     // Requests Limiter (tries to prevent reaching Telegram API limits)
     $telegram->enableLimiter();
 
-    // Handle telegram webhook request
-    $telegram->handle();
+    // Run user selected commands
+    $telegram->runCommands($commands);
 
 } catch (Longman\TelegramBot\Exception\TelegramException $e) {
     // Silence is golden!
-    // Input is empty!
     // echo $e;
     // Log telegram errors
     Longman\TelegramBot\TelegramLog::error($e);

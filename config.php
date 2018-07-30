@@ -81,25 +81,18 @@ return array(
                 'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_notifier_bot/'
             ),
             '2' => array(
-                'name' => 'Boss Baby BTC Price',
+                'name' => 'Boss Baby BOT',
+                'username' => 'boss_baby_xbot',
+                'token' => '669289813:AAFqt7B2POV1yozQzKRmFnFbfAArrh4-VTo',
+                'max_connections' => 40,
+                'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_xbot/'
+            ),
+            '3' => array(
+                'name' => 'Boss Baby BTC',
                 'username' => 'boss_baby_btc_bot',
                 'token' => '641704003:AAHSGnyXAigJDwi4dMdG7rUoftCnbHMUWP8',
                 'max_connections' => 40,
                 'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_btc_bot/'
-            ),
-            '3' => array(
-                'name' => 'Boss Baby BOT',
-                'username' => 'boss_fuck_bot',
-                'token' => '615876936:AAF_6bub_cjLyiPLJ1BjAxoRqByDaKaYSB4',
-                'max_connections' => 40,
-                'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_fuck_bot/'
-            ),
-            '4' => array(
-                'name' => 'Boss Baby Welcome',
-                'username' => 'boss_baby_welcome_bot',
-                'token' => '585481163:AAEpPfxKDJpEUYtC3FBymi6lhR1ZhiP917w',
-                'max_connections' => 40,
-                'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_welcome_bot/'
             ),
         ),
 	),

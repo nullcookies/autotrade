@@ -15,8 +15,8 @@ require_once(__DIR__ . "/../error-handle.php");
 require_once LIB_DIR . '/telegram/vendor/autoload.php';
 
 // Add you bot's API key and name
-$bot_api_key  = $environment->telegram->bot->{3}->token;
-$bot_username = $environment->telegram->bot->{3}->username;
+$bot_api_key  = $environment->telegram->bot->{2}->token;
+$bot_username = $environment->telegram->bot->{2}->username;
 
 try {
     $bot = new TelegramBot\TelegramBotManager\BotManager([
@@ -30,7 +30,7 @@ try {
         // (array) All options that have to do with the webhook.
         'webhook'      => [
             // When using webhook, this needs to be uncommented and defined
-            'url' => $environment->telegram->bot->{3}->root_url . 'manager.php',
+            'url' => $environment->telegram->bot->{2}->root_url . 'manager.php',
             // Use self-signed certificate
             // 'certificate' => __DIR__ . '/server.crt',
             // Limit maximum number of connections
