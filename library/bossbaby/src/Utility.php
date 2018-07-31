@@ -236,6 +236,12 @@ class Utility
         }
         return str_replace('\\', '/', $path);
     }
+
+    public static function func_clean_double_space($string = '')
+    {
+        $string = str_replace('  ', ' ', $string);
+        return $string;
+    }
     
     /**
      * List of query parameters that get automatically dropped when rebuilding

@@ -354,7 +354,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 }
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-orderbook') {
-	$tmp = $environment->bitmex_instance2->getOrderBook($depth = 10);
+	$tmp = \BossBaby\Bitmex::func_get_orderbook($environment->bitmex_instance2, 10);
 	// \BossBaby\Utility::func_print_arr_to_table($tmp);
 	if ($tmp) {
 		foreach ($tmp as $i => $arr) {
@@ -366,7 +366,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 }
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-orderbook2') {
-	$tmp = $environment->bitmex_instance3->getOrderBook($depth = 10);
+	$tmp = \BossBaby\Bitmex::func_get_orderbook($environment->bitmex_instance3, 10);
 	// \BossBaby\Utility::func_print_arr_to_table($tmp);
 	if ($tmp) {
 		foreach ($tmp as $i => $arr) {
@@ -378,7 +378,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 }
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-orders') {
-	$tmp = $environment->bitmex_instance2->getOrders(10);
+	$tmp = \BossBaby\Bitmex::func_get_orders($environment->bitmex_instance2, 10);
 	krsort($tmp);
 	// \BossBaby\Utility::func_print_arr_to_table($tmp);
 	if ($tmp) {
@@ -402,7 +402,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 }
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-orders2') {
-	$tmp = $environment->bitmex_instance3->getOrders(10);
+	$tmp = \BossBaby\Bitmex::func_get_orders($environment->bitmex_instance3, 10);
 	krsort($tmp);
 	// \BossBaby\Utility::func_print_arr_to_table($tmp);
 	if ($tmp) {
@@ -427,7 +427,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-order') {
 	for ($i=0; $i < 10; $i++) {
-		$arr = $environment->bitmex_instance2->getOrder($orderID = $i, $count = 10);
+		$arr = \BossBaby\Bitmex::func_get_order($environment->bitmex_instance2, $i, 10);
 		if (!$arr) continue;
 		$arr_tmp = [];
 		$arr_tmp['side'] = $arr['side'];
@@ -448,7 +448,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-order2') {
 	for ($i=0; $i < 10; $i++) {
-		$arr = $environment->bitmex_instance3->getOrder($orderID = $i, $count = 10);
+		$arr = \BossBaby\Bitmex::func_get_order($environment->bitmex_instance3, $i, 10);
 		if (!$arr) continue;
 		$arr_tmp = [];
 		$arr_tmp['side'] = $arr['side'];

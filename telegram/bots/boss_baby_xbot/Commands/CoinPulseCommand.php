@@ -57,26 +57,18 @@ class CoinPulseCommand extends UserCommand
 
         $data = [
             'chat_id'    => $chat_id,
-            'parse_mode' => 'markdown',
+            'parse_mode' => 'html',
             'text' => PHP_EOL,
         ];
 
-        $data['text'] .= 'Message at ' . date('H:i:s d/m/Y');
+        // $data['text'] .= 'Message at ' . date('H:i:s d/m/Y');
 
-        $list_coin = \BossBaby\Binance::get_list_coin();
-        if (is_array($list_coin) and count($list_coin)) {
-            $file = LOGS_DIR . '/binance_coins.php';
-
-            if (is_file($file) and file_exists($file)) {
-                $old_data = \BossBaby\Config::read($file);
-                $data['text'] .= serialize($old_data);
-            }
-            else {
-                \BossBaby\Config::write($file, $list_coin);
-            }
+        $coinpulse = \BossBaby\Telegram::get_coin_pulse();
+        if ($coinpulse) {
+            $data['text'] .= $coinpulse . PHP_EOL;
+            return Request::sendMessage($data);
         }
-        
-        $data['text'] .= PHP_EOL;
-        return Request::sendMessage($data);
+
+        return Request::emptyResponse();
     }
 }
