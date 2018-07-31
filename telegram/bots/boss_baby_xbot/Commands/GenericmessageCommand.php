@@ -99,11 +99,19 @@ class GenericmessageCommand extends SystemCommand
 
         // Nothing to do
         else {
-            $message = 'Mày muốn gì *' . $caption . '*';
+            $messages = [];
+            $messages[] = 'Mày muốn gì *' . $caption . '*';
+            $messages[] = 'Chúng mày muốn cái gì?';
+            $messages[] = 'Hello';
+            $messages[] = "How are you doing?";
+            $messages[] = "Howdy!";
+            $message = $messages[rand(0, count($messages)-1)];
+            
+            if (rand(1,1000) % 3 == 0) {
+                $data['text'] = $message;
+                return Request::sendMessage($data);
+            }
         }
-
-        $data['text'] = $message;
-        return Request::sendMessage($data);
 
         // // Do nothing
         // return Request::emptyResponse();

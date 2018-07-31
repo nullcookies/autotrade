@@ -91,34 +91,58 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 	*/ ?>
 	<div class="chart-content" id="tradingview_88629">
 		Loading chart ...
+		<?php/*
 		<!-- <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script> -->
 		<script type="text/javascript">
-			new TradingView.widget(
-			{
-				"width": '100%',
-				"height": 570,
-				"autosize": true,
-				"symbol": "BITMEX:XBTUSD",
-				"interval": "60",
-				"container_id": "tradingview_88629",
-				"timezone": "Asia/Hong_Kong",
-				"theme": "Light",
-				"style": "8",
-				"locale": "en",
-				"toolbar_bg": "#f1f3f6",
-				"enable_publishing": false,
-				"allow_symbol_change": true,
-				"studies": [
-					"BB@tv-basicstudies",
-					// "IchimokuCloud@tv-basicstudies",
-					// "MASimple@tv-basicstudies",
-				],
-				"show_popup_button": true,
-				"popup_width": "1150",
-				"popup_height": "650",
-			}
-		);
+		new TradingView.widget({
+			"width": '100%',
+			"height": 570,
+			"autosize": true,
+			"symbol": "BITMEX:XBTUSD",
+			"interval": "60",
+			"container_id": "tradingview_88629",
+			"timezone": "Asia/Hong_Kong",
+			"theme": "Light",
+			"style": "8",
+			"locale": "en",
+			"toolbar_bg": "#f1f3f6",
+			"enable_publishing": false,
+			"allow_symbol_change": true,
+			"studies": [
+				"BB@tv-basicstudies",
+				// "IchimokuCloud@tv-basicstudies",
+				// "MASimple@tv-basicstudies",
+			],
+			"show_popup_button": true,
+			"popup_width": "1150",
+			"popup_height": "650",
+		});
 		</script>
+		<iframe src="https://demo_chart.tradingview.com/mobile_black.html?lang=en" frameborder="0" style="width: 100%; height: 420px" allowfullscreen=""></iframe>
+		*/;?>
+		<script type="text/javascript">
+		new TradingView.widget({
+			"autosize": true,
+			"symbol": "BITMEX:XBTUSD",
+			"interval": "60",
+			"timezone": "Asia/Ho_Chi_Minh",
+			"theme": "Dark",
+			"style": "8",
+			"locale": "en",
+			"toolbar_bg": "#f1f3f6",
+			"enable_publishing": false,
+			"allow_symbol_change": true,
+			"show_popup_button": true,
+			"popup_width": "1150",
+			"popup_height": "650",
+			"container_id": "tradingview_88629",
+			"studies": [
+				"BB@tv-basicstudies",
+			],
+		});
+		</script>
+</div>
+<!-- TradingView Widget END -->
 	</div>
 	<?php 
 	exit;

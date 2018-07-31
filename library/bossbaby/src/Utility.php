@@ -22,6 +22,8 @@ class Utility
     
     public static function getClientIp($checkProxy = true)
     {
+        if ( php_sapi_name() == 'cli' ) return 'CLI';
+        
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
             $ip = $_SERVER['HTTP_CLIENT_IP'];
         } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {

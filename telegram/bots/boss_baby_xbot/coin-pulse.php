@@ -5,7 +5,7 @@
  * Uncommented parameters must be filled
  */
 
-// if (!defined('STDIN')) die('Access denied.' . "\n");
+if (!defined('STDIN')) die('Access denied.' . "\n");
 
 // Error handle
 require_once __DIR__ . '/../error-handle.php';
@@ -21,7 +21,7 @@ function run_cron() {
     global $i;
     
     $i++;
-    if ($i > 5) die('FINISHED');
+    if ($i > 4) die('FINISHED');
 
     // Your command(s) to run, pass it just like in a message (arguments supported)
     $commands = [

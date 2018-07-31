@@ -64,11 +64,14 @@ class CoinPulseCommand extends UserCommand
         // $data['text'] .= 'Message at ' . date('H:i:s d/m/Y');
 
         $coinpulse = \BossBaby\Telegram::get_coin_pulse();
+        \BossBaby\Utility::writeLog('coinpulse:'.serialize($coinpulse));
+        
         if ($coinpulse) {
-            $data['text'] .= $coinpulse . PHP_EOL;
+            $data['text'] = $coinpulse . PHP_EOL;
             return Request::sendMessage($data);
         }
 
-        return Request::emptyResponse();
+        // Do nothing
+        // return Request::emptyResponse();
     }
 }
