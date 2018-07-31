@@ -87,7 +87,7 @@ class Telegram
         // \BossBaby\Utility::writeLog('list_coin:'.serialize($list_coin));
 
         // List coin should ignore
-        $list_ignore = [];
+        $list_ignore = ['HOT'];
 
         $arr = [];
         $arr['last_updated'] = date('Y-m-d H:i:s');
@@ -124,6 +124,7 @@ class Telegram
                         // dump('$coin'); dump($coin);
                         // dump('$coin_name'); dump($coin_name);
                         // dump('$new_price'); dump($new_price);
+                        if (in_array($coin_name, $list_ignore)) continue;
 
                         // Check for 10s
                         $changed_10s = '';

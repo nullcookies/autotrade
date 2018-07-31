@@ -180,6 +180,7 @@ class Binance
     private function priceData($array)
     {
         $prices = [];
+        if (!$array) return;
         foreach ($array as $obj) {
             $prices[$obj['symbol']] = $obj['price'];
         }
