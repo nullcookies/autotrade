@@ -60,20 +60,20 @@ class Telegram
         if (is_array($arr) and count($arr)) {
             // \BossBaby\Utility::writeLog('arr:'.serialize($arr).PHP_EOL.'-coin:'.serialize($coin_name));
             // $price = \BossBaby\Telegram::func_telegram_print_arr($arr);
-            $price .= 'Giá *' . $coin_name . '* trên Binance:' . PHP_EOL;
+            $price .= 'Giá *' . $coin_name . '* trên Binance:' . '<br/>';
             foreach ($arr as $key => $value) {
-                $price .= str_replace($coin_name, $coin_name . '/', $key) . ': ' . $value . PHP_EOL;
+                $price .= str_replace($coin_name, $coin_name . '/', $key) . ': ' . $value . '<br/>';
             }
         }
 
         $arr = \BossBaby\Bittrex::get_coin_price($coin_name);
         if (is_array($arr) and count($arr)) {
-            $price .= PHP_EOL;
+            $price .= '<br/>';
             // \BossBaby\Utility::writeLog('arr:'.serialize($arr).PHP_EOL.'-coin:'.serialize($coin_name));
             // $price = \BossBaby\Telegram::func_telegram_print_arr($arr);
-            $price .= 'Giá *' . $coin_name . '* trên Bittrex:' . PHP_EOL;
+            $price .= 'Giá *' . $coin_name . '* trên Bittrex:' . '<br/>';
             foreach ($arr as $key => $value) {
-                $price .= str_replace('-', '/', $key) . ': ' . $value . PHP_EOL;
+                $price .= str_replace('-', '/', $key) . ': ' . $value . '<br/>';
             }
         }
 
@@ -259,11 +259,11 @@ class Telegram
                             // https://www.binance.com/trade.html?symbol=BTC_USDT
                             $text_out_link = \BossBaby\Utility::func_clean_double_space($changed_5m . $changed_1m . $changed_10s);
                             $tmp_str = 'Chú ý coin thay đổi trên <b>Binance</b>:';
-                            $tmp_str .= PHP_EOL . PHP_EOL . '<a href="https://www.binance.com/trade.html?symbol=' . $coin_name . '_BTC"><b>' . $coin_name . '</b></a> ' . $text_out_link . PHP_EOL;
-                            if (isset($arr['10s_ago']) and isset($arr['10s_ago'][$coin])) $tmp_str .= PHP_EOL . '<b>10 giây</b> trước: ' . $arr['10s_ago'][$coin];
-                            if (isset($arr['1m_ago']) and isset($arr['1m_ago'][$coin])) $tmp_str .= PHP_EOL . '<b>1 phút</b> trước: ' . $arr['1m_ago'][$coin];
-                            if (isset($arr['5m_ago']) and isset($arr['5m_ago'][$coin])) $tmp_str .= PHP_EOL . '<b>5 phút</b> trước: ' . $arr['5m_ago'][$coin];
-                            $tmp_str .= PHP_EOL . 'giá hiện tại: <b>' . $new_price . '</b>';
+                            $tmp_str .= '<br/>' . '<br/>' . '<a href="https://www.binance.com/trade.html?symbol=' . $coin_name . '_BTC"><b>' . $coin_name . '</b></a> ' . $text_out_link . '<br/>';
+                            if (isset($arr['10s_ago']) and isset($arr['10s_ago'][$coin])) $tmp_str .= '<br/>' . '<b>10 giây</b> trước: ' . $arr['10s_ago'][$coin];
+                            if (isset($arr['1m_ago']) and isset($arr['1m_ago'][$coin])) $tmp_str .= '<br/>' . '<b>1 phút</b> trước: ' . $arr['1m_ago'][$coin];
+                            if (isset($arr['5m_ago']) and isset($arr['5m_ago'][$coin])) $tmp_str .= '<br/>' . '<b>5 phút</b> trước: ' . $arr['5m_ago'][$coin];
+                            $tmp_str .= '<br/>' . 'giá hiện tại: <b>' . $new_price . '</b>';
                             $return[] = $tmp_str;
                             // break;
                         }
@@ -485,11 +485,11 @@ class Telegram
                             // https://www.binance.com/trade.html?symbol=BTC_USDT
                             $text_out_link = \BossBaby\Utility::func_clean_double_space($changed_5m . $changed_1m . $changed_10s);
                             $tmp_str = 'Chú ý coin thay đổi trên <b>Bittrex</b>:';
-                            $tmp_str .= PHP_EOL . PHP_EOL . '<a href="https://bittrex.com/Market/Index?MarketName=' . $coin_name . '_BTC"><b>' . $coin_name . '</b></a> ' . $text_out_link . PHP_EOL;
-                            if (isset($arr['10s_ago']) and isset($arr['10s_ago'][$coin])) $tmp_str .= PHP_EOL . '<b>10 giây</b> trước: ' . $arr['10s_ago'][$coin];
-                            if (isset($arr['1m_ago']) and isset($arr['1m_ago'][$coin])) $tmp_str .= PHP_EOL . '<b>1 phút</b> trước: ' . $arr['1m_ago'][$coin];
-                            if (isset($arr['5m_ago']) and isset($arr['5m_ago'][$coin])) $tmp_str .= PHP_EOL . '<b>5 phút</b> trước: ' . $arr['5m_ago'][$coin];
-                            $tmp_str .= PHP_EOL . 'giá hiện tại: <b>' . $new_price . '</b>';
+                            $tmp_str .= '<br/>' . '<br/>' . '<a href="https://bittrex.com/Market/Index?MarketName=' . $coin_name . '_BTC"><b>' . $coin_name . '</b></a> ' . $text_out_link . '<br/>';
+                            if (isset($arr['10s_ago']) and isset($arr['10s_ago'][$coin])) $tmp_str .= '<br/>' . '<b>10 giây</b> trước: ' . $arr['10s_ago'][$coin];
+                            if (isset($arr['1m_ago']) and isset($arr['1m_ago'][$coin])) $tmp_str .= '<br/>' . '<b>1 phút</b> trước: ' . $arr['1m_ago'][$coin];
+                            if (isset($arr['5m_ago']) and isset($arr['5m_ago'][$coin])) $tmp_str .= '<br/>' . '<b>5 phút</b> trước: ' . $arr['5m_ago'][$coin];
+                            $tmp_str .= '<br/>' . 'giá hiện tại: <b>' . $new_price . '</b>';
                             $return[] = $tmp_str;
                             // break;
                         }
