@@ -269,6 +269,8 @@ class Telegram
                         // dump('$changed_1m'); dump($changed_1m);
                         // dump('$changed_5m'); dump($changed_5m);
                         
+                        \BossBaby\Utility::writeLog('cal:'.serialize($calc_10s).'::'.serialize($calc_1m).'::'.serialize($calc_5m));
+
                         // Check to add to returns
                         if (($calc_10s > $max or $calc_10s < $min) or ($calc_1m > $max or $calc_1m < $min) or ($calc_5m > $max or $calc_5m < $min)) {
                             // https://www.binance.com/trade.html?symbol=BTC_USDT
@@ -305,6 +307,7 @@ class Telegram
         }
 
         // dump('$return'); dump($return);die;
+        \BossBaby\Utility::writeLog('binance-return:'.serialize($return));
         $text = '';
         if ($return) {
             $text = 'Chú ý giá coin thay đổi trên <a href="https://www.binance.com/?ref=13132993">Binance</a>:' . PHP_EOL;
