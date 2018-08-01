@@ -81,6 +81,7 @@ return array(
         'bot' => array(
             'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/',
             '1' => array(
+                'id' => '696118749',
                 'name' => 'Boss Baby Notifier',
                 'username' => 'boss_baby_notifier_bot',
                 'token' => '696118749:AAGofvL9n2Xp-LhBd-jut_QgmnUKV0AsMro',
@@ -88,6 +89,7 @@ return array(
                 'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_notifier_bot/'
             ),
             '2' => array(
+                'id' => '669289813',
                 'name' => 'Boss Baby BOT',
                 'username' => 'boss_baby_xbot',
                 'token' => '669289813:AAFqt7B2POV1yozQzKRmFnFbfAArrh4-VTo',
@@ -95,6 +97,7 @@ return array(
                 'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_xbot/'
             ),
             '3' => array(
+                'id' => '641704003',
                 'name' => 'Boss Baby BTC',
                 'username' => 'boss_baby_btc_bot',
                 'token' => '641704003:AAHSGnyXAigJDwi4dMdG7rUoftCnbHMUWP8',

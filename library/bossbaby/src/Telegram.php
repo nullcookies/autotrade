@@ -163,6 +163,11 @@ class Telegram
                             if (isset($old_data['changed_10s'][$coin])) {
                                 $changed_10s = $arr['changed_10s'][$coin] = $old_data['changed_10s'][$coin];
                             }
+
+                            if (!isset($arr['10s_ago'])) $arr['10s_ago'] = [];
+                            if (isset($old_data['10s_ago'][$coin])) {
+                                $arr['10s_ago'][$coin] = $old_data['10s_ago'][$coin];
+                            }
                         }
 
                         // Check for 1m
@@ -203,6 +208,11 @@ class Telegram
                             if (!isset($arr['changed_1m'])) $arr['changed_1m'] = [];
                             if (isset($old_data['changed_1m'][$coin])) {
                                 $changed_1m = $arr['changed_1m'][$coin] = $old_data['changed_1m'][$coin];
+                            }
+
+                            if (!isset($arr['1m_ago'])) $arr['1m_ago'] = [];
+                            if (isset($old_data['1m_ago'][$coin])) {
+                                $arr['1m_ago'][$coin] = $old_data['1m_ago'][$coin];
                             }
                         }
 
@@ -245,6 +255,11 @@ class Telegram
                             if (isset($old_data['changed_5m'][$coin])) {
                                 $changed_5m = $arr['changed_5m'][$coin] = $old_data['changed_5m'][$coin];
                             }
+
+                            if (!isset($arr['5m_ago'])) $arr['5m_ago'] = [];
+                            if (isset($old_data['5m_ago'][$coin])) {
+                                $arr['5m_ago'][$coin] = $old_data['5m_ago'][$coin];
+                            }
                         }
 
                         // dump('$calc_10s'); dump($calc_10s);
@@ -258,13 +273,12 @@ class Telegram
                         if (($calc_10s > $max or $calc_10s < $min) or ($calc_1m > $max or $calc_1m < $min) or ($calc_5m > $max or $calc_5m < $min)) {
                             // https://www.binance.com/trade.html?symbol=BTC_USDT
                             $text_out_link = \BossBaby\Utility::func_clean_double_space($changed_5m . $changed_1m . $changed_10s);
-                            $tmp_str = 'Chú ý coin thay đổi trên <b>Binance</b>:';
-                            $tmp_str .= PHP_EOL . PHP_EOL . '<a href="https://www.binance.com/trade.html?symbol=' . $coin_name . '_BTC"><b>' . $coin_name . '</b></a> ' . $text_out_link . PHP_EOL;
+                            $tmp_str = PHP_EOL . '<a href="https://www.binance.com/trade.html?symbol=' . $coin_name . '_BTC">' . $coin_name . '</a> ' . $text_out_link;
                             if (isset($arr['10s_ago']) and isset($arr['10s_ago'][$coin])) $tmp_str .= PHP_EOL . '<b>10 giây</b> trước: ' . $arr['10s_ago'][$coin];
                             if (isset($arr['1m_ago']) and isset($arr['1m_ago'][$coin])) $tmp_str .= PHP_EOL . '<b>1 phút</b> trước: ' . $arr['1m_ago'][$coin];
                             if (isset($arr['5m_ago']) and isset($arr['5m_ago'][$coin])) $tmp_str .= PHP_EOL . '<b>5 phút</b> trước: ' . $arr['5m_ago'][$coin];
                             $tmp_str .= PHP_EOL . 'giá hiện tại: <b>' . $new_price . '</b>';
-                            $return[] = $tmp_str;
+                            $return[] = $tmp_str . PHP_EOL;
                             // break;
                         }
                     }
@@ -291,7 +305,15 @@ class Telegram
         }
 
         // dump('$return'); dump($return);die;
-        return $return;
+        $text = '';
+        if ($return) {
+            $text = 'Chú ý giá coin thay đổi trên <a href="https://www.binance.com/?ref=13132993">Binance</a>:' . PHP_EOL;
+            foreach ($return as $value) {
+                $text .= $value;
+            }
+        }
+
+        return $text;
     }
 
     public static function get_coin_pulse_bittrex()
@@ -389,6 +411,11 @@ class Telegram
                             if (isset($old_data['changed_10s'][$coin])) {
                                 $changed_10s = $arr['changed_10s'][$coin] = $old_data['changed_10s'][$coin];
                             }
+
+                            if (!isset($arr['10s_ago'])) $arr['10s_ago'] = [];
+                            if (isset($old_data['10s_ago'][$coin])) {
+                                $arr['10s_ago'][$coin] = $old_data['10s_ago'][$coin];
+                            }
                         }
 
                         // Check for 1m
@@ -429,6 +456,11 @@ class Telegram
                             if (!isset($arr['changed_1m'])) $arr['changed_1m'] = [];
                             if (isset($old_data['changed_1m'][$coin])) {
                                 $changed_1m = $arr['changed_1m'][$coin] = $old_data['changed_1m'][$coin];
+                            }
+
+                            if (!isset($arr['1m_ago'])) $arr['1m_ago'] = [];
+                            if (isset($old_data['1m_ago'][$coin])) {
+                                $arr['1m_ago'][$coin] = $old_data['1m_ago'][$coin];
                             }
                         }
 
@@ -471,6 +503,11 @@ class Telegram
                             if (isset($old_data['changed_5m'][$coin])) {
                                 $changed_5m = $arr['changed_5m'][$coin] = $old_data['changed_5m'][$coin];
                             }
+
+                            if (!isset($arr['5m_ago'])) $arr['5m_ago'] = [];
+                            if (isset($old_data['5m_ago'][$coin])) {
+                                $arr['5m_ago'][$coin] = $old_data['5m_ago'][$coin];
+                            }
                         }
 
                         // dump('$calc_10s'); dump($calc_10s);
@@ -484,13 +521,12 @@ class Telegram
                         if (($calc_10s > $max or $calc_10s < $min) or ($calc_1m > $max or $calc_1m < $min) or ($calc_5m > $max or $calc_5m < $min)) {
                             // https://www.binance.com/trade.html?symbol=BTC_USDT
                             $text_out_link = \BossBaby\Utility::func_clean_double_space($changed_5m . $changed_1m . $changed_10s);
-                            $tmp_str = 'Chú ý coin thay đổi trên <b>Bittrex</b>:';
-                            $tmp_str .= PHP_EOL . PHP_EOL . '<a href="https://bittrex.com/Market/Index?MarketName=' . $coin . '"><b>' . $coin_name . '</b></a> ' . $text_out_link . PHP_EOL;
+                            $tmp_str = PHP_EOL . '<a href="https://bittrex.com/Market/Index?MarketName=' . $coin . '">' . $coin_name . '</a> ' . $text_out_link;
                             if (isset($arr['10s_ago']) and isset($arr['10s_ago'][$coin])) $tmp_str .= PHP_EOL . '<b>10 giây</b> trước: ' . $arr['10s_ago'][$coin];
                             if (isset($arr['1m_ago']) and isset($arr['1m_ago'][$coin])) $tmp_str .= PHP_EOL . '<b>1 phút</b> trước: ' . $arr['1m_ago'][$coin];
                             if (isset($arr['5m_ago']) and isset($arr['5m_ago'][$coin])) $tmp_str .= PHP_EOL . '<b>5 phút</b> trước: ' . $arr['5m_ago'][$coin];
                             $tmp_str .= PHP_EOL . 'giá hiện tại: <b>' . $new_price . '</b>';
-                            $return[] = $tmp_str;
+                            $return[] = $tmp_str . PHP_EOL;
                             // break;
                         }
                     }
@@ -517,6 +553,14 @@ class Telegram
         }
 
         // dump('$return'); dump($return);die;
-        return $return;
+        $text = '';
+        if ($return) {
+            $text = 'Chú ý giá coin thay đổi trên <a href="https://bittrex.com/Market">Bittrex</a>:' . PHP_EOL;
+            foreach ($return as $value) {
+                $text .= $value;
+            }
+        }
+
+        return $text;
     }
 }

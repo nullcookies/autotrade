@@ -13,15 +13,6 @@ require_once __DIR__ . '/../error-handle.php';
 // Load composer
 require_once LIB_DIR . '/telegram/vendor/autoload.php';
 
-// if (isset($_GET['test'])) {
-//     // $list_coin = \BossBaby\Telegram::get_coin_pulse_binance();
-//     // dump('$list_coin'); dump($list_coin);
-
-//     $list_coin = \BossBaby\Telegram::get_coin_pulse_bittrex();
-//     dump('$list_coin'); dump($list_coin);
-//     die;
-// }
-
 $i = 0;
 run_cron();
 
