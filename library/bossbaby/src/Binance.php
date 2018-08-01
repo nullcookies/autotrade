@@ -33,7 +33,7 @@ class Binance
         if (!is_object($environment->binance_instance)) return [];
 
         $arr = $environment->binance_instance->prices();
-        // \BossBaby\Utility::writeLog('tmp:'.serialize($tmp));
+        // \BossBaby\Utility::writeLog('arr:'.serialize($arr));
 
         return $arr;
     }

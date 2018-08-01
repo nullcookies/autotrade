@@ -80,13 +80,15 @@ class Telegram
         return $price;
     }
 
-    public static function get_coin_pulse()
+    public static function get_coin_pulse_binance()
     {
+        $return = [];
+
         // Get list current coin
         $list_coin = \BossBaby\Binance::get_list_coin();
         // \BossBaby\Utility::writeLog('list_coin:'.serialize($list_coin));
 
-        // List coin should ignore
+        // List coin should to ignore
         $list_ignore = ['HOT'];
 
         $arr = [];
@@ -97,7 +99,6 @@ class Telegram
         $file = LOGS_DIR . '/binance_coins.php';
         // \BossBaby\Utility::writeLog('file:'.serialize($file));
 
-        $return = '';
         $min = -5; //%
         $max = 5; //%
 
@@ -112,10 +113,7 @@ class Telegram
                 $current_time = time();
                 // dump('$current_time'); dump($current_time);
                 
-                if (json_last_error() or !$old_data) {
-                    $arr['10s'] = $arr['1m'] = $arr['5m'] = $list_coin;
-                }
-                else {
+                if (!json_last_error() and $old_data) {
                     foreach ($list_coin as $coin => $new_price) {
                         if (strrpos($coin, 'BTC') === false) continue;
                         $calc_10s = $calc_1m = $calc_5m = 0;
@@ -128,22 +126,29 @@ class Telegram
 
                         // Check for 10s
                         $changed_10s = '';
-                        $old_time_10s = (isset($old_data['updated_10s']) and $old_data['updated_10s']) ? $old_data['updated_10s'] : $current_time;
+                        $old_time_10s = (isset($old_data['updated_10s']) and $old_data['updated_10s']) ? $old_data['updated_10s'] : 0;
                         $changed_time_10s = $current_time - $old_time_10s;
+                        // dump('changed_time_10s'); dump($changed_time_10s);
                         if ($changed_time_10s >= 10) {
                             // dump(isset($old_data['10s']) and is_array($old_data['10s']) and count($old_data['10s']));
                             if (isset($old_data['10s']) and is_array($old_data['10s']) and count($old_data['10s'])) {
                                 $tmp_arr = $old_data['10s'];
-                                // dump('array_key_exists($coin, $tmp_arr)'); dump(array_key_exists($coin, $tmp_arr));
+                                // dump('array_key_exists($coin, $tmp_arr10s)'); dump(array_key_exists($coin, $tmp_arr));
                                 if (array_key_exists($coin, $tmp_arr)) {
                                     $old_price = $tmp_arr[$coin];
                                     // dump('changed_10s$old_price'); dump($old_price);
                                     $cal = (($new_price - $old_price) / $old_price) * 100;
                                     $calc_10s = round($cal, 2);
                                     if ($calc_10s > $max or $calc_10s < $min)
-                                        $changed_10s .= ' (<b>' . $calc_10s . '</b>%/10s)';
+                                        $changed_10s = ' (<b>' . $calc_10s . '</b>%/10s)';
                                     else
-                                        $changed_10s .= ' (' . $calc_10s . '%/10s)';
+                                        $changed_10s = ' (' . $calc_10s . '%/10s)';
+
+                                    if (!isset($arr['changed_10s'])) $arr['changed_10s'] = [];
+                                    $arr['changed_10s'][$coin] = $changed_10s;
+
+                                    if (!isset($arr['10s_ago'])) $arr['10s_ago'] = [];
+                                    $arr['10s_ago'][$coin] = $old_price;
                                 }
                             }
 
@@ -153,26 +158,38 @@ class Telegram
                         else {
                             $arr['10s'] = $old_data['10s'];
                             $arr['updated_10s'] = $old_time_10s;
+
+                            if (!isset($arr['changed_10s'])) $arr['changed_10s'] = [];
+                            if (isset($old_data['changed_10s'][$coin])) {
+                                $changed_10s = $arr['changed_10s'][$coin] = $old_data['changed_10s'][$coin];
+                            }
                         }
 
                         // Check for 1m
                         $changed_1m = '';
-                        $old_time_1m = (isset($old_data['updated_1m']) and $old_data['updated_1m']) ? $old_data['updated_1m'] : $current_time;
+                        $old_time_1m = (isset($old_data['updated_1m']) and $old_data['updated_1m']) ? $old_data['updated_1m'] : 0;
                         $changed_time_1m = $current_time - $old_time_1m;
+                        // dump('changed_time_1m'); dump($changed_time_1m);
                         if ($changed_time_1m >= 1*60) {
                             // dump(isset($old_data['1m']) and is_array($old_data['1m']) and count($old_data['1m']));
                             if (isset($old_data['1m']) and is_array($old_data['1m']) and count($old_data['1m'])) {
                                 $tmp_arr = $old_data['1m'];
-                                // dump('array_key_exists($coin, $tmp_arr)'); dump(array_key_exists($coin, $tmp_arr));
+                                // dump('array_key_exists($coin, $tmp_arr1m)'); dump(array_key_exists($coin, $tmp_arr));
                                 if (array_key_exists($coin, $tmp_arr)) {
                                     $old_price = $tmp_arr[$coin];
                                     // dump('changed_1m$old_price'); dump($old_price);
                                     $cal = (($new_price - $old_price) / $old_price) * 100;
                                     $calc_1m = round($cal, 2);
                                     if ($calc_1m > $max or $calc_1m < $min)
-                                        $changed_1m .= ' (<b>' . $calc_1m . '</b>%/1m)';
+                                        $changed_1m = ' (<b>' . $calc_1m . '</b>%/1m)';
                                     else
-                                        $changed_1m .= ' (' . $calc_1m . '%/1m)';
+                                        $changed_1m = ' (' . $calc_1m . '%/1m)';
+
+                                    if (!isset($arr['changed_1m'])) $arr['changed_1m'] = [];
+                                    $arr['changed_1m'][$coin] = $changed_1m;
+
+                                    if (!isset($arr['1m_ago'])) $arr['1m_ago'] = [];
+                                    $arr['1m_ago'][$coin] = $old_price;
                                 }
                             }
 
@@ -182,26 +199,38 @@ class Telegram
                         else {
                             $arr['1m'] = $old_data['1m'];
                             $arr['updated_1m'] = $old_time_1m;
+
+                            if (!isset($arr['changed_1m'])) $arr['changed_1m'] = [];
+                            if (isset($old_data['changed_1m'][$coin])) {
+                                $changed_1m = $arr['changed_1m'][$coin] = $old_data['changed_1m'][$coin];
+                            }
                         }
 
                         // Check for 5m
                         $changed_5m = '';
-                        $old_time_5m = (isset($old_data['updated_5m']) and $old_data['updated_5m']) ? $old_data['updated_5m'] : $current_time;
+                        $old_time_5m = (isset($old_data['updated_5m']) and $old_data['updated_5m']) ? $old_data['updated_5m'] : 0;
                         $changed_time_5m = $current_time - $old_time_5m;
+                        // dump('changed_time_5m'); dump($changed_time_5m);
                         if ($changed_time_5m >= 5*60) {
                             // dump(isset($old_data['5m']) and is_array($old_data['5m']) and count($old_data['5m']));
                             if (isset($old_data['5m']) and is_array($old_data['5m']) and count($old_data['5m'])) {
                                 $tmp_arr = $old_data['5m'];
-                                // dump('array_key_exists($coin, $tmp_arr)'); dump(array_key_exists($coin, $tmp_arr));
+                                // dump('array_key_exists($coin, $tmp_arr5m)'); dump(array_key_exists($coin, $tmp_arr));
                                 if (array_key_exists($coin, $tmp_arr)) {
                                     $old_price = $tmp_arr[$coin];
                                     // dump('changed_5m$old_price'); dump($old_price);
                                     $cal = (($new_price - $old_price) / $old_price) * 100;
                                     $calc_5m = round($cal, 2);
                                     if ($calc_5m > $max or $calc_5m < $min)
-                                        $changed_5m .= ' (<b>' . $calc_5m . '</b>%/5m)';
+                                        $changed_5m = ' (<b>' . $calc_5m . '</b>%/5m)';
                                     else
-                                        $changed_5m .= ' (' . $calc_5m . '%/5m)';
+                                        $changed_5m = ' (' . $calc_5m . '%/5m)';
+                                    
+                                    if (!isset($arr['changed_5m'])) $arr['changed_5m'] = [];
+                                    $arr['changed_5m'][$coin] = $changed_5m;
+
+                                    if (!isset($arr['5m_ago'])) $arr['5m_ago'] = [];
+                                    $arr['5m_ago'][$coin] = $old_price;
                                 }
                             }
 
@@ -211,6 +240,11 @@ class Telegram
                         else {
                             $arr['5m'] = $old_data['5m'];
                             $arr['updated_5m'] = $old_time_5m;
+
+                            if (!isset($arr['changed_5m'])) $arr['changed_5m'] = [];
+                            if (isset($old_data['changed_5m'][$coin])) {
+                                $changed_5m = $arr['changed_5m'][$coin] = $old_data['changed_5m'][$coin];
+                            }
                         }
 
                         // dump('$calc_10s'); dump($calc_10s);
@@ -223,10 +257,16 @@ class Telegram
                         // Check to add to returns
                         if (($calc_10s > $max or $calc_10s < $min) or ($calc_1m > $max or $calc_1m < $min) or ($calc_5m > $max or $calc_5m < $min)) {
                             // https://www.binance.com/trade.html?symbol=BTC_USDT
-                            $text_out_link = \BossBaby\Utility::func_clean_double_space($changed_10s . $changed_1m . $changed_5m);
-                            $return .= PHP_EOL . '<a href="https://www.binance.com/trade.html?symbol=' . $coin_name . '_BTC">' . $coin_name . '</a> ' . $text_out_link;
+                            $text_out_link = \BossBaby\Utility::func_clean_double_space($changed_5m . $changed_1m . $changed_10s);
+                            $tmp_str = 'Chú ý coin thay đổi trên <b>Binance</b>:';
+                            $tmp_str .= PHP_EOL . PHP_EOL . '<a href="https://www.binance.com/trade.html?symbol=' . $coin_name . '_BTC"><b>' . $coin_name . '</b></a> ' . $text_out_link . PHP_EOL;
+                            if (isset($arr['10s_ago']) and isset($arr['10s_ago'][$coin])) $tmp_str .= PHP_EOL . '<b>10 giây</b> trước: ' . $arr['10s_ago'][$coin];
+                            if (isset($arr['1m_ago']) and isset($arr['1m_ago'][$coin])) $tmp_str .= PHP_EOL . '<b>1 phút</b> trước: ' . $arr['1m_ago'][$coin];
+                            if (isset($arr['5m_ago']) and isset($arr['5m_ago'][$coin])) $tmp_str .= PHP_EOL . '<b>5 phút</b> trước: ' . $arr['5m_ago'][$coin];
+                            $tmp_str .= PHP_EOL . 'giá hiện tại: <b>' . $new_price . '</b>';
+                            $return[] = $tmp_str;
+                            // break;
                         }
-                        // break;
                     }
                 }
 
@@ -241,11 +281,238 @@ class Telegram
                 // Put current coin data into array
                 $arr['10s'] = $arr['1m'] = $arr['5m'] = $list_coin;
                 $arr['updated_10s'] = $arr['updated_1m'] = $arr['updated_5m'] = time();
+                $arr['changed_10s'] = $arr['changed_1m'] = $arr['changed_5m'] = [];
             }
             
+            // dump('$arr'); dump($arr);
             // Write again into file
             $arr = json_encode($arr);
+            \BossBaby\Config::write_file($file, $arr);
+        }
+
+        // dump('$return'); dump($return);die;
+        return $return;
+    }
+
+    public static function get_coin_pulse_bittrex()
+    {
+        $return = [];
+
+        // Get list current coin
+        $list_coin = \BossBaby\Bittrex::get_list_coin();
+        // \BossBaby\Utility::writeLog('list_coin:'.serialize($list_coin));
+        $list_coin = \BossBaby\Utility::object_to_array($list_coin);
+
+        if (!$list_coin or $list_coin['success'] != true or !$list_coin['result'])
+            return $return;
+        $list_coin = $list_coin['result'];
+
+        // List coin should to ignore
+        $list_ignore = [];
+
+        $arr = [];
+        $arr['last_updated'] = date('Y-m-d H:i:s');
+        $arr['last_updated_unix'] = time();
+
+        // File store coin data
+        $file = LOGS_DIR . '/bittrex_coins.php';
+        // \BossBaby\Utility::writeLog('file:'.serialize($file));
+
+        $min = -5; //%
+        $max = 5; //%
+
+        // Processing on list coin
+        if (is_array($list_coin) and count($list_coin)) {
+            $tmp_list = $list_coin;
+            $list_coin = [];
+            foreach ($tmp_list as $pos => $coin) {
+                $list_coin[$coin['MarketName']] = number_format($coin['Last'], 8);
+            }
+            unset($tmp_list);
+
+            if (is_file($file) and file_exists($file)) {
+                // Read data from file
+                $old_data = \BossBaby\Config::read_file($file);
+                $old_data = \BossBaby\Utility::object_to_array(json_decode($old_data));
+                // dump('$old_data'); dump($old_data);
+
+                $current_time = time();
+                // dump('$current_time'); dump($current_time);
+                
+                if (!json_last_error() and $old_data) {
+                    foreach ($list_coin as $coin => $new_price) {
+                        if (strrpos($coin, 'BTC-') === false) continue;
+                        $calc_10s = $calc_1m = $calc_5m = 0;
+                        $coin_name = (strrpos($coin, 'BTC-') !== false) ? str_replace('BTC-', '', $coin) : $coin;
+                        // echo '<hr/>';
+                        // dump('$coin'); dump($coin);
+                        // dump('$coin_name'); dump($coin_name);
+                        // dump('$new_price'); dump($new_price);
+                        if (in_array($coin_name, $list_ignore)) continue;
+
+                        // Check for 10s
+                        $changed_10s = '';
+                        $old_time_10s = (isset($old_data['updated_10s']) and $old_data['updated_10s']) ? $old_data['updated_10s'] : 0;
+                        $changed_time_10s = $current_time - $old_time_10s;
+                        // dump('changed_time_10s'); dump($changed_time_10s);
+                        if ($changed_time_10s >= 10) {
+                            // dump(isset($old_data['10s']) and is_array($old_data['10s']) and count($old_data['10s']));
+                            if (isset($old_data['10s']) and is_array($old_data['10s']) and count($old_data['10s'])) {
+                                $tmp_arr = $old_data['10s'];
+                                // dump('array_key_exists($coin, $tmp_arr10s)'); dump(array_key_exists($coin, $tmp_arr));
+                                if (array_key_exists($coin, $tmp_arr)) {
+                                    $old_price = $tmp_arr[$coin];
+                                    // dump('changed_10s$old_price'); dump($old_price);
+                                    $cal = (($new_price - $old_price) / $old_price) * 100;
+                                    $calc_10s = round($cal, 2);
+                                    if ($calc_10s > $max or $calc_10s < $min)
+                                        $changed_10s = ' (<b>' . $calc_10s . '</b>%/10s)';
+                                    else
+                                        $changed_10s = ' (' . $calc_10s . '%/10s)';
+
+                                    if (!isset($arr['changed_10s'])) $arr['changed_10s'] = [];
+                                    $arr['changed_10s'][$coin] = $changed_10s;
+
+                                    if (!isset($arr['10s_ago'])) $arr['10s_ago'] = [];
+                                    $arr['10s_ago'][$coin] = $old_price;
+                                }
+                            }
+
+                            $arr['10s'] = $list_coin;
+                            $arr['updated_10s'] = $current_time;
+                        }
+                        else {
+                            $arr['10s'] = $old_data['10s'];
+                            $arr['updated_10s'] = $old_time_10s;
+
+                            if (!isset($arr['changed_10s'])) $arr['changed_10s'] = [];
+                            if (isset($old_data['changed_10s'][$coin])) {
+                                $changed_10s = $arr['changed_10s'][$coin] = $old_data['changed_10s'][$coin];
+                            }
+                        }
+
+                        // Check for 1m
+                        $changed_1m = '';
+                        $old_time_1m = (isset($old_data['updated_1m']) and $old_data['updated_1m']) ? $old_data['updated_1m'] : 0;
+                        $changed_time_1m = $current_time - $old_time_1m;
+                        // dump('changed_time_1m'); dump($changed_time_1m);
+                        if ($changed_time_1m >= 1*60) {
+                            // dump(isset($old_data['1m']) and is_array($old_data['1m']) and count($old_data['1m']));
+                            if (isset($old_data['1m']) and is_array($old_data['1m']) and count($old_data['1m'])) {
+                                $tmp_arr = $old_data['1m'];
+                                // dump('array_key_exists($coin, $tmp_arr1m)'); dump(array_key_exists($coin, $tmp_arr));
+                                if (array_key_exists($coin, $tmp_arr)) {
+                                    $old_price = $tmp_arr[$coin];
+                                    // dump('changed_1m$old_price'); dump($old_price);
+                                    $cal = (($new_price - $old_price) / $old_price) * 100;
+                                    $calc_1m = round($cal, 2);
+                                    if ($calc_1m > $max or $calc_1m < $min)
+                                        $changed_1m = ' (<b>' . $calc_1m . '</b>%/1m)';
+                                    else
+                                        $changed_1m = ' (' . $calc_1m . '%/1m)';
+
+                                    if (!isset($arr['changed_1m'])) $arr['changed_1m'] = [];
+                                    $arr['changed_1m'][$coin] = $changed_1m;
+
+                                    if (!isset($arr['1m_ago'])) $arr['1m_ago'] = [];
+                                    $arr['1m_ago'][$coin] = $old_price;
+                                }
+                            }
+
+                            $arr['1m'] = $list_coin;
+                            $arr['updated_1m'] = $current_time;
+                        }
+                        else {
+                            $arr['1m'] = $old_data['1m'];
+                            $arr['updated_1m'] = $old_time_1m;
+
+                            if (!isset($arr['changed_1m'])) $arr['changed_1m'] = [];
+                            if (isset($old_data['changed_1m'][$coin])) {
+                                $changed_1m = $arr['changed_1m'][$coin] = $old_data['changed_1m'][$coin];
+                            }
+                        }
+
+                        // Check for 5m
+                        $changed_5m = '';
+                        $old_time_5m = (isset($old_data['updated_5m']) and $old_data['updated_5m']) ? $old_data['updated_5m'] : 0;
+                        $changed_time_5m = $current_time - $old_time_5m;
+                        // dump('changed_time_5m'); dump($changed_time_5m);
+                        if ($changed_time_5m >= 5*60) {
+                            // dump(isset($old_data['5m']) and is_array($old_data['5m']) and count($old_data['5m']));
+                            if (isset($old_data['5m']) and is_array($old_data['5m']) and count($old_data['5m'])) {
+                                $tmp_arr = $old_data['5m'];
+                                // dump('array_key_exists($coin, $tmp_arr5m)'); dump(array_key_exists($coin, $tmp_arr));
+                                if (array_key_exists($coin, $tmp_arr)) {
+                                    $old_price = $tmp_arr[$coin];
+                                    // dump('changed_5m$old_price'); dump($old_price);
+                                    $cal = (($new_price - $old_price) / $old_price) * 100;
+                                    $calc_5m = round($cal, 2);
+                                    if ($calc_5m > $max or $calc_5m < $min)
+                                        $changed_5m = ' (<b>' . $calc_5m . '</b>%/5m)';
+                                    else
+                                        $changed_5m = ' (' . $calc_5m . '%/5m)';
+                                    
+                                    if (!isset($arr['changed_5m'])) $arr['changed_5m'] = [];
+                                    $arr['changed_5m'][$coin] = $changed_5m;
+
+                                    if (!isset($arr['5m_ago'])) $arr['5m_ago'] = [];
+                                    $arr['5m_ago'][$coin] = $old_price;
+                                }
+                            }
+
+                            $arr['5m'] = $list_coin;
+                            $arr['updated_5m'] = $current_time;
+                        }
+                        else {
+                            $arr['5m'] = $old_data['5m'];
+                            $arr['updated_5m'] = $old_time_5m;
+
+                            if (!isset($arr['changed_5m'])) $arr['changed_5m'] = [];
+                            if (isset($old_data['changed_5m'][$coin])) {
+                                $changed_5m = $arr['changed_5m'][$coin] = $old_data['changed_5m'][$coin];
+                            }
+                        }
+
+                        // dump('$calc_10s'); dump($calc_10s);
+                        // dump('$calc_1m'); dump($calc_1m);
+                        // dump('$calc_5m'); dump($calc_5m);
+                        // dump('$changed_10s'); dump($changed_10s);
+                        // dump('$changed_1m'); dump($changed_1m);
+                        // dump('$changed_5m'); dump($changed_5m);
+                        
+                        // Check to add to returns
+                        if (($calc_10s > $max or $calc_10s < $min) or ($calc_1m > $max or $calc_1m < $min) or ($calc_5m > $max or $calc_5m < $min)) {
+                            // https://www.binance.com/trade.html?symbol=BTC_USDT
+                            $text_out_link = \BossBaby\Utility::func_clean_double_space($changed_5m . $changed_1m . $changed_10s);
+                            $tmp_str = 'Chú ý coin thay đổi trên <b>Bittrex</b>:';
+                            $tmp_str .= PHP_EOL . PHP_EOL . '<a href="https://bittrex.com/Market/Index?MarketName=' . $coin_name . '_BTC"><b>' . $coin_name . '</b></a> ' . $text_out_link . PHP_EOL;
+                            if (isset($arr['10s_ago']) and isset($arr['10s_ago'][$coin])) $tmp_str .= PHP_EOL . '<b>10 giây</b> trước: ' . $arr['10s_ago'][$coin];
+                            if (isset($arr['1m_ago']) and isset($arr['1m_ago'][$coin])) $tmp_str .= PHP_EOL . '<b>1 phút</b> trước: ' . $arr['1m_ago'][$coin];
+                            if (isset($arr['5m_ago']) and isset($arr['5m_ago'][$coin])) $tmp_str .= PHP_EOL . '<b>5 phút</b> trước: ' . $arr['5m_ago'][$coin];
+                            $tmp_str .= PHP_EOL . 'giá hiện tại: <b>' . $new_price . '</b>';
+                            $return[] = $tmp_str;
+                            // break;
+                        }
+                    }
+                }
+
+                if (!isset($old_data['10s']) or !is_array($old_data['10s'])) $arr['10s'] = $list_coin;
+                if (!isset($old_data['1m']) or !is_array($old_data['1m'])) $arr['1m'] = $list_coin;
+                if (!isset($old_data['5m']) or !is_array($old_data['5m'])) $arr['5m'] = $list_coin;
+                if (!isset($old_data['updated_10s']) or !$old_data['updated_10s']) $arr['updated_10s'] = $current_time;
+                if (!isset($old_data['updated_1m']) or !$old_data['updated_1m']) $arr['updated_1m'] = $current_time;
+                if (!isset($old_data['updated_5m']) or !$old_data['updated_5m']) $arr['updated_5m'] = $current_time;
+            }
+            else {
+                // Put current coin data into array
+                $arr['10s'] = $arr['1m'] = $arr['5m'] = $list_coin;
+                $arr['updated_10s'] = $arr['updated_1m'] = $arr['updated_5m'] = time();
+                $arr['changed_10s'] = $arr['changed_1m'] = $arr['changed_5m'] = [];
+            }
+            
             // dump('$arr'); dump($arr);
+            // Write again into file
+            $arr = json_encode($arr);
             \BossBaby\Config::write_file($file, $arr);
         }
 

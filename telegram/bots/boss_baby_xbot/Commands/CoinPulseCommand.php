@@ -63,12 +63,20 @@ class CoinPulseCommand extends UserCommand
 
         // $data['text'] .= 'Message at ' . date('H:i:s d/m/Y');
 
-        $coinpulse = \BossBaby\Telegram::get_coin_pulse();
-        \BossBaby\Utility::writeLog('coinpulse:'.serialize($coinpulse));
+        $list_coin_binance = \BossBaby\Telegram::get_coin_pulse_binance();
+        // \BossBaby\Utility::writeLog('list_coin_binance:'.serialize($list_coin_binance));
+
+        $list_coin_bittrex = \BossBaby\Telegram::get_coin_pulse_bittrex();
+        // \BossBaby\Utility::writeLog('list_coin_bittrex:'.serialize($list_coin_bittrex));
+
+        $list_coin = array_merge($list_coin_binance, $list_coin_bittrex);
+        // \BossBaby\Utility::writeLog('list_coin:'.serialize($list_coin));
         
-        if ($coinpulse) {
-            $data['text'] = $coinpulse . PHP_EOL;
-            return Request::sendMessage($data);
+        if ($list_coin) {
+            foreach ($list_coin as $coin) {
+                $data['text'] = $coin . PHP_EOL;
+                return Request::sendMessage($data);
+            }
         }
 
         // Do nothing

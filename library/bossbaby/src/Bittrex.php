@@ -35,4 +35,17 @@ class Bittrex
 
         return $arr;
     }
+
+    public static function get_list_coin()
+    {
+        global $environment;
+        $environment->bittrex_instance = new \Bittrex($environment->bittrex->{1}->apiKey, $environment->bittrex->{1}->apiSecret);
+        
+        if (!is_object($environment->bittrex_instance)) return [];
+
+        $arr = $environment->bittrex_instance->GetMarketSummaries();
+        // \BossBaby\Utility::writeLog('arr:'.serialize($arr));
+
+        return $arr;
+    }
 }

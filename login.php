@@ -90,8 +90,8 @@ if (count($_POST) > 0 and $_POST['uname'] and $_POST['psw']) {
 				<input class="form-control" type="text" placeholder="Enter Username" name="uname" required>
 				<label for="psw"><b>Password</b></label>
 				<input class="form-control" type="password" placeholder="Enter Password" name="psw" required>
-				<button type="submit" class="btn btn-primary"></span>Login</button>
-				<!-- <label><input type="checkbox" checked="checked" name="remember"> Remember me</label> -->
+				<button type="submit" class=""></span>Login</button>
+				<label><input type="checkbox" name="remember"> Remember me</label>
 			</div>
 			<?php /*
 			<div class="container" style="background-color:#f1f1f1">
