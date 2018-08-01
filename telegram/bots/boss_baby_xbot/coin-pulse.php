@@ -4,6 +4,10 @@
  * This configuration file is intended to run a list of commands with crontab.
  * Uncommented parameters must be filled
  */
+$str = 'Chú ý coin thay đổi trên <b>Bittrex</b>:
+
+<a href="https://bittrex.com/Market/Index?MarketName=BRX_BTC';
+var_dump($str);die;
 
 if (!defined('STDIN')) die('Access denied.' . "\n");
 

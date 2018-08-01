@@ -58,12 +58,13 @@ class CoinPulseCommand extends UserCommand
         $data = [
             'chat_id'    => $chat_id,
             'parse_mode' => 'html',
-            'text' => PHP_EOL,
+            'text' => 'Hi there!',
         ];
 
         // $data['text'] .= 'Message at ' . date('H:i:s d/m/Y');
 
-        $list_coin_binance = \BossBaby\Telegram::get_coin_pulse_binance();
+        // $list_coin_binance = \BossBaby\Telegram::get_coin_pulse_binance();
+        $list_coin_binance = [];
         // \BossBaby\Utility::writeLog('list_coin_binance:'.serialize($list_coin_binance));
 
         $list_coin_bittrex = \BossBaby\Telegram::get_coin_pulse_bittrex();
@@ -74,7 +75,8 @@ class CoinPulseCommand extends UserCommand
         
         if ($list_coin) {
             foreach ($list_coin as $coin) {
-                $data['text'] = $coin . PHP_EOL;
+                $data['text'] = (string) trim($coin) . PHP_EOL;
+                \BossBaby\Utility::writeLog('text:'.serialize($data['text']));
                 return Request::sendMessage($data);
             }
         }
