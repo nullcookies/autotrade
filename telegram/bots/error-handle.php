@@ -1,4 +1,6 @@
 <?php
+// if (!defined('STDIN')) die('Access denied.' . "\n");
+
 // if (!isset($_GET['secret']) || $_GET['secret'] !== 'AihezooSahc0aiquu3aigai2Phee2ien') {
 //     die('Access denied.' . "\n");
 // }

@@ -1,9 +1,9 @@
 <?php
-if (!defined('STDIN')) die('Access denied.' . "\n");
-
 /**
  * Usage on CLI: $ php broadcast.php [telegram-chat-id] [message]
  */
+if (!defined('STDIN')) die('Access denied.' . "\n");
+
 // Error handle
 require_once __DIR__ . '/error-handle.php';
 

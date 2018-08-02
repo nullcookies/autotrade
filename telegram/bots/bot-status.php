@@ -1,10 +1,11 @@
 <?php
-if (!defined('STDIN')) die('Access denied.' . "\n");
+// if (!defined('STDIN')) die('Access denied.' . "\n");
 
 // Error handle
 require_once __DIR__ . '/error-handle.php';
 
-require_once __DIR__ . '/boss_baby_xbot/coin-pulse.php';
+// require_once __DIR__ . '/boss_baby_xbot/coin-pulse.php';
+
 // if (date('H') == '06' and date('i') == '30') {
 //     require_once __DIR__ . '/broadcast.php';
 //     exit;
@@ -19,17 +20,23 @@ $botsList = [
 ];
 
 $bots = (array) $environment->telegram->bot;
+dump($bots);die;
 if ($bots) {
     if (isset($bots['root_url'])) unset($bots['root_url']);
     foreach ($bots as $pos => $bot) {
         $bot = \BossBaby\Utility::array_to_object($bot);
         $botsList[$bot->name] = $bot->token;
 
-        // // Print URLs to check
-        // echo $unset = 'https://api.telegram.org/bot' . $bot->token . '/setwebhook?url=' . "\n";
-        // file_get_contents($unset);
-        // echo $set = 'https://api.telegram.org/bot' . $bot->token . '/setwebhook?url=' . $bot->root_url . 'set.php' . "\n";
-        // file_get_contents($set);
+        // Print URLs to check
+        echo $unset = 'https://api.telegram.org/bot' . $bot->token . '/setwebhook?url=' . "\n";
+        $chSM = curl_init($unset);
+        curl_exec($chSM);
+        curl_close($chSM);
+
+        echo $set = 'https://api.telegram.org/bot' . $bot->token . '/setwebhook?url=' . $bot->root_url . 'set.php' . "\n";
+        $chSM = curl_init($unset);
+        curl_exec($chSM);
+        curl_close($chSM);
     }
     unset($bots);
 }

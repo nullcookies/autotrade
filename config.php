@@ -104,13 +104,35 @@ return array(
                 'max_connections' => 40,
                 'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_btc_bot/'
             ),
+            '4' => array(
+                'id' => '626393613',
+                'name' => 'Boss Baby Coinpulse Binance',
+                'username' => 'boss_baby_coin_pulse_binance_bot',
+                'token' => '626393613:AAF1WBCw6V19MkNOFDcMhPuF0tfngKfgWNc',
+                'max_connections' => 40,
+                'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_coin_pulse_binance_bot/'
+            ),
+            '5' => array(
+                'id' => '683340249',
+                'name' => 'Boss Baby Coinpulse Bittrex',
+                'username' => 'boss_baby_coin_pulse_bittrex_bot',
+                'token' => '683340249:AAHTU0MIgAMeSs7XTRCF3Pjy97dOgxXxvMk',
+                'max_connections' => 40,
+                'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_coin_pulse_bittrex_bot/'
+            ),
         ),
         'channel' => array(
             '1' => array(
                 'id' => -1001385457186,
                 'name' => 'Boss Baby BOT',
-                'username' => 'channel_boss_baby_bot',
-                'root_url' => 'https://t.me/channel_boss_baby_bot',
+                'username' => 'channel_boss_baby',
+                'root_url' => 'https://t.me/channel_boss_baby',
+            ),
+            '1' => array(
+                'id' => -1001385457186,
+                'name' => 'Boss Baby BOT',
+                'username' => 'channel_coin_pulse_binance',
+                'root_url' => 'https://t.me/channel_coin_pulse_binance',
             ),
         ),
         'group' => array(
@@ -121,12 +143,6 @@ return array(
                 'root_url' => '',
             ),
             '2' => array(
-                'id' => -285042211,
-                'name' => 'Boss Baby BOT',
-                'username' => '',
-                'root_url' => '',
-            ),
-            '3' => array(
                 'id' => -1001178093869,
                 'name' => 'BítMết',
                 'username' => '',
@@ -135,8 +151,8 @@ return array(
         ),
         'users' => array(
             '1' => array(
-                'id' => '',
-                'name' => '',
+                'id' => '396515524',
+                'name' => 'Cá Nóc',
                 'username' => '',
                 'root_url' => '',
             ),

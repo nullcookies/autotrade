@@ -15,8 +15,8 @@ require_once __DIR__ . '/../error-handle.php';
 require_once LIB_DIR . '/telegram/vendor/autoload.php';
 
 // Add you bot's API key and name
-$bot_api_key  = $environment->telegram->bot->{2}->token;
-$bot_username = $environment->telegram->bot->{2}->username;
+$bot_api_key  = $environment->telegram->bot->{5}->token;
+$bot_username = $environment->telegram->bot->{5}->username;
 
 // Define all IDs of admin users in this array (leave as empty array if not used)
 $admin_users = [
