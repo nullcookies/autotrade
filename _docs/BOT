@@ -94,6 +94,7 @@ https://api.telegram.org/bot111:222/sendMessage?chat_id=@channelName&text=123
 https://api.telegram.org/bot669289813:AAFqt7B2POV1yozQzKRmFnFbfAArrh4-VTo/sendMessage?chat_id=@channel_boss_baby&text=get_channel_id
 https://api.telegram.org/bot626393613:AAF1WBCw6V19MkNOFDcMhPuF0tfngKfgWNc/sendMessage?chat_id=@channel_coin_pulse_binance&text=get_channel_id
 https://api.telegram.org/bot683340249:AAHTU0MIgAMeSs7XTRCF3Pjy97dOgxXxvMk/sendMessage?chat_id=@channel_coin_pulse_bittrex&text=get_channel_id
+https://api.telegram.org/bot683340249:AAHTU0MIgAMeSs7XTRCF3Pjy97dOgxXxvMk/sendMessage?chat_id=@channel_boss_baby_bot&text=get_channel_id
 
 
 https://api.telegram.org/bot696118749:AAGofvL9n2Xp-LhBd-jut_QgmnUKV0AsMro/setwebhook?url=

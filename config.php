@@ -148,6 +148,12 @@ return array(
                 'username' => 'channel_coin_pulse_bittrex',
                 'root_url' => 'https://t.me/channel_coin_pulse_bittrex',
             ),
+            '4' => array(
+                'id' => -1001246511258,
+                'name' => 'Boss Baby BOT Channel',
+                'username' => 'channel_boss_baby_bot',
+                'root_url' => 'https://t.me/channel_boss_baby_bot',
+            ),
         ),
         'group' => array(
             '1' => array(
