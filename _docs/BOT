@@ -88,6 +88,12 @@ https://github.com/php-telegram-bot/core/issues/315
 Add BOT to a channel:
 https://stackoverflow.com/questions/33126743/how-do-i-add-my-bot-to-a-channel
 
+Get Channel ID:
+https://stackoverflow.com/questions/36099709/how-get-right-telegram-channel-id/36253461
+https://api.telegram.org/bot111:222/sendMessage?chat_id=@channelName&text=123
+https://api.telegram.org/bot669289813:AAFqt7B2POV1yozQzKRmFnFbfAArrh4-VTo/sendMessage?chat_id=@channel_boss_baby&text=get_channel_id
+https://api.telegram.org/bot626393613:AAF1WBCw6V19MkNOFDcMhPuF0tfngKfgWNc/sendMessage?chat_id=@channel_coin_pulse_binance&text=get_channel_id
+https://api.telegram.org/bot683340249:AAHTU0MIgAMeSs7XTRCF3Pjy97dOgxXxvMk/sendMessage?chat_id=@channel_coin_pulse_bittrex&text=get_channel_id
 
 
 https://api.telegram.org/bot696118749:AAGofvL9n2Xp-LhBd-jut_QgmnUKV0AsMro/setwebhook?url=
@@ -227,6 +233,16 @@ remote: CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 remote: CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 remote: 
 
+http://jsonparseronline.com/
 http://json.parser.online.fr/
 
+How to run cron every 10s:
+https://stackoverflow.com/questions/30295868/how-to-setup-cron-job-to-run-every-10-seconds-in-linux
+
+***** ( /usr/bin/wget http://api.us/application/ )  
+***** ( sleep 10 ; /usr/bin/wget http://api.us/application/ )  
+***** ( sleep 20 ; /usr/bin/wget http://api.us/application/ )  
+***** ( sleep 30 ; /usr/bin/wget http://api.us/application/ )  
+***** ( sleep 40 ; /usr/bin/wget http://api.us/application/ )  
+***** ( sleep 50 ; /usr/bin/wget http://api.us/application/ )  
 

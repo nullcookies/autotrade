@@ -128,11 +128,17 @@ return array(
                 'username' => 'channel_boss_baby',
                 'root_url' => 'https://t.me/channel_boss_baby',
             ),
-            '1' => array(
-                'id' => -1001385457186,
-                'name' => 'Boss Baby BOT',
+            '2' => array(
+                'id' => -1001393367903,
+                'name' => 'Boss Baby Coinpulse Binance',
                 'username' => 'channel_coin_pulse_binance',
                 'root_url' => 'https://t.me/channel_coin_pulse_binance',
+            ),
+            '3' => array(
+                'id' => -1001379801333,
+                'name' => 'Boss Baby Coinpulse Bittrex',
+                'username' => 'channel_coin_pulse_bittrex',
+                'root_url' => 'https://t.me/channel_coin_pulse_bittrex',
             ),
         ),
         'group' => array(

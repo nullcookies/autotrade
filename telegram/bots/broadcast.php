@@ -41,36 +41,39 @@ $message .= PHP_EOL;
 sendMessage($chat_id, $message);
 // ------------------------------------------------------------ //
 
-
-function sendPhoto($chat_id = '', $photo = '')
-{
-    if ($chat_id !== '' && $photo !== '') {
-        $result = Request::sendPhoto([
-            'chat_id' => $chat_id,
-            'photo'   => $photo,
-            'parse_mode' => 'markdown',
-        ]);
+if (!function_exists('sendPhoto')) {
+    function sendPhoto($chat_id = '', $photo = '')
+    {
+        if ($chat_id !== '' && $photo !== '') {
+            $result = Request::sendPhoto([
+                'chat_id' => $chat_id,
+                'photo'   => $photo,
+                'parse_mode' => 'markdown',
+            ]);
+        }
     }
 }
 
-function sendMessage($chat_id = '', $message = '')
-{
-    if ($chat_id !== '' && $message !== '') {
-        $data = [
-            'chat_id' => $chat_id,
-            'text'    => $message,
-            'parse_mode' => 'markdown',
-        ];
+if (!function_exists('sendMessage')) {
+    function sendMessage($chat_id = '', $message = '')
+    {
+        if ($chat_id !== '' && $message !== '') {
+            $data = [
+                'chat_id' => $chat_id,
+                'text'    => $message,
+                'parse_mode' => 'markdown',
+            ];
 
-        $result = Request::sendMessage($data);
+            $result = Request::sendMessage($data);
 
-        if ($result->isOk()) {
-            echo 'Message sent succesfully to: ' . $chat_id . PHP_EOL;
-        } else {
-            echo 'Sorry message not sent to: ' . $chat_id . PHP_EOL;
+            if ($result->isOk()) {
+                echo 'Message sent succesfully to: ' . $chat_id . PHP_EOL;
+            } else {
+                echo 'Sorry message not sent to: ' . $chat_id . PHP_EOL;
+            }
         }
-    }
-    else {
-        die('Nothing to do!');
+        else {
+            die('Nothing to do!');
+        }
     }
 }

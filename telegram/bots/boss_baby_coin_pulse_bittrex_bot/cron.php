@@ -13,24 +13,25 @@ require_once __DIR__ . '/../error-handle.php';
 // Load composer
 require_once LIB_DIR . '/telegram/vendor/autoload.php';
 
-$i = 0;
-run_cron();
+// $count_run_cron_bittrex = 0;
+// run_cron_bittrex();
 
-function run_cron() {
+function run_cron_bittrex() {
+    // dump(__FUNCTION__ . '::' . time());
     global $environment;
-    global $i;
+    global $count_run_cron_bittrex;
     
-    $i++;
-    if ($i > 3) die('FINISHED');
+    // $count_run_cron_bittrex++;
+    // if ($count_run_cron_bittrex > 4) die('FINISHED');
 
-    // Your command(s) to run, pass it just like in a message (arguments supported)
-    $commands = [
-        '/coinpulse'
-    ];
+    // // Your command(s) to run, pass it just like in a message (arguments supported)
+    // $commands = [
+    //     '/coinpulse'
+    // ];
 
     // Add you bot's API key and name
-    $bot_api_key  = $environment->telegram->bot->{2}->token;
-    $bot_username = $environment->telegram->bot->{2}->username;
+    $bot_api_key  = $environment->telegram->bot->{5}->token;
+    $bot_username = $environment->telegram->bot->{5}->username;
 
     // Define all IDs of admin users in this array (leave as empty array if not used)
     // $admin_users = [
@@ -54,8 +55,8 @@ function run_cron() {
         // Create Telegram API object
         $telegram = new Longman\TelegramBot\Telegram($bot_api_key, $bot_username);
         
-        // Add commands paths containing your custom commands
-        $telegram->addCommandsPaths($commands_paths);
+        // // Add commands paths containing your custom commands
+        // $telegram->addCommandsPaths($commands_paths);
 
         // // Enable admin users
         // $telegram->enableAdmins($admin_users);
@@ -72,7 +73,7 @@ function run_cron() {
         //Longman\TelegramBot\TelegramLog::initialize($your_external_monolog_instance);
 
         // Set custom Upload and Download paths
-        $telegram->setDownloadPath(LOGS_DIR);
+        //$telegram->setDownloadPath(LOGS_DIR);
         //$telegram->setUploadPath(__DIR__ . '/Upload');
 
         // Here you can set some command specific parameters,
@@ -83,12 +84,44 @@ function run_cron() {
         //$telegram->enableBotan('your_botan_token');
 
         // Requests Limiter (tries to prevent reaching Telegram API limits)
-        $telegram->enableLimiter();
+        // $telegram->enableLimiter();
 
         // Run user selected commands
-        $last_command_response = $telegram->runCommands($commands);
+        // $last_command_response = $telegram->runCommands($commands);
 
         // dump('$last_command_response:'); dump($last_command_response);
+
+        // $chat_id   = $message->getChat()->getId();
+        $chat_id   = $environment->telegram->channel->{3}->id;
+        // $chat_id   = $environment->telegram->main->id;
+
+        $data = [
+            'chat_id'    => $chat_id,
+            'parse_mode' => 'html',
+            'text' => '',
+        ];
+
+        // $data['text'] = 'Message at ' . date('H:i:s d/m/Y');
+
+        $list_coin_bittrex = \BossBaby\Telegram::get_coin_pulse_bittrex(-5, 5);
+        // \BossBaby\Utility::writeLog('list_coin_bittrex:'.serialize($list_coin_bittrex));
+        
+        if ($list_coin_bittrex)
+            $data['text'] .= trim($list_coin_bittrex);
+
+        // dump($data['text']);die;
+        
+        if (trim($data['text'])) {
+            // \BossBaby\Utility::writeLog('text:'.serialize($data['text']));
+            $result = Longman\TelegramBot\Request::sendMessage($data);
+            // dump('$result'); dump($result);
+
+            // if ($result->isOk()) {
+            //     echo 'Message sent succesfully to: ' . $chat_id . PHP_EOL;
+            // } else {
+            //     echo 'Sorry message not sent to: ' . $chat_id . PHP_EOL;
+            // }
+        }
 
     } catch (Longman\TelegramBot\Exception\TelegramException $e) {
         // dump('TelegramException:'); dump($e);
@@ -103,6 +136,6 @@ function run_cron() {
         // dump('TelegramLogException:'); dump($e);
     }
 
-    sleep(10);
-    run_cron();
+//     sleep(10);
+//     run_cron_bittrex();
 }
