@@ -120,6 +120,14 @@ return array(
                 'max_connections' => 40,
                 'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_coin_pulse_bittrex_bot/'
             ),
+            '5' => array(
+                'id' => '614594926',
+                'name' => 'Boss Baby Coins Compare',
+                'username' => 'boss_baby_coins_compare_bot',
+                'token' => '614594926:AAH50HyCg-UhEluUK1lWagtVAW2aXN2Bf8M',
+                'max_connections' => 40,
+                'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_coins_compare_bot/'
+            ),
         ),
         'channel' => array(
             '1' => array(
