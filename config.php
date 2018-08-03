@@ -36,7 +36,14 @@ return array(
             'apiSecret' => 'rm2vVgKwiMedGXX50cul__rhEH-ZJxuv-Duo9OGCBoKexFYA',
         ),
     ),
-	'binance' => array(
+	'houbi' => array(
+        '1' => array(
+            'email' => 'longersoft@gmail.com',
+            'apiKey' => '3606b44b-5ee91e14-aa63634c-5682d',
+            'apiSecret' => '422cade3-55f95051-2760ade9-cd57e',
+        ),
+    ),
+    'binance' => array(
 	    '1' => array(
             'email' => 'longersoft@gmail.com',
             'apiKey' => 'EKQuqdZECTzhL0sqloEkhN3yJdqgayMooFH48cM6gVASAODGnyINbZNzQwtzmp5j',

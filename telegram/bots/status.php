@@ -28,7 +28,7 @@ if ($bots) {
         }
         if (isset($_GET['check']) and isset($_GET['set'])) {
             echo '<br/>';
-            echo '<br/>'.$set = 'https://api.telegram.org/bot' . $bot->token . '/setwebhook?url=' . $bot->root_url . 'set.php' . "\n";
+            echo '<br/>'.$set = 'https://api.telegram.org/bot' . $bot->token . '/setwebhook?url=' . $bot->root_url . 'hook.php' . "\n";
             $chSM = curl_init($unset);
             curl_exec($chSM);
             curl_close($chSM);

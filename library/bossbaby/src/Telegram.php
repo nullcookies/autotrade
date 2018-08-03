@@ -185,12 +185,11 @@ class Telegram
                                     // dump('changed_1m$old_price'); dump($old_price);
                                     $cal = (($new_price - $old_price) / $old_price) * 100;
                                     $calc_1m = round($cal, 2);
+                                    if ($calc_1m < $calc_10s) $calc_1m = $calc_10s;
                                     if ($calc_1m > $max or $calc_1m < $min)
                                         $changed_1m = ' (<b>' . $calc_1m . '</b>%/1m)';
                                     else
                                         $changed_1m = ' (' . $calc_1m . '%/1m)';
-
-                                    if ($calc_1m < $calc_10s) $calc_1m = $calc_10s;
 
                                     if (!isset($arr['changed_1m'])) $arr['changed_1m'] = [];
                                     $arr['changed_1m'][$coin] = $changed_1m;
@@ -233,13 +232,12 @@ class Telegram
                                     // dump('changed_5m$old_price'); dump($old_price);
                                     $cal = (($new_price - $old_price) / $old_price) * 100;
                                     $calc_5m = round($cal, 2);
+                                    if ($calc_5m < $calc_1m) $calc_5m = $calc_1m;
                                     if ($calc_5m > $max or $calc_5m < $min)
                                         $changed_5m = ' (<b>' . $calc_5m . '</b>%/5m)';
                                     else
                                         $changed_5m = ' (' . $calc_5m . '%/5m)';
 
-                                    if ($calc_5m < $calc_1m) $calc_5m = $calc_1m;
-                                    
                                     if (!isset($arr['changed_5m'])) $arr['changed_5m'] = [];
                                     $arr['changed_5m'][$coin] = $changed_5m;
 
@@ -281,13 +279,12 @@ class Telegram
                                     // dump('changed_1h$old_price'); dump($old_price);
                                     $cal = (($new_price - $old_price) / $old_price) * 100;
                                     $calc_1h = round($cal, 2);
+                                    if ($calc_1h < $calc_5m) $calc_1h = $calc_5m;
                                     if ($calc_1h > $max or $calc_1h < $min)
                                         $changed_1h = ' (<b>' . $calc_1h . '</b>%/1h)';
                                     else
                                         $changed_1h = ' (' . $calc_1h . '%/1h)';
 
-                                    if ($calc_1h < $calc_5m) $calc_1h = $calc_5m;
-                                    
                                     if (!isset($arr['changed_1h'])) $arr['changed_1h'] = [];
                                     $arr['changed_1h'][$coin] = $changed_1h;
 
@@ -498,12 +495,11 @@ class Telegram
                                     // dump('changed_1m$old_price'); dump($old_price);
                                     $cal = (($new_price - $old_price) / $old_price) * 100;
                                     $calc_1m = round($cal, 2);
+                                    if ($calc_1m < $calc_10s) $calc_1m = $calc_10s;
                                     if ($calc_1m > $max or $calc_1m < $min)
                                         $changed_1m = ' (<b>' . $calc_1m . '</b>%/1m)';
                                     else
                                         $changed_1m = ' (' . $calc_1m . '%/1m)';
-
-                                    if ($calc_1m < $calc_10s) $calc_1m = $calc_10s;
 
                                     if (!isset($arr['changed_1m'])) $arr['changed_1m'] = [];
                                     $arr['changed_1m'][$coin] = $changed_1m;
@@ -546,13 +542,12 @@ class Telegram
                                     // dump('changed_5m$old_price'); dump($old_price);
                                     $cal = (($new_price - $old_price) / $old_price) * 100;
                                     $calc_5m = round($cal, 2);
+                                    if ($calc_5m < $calc_1m) $calc_5m = $calc_1m;
                                     if ($calc_5m > $max or $calc_5m < $min)
                                         $changed_5m = ' (<b>' . $calc_5m . '</b>%/5m)';
                                     else
                                         $changed_5m = ' (' . $calc_5m . '%/5m)';
                                     
-                                    if ($calc_5m < $calc_1m) $calc_5m = $calc_1m;
-
                                     if (!isset($arr['changed_5m'])) $arr['changed_5m'] = [];
                                     $arr['changed_5m'][$coin] = $changed_5m;
 
@@ -594,13 +589,12 @@ class Telegram
                                     // dump('changed_1h$old_price'); dump($old_price);
                                     $cal = (($new_price - $old_price) / $old_price) * 100;
                                     $calc_1h = round($cal, 2);
+                                    if ($calc_1h < $calc_5m) $calc_1h = $calc_5m;
                                     if ($calc_1h > $max or $calc_1h < $min)
                                         $changed_1h = ' (<b>' . $calc_1h . '</b>%/1h)';
                                     else
                                         $changed_1h = ' (' . $calc_1h . '%/1h)';
 
-                                    if ($calc_1h < $calc_5m) $calc_1h = $calc_5m;
-                                    
                                     if (!isset($arr['changed_1h'])) $arr['changed_1h'] = [];
                                     $arr['changed_1h'][$coin] = $changed_1h;
 
