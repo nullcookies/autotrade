@@ -13,16 +13,26 @@ require_once __DIR__ . '/../error-handle.php';
 // Load composer
 require_once LIB_DIR . '/telegram/vendor/autoload.php';
 
-// $count_run_cron_bittrex = 0;
-// run_cron_bittrex();
+$sleep = 9;
 
-function run_cron_bittrex() {
+// $i = 0;
+// run_cron();
+
+run_cron();
+sleep($sleep); run_cron();
+sleep($sleep); run_cron();
+sleep($sleep); run_cron();
+sleep($sleep); run_cron();
+
+function run_cron() {
     // dump(__FUNCTION__ . '::' . time());
+    // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
+
     global $environment;
     global $count_run_cron_bittrex;
     
-    // $count_run_cron_bittrex++;
-    // if ($count_run_cron_bittrex > 4) die('FINISHED');
+    // $i++;
+    // if ($i > 4) die('FINISHED');
 
     // // Your command(s) to run, pass it just like in a message (arguments supported)
     // $commands = [
@@ -106,21 +116,36 @@ function run_cron_bittrex() {
         $list_coin_bittrex = \BossBaby\Telegram::get_coin_pulse_bittrex(-5, 5);
         // \BossBaby\Utility::writeLog('list_coin_bittrex:'.serialize($list_coin_bittrex));
         
-        if ($list_coin_bittrex)
-            $data['text'] .= trim($list_coin_bittrex);
+        // if ($list_coin_bittrex)
+        //     $data['text'] .= trim($list_coin_bittrex);
 
-        // dump($data['text']);die;
+        // // dump($data['text']);die;
         
-        if (trim($data['text'])) {
-            // \BossBaby\Utility::writeLog('text:'.serialize($data['text']));
-            $result = Longman\TelegramBot\Request::sendMessage($data);
-            // dump('$result'); dump($result);
+        // if (trim($data['text'])) {
+        //     // \BossBaby\Utility::writeLog('text:'.serialize($data['text']));
+        //     $result = Longman\TelegramBot\Request::sendMessage($data);
+        //     // dump('$result'); dump($result);
 
-            // if ($result->isOk()) {
-            //     echo 'Message sent succesfully to: ' . $chat_id . PHP_EOL;
-            // } else {
-            //     echo 'Sorry message not sent to: ' . $chat_id . PHP_EOL;
-            // }
+        //     // if ($result->isOk()) {
+        //     //     echo 'Message sent succesfully to: ' . $chat_id . PHP_EOL;
+        //     // } else {
+        //     //     echo 'Sorry message not sent to: ' . $chat_id . PHP_EOL;
+        //     // }
+        // }
+
+        if ($list_coin_bittrex) {
+            foreach ($list_coin_bittrex as $text) {
+                $data['text'] = trim($text);
+
+                $result = Longman\TelegramBot\Request::sendMessage($data);
+                // dump('$result'); dump($result);
+
+                // if ($result->isOk()) {
+                //     echo 'Message sent succesfully to: ' . $chat_id . PHP_EOL;
+                // } else {
+                //     echo 'Sorry message not sent to: ' . $chat_id . PHP_EOL;
+                // }
+            }
         }
 
     } catch (Longman\TelegramBot\Exception\TelegramException $e) {
@@ -137,5 +162,5 @@ function run_cron_bittrex() {
     }
 
 //     sleep(10);
-//     run_cron_bittrex();
+//     run_cron();
 }

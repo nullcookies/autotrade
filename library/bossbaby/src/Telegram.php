@@ -190,6 +190,8 @@ class Telegram
                                     else
                                         $changed_1m = ' (' . $calc_1m . '%/1m)';
 
+                                    if ($calc_1m < $calc_10s) $calc_1m = $calc_10s;
+
                                     if (!isset($arr['changed_1m'])) $arr['changed_1m'] = [];
                                     $arr['changed_1m'][$coin] = $changed_1m;
 
@@ -235,6 +237,8 @@ class Telegram
                                         $changed_5m = ' (<b>' . $calc_5m . '</b>%/5m)';
                                     else
                                         $changed_5m = ' (' . $calc_5m . '%/5m)';
+
+                                    if ($calc_5m < $calc_1m) $calc_5m = $calc_1m;
                                     
                                     if (!isset($arr['changed_5m'])) $arr['changed_5m'] = [];
                                     $arr['changed_5m'][$coin] = $changed_5m;
@@ -281,6 +285,8 @@ class Telegram
                                         $changed_1h = ' (<b>' . $calc_1h . '</b>%/1h)';
                                     else
                                         $changed_1h = ' (' . $calc_1h . '%/1h)';
+
+                                    if ($calc_1h < $calc_5m) $calc_1h = $calc_5m;
                                     
                                     if (!isset($arr['changed_1h'])) $arr['changed_1h'] = [];
                                     $arr['changed_1h'][$coin] = $changed_1h;
@@ -320,6 +326,9 @@ class Telegram
                         // \BossBaby\Utility::writeLog('cal '.$coin.'::'.serialize($calc_10s).'::'.serialize($calc_1m).'::'.serialize($calc_5m).'::'.serialize($calc_1h));
 
                         // Check to add to returns
+                        if ($calc_1m < $calc_10s) $calc_1m = $calc_10s;
+                        if ($calc_5m < $calc_1m) $calc_5m = $calc_1m;
+                        if ($calc_1h < $calc_5m) $calc_1h = $calc_5m;
                         if (($calc_10s > $max or $calc_10s < $min) or ($calc_1m > $max or $calc_1m < $min) or ($calc_5m > $max or $calc_5m < $min) or ($calc_1h > $max or $calc_1h < $min)) {
                             // https://www.binance.com/trade.html?symbol=BTC_USDT
                             $text_out_link = \BossBaby\Utility::func_clean_double_space($changed_1h . $changed_5m . $changed_1m . $changed_10s);
@@ -330,7 +339,7 @@ class Telegram
                             if (isset($arr['1h_ago']) and isset($arr['1h_ago'][$coin])) $tmp_str .= PHP_EOL . '1h ago: ' . $arr['1h_ago'][$coin];
                             $tmp_str .= PHP_EOL . 'last price: <b>' . $new_price . '</b>';
                             $return[] = $tmp_str . PHP_EOL;
-                            break;
+                            // break;
                         }
                     }
                 }
@@ -355,19 +364,21 @@ class Telegram
             // Write again into file
             $arr = json_encode($arr);
             \BossBaby\Config::write_file($file, $arr);
+            sleep(1);
         }
 
         // dump('$return'); dump($return);die;
         // \BossBaby\Utility::writeLog('binance-return:'.serialize($return));
-        $text = '';
-        if ($return) {
-            // $text = 'Chú ý giá coin thay đổi trên <a href="https://www.binance.com/?ref=13132993">Binance</a>:' . PHP_EOL;
-            foreach ($return as $value) {
-                $text .= $value;
-            }
-        }
-
-        return $text;
+        // $text = '';
+        // if ($return) {
+        //     // $text = 'Chú ý giá coin thay đổi trên <a href="https://www.binance.com/?ref=13132993">Binance</a>:' . PHP_EOL;
+        //     foreach ($return as $value) {
+        //         $text .= $value;
+        //     }
+        // }
+        // return $text;
+        
+        return $return;
     }
 
     public static function get_coin_pulse_bittrex($min = -5, $max = 5)
@@ -492,6 +503,8 @@ class Telegram
                                     else
                                         $changed_1m = ' (' . $calc_1m . '%/1m)';
 
+                                    if ($calc_1m < $calc_10s) $calc_1m = $calc_10s;
+
                                     if (!isset($arr['changed_1m'])) $arr['changed_1m'] = [];
                                     $arr['changed_1m'][$coin] = $changed_1m;
 
@@ -538,6 +551,8 @@ class Telegram
                                     else
                                         $changed_5m = ' (' . $calc_5m . '%/5m)';
                                     
+                                    if ($calc_5m < $calc_1m) $calc_5m = $calc_1m;
+
                                     if (!isset($arr['changed_5m'])) $arr['changed_5m'] = [];
                                     $arr['changed_5m'][$coin] = $changed_5m;
 
@@ -583,6 +598,8 @@ class Telegram
                                         $changed_1h = ' (<b>' . $calc_1h . '</b>%/1h)';
                                     else
                                         $changed_1h = ' (' . $calc_1h . '%/1h)';
+
+                                    if ($calc_1h < $calc_5m) $calc_1h = $calc_5m;
                                     
                                     if (!isset($arr['changed_1h'])) $arr['changed_1h'] = [];
                                     $arr['changed_1h'][$coin] = $changed_1h;
@@ -620,6 +637,9 @@ class Telegram
                         // dump('$changed_1h'); dump($changed_1h);
                         
                         // Check to add to returns
+                        if ($calc_1m < $calc_10s) $calc_1m = $calc_10s;
+                        if ($calc_5m < $calc_1m) $calc_5m = $calc_1m;
+                        if ($calc_1h < $calc_5m) $calc_1h = $calc_5m;
                         if (($calc_10s > $max or $calc_10s < $min) or ($calc_1m > $max or $calc_1m < $min) or ($calc_5m > $max or $calc_5m < $min) or ($calc_1h > $max or $calc_1h < $min)) {
                             // https://www.binance.com/trade.html?symbol=BTC_USDT
                             $text_out_link = \BossBaby\Utility::func_clean_double_space($changed_1h . $changed_5m . $changed_1m . $changed_10s);
@@ -630,7 +650,7 @@ class Telegram
                             if (isset($arr['1h_ago']) and isset($arr['1h_ago'][$coin])) $tmp_str .= PHP_EOL . '1h ago: ' . $arr['1h_ago'][$coin];
                             $tmp_str .= PHP_EOL . 'last price: <b>' . $new_price . '</b>';
                             $return[] = $tmp_str . PHP_EOL;
-                            break;
+                            // break;
                         }
                     }
                 }
@@ -655,17 +675,19 @@ class Telegram
             // Write again into file
             $arr = json_encode($arr);
             \BossBaby\Config::write_file($file, $arr);
+            sleep(1);
         }
 
         // dump('$return'); dump($return);die;
-        $text = '';
-        if ($return) {
-            // $text = 'Chú ý giá coin thay đổi trên <a href="https://bittrex.com/Market">Bittrex</a>:' . PHP_EOL;
-            foreach ($return as $value) {
-                $text .= $value;
-            }
-        }
+        // $text = '';
+        // if ($return) {
+        //     // $text = 'Chú ý giá coin thay đổi trên <a href="https://bittrex.com/Market">Bittrex</a>:' . PHP_EOL;
+        //     foreach ($return as $value) {
+        //         $text .= $value;
+        //     }
+        // }
+        // return $text;
 
-        return $text;
+        return $return;
     }
 }

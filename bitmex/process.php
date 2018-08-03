@@ -450,6 +450,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 }
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-order') {
+	$has_data = false;
 	for ($i=0; $i < 10; $i++) {
 		$arr = \BossBaby\Bitmex::func_get_order($environment->bitmex_instance2, $i, 10);
 		if (!$arr) continue;
@@ -466,11 +467,15 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 		$arr_tmp['timestamp'] = $arr['timestamp'];
 		$arr = $arr_tmp;
 		\BossBaby\Utility::func_print_arr_to_table($arr, 'Order ' . ($i+1));
+		$has_data = true;
 	}
+	if (!$has_data)
+		\BossBaby\Utility::func_print_arr_to_table([]);
 	exit;
 }
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-order2') {
+	$has_data = false;
 	for ($i=0; $i < 10; $i++) {
 		$arr = \BossBaby\Bitmex::func_get_order($environment->bitmex_instance3, $i, 10);
 		if (!$arr) continue;
@@ -487,7 +492,10 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 		$arr_tmp['timestamp'] = $arr['timestamp'];
 		$arr = $arr_tmp;
 		\BossBaby\Utility::func_print_arr_to_table($arr, 'Order ' . ($i+1));
+		$has_data = true;
 	}
+	if (!$has_data)
+		\BossBaby\Utility::func_print_arr_to_table([]);
 	exit;
 }
 

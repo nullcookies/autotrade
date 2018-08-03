@@ -235,6 +235,7 @@ remote: CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 remote: 
 
 http://jsonparseronline.com/
+https://jsoneditoronline.org/
 http://json.parser.online.fr/
 
 How to run cron every 10s:
@@ -246,4 +247,10 @@ https://stackoverflow.com/questions/30295868/how-to-setup-cron-job-to-run-every-
 ***** ( sleep 30 ; /usr/bin/wget http://api.us/application/ )  
 ***** ( sleep 40 ; /usr/bin/wget http://api.us/application/ )  
 ***** ( sleep 50 ; /usr/bin/wget http://api.us/application/ )  
+
+How to call php function without waiting for result:
+https://stackoverflow.com/questions/124462/how-to-make-asynchronous-http-requests-in-php
+How to make asynchronous HTTP requests in PHP
+https://stackoverflow.com/questions/962915/how-do-i-make-an-asynchronous-get-request-in-php
+
 
