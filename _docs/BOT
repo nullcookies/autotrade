@@ -252,5 +252,9 @@ How to call php function without waiting for result:
 https://stackoverflow.com/questions/124462/how-to-make-asynchronous-http-requests-in-php
 How to make asynchronous HTTP requests in PHP
 https://stackoverflow.com/questions/962915/how-do-i-make-an-asynchronous-get-request-in-php
+https://stackoverflow.com/questions/222414/asynchronous-shell-exec-in-php
+https://github.com/spatie/async
 
+https://github.com/segmentio/analytics-php
+https://segment.com/docs/sources/server/php/
 
