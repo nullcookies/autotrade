@@ -96,38 +96,38 @@ return array(
                 'max_connections' => 40,
                 'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_xbot/'
             ),
-            '3' => array(
-                'id' => '641704003',
-                'name' => 'Boss Baby BTC',
-                'username' => 'boss_baby_btc_bot',
-                'token' => '641704003:AAHSGnyXAigJDwi4dMdG7rUoftCnbHMUWP8',
-                'max_connections' => 40,
-                'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_btc_bot/'
-            ),
-            '4' => array(
-                'id' => '626393613',
-                'name' => 'Boss Baby Coinpulse Binance',
-                'username' => 'boss_baby_coin_pulse_binance_bot',
-                'token' => '626393613:AAF1WBCw6V19MkNOFDcMhPuF0tfngKfgWNc',
-                'max_connections' => 40,
-                'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_coin_pulse_binance_bot/'
-            ),
-            '5' => array(
-                'id' => '683340249',
-                'name' => 'Boss Baby Coinpulse Bittrex',
-                'username' => 'boss_baby_coin_pulse_bittrex_bot',
-                'token' => '683340249:AAHTU0MIgAMeSs7XTRCF3Pjy97dOgxXxvMk',
-                'max_connections' => 40,
-                'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_coin_pulse_bittrex_bot/'
-            ),
-            '5' => array(
-                'id' => '614594926',
-                'name' => 'Boss Baby Coins Compare',
-                'username' => 'boss_baby_coins_compare_bot',
-                'token' => '614594926:AAH50HyCg-UhEluUK1lWagtVAW2aXN2Bf8M',
-                'max_connections' => 40,
-                'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_coins_compare_bot/'
-            ),
+            // '3' => array(
+            //     'id' => '641704003',
+            //     'name' => 'Boss Baby BTC',
+            //     'username' => 'boss_baby_btc_bot',
+            //     'token' => '641704003:AAHSGnyXAigJDwi4dMdG7rUoftCnbHMUWP8',
+            //     'max_connections' => 40,
+            //     'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_btc_bot/'
+            // ),
+            // '4' => array(
+            //     'id' => '626393613',
+            //     'name' => 'Boss Baby Coinpulse Binance',
+            //     'username' => 'boss_baby_coin_pulse_binance_bot',
+            //     'token' => '626393613:AAF1WBCw6V19MkNOFDcMhPuF0tfngKfgWNc',
+            //     'max_connections' => 40,
+            //     'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_coin_pulse_binance_bot/'
+            // ),
+            // '5' => array(
+            //     'id' => '683340249',
+            //     'name' => 'Boss Baby Coinpulse Bittrex',
+            //     'username' => 'boss_baby_coin_pulse_bittrex_bot',
+            //     'token' => '683340249:AAHTU0MIgAMeSs7XTRCF3Pjy97dOgxXxvMk',
+            //     'max_connections' => 40,
+            //     'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_coin_pulse_bittrex_bot/'
+            // ),
+            // '5' => array(
+            //     'id' => '614594926',
+            //     'name' => 'Boss Baby Coins Compare',
+            //     'username' => 'boss_baby_coins_compare_bot',
+            //     'token' => '614594926:AAH50HyCg-UhEluUK1lWagtVAW2aXN2Bf8M',
+            //     'max_connections' => 40,
+            //     'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_coins_compare_bot/'
+            // ),
         ),
         'channel' => array(
             '1' => array(

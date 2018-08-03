@@ -26,13 +26,13 @@ sleep($sleep); run_cron();
 
 function run_cron() {
     // dump(__FUNCTION__ . '::' . time());
-    // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
+    // \BossBaby\Utility::writeLog('----'.__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
 
     global $environment;
-    global $count_run_cron_bittrex;
+    global $count_run_cron_binance;
     
     // $i++;
-    // if ($i > 4) die('FINISHED');
+    // if ($i > 1) die('FINISHED');
 
     // // Your command(s) to run, pass it just like in a message (arguments supported)
     // $commands = [
@@ -40,8 +40,8 @@ function run_cron() {
     // ];
 
     // Add you bot's API key and name
-    $bot_api_key  = $environment->telegram->bot->{5}->token;
-    $bot_username = $environment->telegram->bot->{5}->username;
+    $bot_api_key  = $environment->telegram->bot->{2}->token;
+    $bot_username = $environment->telegram->bot->{2}->username;
 
     // Define all IDs of admin users in this array (leave as empty array if not used)
     // $admin_users = [
@@ -102,7 +102,7 @@ function run_cron() {
         // dump('$last_command_response:'); dump($last_command_response);
 
         // $chat_id   = $message->getChat()->getId();
-        $chat_id   = $environment->telegram->channel->{3}->id;
+        $chat_id   = $environment->telegram->channel->{2}->id;
         // $chat_id   = $environment->telegram->main->id;
 
         $data = [
@@ -113,11 +113,11 @@ function run_cron() {
 
         // $data['text'] = 'Message at ' . date('H:i:s d/m/Y');
 
-        $list_coin_bittrex = \BossBaby\Telegram::get_coin_pulse_bittrex(-5, 5);
-        // \BossBaby\Utility::writeLog('list_coin_bittrex:'.serialize($list_coin_bittrex));
-        
-        // if ($list_coin_bittrex)
-        //     $data['text'] .= trim($list_coin_bittrex);
+        $list_coin_binance = \BossBaby\Telegram::get_coin_pulse_binance(-5, 5);
+        // \BossBaby\Utility::writeLog('list_coin_binance:'.serialize($list_coin_binance));
+
+        // if ($list_coin_binance)
+        //     $data['text'] .= trim($list_coin_binance);
 
         // // dump($data['text']);die;
         
@@ -133,17 +133,20 @@ function run_cron() {
         //     // }
         // }
 
-        if ($list_coin_bittrex) {
-            foreach ($list_coin_bittrex as $text) {
+        if ($list_coin_binance) {
+            foreach ($list_coin_binance as $text) {
                 $data['text'] = trim($text);
 
                 $result = Longman\TelegramBot\Request::sendMessage($data);
                 // dump('$result'); dump($result);
+                // \BossBaby\Utility::writeLog('result:'.serialize($result));
 
                 // if ($result->isOk()) {
-                //     echo 'Message sent succesfully to: ' . $chat_id . PHP_EOL;
+                //     // echo 'Message sent succesfully to: ' . $chat_id . PHP_EOL;
+                //     \BossBaby\Utility::writeLog('result:Message sent succesfully to: ' . $chat_id);
                 // } else {
-                //     echo 'Sorry message not sent to: ' . $chat_id . PHP_EOL;
+                //     // echo 'Sorry message not sent to: ' . $chat_id . PHP_EOL;
+                //     \BossBaby\Utility::writeLog('result:Sorry message not sent to: ' . $chat_id);
                 // }
             }
         }

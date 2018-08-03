@@ -20,13 +20,15 @@ if ($bots) {
         $botsList[$bot->name] = $bot->token;
 
         // Print URLs to check
-        if (isset($_GET['check'])) {
-            echo $unset = 'https://api.telegram.org/bot' . $bot->token . '/setwebhook?url=' . "\n";
+        if (isset($_GET['check']) and isset($_GET['unset'])) {
+            echo '<br/>'.$unset = 'https://api.telegram.org/bot' . $bot->token . '/setwebhook?url=' . "\n";
             $chSM = curl_init($unset);
             curl_exec($chSM);
             curl_close($chSM);
-
-            echo $set = 'https://api.telegram.org/bot' . $bot->token . '/setwebhook?url=' . $bot->root_url . 'set.php' . "\n";
+        }
+        if (isset($_GET['check']) and isset($_GET['set'])) {
+            echo '<br/>';
+            echo '<br/>'.$set = 'https://api.telegram.org/bot' . $bot->token . '/setwebhook?url=' . $bot->root_url . 'set.php' . "\n";
             $chSM = curl_init($unset);
             curl_exec($chSM);
             curl_close($chSM);
@@ -36,7 +38,7 @@ if ($bots) {
 }
 
 // Check links
-if (isset($_GET['check'])) die;
+if (isset($_GET['check']) or isset($_GET['set']) or isset($_GET['unset'])) die('END-CHECK');
 
 $botsDown = [];
 foreach ($botsList as $botUsername => $apiKey) {

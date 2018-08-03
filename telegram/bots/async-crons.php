@@ -15,10 +15,10 @@ require_once __DIR__ . '/error-handle.php';
 async_execute_file(__DIR__ . '/status.php');
 
 // Run cron retrive coins on Binance
-async_execute_file(__DIR__ . '/boss_baby_coin_pulse_binance_bot/cron.php');
+async_execute_file(__DIR__ . '/boss_baby_xbot/coin-pulse-binance.php');
 
 // Run cron retrive coins on Binance
-async_execute_file(__DIR__ . '/boss_baby_coin_pulse_bittrex_bot/cron.php');
+async_execute_file(__DIR__ . '/boss_baby_xbot/coin-pulse-bittrex.php');
 
 // Finished
 die('FINISHED');
