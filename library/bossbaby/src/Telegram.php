@@ -410,13 +410,16 @@ class Telegram
                             $tmp_str .= PHP_EOL . 'last price: <b>' . $new_price . '</b>';
                             $return['telegram'][] = $tmp_str . PHP_EOL;
 
-                            $tmp_str = "\n" . '--------------------------' . "\n" . '```' . $coin_name . '``` ' . $text_out_link;
+                            $tmp_str = "\n\r" . PHP_EOL . 'https://www.binance.com/trade.html?symbol=' . $coin_name . '_BTC';
+                            $text_out_link = str_replace('<b>', '**', $text_out_link);
+                            $text_out_link = str_replace('</b>', '**', $text_out_link);
+                            $tmp_str .= PHP_EOL . '**#' . $coin_name . '** ' . $text_out_link;
                             if (isset($arr['10s_ago']) and isset($arr['10s_ago'][$coin])) $tmp_str .= PHP_EOL . '10s ago: ' . $arr['10s_ago'][$coin];
                             if (isset($arr['1m_ago']) and isset($arr['1m_ago'][$coin])) $tmp_str .= PHP_EOL . '1m ago: ' . $arr['1m_ago'][$coin];
                             if (isset($arr['5m_ago']) and isset($arr['5m_ago'][$coin])) $tmp_str .= PHP_EOL . '5m ago: ' . $arr['5m_ago'][$coin];
                             if (isset($arr['1h_ago']) and isset($arr['1h_ago'][$coin])) $tmp_str .= PHP_EOL . '1h ago: ' . $arr['1h_ago'][$coin];
-                            $tmp_str .= PHP_EOL . 'last price: <b>' . $new_price . '</b>';
-                            $return['discord'] = 'https://www.binance.com/trade.html?symbol=' . $coin_name . '_BTC' . "\n" . PHP_EOL . $tmp_str . PHP_EOL;
+                            $tmp_str .= PHP_EOL . 'last price: **' . $new_price . '**';
+                            $return['discord'][] = $tmp_str;
                             // break;
                         }
                     } // endforeach coin
@@ -801,13 +804,16 @@ class Telegram
                             $tmp_str .= PHP_EOL . 'last price: <b>' . $new_price . '</b>';
                             $return['telegram'][] = $tmp_str . PHP_EOL;
 
-                            $tmp_str = "\n" . '--------------------------' . "\n" . '```' . $coin_name . '``` ' . $text_out_link;
+                            $tmp_str = "\n\r" . PHP_EOL . 'https://bittrex.com/Market/Index?MarketName=' . $coin;
+                            $text_out_link = str_replace('<b>', '**', $text_out_link);
+                            $text_out_link = str_replace('</b>', '**', $text_out_link);
+                            $tmp_str .= PHP_EOL . '**#' . $coin_name . '** ' . $text_out_link;
                             if (isset($arr['10s_ago']) and isset($arr['10s_ago'][$coin])) $tmp_str .= PHP_EOL . '10s ago: ' . $arr['10s_ago'][$coin];
                             if (isset($arr['1m_ago']) and isset($arr['1m_ago'][$coin])) $tmp_str .= PHP_EOL . '1m ago: ' . $arr['1m_ago'][$coin];
                             if (isset($arr['5m_ago']) and isset($arr['5m_ago'][$coin])) $tmp_str .= PHP_EOL . '5m ago: ' . $arr['5m_ago'][$coin];
                             if (isset($arr['1h_ago']) and isset($arr['1h_ago'][$coin])) $tmp_str .= PHP_EOL . '1h ago: ' . $arr['1h_ago'][$coin];
-                            $tmp_str .= PHP_EOL . 'last price: <b>' . $new_price . '</b>';
-                            $return['discord'] = 'https://bittrex.com/Market/Index?MarketName=' . $coin . "\n" . PHP_EOL . $tmp_str . PHP_EOL;
+                            $tmp_str .= PHP_EOL . 'last price: **' . $new_price . '**';
+                            $return['discord'][] = $tmp_str;
                             // break;
                         }
                     } // endforeach coin

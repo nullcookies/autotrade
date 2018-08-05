@@ -157,10 +157,6 @@ function run_cron() {
 
                 // Send message to Discord
                 $webhook_url = $environment->discord->bots->{2}->webhook_url;
-                $data['text'] = str_replace('<b>', '**', $data['text']);
-                $data['text'] = str_replace('</b>', '**', $data['text']);
-                $data['text'] = strip_tags($data['text']);
-                $data['text'] = PHP_EOL . "\n" . '#' . $data['text'];
                 $result = \BossBaby\Discord::sendMessage($webhook_url, $data['text']);
                 // \BossBaby\Utility::writeLog(__FILE__.'result2:'.serialize($result));
             }

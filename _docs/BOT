@@ -275,6 +275,17 @@ http://www.restcord.com/Channel/Get%20Channel/
 Discord's format:
 https://support.discordapp.com/hc/en-us/articles/210298617-Markdown-Text-101-Chat-Formatting-Bold-Italic-Underline-
 
+Twitter:
+https://github.com/dg/twitter-php
+
+Twitter Create new app:
+https://apps.twitter.com
+
+
+Install PHP 7.2 on Mac:
+https://medium.com/@romaninsh/install-php-7-2-on-macos-high-sierra-with-homebrew-bdc4d1b04ea6
+brew install httpd php72
+
 
 
 
