@@ -13,8 +13,8 @@ require_once LIB_DIR . '/telegram/vendor/autoload.php';
 use Longman\TelegramBot\Request;
 use Longman\TelegramBot\Telegram;
 
-$API_KEY  = $environment->telegram->bot->{2}->token;
-$BOT_NAME = $environment->telegram->bot->{2}->name;
+$API_KEY  = $environment->telegram->bots->{2}->token;
+$BOT_NAME = $environment->telegram->bots->{2}->name;
 
 $telegram = new Telegram($API_KEY, $BOT_NAME);
 

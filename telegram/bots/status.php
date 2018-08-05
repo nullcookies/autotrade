@@ -5,14 +5,14 @@
 require_once __DIR__ . '/error-handle.php';
 
 $botsAdminID    = $environment->telegram->main->id; // Put your Telegram ID here.
-$notifierBotKey = $environment->telegram->bot->{1}->token; // Put your notifier bot API Key here.
+$notifierBotKey = $environment->telegram->bots->{1}->token; // Put your notifier bot API Key here.
 
 $botsList = [
     // 'Boss Baby BOT' => '615876936:AAF_6bub_cjLyiPLJ1BjAxoRqByDaKaYSB4', // Name (to show in messages) and API KEY for first bot.
     // 'Boss Baby Welcome' => '585481163:AAEpPfxKDJpEUYtC3FBymi6lhR1ZhiP917w', // Name and API KEY for second bot. Add more if needed.
 ];
 
-$bots = (array) $environment->telegram->bot;
+$bots = (array) $environment->telegram->bots;
 if ($bots) {
     if (isset($bots['root_url'])) unset($bots['root_url']);
     foreach ($bots as $pos => $bot) {

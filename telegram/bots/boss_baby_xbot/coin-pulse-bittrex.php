@@ -40,8 +40,8 @@ function run_cron() {
     // ];
 
     // Add you bot's API key and name
-    $bot_api_key  = $environment->telegram->bot->{2}->token;
-    $bot_username = $environment->telegram->bot->{2}->username;
+    $bot_api_key  = $environment->telegram->bots->{2}->token;
+    $bot_username = $environment->telegram->bots->{2}->username;
 
     // Define all IDs of admin users in this array (leave as empty array if not used)
     // $admin_users = [
@@ -102,7 +102,7 @@ function run_cron() {
         // dump('$last_command_response:'); dump($last_command_response);
 
         // $chat_id   = $message->getChat()->getId();
-        $chat_id   = $environment->telegram->channel->{3}->id;
+        $chat_id   = $environment->telegram->channels->{3}->id;
         // $chat_id   = $environment->telegram->main->id;
 
         $data = [
@@ -133,8 +133,8 @@ function run_cron() {
         //     // }
         // }
 
-        if ($list_coin_bittrex) {
-            foreach ($list_coin_bittrex as $text) {
+        if ($list_coin_bittrex['telegram']) {
+            foreach ($list_coin_bittrex['telegram'] as $text) {
                 $data['text'] = trim($text);
 
                 $result = Longman\TelegramBot\Request::sendMessage($data);
@@ -148,6 +148,21 @@ function run_cron() {
                 //     // echo 'Sorry message not sent to: ' . $chat_id . PHP_EOL;
                 //     \BossBaby\Utility::writeLog('result:Sorry message not sent to: ' . $chat_id);
                 // }
+            }
+        }
+
+        if ($list_coin_bittrex['discord']) {
+            foreach ($list_coin_bittrex['discord'] as $text) {
+                $data['text'] = trim($text);
+
+                // Send message to Discord
+                $webhook_url = $environment->discord->bots->{2}->webhook_url;
+                $data['text'] = str_replace('<b>', '**', $data['text']);
+                $data['text'] = str_replace('</b>', '**', $data['text']);
+                $data['text'] = strip_tags($data['text']);
+                $data['text'] = PHP_EOL . "\n" . '#' . $data['text'];
+                $result = \BossBaby\Discord::sendMessage($webhook_url, $data['text']);
+                // \BossBaby\Utility::writeLog(__FILE__.'result2:'.serialize($result));
             }
         }
 

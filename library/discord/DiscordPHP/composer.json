@@ -1,0 +1,13 @@
+{
+    "name": "bossbaby/boss_baby_xbot",
+    "description": "This is my new bot!",
+    "authors": [
+        {
+            "name": "Boss Baby",
+            "email": "admin@email.com"
+        }
+    ],
+    "require": {
+        "team-reflex/discord-php": "^4.0"
+    }
+}

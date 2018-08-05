@@ -12,11 +12,11 @@ require_once __DIR__ . '/../error-handle.php';
 require_once LIB_DIR . '/telegram/vendor/autoload.php';
 
 // Add you bot's API key and name
-$bot_api_key  = $environment->telegram->bot->{1}->token;
-$bot_username = $environment->telegram->bot->{1}->username;
+$bot_api_key  = $environment->telegram->bots->{1}->token;
+$bot_username = $environment->telegram->bots->{1}->username;
 
 // Define the URL to your hook.php file
-$hook_url     = $environment->telegram->bot->{1}->root_url . 'hook.php';
+$hook_url     = $environment->telegram->bots->{1}->root_url . 'hook.php';
 
 try {
     // Create Telegram API object
@@ -24,7 +24,7 @@ try {
 
     // Set webhook
     $result = $telegram->setWebhook($hook_url, array(
-        'max_connections' => $environment->telegram->bot->{1}->max_connections
+        'max_connections' => $environment->telegram->bots->{1}->max_connections
     ));
 
     // To use a self-signed certificate, use this line instead

@@ -29,8 +29,8 @@ function run_cron() {
     ];
 
     // Add you bot's API key and name
-    $bot_api_key  = $environment->telegram->bot->{2}->token;
-    $bot_username = $environment->telegram->bot->{2}->username;
+    $bot_api_key  = $environment->telegram->bots->{2}->token;
+    $bot_username = $environment->telegram->bots->{2}->username;
 
     // Define all IDs of admin users in this array (leave as empty array if not used)
     // $admin_users = [

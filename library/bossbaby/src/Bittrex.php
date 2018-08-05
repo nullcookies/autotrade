@@ -6,16 +6,16 @@ class Bittrex
     public static function get_coin_price($coin = null)
     {
         global $environment;
-        $environment->bittrex_instance = new \Bittrex($environment->bittrex->{1}->apiKey, $environment->bittrex->{1}->apiSecret);
+        $environment->bittrex_instance = new \Bittrex($environment->bittrex->accounts->{1}->apiKey, $environment->bittrex->accounts->{1}->apiSecret);
         
         if (!is_object($environment->bittrex_instance) or !$coin) return [];
 
-        // $environment->bittrex_instance = new \Bittrex($environment->bittrex->{1}->apiKeynew \Bittrex($environment->bittrex->{1}->apiKey, $environment->bittrex->{1}->apiSecret);, $environment->bittrex->{1}->apiSecret, 'get');
+        // $environment->bittrex_instance = new \Bittrex($environment->bittrex->accounts->{1}->apiKeynew \Bittrex($environment->bittrex->accounts->{1}->apiKey, $environment->bittrex->accounts->{1}->apiSecret);, $environment->bittrex->accounts->{1}->apiSecret, 'get');
         // $responce = $environment->bittrex_instance->GetCurrencies();
 
         // require_once(LIB_DIR . DS . "bittrex-api-v7.1/src/BittrexManager.php");
         // // use codenixsv\Bittrex\BittrexManager;
-        // $manager = new \BittrexManager($environment->bittrex->{1}->apiKey, $environment->bittrex->{1}->apiSecret);
+        // $manager = new \BittrexManager($environment->bittrex->accounts->{1}->apiKey, $environment->bittrex->accounts->{1}->apiSecret);
         // $client = $manager->createClient();
         // $responce = $client->getBalances();
         // dump($client);
@@ -39,7 +39,7 @@ class Bittrex
     public static function get_list_coin()
     {
         global $environment;
-        $environment->bittrex_instance = new \Bittrex($environment->bittrex->{1}->apiKey, $environment->bittrex->{1}->apiSecret);
+        $environment->bittrex_instance = new \Bittrex($environment->bittrex->accounts->{1}->apiKey, $environment->bittrex->accounts->{1}->apiSecret);
         
         if (!is_object($environment->bittrex_instance)) return [];
 

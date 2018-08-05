@@ -8,9 +8,9 @@ if (!$cli_mode) return \BossBaby\Utility::redirect('index.php');
 // Check config to run
 if (!$environment->enable) die('STOP!!!');
 
-$environment->bitmex_instance = new \Bitmex($environment->bitmex->{1}->apiKey, $environment->bitmex->{1}->apiSecret);
-$environment->bitmex_instance2 = new \Bitmex($environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret);
-$environment->bitmex_instance3 = new \Bitmex($environment->bitmex->{3}->apiKey, $environment->bitmex->{3}->apiSecret);
+$environment->bitmex_instance = new \Bitmex($environment->bittrex->accounts->{1}->apiKey, $environment->bittrex->accounts->{1}->apiSecret);
+$environment->bitmex_instance2 = new \Bitmex($environment->bittrex->accounts->{2}->apiKey, $environment->bittrex->accounts->{2}->apiSecret);
+$environment->bitmex_instance3 = new \Bitmex($environment->bittrex->accounts->{3}->apiKey, $environment->bittrex->accounts->{3}->apiSecret);
 
 $_current_price = 0;
 $_check_price = 0;
@@ -77,10 +77,10 @@ function func_show_account_info()
 {
 	global $environment;
 	
-	$arr1 = \BossBaby\Bitmex::func_get_account_info($environment->bitmex->{2}->email, $environment->bitmex->{2}->apiKey, $environment->bitmex->{2}->apiSecret, false);
+	$arr1 = \BossBaby\Bitmex::func_get_account_info($environment->bittrex->accounts->{2}->email, $environment->bittrex->accounts->{2}->apiKey, $environment->bittrex->accounts->{2}->apiSecret, false);
 	\BossBaby\Utility::func_cli_print_arr($arr1);
 
-	$arr2 = \BossBaby\Bitmex::func_get_account_info($environment->bitmex->{3}->email, $environment->bitmex->{3}->apiKey, $environment->bitmex->{3}->apiSecret, false);
+	$arr2 = \BossBaby\Bitmex::func_get_account_info($environment->bittrex->accounts->{3}->email, $environment->bittrex->accounts->{3}->apiKey, $environment->bittrex->accounts->{3}->apiSecret, false);
 	\BossBaby\Utility::func_cli_print_arr($arr2);
 }
 

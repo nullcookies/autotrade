@@ -6,7 +6,7 @@ class Binance
     public static function get_coin_price($coin = null)
     {
         global $environment;
-        $environment->binance_instance = new \Binance($environment->binance->{1}->apiKey, $environment->bitmex->{1}->apiSecret);
+        $environment->binance_instance = new \Binance($environment->binance->accounts->{1}->apiKey, $environment->bittrex->accounts->{1}->apiSecret);
 
         if (!is_object($environment->binance_instance) or !$coin) return [];
 
@@ -28,7 +28,7 @@ class Binance
     public static function get_list_coin()
     {
         global $environment;
-        $environment->binance_instance = new \Binance($environment->binance->{1}->apiKey, $environment->bitmex->{1}->apiSecret);
+        $environment->binance_instance = new \Binance($environment->binance->accounts->{1}->apiKey, $environment->bittrex->accounts->{1}->apiSecret);
         
         if (!is_object($environment->binance_instance)) return [];
 

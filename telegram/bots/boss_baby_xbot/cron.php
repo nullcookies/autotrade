@@ -23,8 +23,8 @@ $commands = [
 ];
 
 // Add you bot's API key and name
-$bot_api_key  = $environment->telegram->bot->{1}->token;
-$bot_username = $environment->telegram->bot->{1}->username;
+$bot_api_key  = $environment->telegram->bots->{1}->token;
+$bot_username = $environment->telegram->bots->{1}->username;
 
 // Define all IDs of admin users in this array (leave as empty array if not used)
 $admin_users = [

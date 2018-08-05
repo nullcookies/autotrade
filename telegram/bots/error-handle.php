@@ -60,7 +60,7 @@ if (!function_exists('log_exception')) {
         global $environment;
         
         // setup notifier
-        $API_KEY = $environment->telegram->bot->{1}->token; // Replace 'XXXXXXXXXX' with your bot's API token
+        $API_KEY = $environment->telegram->bots->{1}->token; // Replace 'XXXXXXXXXX' with your bot's API token
         $DEV_ID  = $environment->telegram->main->id; // Replace 'XXXXXXXXXX' with your Telegram user ID (use /whoami command)
 
         // get incomming message

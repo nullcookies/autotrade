@@ -53,7 +53,7 @@ class CoinPulseCommand extends UserCommand
 
         $message   = $this->getMessage();
         // $chat_id   = $message->getChat()->getId();
-        $chat_id   = $environment->telegram->channel->{1}->id;
+        $chat_id   = $environment->telegram->channels->{1}->id;
         // $chat_id   = $environment->telegram->main->id;
 
         $data = [
