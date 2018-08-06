@@ -5,7 +5,7 @@
  * Uncommented parameters must be filled
  */
 
-// if (!defined('STDIN')) die('Access denied.' . "\n");
+if (!defined('STDIN')) die('Access denied.' . "\n");
 
 // Error handle
 require_once __DIR__ . '/../error-handle.php';
@@ -13,20 +13,8 @@ require_once __DIR__ . '/../error-handle.php';
 // Load composer
 require_once LIB_DIR . '/telegram/vendor/autoload.php';
 
-// File store twitter data
-$twitter_config = ROOT_DIR . '/config-twitter.php';
-$twitter_data = \BossBaby\Config::read($twitter_config);
-
-$shown_tweets_file = LOGS_DIR . '/shown_tweets.php';
-$shown_tweets = (is_file($shown_tweets_file) and file_exists($shown_tweets_file)) ? \BossBaby\Config::read($shown_tweets_file) : [];
-
-if (!$twitter_data) {
-    \BossBaby\Utility::writeLog(__FILE__ . '::Empty config');
-    exit;
-}
-
-$sleep = 9;
 run_cron();
+// $sleep = 9;
 // sleep($sleep); run_cron();
 // sleep($sleep); run_cron();
 // sleep($sleep); run_cron();
@@ -37,7 +25,20 @@ function run_cron() {
     // \BossBaby\Utility::writeLog('----'.__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
 
     global $environment;
-    global $twitter_data;
+    
+    // File store twitter data
+    $twitter_config = ROOT_DIR . '/config-twitter.php';
+    $twitter_data = \BossBaby\Config::read($twitter_config);
+
+    if (!$twitter_data) {
+        \BossBaby\Utility::writeLog(__FILE__ . '::Empty config');
+        exit;
+    }
+
+    $shown_tweets_file = LOGS_DIR . '/shown_tweets.php';
+    $shown_tweets = (is_file($shown_tweets_file) and file_exists($shown_tweets_file)) ? \BossBaby\Config::read($shown_tweets_file) : [];
+
+    $list_filter = (array) $environment->twitter->filter;
 
     // Add you bot's API key and name
     $bot_api_key  = $environment->telegram->bots->{2}->token;
@@ -74,44 +75,83 @@ function run_cron() {
             $username = trim($twitter_item['username']);
             if (!$username) continue;
 
-            $latest_tweet = \BossBaby\Telegram::get_user_feeds($username, 5);
+            $latest_tweet = \BossBaby\Telegram::get_user_feeds($username, 1);
             // $latest_tweet = \BossBaby\Twitter::get_user_feeds($username, 1);
             // \BossBaby\Utility::writeLog('latest_tweet:'.serialize($latest_tweet));
             // dump($latest_tweet);
 
             $old_one = (isset($shown_tweets[$coin]) and trim($shown_tweets[$coin])) ? trim($shown_tweets[$coin]) : '';
             $first_one = (isset($latest_tweet[0]) and trim($latest_tweet[0])) ? trim($latest_tweet[0]) : '';
+
             if ($first_one !== $old_one) {
-                $data['text'] = $shown_tweets[$coin] = $first_one;
-            }
+                // Show filtered to right channels
+                $filtered = false;
+                foreach ($list_filter as $keyword) {
+                    if (strpos($first_one, $keyword) !== false) {
+                        $filtered = true;
+                        $data['text'] = $shown_tweets[$coin] = $first_one;
 
-            // dump($data['text']);die;
+                        // dump($data['text']);die;
             
-            // if (trim($data['text'])) {
-            //     // \BossBaby\Utility::writeLog('text:'.serialize($data['text']));
-            //     $result = Longman\TelegramBot\Request::sendMessage($data);
-            //     // dump('$result'); dump($result);
-            //     // sleep(1);
+                        if (trim($data['text'])) {
+                            $chat_id = $environment->telegram->channels->{1}->id;
+                            $data['chat_id'] = $chat_id;
 
-            //     // if ($result->isOk()) {
-            //     //     echo 'Message sent succesfully to: ' . $chat_id . PHP_EOL;
-            //     // } else {
-            //     //     echo 'Sorry message not sent to: ' . $chat_id . PHP_EOL;
-            //     // }
+                            // \BossBaby\Utility::writeLog('text:'.serialize($data['text']));
+                            $result = Longman\TelegramBot\Request::sendMessage($data);
+                            // dump('$result'); dump($result);
+                            // sleep(1);
 
-            //     // Send message to Discord
-            //     $webhook_url = $environment->discord->bots->{9}->webhook_url;
-            //     $result = \BossBaby\Discord::sendMessage($webhook_url, $data['text']);
-            //     // \BossBaby\Utility::writeLog(__FILE__.'result2:'.serialize($result));
-            //     // sleep(1);
-            // }
+                            // if ($result->isOk()) {
+                            //     echo 'Message sent succesfully to: ' . $chat_id . PHP_EOL;
+                            // } else {
+                            //     echo 'Sorry message not sent to: ' . $chat_id . PHP_EOL;
+                            // }
+
+                            // Send message to Discord
+                            $webhook_url = $environment->discord->bots->{3}->webhook_url;
+                            $result = \BossBaby\Discord::sendMessage($webhook_url, $data['text']);
+                            // \BossBaby\Utility::writeLog(__FILE__.'result2:'.serialize($result));
+                            // sleep(1);
+                        }
+                        break;
+                    }
+                }
+
+                // Show all to test channels
+                if (!$filtered) {
+                    $data['text'] = $shown_tweets[$coin] = $first_one;
+
+                    if (trim($data['text'])) {
+                        $chat_id = $environment->telegram->channels->{4}->id;
+                        $data['chat_id'] = $chat_id;
+
+                        // \BossBaby\Utility::writeLog('text:'.serialize($data['text']));
+                        $result = Longman\TelegramBot\Request::sendMessage($data);
+                        // dump('$result'); dump($result);
+                        // sleep(1);
+
+                        // if ($result->isOk()) {
+                        //     echo 'Message sent succesfully to: ' . $chat_id . PHP_EOL;
+                        // } else {
+                        //     echo 'Sorry message not sent to: ' . $chat_id . PHP_EOL;
+                        // }
+
+                        // Send message to Discord
+                        $webhook_url = $environment->discord->bots->{9}->webhook_url;
+                        $result = \BossBaby\Discord::sendMessage($webhook_url, $data['text']);
+                        // \BossBaby\Utility::writeLog(__FILE__.'result2:'.serialize($result));
+                        // sleep(1);
+                    }
+                }
+            }
         }
 
         // Write back data into cache
         \BossBaby\Config::write($shown_tweets_file, (array) $shown_tweets);
         sleep(1);
 
-        dump($shown_tweets);die;
+        // dump($shown_tweets);die;
 
         // return Request::emptyResponse();
     

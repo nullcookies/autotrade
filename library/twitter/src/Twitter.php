@@ -306,7 +306,8 @@ class Twitter
 		curl_setopt_array($curl, $options);
 		$result = curl_exec($curl);
 		if (curl_errno($curl)) {
-			throw new TwitterException('Server error: ' . curl_error($curl));
+			// throw new TwitterException('Server error: ' . curl_error($curl));
+			\BossBaby\Utility::writeLog(__FILE__.'::server-error:'.curl_error($curl));
 		}
 
 		$payload = defined('JSON_BIGINT_AS_STRING')

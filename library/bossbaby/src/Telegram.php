@@ -876,8 +876,12 @@ class Telegram
             try {
                 // $status = \BossBaby\Utility::array_to_object($status);
                 // $arr[] = \Twitter::clickable($status);
-                // if ($status->text)
-                $arr[] = $status->text;
+                
+                // if (!property_exists('stdClass', 'text')) {
+                //     \BossBaby\Utility::writeLog(__FILE__.'::error:'.serialize($status));
+                //     continue;
+                // }
+                $arr[] = (isset($status->text)) ? $status->text : '';
             }
             catch(Exception $e) {
                 throw new Exception($e->getMessage() . '::satatus::'.serialize($status), 500);

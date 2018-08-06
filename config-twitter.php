@@ -80,10 +80,10 @@ return array(
         'root_url' => 'https://twitter.com/bitcoingold',
         'username' => 'bitcoingold'
     ),
-    'BTS' => array(
-        'root_url' => 'https://twitter.com/bitshares',
-        'username' => 'bithares'
-    ),
+    // 'BTS' => array(
+    //     'root_url' => 'https://twitter.com/bitshares',
+    //     'username' => 'bithares'
+    // ),
     'BCPT' => array(
         'root_url' => 'https://twitter.com/blockmasonio',
         'username' => 'blockmasonio'
