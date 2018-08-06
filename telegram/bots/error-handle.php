@@ -32,7 +32,8 @@ defined('IS_VALID') or define('IS_VALID', 1);
 require_once __DIR__ . '/../../main.php';
 
 // Check config to run
-if (!$environment->enable) die('STOP!!!');
+if (!$environment->enable)
+    die('STOP!!!');
 
 /**
  * Error handler, passes flow over the exception logger with new ErrorException.
@@ -62,7 +63,7 @@ if (!function_exists('log_exception')) {
         // setup notifier
         $API_KEY = $environment->telegram->bots->{1}->token; // Replace 'XXXXXXXXXX' with your bot's API token
         $DEV_ID  = $environment->telegram->main->id; // Replace 'XXXXXXXXXX' with your Telegram user ID (use /whoami command)
-
+        
         // get incomming message
         $incoming = file_get_contents('php://input');
         
@@ -70,8 +71,8 @@ if (!function_exists('log_exception')) {
         $incoming = !empty($incoming) ? json_decode(file_get_contents('php://input'), true) : false;
         
         // developer notification message text
-        $file = str_replace('/home/dosuser02/websites/testing', '/fake/path', $e->getFile());
-        $file = str_replace('/home/dosuser02', '/fake/path', $file);
+        $file  = str_replace('/home/dosuser02/websites/testing', '/fake/path', $e->getFile());
+        $file  = str_replace('/home/dosuser02', '/fake/path', $file);
         $trace = str_replace('/home/dosuser02/websites/testing', '/fake/path', $e->getTraceAsString());
         $trace = str_replace('/home/dosuser02', '/fake/path', $trace);
         
@@ -86,11 +87,11 @@ if (!function_exists('log_exception')) {
         $fields_string = '';
         $url           = 'https://api.telegram.org/bot' . $API_KEY . '/sendMessage';
         
-        $fields = [
+        $fields = array(
             'chat_id' => urlencode($DEV_ID),
             'parse_mode' => urlencode('HTML'),
             'text' => urlencode('' . $message)
-        ];
+        );
         
         //url-ify the data for the POST
         foreach ($fields as $key => $value) {
@@ -114,10 +115,10 @@ if (!function_exists('log_exception')) {
         curl_close($ch);
         
         // Uncomment following line and change path to store errors log in custom file
-        // file_put_contents( __DIR__ .'/custom_errors.log', ($result?'Notified: '.var_export($result, true).PHP_EOL:'Not notified: '.var_export($result, true).PHP_EOL).$message . PHP_EOL, FILE_APPEND );
+        file_put_contents(LOGS_DIR . DS . date("Ymd") . "-log.txt", ($result ? 'Notified: ' . var_export($result, true) . PHP_EOL : 'Not notified: ' . var_export($result, true) . PHP_EOL) . $message . PHP_EOL, FILE_APPEND);
         
         // Sending 200 response code
-        @header('X-PHP-Response-Code: 200', true, 200);
+        // @header('X-PHP-Response-Code: 200', true, 200);
         
         exit();
     }

@@ -96,7 +96,7 @@ class Utility
         if (!$object) return null;
         if (is_array($object) || is_object($object))
         {
-            $result = array();
+            $result = [];
             foreach ($object as $key => $value)
             {
                 $result[$key] = self::object_to_array($value);
@@ -293,7 +293,7 @@ class Utility
         if (!empty($parts['query'])) {
             // drop known fb params
             $params          = explode('&', $parts['query']);
-            $retained_params = array();
+            $retained_params = [];
             foreach ($params as $param) {
                 if (self::func_should_retain_param($param)) {
                     $retained_params[] = $param;

@@ -319,11 +319,11 @@ class Twitter
 
 		$code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 		if ($code >= 400) {
-			throw new TwitterException(isset($payload->errors[0]->message)
-				? $payload->errors[0]->message
-				: "Server error #$code with answer $result",
-				$code
-			);
+			$message = isset($payload->errors[0]->message)
+				? $payload->errors[0]->message . '<br/>data::' . serialize($data)
+				: "Server error #$code with answer $result";
+			// throw new TwitterException($message, $code);
+			\BossBaby\Utility::writeLog(__FILE__.'::error:'.$message);
 		}
 
 		return $payload;

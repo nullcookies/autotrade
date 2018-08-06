@@ -95,6 +95,7 @@ function run_cron() {
                 //     // echo 'Sorry message not sent to: ' . $chat_id . PHP_EOL;
                 //     \BossBaby\Utility::writeLog('result:Sorry message not sent to: ' . $chat_id);
                 // }
+                sleep(1);
             }
         }
 
@@ -103,9 +104,10 @@ function run_cron() {
                 $data['text'] = trim($text);
 
                 // Send message to Discord
-                $webhook_url = $environment->discord->bots->{2}->webhook_url;
+                $webhook_url = $environment->discord->bots->{1}->webhook_url;
                 $result = \BossBaby\Discord::sendMessage($webhook_url, $data['text']);
                 // \BossBaby\Utility::writeLog(__FILE__.'result2:'.serialize($result));
+                sleep(1);
             }
         }
 

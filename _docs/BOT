@@ -287,6 +287,8 @@ init_data -> userId:
 
 Twitter load feeds:
 https://www.codeofaninja.com/2015/08/display-twitter-feed-on-website.html
+https://developer.twitter.com/en/docs/tweets/timelines/overview
+https://developer.twitter.com/en/docs/tweets/timelines/api-reference/get-statuses-user_timeline.html
 
 Twitter OAuth:
 OAuth is an authentication protocol that allows users to approve application to act on their behalf without sharing their password

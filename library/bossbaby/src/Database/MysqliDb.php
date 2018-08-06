@@ -49,27 +49,27 @@ class MysqliDb
      *
      * @var string
      */
-    protected $_queryOptions = array();
+    protected $_queryOptions = [];
     /**
      * An array that holds where joins
      *
      * @var array
      */
-    protected $_join = array();
+    protected $_join = [];
     /**
      * An array that holds where conditions 'fieldname' => 'value'
      *
      * @var array
      */
-    protected $_where = array();
+    protected $_where = [];
     /**
      * Dynamic type list for order by condition value
      */
-    protected $_orderBy = array();
+    protected $_orderBy = [];
     /**
      * Dynamic type list for group by condition value
      */
-    protected $_groupBy = array();
+    protected $_groupBy = [];
     /**
      * Dynamic array that holds a combination of where condition/table data value types and parameter references
      *
@@ -146,7 +146,7 @@ class MysqliDb
     protected $traceStartQ;
     protected $traceEnabled;
     protected $traceStripPrefix;
-    public $trace = array();
+    public $trace = [];
 
     /**
      * @param string $host
@@ -238,13 +238,13 @@ class MysqliDb
         if ($this->traceEnabled)
             $this->trace[] = array ($this->_lastQuery, (microtime(true) - $this->traceStartQ) , $this->_traceGetCaller());
 
-        $this->_where = array();
-        $this->_join = array();
-        $this->_orderBy = array();
-        $this->_groupBy = array();
+        $this->_where = [];
+        $this->_join = [];
+        $this->_orderBy = [];
+        $this->_groupBy = [];
         $this->_bindParams = array(''); // Create the empty 0 index
         $this->_query = null;
-        $this->_queryOptions = array();
+        $this->_queryOptions = [];
         $this->returnType = 'Array';
         $this->_nestJoin = false;
         $this->_tableName = '';
@@ -910,8 +910,8 @@ class MysqliDb
      */
     protected function _dynamicBindResults(mysqli_stmt $stmt)
     {
-        $parameters = array();
-        $results = array();
+        $parameters = [];
+        $results = [];
         // See http://php.net/manual/en/mysqli-result.fetch-fields.php
         $mysqlLongType = 252;
         $shouldStoreResult = false;
@@ -923,7 +923,7 @@ class MysqliDb
         if(!$meta && $stmt->sqlstate)
             return array();
 
-        $row = array();
+        $row = [];
         while ($field = $meta->fetch_field()) {
             if ($field->type == $mysqlLongType)
                 $shouldStoreResult = true;
@@ -960,7 +960,7 @@ class MysqliDb
                         $x->$key = $val;
                 }
             } else {
-                $x = array();
+                $x = [];
                 foreach ($row as $key => $val) {
                     if (is_array($val)) {
                         foreach ($val as $k => $v)
@@ -1226,7 +1226,7 @@ class MysqliDb
         //https://github.com/facebook/hhvm/issues/5155
         //Referenced data array is required by mysqli since PHP 5.3+
         if (strnatcmp (phpversion(), '5.3') >= 0) {
-            $refs = array();
+            $refs = [];
             foreach ($arr as $key => $value)
                 $refs[$key] = & $arr[$key];
             return $refs;

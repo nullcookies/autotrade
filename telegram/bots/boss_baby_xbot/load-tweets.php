@@ -17,6 +17,9 @@ require_once LIB_DIR . '/telegram/vendor/autoload.php';
 $twitter_config = ROOT_DIR . '/config-twitter.php';
 $twitter_data = \BossBaby\Config::read($twitter_config);
 
+$shown_tweets_file = LOGS_DIR . '/shown_tweets.php';
+$shown_tweets = (is_file($shown_tweets_file) and file_exists($shown_tweets_file)) ? \BossBaby\Config::read($shown_tweets_file) : [];
+
 if (!$twitter_data) {
     \BossBaby\Utility::writeLog(__FILE__ . '::Empty config');
     exit;
@@ -55,7 +58,7 @@ function run_cron() {
         Longman\TelegramBot\TelegramLog::initUpdateLog(LOGS_DIR . "/{$bot_username}_update.log");
 
         // $chat_id   = $message->getChat()->getId();
-        $chat_id   = $environment->telegram->channels->{3}->id;
+        $chat_id   = $environment->telegram->channels->{4}->id;
         // $chat_id   = $environment->telegram->main->id;
 
         $data = [
@@ -71,60 +74,46 @@ function run_cron() {
             $username = trim($twitter_item['username']);
             if (!$username) continue;
 
-            $latest_tweet = \BossBaby\Telegram::get_user_feeds($username, 1);
+            $latest_tweet = \BossBaby\Telegram::get_user_feeds($username, 5);
             // $latest_tweet = \BossBaby\Twitter::get_user_feeds($username, 1);
             // \BossBaby\Utility::writeLog('latest_tweet:'.serialize($latest_tweet));
+            // dump($latest_tweet);
 
-            dump($latest_tweet);
-            
-            // if ($list_coin_bittrex)
-            //     $data['text'] .= trim($list_coin_bittrex);
+            $old_one = (isset($shown_tweets[$coin]) and trim($shown_tweets[$coin])) ? trim($shown_tweets[$coin]) : '';
+            $first_one = (isset($latest_tweet[0]) and trim($latest_tweet[0])) ? trim($latest_tweet[0]) : '';
+            if ($first_one !== $old_one) {
+                $data['text'] = $shown_tweets[$coin] = $first_one;
+            }
 
-            // // dump($data['text']);die;
+            // dump($data['text']);die;
             
             // if (trim($data['text'])) {
             //     // \BossBaby\Utility::writeLog('text:'.serialize($data['text']));
             //     $result = Longman\TelegramBot\Request::sendMessage($data);
             //     // dump('$result'); dump($result);
+            //     // sleep(1);
 
             //     // if ($result->isOk()) {
             //     //     echo 'Message sent succesfully to: ' . $chat_id . PHP_EOL;
             //     // } else {
             //     //     echo 'Sorry message not sent to: ' . $chat_id . PHP_EOL;
             //     // }
-            // }
 
-            // if ($list_coin_bittrex['telegram']) {
-            //     foreach ($list_coin_bittrex['telegram'] as $text) {
-            //         $data['text'] = trim($text);
-
-            //         $result = Longman\TelegramBot\Request::sendMessage($data);
-            //         // dump('$result'); dump($result);
-            //         // \BossBaby\Utility::writeLog('result:'.serialize($result));
-
-            //         // if ($result->isOk()) {
-            //         //     // echo 'Message sent succesfully to: ' . $chat_id . PHP_EOL;
-            //         //     \BossBaby\Utility::writeLog('result:Message sent succesfully to: ' . $chat_id);
-            //         // } else {
-            //         //     // echo 'Sorry message not sent to: ' . $chat_id . PHP_EOL;
-            //         //     \BossBaby\Utility::writeLog('result:Sorry message not sent to: ' . $chat_id);
-            //         // }
-            //     }
-            // }
-
-            // if ($list_coin_bittrex['discord']) {
-            //     foreach ($list_coin_bittrex['discord'] as $text) {
-            //         $data['text'] = trim($text);
-
-            //         // Send message to Discord
-            //         $webhook_url = $environment->discord->bots->{2}->webhook_url;
-            //         $result = \BossBaby\Discord::sendMessage($webhook_url, $data['text']);
-            //         // \BossBaby\Utility::writeLog(__FILE__.'result2:'.serialize($result));
-            //     }
+            //     // Send message to Discord
+            //     $webhook_url = $environment->discord->bots->{9}->webhook_url;
+            //     $result = \BossBaby\Discord::sendMessage($webhook_url, $data['text']);
+            //     // \BossBaby\Utility::writeLog(__FILE__.'result2:'.serialize($result));
+            //     // sleep(1);
             // }
         }
 
-        return Request::emptyResponse();
+        // Write back data into cache
+        \BossBaby\Config::write($shown_tweets_file, (array) $shown_tweets);
+        sleep(1);
+
+        dump($shown_tweets);die;
+
+        // return Request::emptyResponse();
     
     } catch (Longman\TelegramBot\Exception\TelegramException $e) {
         // dump('TelegramException:'); dump($e);

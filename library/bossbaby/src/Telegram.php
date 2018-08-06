@@ -857,11 +857,33 @@ class Telegram
 
     public static function get_user_feeds($username = '', $count = 1)
     {
-        dump($username);
-        dump($count);
-        $arr = \BossBaby\Twitter::get_user_feeds($username, $count);
+        if (!$username or !$count) return [];
 
-        dump($arr);die;
+        $tmp = \BossBaby\Twitter::get_user_feeds($username, $count);
+
+        if (is_object($tmp))
+            $tmp = \BossBaby\Utility::object_to_array($tmp);
+
+        if (isset($tmp['errors'])) {
+            // throw new Exception($tmp['errors'][0]['message']);
+            \BossBaby\Utility::writeLog(__FILE__.'::error:'.$tmp['errors'][0]['message']);
+        }
+
+        // dump($tmp);
+
+        $arr = [];
+        foreach ($tmp as $pos => $status) {
+            try {
+                // $status = \BossBaby\Utility::array_to_object($status);
+                // $arr[] = \Twitter::clickable($status);
+                // if ($status->text)
+                $arr[] = $status->text;
+            }
+            catch(Exception $e) {
+                throw new Exception($e->getMessage() . '::satatus::'.serialize($status), 500);
+            }
+        }
+        
         return $arr;
     }
 }
