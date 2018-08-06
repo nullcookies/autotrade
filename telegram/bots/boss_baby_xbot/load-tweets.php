@@ -79,8 +79,7 @@ function run_cron() {
             $latest_tweet = \BossBaby\Telegram::get_user_feeds($username, 1);
             // $latest_tweet = \BossBaby\Twitter::get_user_feeds($username, 1);
             // \BossBaby\Utility::writeLog('latest_tweet:'.serialize($latest_tweet));
-            // dump($latest_tweet);
-
+            
             $old_one = (isset($shown_tweets[$coin]) and trim($shown_tweets[$coin])) ? trim($shown_tweets[$coin]) : '';
             $first_one = (isset($latest_tweet[0]) and trim($latest_tweet[0])) ? trim($latest_tweet[0]) : '';
 
@@ -151,8 +150,6 @@ function run_cron() {
         // Write back data into cache
         \BossBaby\Config::write($shown_tweets_file, (array) $shown_tweets);
         sleep(1);
-
-        // dump($shown_tweets);die;
 
         // return Request::emptyResponse();
     
