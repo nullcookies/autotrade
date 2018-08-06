@@ -854,4 +854,14 @@ class Telegram
 
         return $return;
     }
+
+    public static function get_user_feeds($username = '', $count = 1)
+    {
+        dump($username);
+        dump($count);
+        $arr = \BossBaby\Twitter::get_user_feeds($username, $count);
+
+        dump($arr);die;
+        return $arr;
+    }
 }

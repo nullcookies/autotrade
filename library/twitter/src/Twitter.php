@@ -11,8 +11,6 @@
  * Version:     3.7
  */
 
-
-
 /**
  * Twitter API.
  */

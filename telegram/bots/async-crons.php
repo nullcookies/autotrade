@@ -20,6 +20,9 @@ async_execute_file(__DIR__ . '/boss_baby_xbot/coin-pulse-binance.php');
 // Run cron retrive coins on Binance
 async_execute_file(__DIR__ . '/boss_baby_xbot/coin-pulse-bittrex.php');
 
+// Run cron retrive tweets on Twitter
+async_execute_file(__DIR__ . '/boss_baby_xbot/load-tweets.php');
+
 // Finished
 die('FINISHED');
 

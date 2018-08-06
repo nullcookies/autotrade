@@ -281,6 +281,16 @@ https://github.com/dg/twitter-php
 Twitter Create new app:
 https://apps.twitter.com
 
+How to know Twitter ID:
+https://twitter.com/settings/account
+init_data -> userId:
+
+Twitter load feeds:
+https://www.codeofaninja.com/2015/08/display-twitter-feed-on-website.html
+
+Twitter OAuth:
+OAuth is an authentication protocol that allows users to approve application to act on their behalf without sharing their password
+https://developer.twitter.com/en/docs/basics/authentication/guides/oauth-faq
 
 Install PHP 7.2 on Mac:
 https://medium.com/@romaninsh/install-php-7-2-on-macos-high-sierra-with-homebrew-bdc4d1b04ea6

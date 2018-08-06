@@ -2,6 +2,17 @@
 return array(
 	'enable' => true,
     'general' => array(),
+    'database' => array(
+        '1' => array(
+            'host' => 'localhost',
+            'port' => '3306',
+            'user' => 'maatschappelijkwerkonline.nl.us',
+            'pass' => '9XAwTHhb8sDofGbl',
+            'name' => 'test-11_maatschappelijkwerkonline.nl.db',
+            'table_prefix' => '',
+            'encoding' => 'utf8mb4',
+        ),
+    ),
     'bitmex' => array(
         'root_url' => 'https://www.bitmex.com/',
         'accounts' => array(
@@ -92,21 +103,11 @@ return array(
             ),
         ),
     ),
-	'database' => array(
-    	'1' => array(
-            'host' => 'localhost',
-            'port' => '3306',
-            'user' => 'maatschappelijkwerkonline.nl.us',
-            'pass' => '9XAwTHhb8sDofGbl',
-            'name' => 'test-11_maatschappelijkwerkonline.nl.db',
-            'table_prefix' => '',
-            'encoding' => 'utf8mb4',
-        ),
-	),
 	'telegram' => array(
     	'main' => array(
             'id' => '475001958',
-            'api' => 'https://api.telegram.org',
+            'api' => 'https://api.telegram.org/',
+            'root_url' => 'https://telegram.org/',
         ),
         'bots' => array(
             'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/',
@@ -148,9 +149,9 @@ return array(
             ),
             '4' => array(
                 'id' => -1001246511258,
-                'name' => 'Boss Baby BOT Channel',
-                'username' => 'channel_boss_baby_bot',
-                'root_url' => 'https://t.me/channel_boss_baby_bot',
+                'name' => 'Boss Baby Full Tweets',
+                'username' => 'channel_boss_baby_full_tweets',
+                'root_url' => 'https://t.me/channel_boss_baby_full_tweets',
             ),
         ),
         'groups' => array(
@@ -180,16 +181,31 @@ return array(
         'main' => array(
             'id' => '403068373614723073',
             'api' => 'https://discordapp.com/api/',
+            'root_url' => 'https://discordapp.com/',
         ),
         'bots' => array(
             '1' => array(
                 'id' => '475574353774510080',
                 'name' => '',
-                'username' => 'boss_baby_xbot',
+                'username' => 'channel_coin_pulse_binance',
                 'token' => 'QeIGNlARPURcidha616a7q69k4O1Ho1Ld-8b2HK8iVEYsgM7T5KCLa5T9z_EQbIoT-4F',
                 'webhook_url' => 'https://discordapp.com/api/webhooks/475574353774510080/QeIGNlARPURcidha616a7q69k4O1Ho1Ld-8b2HK8iVEYsgM7T5KCLa5T9z_EQbIoT-4F',
             ),
             '2' => array(
+                'id' => '475877776336093206',
+                'name' => '',
+                'username' => 'channel_coin_pulse_bittrex',
+                'token' => 'kKgIdmTmJG_K11M_v02FbtAbVOaOIL6UtBjeLcCr_6cE8FWL4I6zH3fPqwSsD6kDg79p',
+                'webhook_url' => 'https://discordapp.com/api/webhooks/475877776336093206/kKgIdmTmJG_K11M_v02FbtAbVOaOIL6UtBjeLcCr_6cE8FWL4I6zH3fPqwSsD6kDg79p',
+            ),
+            '3' => array(
+                'id' => '475880208423976961',
+                'name' => '',
+                'username' => 'twitter_feeds',
+                'token' => 'u34UUoSqmctuUzN15zzzrPgwcTfcZQqNuHA--Phohf5xvNpXOPBHD7NL9pVRts4qiOTX',
+                'webhook_url' => 'https://discordapp.com/api/webhooks/475880208423976961/u34UUoSqmctuUzN15zzzrPgwcTfcZQqNuHA--Phohf5xvNpXOPBHD7NL9pVRts4qiOTX',
+            ),
+            '9' => array(
                 'id' => '472078161786437640',
                 'name' => '',
                 'username' => '',
@@ -197,20 +213,75 @@ return array(
                 'webhook_url' => 'https://discordapp.com/api/webhooks/472078161786437640/y3KOcJDG6q7qmqdkXgGpr_amxdgEQN7ZKwoln1tNS9bYkvb-Okr8TZQaeviSkvPSFQZi',
             ),
         ),
-        'channels' => array(
-            '1' => array(
-                'id' => '475573108137263134',
-                'name' => 'bots',
-                'username' => '',
-                'root_url' => '',
-            ),
-        ),
         'guild' => array(
             '1' => array(
                 'id' => '475344557228294154',
                 'name' => '',
                 'username' => '',
-                'root_url' => '',
+                'root_url' => 'https://discordapp.com/channels/475344557228294154',
+            ),
+        ),
+        'channels' => array(
+            '1' => array(
+                'id' => '475573108137263134',
+                'name' => 'channel_coin_pulse_binance',
+                'username' => 'channel_coin_pulse_binance',
+                'root_url' => 'https://discordapp.com/channels/475344557228294154/475573108137263134',
+            ),
+            '2' => array(
+                'id' => '475877642999037952',
+                'name' => 'channel_coin_pulse_bittrex',
+                'username' => 'channel_coin_pulse_bittrex',
+                'root_url' => 'https://discordapp.com/channels/475344557228294154/475877642999037952',
+            ),
+            '3' => array(
+                'id' => '475880034687516687',
+                'name' => 'twitter_feeds',
+                'username' => 'twitter_feeds',
+                'root_url' => 'https://discordapp.com/channels/475344557228294154/475880034687516687',
+            ),
+        ),
+    ),
+    'twitter' => array(
+        'main' => array(
+            'id' => '403068373614723073',
+            'root_url' => 'https://twitter.com/',
+        ),
+        'filter' => array(
+            'hot', 'upgrade', 'important'
+        ),
+        'accounts' => array(
+            '1' => array(
+                'id' => '1600496436',
+                'name' => 'Long Vu',
+                'username' => 'longersoft',
+                'email' => 'longersoft@gmail.com',
+            ),
+            '2' => array(
+                'id' => '44592652',
+                'name' => 'signvltk1',
+                'username' => 'signvltk1',
+                'email' => 'signvltk1@gmail.com',
+            ),
+        ),
+        'apps' => array(
+            '1' => array(
+                'id' => '3440727',
+                'name' => 'signvltk1',
+                'apiKey' => 'Z3emNW7OyH190xO6K4dusQ',
+                'apiSecret' => 'twSkjQIFh2a9VFiuBfgh7nh9y5q6CdhRuYP9LRsB5M',
+                'accessToken' => '44592652-uSZxfBQ1SdVU2gT60dOYHDmnGPprJscYjim9jOJMF',
+                'accessTokenSecret' => 'OW1r1fSc6h56Lu5lPCnDqLa0faMJRYxAXvDvJdknWZsSQ',
+                'root_url' => 'https://apps.twitter.com/app/3440727/',
+            ),
+            '2' => array(
+                'id' => '3440727',
+                'name' => 'signvltk1',
+                'apiKey' => 'Z3emNW7OyH190xO6K4dusQ',
+                'apiSecret' => 'twSkjQIFh2a9VFiuBfgh7nh9y5q6CdhRuYP9LRsB5M',
+                'accessToken' => '44592652-uSZxfBQ1SdVU2gT60dOYHDmnGPprJscYjim9jOJMF',
+                'accessTokenSecret' => 'OW1r1fSc6h56Lu5lPCnDqLa0faMJRYxAXvDvJdknWZsSQ',
+                'root_url' => 'https://apps.twitter.com/app/3440727/',
             ),
         ),
     ),

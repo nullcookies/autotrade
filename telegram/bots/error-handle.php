@@ -117,7 +117,7 @@ if (!function_exists('log_exception')) {
         // file_put_contents( __DIR__ .'/custom_errors.log', ($result?'Notified: '.var_export($result, true).PHP_EOL:'Not notified: '.var_export($result, true).PHP_EOL).$message . PHP_EOL, FILE_APPEND );
         
         // Sending 200 response code
-        header('X-PHP-Response-Code: 200', true, 200);
+        @header('X-PHP-Response-Code: 200', true, 200);
         
         exit();
     }
