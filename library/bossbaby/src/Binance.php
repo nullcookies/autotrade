@@ -11,6 +11,7 @@ class Binance
         if (!is_object($environment->binance_instance) or !$coin) return [];
 
         $tmp = $environment->binance_instance->prices();
+        dump($tmp); die;
         // \BossBaby\Utility::writeLog('coin:'.serialize($coin).PHP_EOL.'-tmp:'.serialize($tmp));
 
         $arr = [];

@@ -21,7 +21,7 @@ async_execute_file(__DIR__ . '/boss_baby_xbot/coin-pulse-binance.php');
 async_execute_file(__DIR__ . '/boss_baby_xbot/coin-pulse-bittrex.php');
 
 // Run cron retrive tweets on Twitter
-async_execute_file(__DIR__ . '/boss_baby_xbot/load-tweets.php');
+async_execute_file(__DIR__ . '/boss_baby_xbot/coin-tweets.php');
 
 // Finished
 die('FINISHED');
