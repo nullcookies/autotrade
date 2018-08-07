@@ -202,8 +202,15 @@ return array(
                 'id' => '475880208423976961',
                 'name' => '',
                 'username' => 'twitter_feeds',
-                'token' => 'u34UUoSqmctuUzN15zzzrPgwcTfcZQqNuHA--Phohf5xvNpXOPBHD7NL9pVRts4qiOTX',
-                'webhook_url' => 'https://discordapp.com/api/webhooks/475880208423976961/u34UUoSqmctuUzN15zzzrPgwcTfcZQqNuHA--Phohf5xvNpXOPBHD7NL9pVRts4qiOTX',
+                'token' => '7cQ6v5dJlreq2oD4tyNj2D1AUCclqQr8V1DhRyNYfKB18-SH1uoZUSFAZhAl6r-CZ4Pi',
+                'webhook_url' => 'https://discordapp.com/api/webhooks/476313719492837386/7cQ6v5dJlreq2oD4tyNj2D1AUCclqQr8V1DhRyNYfKB18-SH1uoZUSFAZhAl6r-CZ4Pi',
+            ),
+            '4' => array(
+                'id' => '476312922998439936',
+                'name' => '',
+                'username' => 'tweets_full',
+                'token' => 'qM8wcK-zrf6WJU1cEz3va-duNe4vw8bVpVnupXFARxlibflw-Fe5pywgut9jdFUpIIbe',
+                'webhook_url' => 'https://discordapp.com/api/webhooks/476312922998439936/qM8wcK-zrf6WJU1cEz3va-duNe4vw8bVpVnupXFARxlibflw-Fe5pywgut9jdFUpIIbe',
             ),
             '9' => array(
                 'id' => '472078161786437640',
@@ -240,6 +247,12 @@ return array(
                 'username' => 'twitter_feeds',
                 'root_url' => 'https://discordapp.com/channels/475344557228294154/475880034687516687',
             ),
+            '4' => array(
+                'id' => '476312881365778433',
+                'name' => 'tweets_full',
+                'username' => 'twitter_feeds',
+                'root_url' => 'https://discordapp.com/channels/475344557228294154/476312881365778433',
+            ),
         ),
     ),
     'twitter' => array(
@@ -248,7 +261,7 @@ return array(
             'root_url' => 'https://twitter.com/',
         ),
         'filter' => array(
-            'hot', 'upgrade', 'important'
+            'hot', 'upgrade', 'important', 'will be list', 'listed', 'listing', 'swap', 'mainnet'
         ),
         'accounts' => array(
             '1' => array(
@@ -283,6 +296,15 @@ return array(
                 'accessTokenSecret' => 'OW1r1fSc6h56Lu5lPCnDqLa0faMJRYxAXvDvJdknWZsSQ',
                 'root_url' => 'https://apps.twitter.com/app/3440727/',
             ),
+        ),
+    ),
+    'coinmarketcal' => array(
+        'accounts' => array(
+            'id' => '403068373614723073',
+            'client_id' => '1091_wg08zglp9tcso8s4w4gc4k0wcokgskg4s08kw48kc0wwo8kcw',
+            'client_secret' => '2gegflddipc040s84sc8kkg4sgcg4gkc8k84kwo8gg80ksskow',
+            'access_token' => 'YmI0MjljOThhY2I1NzFmYWQyNjNmYzU5MGRkODQxMjg5OTYyZjc4ZDFhOWRhODZlMjg0OGVmMmY0N2JjNWQxYw',
+            'root_url' => 'https://api.coinmarketcal.com/',
         ),
     ),
 );

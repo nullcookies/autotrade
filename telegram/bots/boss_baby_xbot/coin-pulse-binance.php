@@ -51,6 +51,7 @@ function run_cron() {
         $data = [
             'chat_id'    => $chat_id,
             'parse_mode' => 'html',
+            'disable_web_page_preview' => true,
             'text' => '',
         ];
 
@@ -76,6 +77,7 @@ function run_cron() {
         //     // }
         // }
 
+        // Format for Telegram
         if ($list_coin_binance['telegram']) {
             foreach ($list_coin_binance['telegram'] as $text) {
                 $data['text'] = trim($text);
@@ -95,6 +97,7 @@ function run_cron() {
             }
         }
 
+        // Format for Discord
         if ($list_coin_binance['discord']) {
             foreach ($list_coin_binance['discord'] as $text) {
                 $data['text'] = trim($text);

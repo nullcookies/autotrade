@@ -276,6 +276,7 @@ class Telegram
 
                             $text_out_link = \BossBaby\Utility::func_clean_double_space($changed_1h . $changed_5m . $changed_1m . $changed_10s);
 
+                            // Format for Telegram
                             // https://www.binance.com/trade.html?symbol=BTC_USDT
                             $tmp_str = '<a href="https://www.binance.com/trade.html?symbol=' . $coin_name . '_BTC">' . $coin_name . '</a> ' . $text_out_link;
                             if (isset($old_data['10s']) and isset($old_data['10s'][$coin])) $tmp_str .= PHP_EOL . '10s ago: ' . $old_data['10s'][$coin];
@@ -285,7 +286,8 @@ class Telegram
                             $tmp_str .= PHP_EOL . 'last price: <b>' . $new_price . '</b>';
                             $return['telegram'][] = $tmp_str . PHP_EOL;
 
-                            $tmp_str = "\n\r" . PHP_EOL . 'https://www.binance.com/trade.html?symbol=' . $coin_name . '_BTC';
+                            // Format for Discord
+                            $tmp_str = "\n\r" . PHP_EOL . '<https://www.binance.com/trade.html?symbol=' . $coin_name . '_BTC>';
                             $text_out_link = str_replace('<b>', '**', $text_out_link);
                             $text_out_link = str_replace('</b>', '**', $text_out_link);
                             $tmp_str .= PHP_EOL . '**#' . $coin_name . '** ' . $text_out_link;
@@ -525,6 +527,7 @@ class Telegram
 
                             $text_out_link = \BossBaby\Utility::func_clean_double_space($changed_1h . $changed_5m . $changed_1m . $changed_10s);
 
+                            // Format for Telegram
                             // https://www.bittrex.com/Market/Index?MarketName=BTC-USDT
                             $tmp_str = '<a href="https://bittrex.com/Market/Index?MarketName=' . $coin . '">' . $coin_name . '</a> ' . $text_out_link;
                             if (isset($old_data['10s']) and isset($old_data['10s'][$coin])) $tmp_str .= PHP_EOL . '10s ago: ' . $old_data['10s'][$coin];
@@ -534,7 +537,8 @@ class Telegram
                             $tmp_str .= PHP_EOL . 'last price: <b>' . $new_price . '</b>';
                             $return['telegram'][] = $tmp_str . PHP_EOL;
 
-                            $tmp_str = "\n\r" . PHP_EOL . 'https://bittrex.com/Market/Index?MarketName=' . $coin;
+                            // Format for Discord
+                            $tmp_str = "\n\r" . PHP_EOL . '<https://bittrex.com/Market/Index?MarketName=' . $coin . '>';
                             $text_out_link = str_replace('<b>', '**', $text_out_link);
                             $text_out_link = str_replace('</b>', '**', $text_out_link);
                             $tmp_str .= PHP_EOL . '**#' . $coin_name . '** ' . $text_out_link;
@@ -592,7 +596,7 @@ class Telegram
                 //     \BossBaby\Utility::writeLog(__FILE__.'::error:'.serialize($status));
                 //     continue;
                 // }
-                $arr[] = (isset($status->text)) ? $status->text : '';
+                $arr[$status->id] = (isset($status->text)) ? $status->text : '';
             }
             catch(Exception $e) {
                 throw new Exception($e->getMessage() . '::satatus::'.serialize($status), 500);
