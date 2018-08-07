@@ -69,8 +69,8 @@ return array(
         'username' => 'AttentionToken'
     ),
     'BCC' => array(
-        'root_url' => 'KO',
-        'username' => 'KO'
+        'root_url' => 'https://twitter.com/BITCOlNCASH',
+        'username' => 'BITCOlNCASH'
     ),
     'BCD' => array(
         'root_url' => 'https://twitter.com/BitcoinDiamond_',
@@ -80,10 +80,10 @@ return array(
         'root_url' => 'https://twitter.com/bitcoingold',
         'username' => 'bitcoingold'
     ),
-    // 'BTS' => array(
-    //     'root_url' => 'https://twitter.com/bitshares',
-    //     'username' => 'bithares'
-    // ),
+    'BTS' => array(
+        'root_url' => 'https://twitter.com/bitshares',
+        'username' => 'bitshares'
+    ),
     'BCPT' => array(
         'root_url' => 'https://twitter.com/blockmasonio',
         'username' => 'blockmasonio'
@@ -113,8 +113,8 @@ return array(
         'username' => 'chainlink'
     ),
     'CHAT' => array(
-        'root_url' => 'KO',
-        'username' => 'KO'
+        'root_url' => 'https://twitter.com/OpenChatCoin',
+        'username' => 'OpenChatCoin'
     ),
     'CND' => array(
         'root_url' => 'https://twitter.com/Crowd_indicator',
@@ -185,8 +185,8 @@ return array(
         'username' => 'FunFairTech'
     ),
     'GAS' => array(
-        'root_url' => 'KO',
-        'username' => 'KO'
+        'root_url' => 'https://twitter.com/neo_blockchain',
+        'username' => 'neo_blockchain'
     ),
     'NEO' => array(
         'root_url' => 'https://twitter.com/neo_blockchain',
@@ -284,10 +284,10 @@ return array(
         'root_url' => 'https://twitter.com/moedabanking',
         'username' => 'moedabanking'
     ),
-    'MCO' => array(
-        'root_url' => 'https://twitter.com/monaco_card',
-        'username' => 'monaco_card'
-    ),
+    // 'MCO' => array( //suspended
+    //     'root_url' => 'https://twitter.com/monaco_card',
+    //     'username' => 'monaco_card'
+    // ),
     'XMR' => array(
         'root_url' => 'https://twitter.com/monero',
         'username' => 'monero'

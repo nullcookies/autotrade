@@ -33,7 +33,7 @@ class Twitter
 
 	/** @var array */
 	public $httpOptions = [
-		CURLOPT_TIMEOUT => 20,
+		CURLOPT_TIMEOUT => 30,
 		CURLOPT_SSL_VERIFYPEER => 0,
 		CURLOPT_HTTPHEADER => ['Expect:'],
 		CURLOPT_USERAGENT => 'Twitter for PHP',
@@ -307,7 +307,10 @@ class Twitter
 		$result = curl_exec($curl);
 		if (curl_errno($curl)) {
 			// throw new TwitterException('Server error: ' . curl_error($curl));
-			\BossBaby\Utility::writeLog(__FILE__.'::server-error:'.curl_error($curl));
+			\BossBaby\Utility::writeLog(__FILE__.'::server-error:'.curl_error($curl) . "\n" . 'data::' . serialize($data));
+			$tmp = new stdClass();
+			$tmp->error = curl_error($curl);
+			return $tmp;
 		}
 
 		$payload = defined('JSON_BIGINT_AS_STRING')
@@ -321,10 +324,13 @@ class Twitter
 		$code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 		if ($code >= 400) {
 			$message = isset($payload->errors[0]->message)
-				? $payload->errors[0]->message . '<br/>data::' . serialize($data)
-				: "Server error #$code with answer $result";
+				? $payload->errors[0]->message . "\n" . 'data::' . serialize($data)
+				: "Server error #$code with answer $result" . "\n" . 'data::' . serialize($data);
 			// throw new TwitterException($message, $code);
 			\BossBaby\Utility::writeLog(__FILE__.'::error:'.$message);
+			$tmp = new stdClass();
+			$tmp->error = $message;
+			return $tmp;
 		}
 
 		return $payload;

@@ -17,7 +17,7 @@ $twitter_timeline = "user_timeline";
 // for example, we want to show 20 of Taylor Swift's twitter posts
 $request = array(
 	'count' => '1',
-	'screen_name' => 'OntologyNetwork'
+	'screen_name' => 'monaco_card'
 );
 
 // put oauth values in one oauth array variable
