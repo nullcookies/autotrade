@@ -599,7 +599,7 @@ class Telegram
                 $arr[$status->id] = (isset($status->text)) ? $status->text : '';
             }
             catch(Exception $e) {
-                throw new Exception($e->getMessage() . '::satatus::'.serialize($status), 500);
+                throw new Exception($e->getMessage() . '::status::'.serialize($status), 500);
             }
         }
         
