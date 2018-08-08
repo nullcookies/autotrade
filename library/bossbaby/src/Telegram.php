@@ -22,8 +22,11 @@ class Telegram
 
     public static function format_xbt_price_for_telegram()
     {
+        global $environment;
+        $environment->bitmex_instance = new \Bitmex($environment->bitmex->accounts->{1}->apiKey, $environment->bitmex->accounts->{1}->apiSecret);
+        $arr = \BossBaby\Bitmex::func_get_current_price($environment->bitmex_instance);
+
         $price = '';
-        $arr = \BossBaby\Bitmex::func_get_current_price();
 
         $_current_price = 0;
         $last_orig = $arr['last'];

@@ -49,6 +49,8 @@ class GenericmessageCommand extends SystemCommand
      */
     public function executeNoDb()
     {
+        // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
+
         // Don't know why it go here but, process
         $message = $this->getMessage();
         $chat_id = $message->getChat()->getId();
@@ -125,6 +127,8 @@ class GenericmessageCommand extends SystemCommand
      */
     public function execute()
     {
+        // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
+
         $message   = $this->getMessage();
         $chat_id   = $message->getChat()->getId();
         

@@ -45,11 +45,6 @@ function run_cron() {
     $bot_api_key  = $environment->telegram->bots->{2}->token;
     $bot_username = $environment->telegram->bots->{2}->username;
 
-    // Define all paths for your custom commands in this array (leave as empty array if not used)
-    $commands_paths = [
-       __DIR__ . '/Commands/',
-    ];
-
     try {
         // Create Telegram API object
         $telegram = new Longman\TelegramBot\Telegram($bot_api_key, $bot_username);

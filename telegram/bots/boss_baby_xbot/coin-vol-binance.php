@@ -5,7 +5,7 @@
  * Uncommented parameters must be filled
  */
 
-if (!defined('STDIN')) die('Access denied.' . "\n");
+// if (!defined('STDIN')) die('Access denied.' . "\n");
 
 // Error handle
 require_once __DIR__ . '/../error-handle.php';
@@ -13,9 +13,7 @@ require_once __DIR__ . '/../error-handle.php';
 // Load composer
 require_once LIB_DIR . '/telegram/vendor/autoload.php';
 
-if (date('i') % 5 == 0)
-    run_cron();
-
+run_cron();
 // $sleep = 9;
 // sleep($sleep); run_cron();
 // sleep($sleep); run_cron();
@@ -24,18 +22,13 @@ if (date('i') % 5 == 0)
 
 function run_cron() {
     // dump(__FUNCTION__ . '::' . time());
-    // \BossBaby\Utility::writeLog('----'.__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
+    // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
 
     global $environment;
 
     // Add you bot's API key and name
     $bot_api_key  = $environment->telegram->bots->{2}->token;
     $bot_username = $environment->telegram->bots->{2}->username;
-
-    // Define all paths for your custom commands in this array (leave as empty array if not used)
-    $commands_paths = [
-       __DIR__ . '/Commands/',
-    ];
 
     try {
         // Create Telegram API object

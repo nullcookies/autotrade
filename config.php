@@ -175,6 +175,18 @@ return array(
                 'username' => '',
                 'root_url' => '',
             ),
+            '2' => array(
+                'id' => '553436063',
+                'name' => 'C2',
+                'username' => 'Bep127',
+                'root_url' => '',
+            ),
+            '3' => array(
+                'id' => '285042211',
+                'name' => 'D',
+                'username' => 'dnm102',
+                'root_url' => '',
+            ),
         ),
 	),
     'discord' => array(

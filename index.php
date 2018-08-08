@@ -24,7 +24,7 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 // ------------------------------------------------------------ //
 
 if (isset($_SESSION['user_name']) and $_SESSION['user_name']) {
-	echo '<style type="text/css">body{font-size:80px;}</style>';
+	echo '<style type="text/css">body{font-size:50px;}</style>';
 	echo '<br/><a href="bitmex/">Bitmex</a>';
 	echo '<br/><br/><a href="binance/">Binance</a>';
 	echo '<br/><br/><a href="bittrex/">Bittrex</a>';

@@ -101,6 +101,7 @@ https://api.telegram.org/bot696118749:AAGofvL9n2Xp-LhBd-jut_QgmnUKV0AsMro/setweb
 https://api.telegram.org/bot641704003:AAHSGnyXAigJDwi4dMdG7rUoftCnbHMUWP8/setwebhook?url=
 https://api.telegram.org/bot615876936:AAF_6bub_cjLyiPLJ1BjAxoRqByDaKaYSB4/setwebhook?url=
 https://api.telegram.org/bot585481163:AAEpPfxKDJpEUYtC3FBymi6lhR1ZhiP917w/setwebhook?url=
+https://api.telegram.org/bot669289813:AAFqt7B2POV1yozQzKRmFnFbfAArrh4-VTo/setwebhook?url=
 
 
 
@@ -308,4 +309,19 @@ API:
 https://api.coinmarketcal.com/oauth/v2/token?grant_type=client_credentials&client_id=1091_wg08zglp9tcso8s4w4gc4k0wcokgskg4s08kw48kc0wwo8kcw&client_secret=2gegflddipc040s84sc8kkg4sgcg4gkc8k84kwo8gg80ksskow
 https://api.coinmarketcal.com/v1/events?access_token=YmI0MjljOThhY2I1NzFmYWQyNjNmYzU5MGRkODQxMjg5OTYyZjc4ZDFhOWRhODZlMjg0OGVmMmY0N2JjNWQxYw&page=1&max=16
 https://api.coinmarketcal.com/v1/events?access_token=YmI0MjljOThhY2I1NzFmYWQyNjNmYzU5MGRkODQxMjg5OTYyZjc4ZDFhOWRhODZlMjg0OGVmMmY0N2JjNWQxYw&page=1&max=1&dateRangeStart=13%2F08%2F2018&dateRangeEnd=13%2F09%2F2018&sortBy=hot_events&showOnly=hot_events&showMetadata=true
+
+
+Chart:
+https://s.tradingview.com/widgetembed/?frameElementId=tradingview_1f234&symbol=BITMEX%3AXBTUSD&interval=60&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=BB%40tv-basicstudies&theme=Dark&style=8&timezone=Asia%2FHo_Chi_Minh&showpopupbutton=1&studies_overrides=%7B%7D&overrides=%7B%7D&enabled_features=%5B%5D&disabled_features=%5B%5D&showpopupbutton=1&locale=en&utm_source=localhost&utm_medium=widget&utm_campaign=chart&utm_term=BITMEX%3AXBTUSD
+
+https://pdfcrowd.com/
+Request URL: https://pdfcrowd.com/form/json/convert/uri/v2/
+noCache: 1533743551058
+src: https://s.tradingview.com/widgetembed/?frameElementId=tradingview_1f234&symbol=BITMEX%3AXBTUSD&interval=60&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=BB%40tv-basicstudies&theme=Dark&style=8&timezone=Asia%2FHo_Chi_Minh&showpopupbutton=1&studies_overrides=%7B%7D&overrides=%7B%7D&enabled_features=%5B%5D&disabled_features=%5B%5D&showpopupbutton=1&locale=en&utm_source=localhost&utm_medium=widget&utm_campaign=chart&utm_term=BITMEX%3AXBTUSD
+conversion_source: uri
+output_image_format: jpg
+
+noCache: 1533743647323
+src: https://s.tradingview.com/widgetembed/?frameElementId=tradingview_1f234&symbol=BITMEX%3AXBTUSD&interval=60&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=BB%40tv-basicstudies&theme=Dark&style=8&timezone=Asia%2FHo_Chi_Minh&showpopupbutton=1&studies_overrides=%7B%7D&overrides=%7B%7D&enabled_features=%5B%5D&disabled_features=%5B%5D&showpopupbutton=1&locale=en&utm_source=localhost&utm_medium=widget&utm_campaign=chart&utm_term=BITMEX%3AXBTUSD
+conversion_source: uri
 
