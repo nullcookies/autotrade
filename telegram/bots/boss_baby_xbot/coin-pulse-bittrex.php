@@ -14,7 +14,7 @@ require_once __DIR__ . '/../error-handle.php';
 require_once LIB_DIR . '/telegram/vendor/autoload.php';
 
 run_cron();
-$sleep = 9;
+$sleep = 10;
 sleep($sleep); run_cron();
 sleep($sleep); run_cron();
 sleep($sleep); run_cron();

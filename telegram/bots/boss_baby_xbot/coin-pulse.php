@@ -13,16 +13,19 @@ require_once __DIR__ . '/../error-handle.php';
 // Load composer
 require_once LIB_DIR . '/telegram/vendor/autoload.php';
 
-$i = 0;
 run_cron();
+$sleep = 10;
+sleep($sleep); run_cron();
+sleep($sleep); run_cron();
+sleep($sleep); run_cron();
+sleep($sleep); run_cron();
 
 function run_cron() {
-    global $environment;
-    global $i;
+    // dump(__FUNCTION__ . '::' . time());
+    // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
     
-    $i++;
-    if ($i > 3) die('FINISHED');
-
+    global $environment;
+    
     // Your command(s) to run, pass it just like in a message (arguments supported)
     $commands = [
         '/coinpulse'
@@ -102,7 +105,4 @@ function run_cron() {
         // echo $e;
         // dump('TelegramLogException:'); dump($e);
     }
-
-    sleep(10);
-    run_cron();
 }

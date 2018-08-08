@@ -3,12 +3,14 @@ namespace BossBaby;
 
 class Bitmex
 {
-    public static function func_get_current_price($bitmex = null)
+    public static function func_get_current_price($bitmex_instance = null)
     {
-        global $environment;
-        $environment->bitmex_instance = new \Bitmex($environment->bittrex->accounts->{1}->apiKey, $environment->bittrex->accounts->{1}->apiSecret);
+        if (!is_object($bitmex_instance)) {
+            global $environment;
+            $bitmex_instance = new \Bitmex($environment->bitmex->accounts->{1}->apiKey, $environment->bitmex->accounts->{1}->apiSecret);
+        }
         
-        $arr = $environment->bitmex_instance->getTicker();
+        $arr = $bitmex_instance->getTicker();
         if (is_array($arr) and count($arr)) {
             $arr['marketPrice'] = $arr['market_price'];
             unset($arr['market_price']);
@@ -26,59 +28,59 @@ class Bitmex
         return $arr;
     }
     
-    public static function func_get_account_wallet($account_info = null)
+    public static function func_get_account_wallet($bitmex_instance = null)
     {
-        if (!$account_info) return array();
+        if (!$bitmex_instance) return array();
 
-        $arr = $account_info->getWallet();
+        $arr = $bitmex_instance->getWallet();
         return $arr;
     }
 
-    public static function func_get_open_positions($account_info = null)
+    public static function func_get_open_positions($bitmex_instance = null)
     {
-        if (!$account_info) return array();
+        if (!$bitmex_instance) return array();
 
-        $arr = $account_info->getOpenPositions();
+        $arr = $bitmex_instance->getOpenPositions();
         return $arr;
     }
 
-    public static function func_get_open_orders($account_info = null)
+    public static function func_get_open_orders($bitmex_instance = null)
     {
-        if (!$account_info) return array();
+        if (!$bitmex_instance) return array();
 
-        $arr = $account_info->getOpenOrders();
+        $arr = $bitmex_instance->getOpenOrders();
         return $arr;
     }
 
-    public static function func_get_margin($account_info = null)
+    public static function func_get_margin($bitmex_instance = null)
     {
-        if (!$account_info) return array();
+        if (!$bitmex_instance) return array();
 
-        $arr = $account_info->getMargin();
+        $arr = $bitmex_instance->getMargin();
         return $arr;
     }
     
-    public static function func_get_orderbook($account_info = null, $depth = 10)
+    public static function func_get_orderbook($bitmex_instance = null, $depth = 10)
     {
-        if (!$account_info) return array();
+        if (!$bitmex_instance) return array();
 
-        $arr = $account_info->getOrderBook($depth);
+        $arr = $bitmex_instance->getOrderBook($depth);
         return $arr;
     }
 
-    public static function func_get_orders($account_info = null, $depth = 10)
+    public static function func_get_orders($bitmex_instance = null, $depth = 10)
     {
-        if (!$account_info) return array();
+        if (!$bitmex_instance) return array();
 
-        $arr = $account_info->getOrders($depth);
+        $arr = $bitmex_instance->getOrders($depth);
         return $arr;
     }
 
-    public static function func_get_order($account_info = null, $orderID = 0, $count = 10)
+    public static function func_get_order($bitmex_instance = null, $orderID = 0, $count = 10)
     {
-        if (!$account_info) return array();
+        if (!$bitmex_instance) return array();
 
-        $arr = $account_info->getOrder($orderID, $count);
+        $arr = $bitmex_instance->getOrder($orderID, $count);
         return $arr;
     }
 }

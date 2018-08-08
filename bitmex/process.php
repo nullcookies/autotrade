@@ -35,9 +35,10 @@ if (!isset($_SESSION['user_name']) or !$_SESSION['user_name']) {
 if (!$environment->enable)
 	die('<p class="message">STOP!!!</p>');
 
-$environment->bitmex_instance = new \Bitmex($environment->bittrex->accounts->{1}->apiKey, $environment->bittrex->accounts->{1}->apiSecret);
-$environment->bitmex_instance2 = new \Bitmex($environment->bittrex->accounts->{2}->apiKey, $environment->bittrex->accounts->{2}->apiSecret);
-$environment->bitmex_instance3 = new \Bitmex($environment->bittrex->accounts->{3}->apiKey, $environment->bittrex->accounts->{3}->apiSecret);
+$environment->bitmex_instance = new \Bitmex($environment->bitmex->accounts->{1}->apiKey, $environment->bitmex->accounts->{1}->apiSecret);
+// $environment->bitmex_instance2 = new \Bitmex($environment->bitmex->accounts->{2}->apiKey, $environment->bitmex->accounts->{2}->apiSecret);
+$environment->bitmex_instance2 = $environment->bitmex_instance;
+$environment->bitmex_instance3 = new \Bitmex($environment->bitmex->accounts->{3}->apiKey, $environment->bitmex->accounts->{3}->apiSecret);
 
 // ------------------------------------------------------------ //
 
@@ -150,13 +151,13 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 
 // Process load
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-account') {
-	$arr = \BossBaby\Bitmex::func_get_account_info($environment->bittrex->accounts->{2}->email, $environment->bittrex->accounts->{2}->apiKey, $environment->bittrex->accounts->{2}->apiSecret);
+	$arr = \BossBaby\Bitmex::func_get_account_info($environment->bitmex->accounts->{2}->email, $environment->bitmex->accounts->{2}->apiKey, $environment->bitmex->accounts->{2}->apiSecret);
 	\BossBaby\Utility::func_print_arr_to_table($arr);
 	exit;
 }
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-account2') {
-	$arr = \BossBaby\Bitmex::func_get_account_info($environment->bittrex->accounts->{3}->email, $environment->bittrex->accounts->{3}->apiKey, $environment->bittrex->accounts->{3}->apiSecret);
+	$arr = \BossBaby\Bitmex::func_get_account_info($environment->bitmex->accounts->{3}->email, $environment->bitmex->accounts->{3}->apiKey, $environment->bitmex->accounts->{3}->apiSecret);
 	\BossBaby\Utility::func_print_arr_to_table($arr);
 	exit;
 }

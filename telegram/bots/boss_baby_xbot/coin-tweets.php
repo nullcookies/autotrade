@@ -101,6 +101,7 @@ function run_cron() {
                 $filtered = false;
                 
                 foreach ($list_filter as $keyword) {
+                    $first_one = trim(strtolower($first_one));
                     if (strpos($first_one, $keyword) !== false) {
                         $filtered = true;
 

@@ -15,6 +15,7 @@ require_once LIB_DIR . '/telegram/vendor/autoload.php';
 
 if (date('i') % 5 == 0)
     run_cron();
+
 // $sleep = 9;
 // sleep($sleep); run_cron();
 // sleep($sleep); run_cron();
