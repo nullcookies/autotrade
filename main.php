@@ -5,7 +5,8 @@ defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 defined('ROOT_DIR') or define('ROOT_DIR', dirname(__FILE__));
 defined('LIB_DIR') or define('LIB_DIR', ROOT_DIR . DS . 'library');
 defined('LOGS_DIR') or define('LOGS_DIR', ROOT_DIR . DS . 'logs');
-defined('CONFIG_FILE') or define('CONFIG_FILE', ROOT_DIR . DS . 'config.php');
+defined('CONFIG_DIR') or define('CONFIG_DIR', ROOT_DIR . DS . 'config');
+defined('CONFIG_FILE') or define('CONFIG_FILE', CONFIG_DIR . '/config.php');
 
 // Detect run as CLI mode
 // $isCLI = ( php_sapi_name() == 'cli' );
@@ -24,6 +25,9 @@ if (!is_dir(LOGS_DIR)) mkdir(LOGS_DIR, 0777);
 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 ini_set("log_errors", 1);
 ini_set("error_log", LOGS_DIR . DS . date("Ymd") . "-log.txt");
+
+@chmod(LOGS_DIR . DS . date("Ymd") . "-log.txt", 0777);
+@chown(LOGS_DIR . DS . date("Ymd") . "-log.txt", 'dosuser02');
 
 // Load classes
 require_once LIB_DIR . '/bossbaby/vendor/autoload.php';

@@ -23,23 +23,25 @@ if (date('i') % 5 == 0)
 
 function run_cron() {
     // dump(__FUNCTION__ . '::' . time());
-    // \BossBaby\Utility::writeLog('----'.__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
+    \BossBaby\Utility::writeLog('----'.__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
 
     global $environment;
     
     // File store twitter data
-    $twitter_config = ROOT_DIR . '/config-twitter.php';
-    $twitter_data = \BossBaby\Config::read($twitter_config);
+    $twitter_config_file = CONFIG_DIR . '/twitter.php';
+    $twitter_config = \BossBaby\Config::read($twitter_config_file);
+    $twitter_config = \BossBaby\Utility::object_to_array($twitter_config);
+    
+    $twitter_data = (isset($twitter_config['feeds']) and $twitter_config['feeds']) ? (array) $twitter_config['feeds'] : [];
+    $twitter_filter = (isset($twitter_config['filter']) and $twitter_config['filter']) ? (array) $twitter_config['filter'] : [];
 
     if (!$twitter_data) {
         \BossBaby\Utility::writeLog(__FILE__ . '::Empty config');
         exit;
     }
 
-    $shown_tweets_file = LOGS_DIR . '/shown_tweets.php';
+    $shown_tweets_file = CONFIG_DIR . '/twitter_shown.php';
     $shown_tweets = (is_file($shown_tweets_file) and file_exists($shown_tweets_file)) ? \BossBaby\Config::read($shown_tweets_file) : [];
-
-    $list_filter = (array) $environment->twitter->filter;
 
     // Add you bot's API key and name
     $bot_api_key  = $environment->telegram->bots->{2}->token;
@@ -95,7 +97,7 @@ function run_cron() {
                 // Show filtered to right channels
                 $filtered = false;
                 
-                foreach ($list_filter as $keyword) {
+                foreach ($twitter_filter as $keyword) {
                     $first_one = trim(strtolower($first_one));
                     if (strpos($first_one, $keyword) !== false) {
                         $filtered = true;

@@ -99,7 +99,7 @@ class Telegram
         $arr['last_updated_unix'] = time();
 
         // File store coin data
-        $file = LOGS_DIR . '/binance_coins.php';
+        $file = CONFIG_DIR . '/binance_coins.php';
         // \BossBaby\Utility::writeLog('file:'.serialize($file));
 
         // $min = -5; //%
@@ -343,7 +343,7 @@ class Telegram
         $arr['last_updated_unix'] = time();
 
         // File store coin data
-        $file = LOGS_DIR . '/bittrex_coins.php';
+        $file = CONFIG_DIR . '/bittrex_coins.php';
         // \BossBaby\Utility::writeLog('file:'.serialize($file));
 
         // $min = -5; //%

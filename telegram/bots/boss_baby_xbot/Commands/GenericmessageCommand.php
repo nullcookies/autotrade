@@ -64,14 +64,17 @@ class GenericmessageCommand extends SystemCommand
             'parse_mode' => 'markdown',
         ];
 
-        // // Get current config
-        // global $environment;
+        \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::text::' . serialize($text));
+
+        // Get current config
+        global $environment;
         
         // Process show price of coin
         $coin_name = str_replace('/', '', $text);
 
         // Format current ALT's price
         $price = \BossBaby\Telegram::format_alt_price_for_telegram($coin_name);
+        \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::price::' . serialize($price));
         if ($price) {
             $data['text'] = $price;
             return Request::sendMessage($data);
@@ -84,12 +87,15 @@ class GenericmessageCommand extends SystemCommand
             $caption = sprintf('%s', $from->getUsername());
 
         // Process Hello
-        if (str_replace('/hello ', '', $text) == 'Hello') {
+        if ($text == 'hello') {
             $message = 'Chào mày, *' . $caption . '*!';
+
+            $data['text'] = $message;
+            return Request::sendMessage($data);
         }
 
         // Process menu
-        elseif (str_replace('/hello ', '', $text) == 'menu') {
+        elseif ($text == 'menu') {
             $message = '*Danh sách các lệnh có thể dùng*:' . PHP_EOL;
             $message .= PHP_EOL;
             // $data['text'] .= '/start - cái này khỏi nói làm gì' . PHP_EOL;
@@ -97,6 +103,30 @@ class GenericmessageCommand extends SystemCommand
             $message .= '/price - xem giá coin, mặc định là BTC' . PHP_EOL;
             $message .= PHP_EOL;
             $message .= 'tạm thời vậy thôi!!!' . PHP_EOL;
+
+            $data['text'] = $message;
+            return Request::sendMessage($data);
+        }
+
+        // Process menu
+        elseif ($text == '/twitter filter') {
+            // File store twitter data
+            $twitter_config_file = CONFIG_DIR . '/twitter.php';
+            $twitter_config = \BossBaby\Config::read($twitter_config_file);
+            $twitter_config = \BossBaby\Utility::object_to_array($twitter_config);
+
+            $twitter_filter = (isset($twitter_config['filter']) and $twitter_config['filter']) ? (array) $twitter_config['filter'] : [];
+
+            if ($twitter_filter) {
+                $message = '*Các từ khoá đang được dùng để lọc*:' . PHP_EOL;
+                $message .= PHP_EOL;
+                foreach ($twitter_filter as $key => $value) {
+                    $message .= $value . PHP_EOL;
+                    $message .= PHP_EOL;
+                }
+                $data['text'] = $message;
+                return Request::sendMessage($data);
+            }
         }
 
         // Nothing to do

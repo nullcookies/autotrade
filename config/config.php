@@ -272,9 +272,6 @@ return array(
             'id' => '403068373614723073',
             'root_url' => 'https://twitter.com/',
         ),
-        'filter' => array(
-            'hot', 'upgrade', 'important', 'will be list', 'listed', 'listing', 'swap', 'mainnet'
-        ),
         'accounts' => array(
             '1' => array(
                 'id' => '1600496436',
