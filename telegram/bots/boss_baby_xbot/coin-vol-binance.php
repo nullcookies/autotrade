@@ -13,7 +13,7 @@ require_once __DIR__ . '/../error-handle.php';
 // Load composer
 require_once LIB_DIR . '/telegram/vendor/autoload.php';
 
-run_cron();
+// run_cron();
 // $sleep = 9;
 // sleep($sleep); run_cron();
 // sleep($sleep); run_cron();

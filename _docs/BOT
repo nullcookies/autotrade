@@ -325,3 +325,13 @@ noCache: 1533743647323
 src: https://s.tradingview.com/widgetembed/?frameElementId=tradingview_1f234&symbol=BITMEX%3AXBTUSD&interval=60&symboledit=1&saveimage=1&toolbarbg=f1f3f6&studies=BB%40tv-basicstudies&theme=Dark&style=8&timezone=Asia%2FHo_Chi_Minh&showpopupbutton=1&studies_overrides=%7B%7D&overrides=%7B%7D&enabled_features=%5B%5D&disabled_features=%5B%5D&showpopupbutton=1&locale=en&utm_source=localhost&utm_medium=widget&utm_campaign=chart&utm_term=BITMEX%3AXBTUSD
 conversion_source: uri
 
+Chart API:
+https://www.blockchain.com/api/charts_api
+https://api.blockchain.info/charts/transactions-per-second?timespan=5weeks&rollingAverage=8hours&format=json
+
+https://www.coindesk.com/api/
+https://api.coindesk.com/v1/bpi/currentprice.json
+https://api.coindesk.com/v1/bpi/currentprice/USD.json
+https://api.coindesk.com/v1/bpi/historical/close.json
+https://api.coindesk.com/v1/bpi/historical/close.json?start=2013-09-01&end=2013-09-05
+
