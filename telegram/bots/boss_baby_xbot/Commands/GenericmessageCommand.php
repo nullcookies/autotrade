@@ -14,6 +14,9 @@ use Longman\TelegramBot\Commands\SystemCommand;
 use Longman\TelegramBot\Conversation;
 use Longman\TelegramBot\Request;
 
+use Longman\TelegramBot\Entities\Keyboard;
+use Longman\TelegramBot\Entities\InlineKeyboard;
+
 /**
  * Generic message command
  *
@@ -75,6 +78,7 @@ class GenericmessageCommand extends SystemCommand
         $text = trim($message->getText(true));
 
         \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::text::' . serialize($text));
+        \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::str_replace::' . serialize(str_replace('/twitter ', '', $text)));
 
         //If a conversation is busy, execute the conversation command after handling the message
         $conversation = new Conversation(
@@ -82,13 +86,10 @@ class GenericmessageCommand extends SystemCommand
             $this->getMessage()->getChat()->getId()
         );
 
-        // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::conversation::' . serialize($conversation) . '::exists::' . serialize($conversation->exists()) . '::command::' . serialize($conversation->getCommand()));
-
         //Fetch conversation command if it exists and execute it
         if ($conversation->exists() && ($command = $conversation->getCommand())) {
             return $this->telegram->executeCommand($command);
         }
-
 
         // -------------------- Add more -------------------- //
         $from    = $message->getFrom();
@@ -102,17 +103,6 @@ class GenericmessageCommand extends SystemCommand
         // Get current config
         global $environment;
         
-        // Process show price of coin
-        $coin_name = str_replace('/', '', $text);
-
-        // Format current ALT's price
-        $price = \BossBaby\Telegram::format_alt_price_for_telegram($coin_name);
-        // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::price::' . serialize($price));
-        if ($price) {
-            $data['text'] = $price;
-            return Request::sendMessage($data);
-        }
-
         // Get user-name
         if ($from->getFirstName() or $from->getLastName())
             $caption = sprintf('%s %s', $from->getFirstName(), $from->getLastName());
@@ -120,31 +110,31 @@ class GenericmessageCommand extends SystemCommand
             $caption = sprintf('%s', $from->getUsername());
 
         // Process Hello
-        if ($text == 'hello') {
+        if (str_replace('/hello ', '', $text) == 'hello') {
             $message = 'Chào mày, *' . $caption . '*!';
-
             $data['text'] = $message;
             return Request::sendMessage($data);
         }
 
         // Process menu
-        elseif ($text == 'menu') {
-            // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::get in');
-            // $message = '*Danh sách các lệnh có thể dùng*:' . PHP_EOL;
-            // $message .= PHP_EOL;
-            // // $data['text'] .= '/start - cái này khỏi nói làm gì' . PHP_EOL;
-            // // $data['text'] .= '/menu - hiển thị danh sách lệnh có thể dùng' . PHP_EOL;
-            // $message .= '/price - xem giá coin, mặc định là BTC' . PHP_EOL;
-            // $message .= PHP_EOL;
-            // $message .= 'tạm thời vậy thôi!!!' . PHP_EOL;
-
-            // $data['text'] = $message;
-            // return Request::sendMessage($data);
-            return $this->telegram->executeCommand('/' . $text);
+        elseif (str_replace('/menu ', '', $text) == 'menu') {
+            return $this->telegram->executeCommand($text);
         }
 
         // Process menu
-        elseif ($text == '/twitter filter') {
+        elseif (str_replace('/twitter ', '', $text) == 'twitter') {
+            // return $this->telegram->executeCommand($text);
+
+            $data = [
+                'chat_id'      => $chat_id,
+                'text'         => 'What do you want to do with Twitter?',
+                'reply_markup' => Keyboard::forceReply(),
+            ];
+            return Request::sendMessage($data);
+        }
+
+        // Process menu
+        elseif (str_replace('/twitter filter ', '', $text) == 'twitter filter') {
             // File store twitter data
             $twitter_config_file = CONFIG_DIR . '/twitter.php';
             $twitter_config = \BossBaby\Config::read($twitter_config_file);
@@ -164,8 +154,23 @@ class GenericmessageCommand extends SystemCommand
             }
         }
 
+        // Process price
+        elseif (str_replace('/price ', '', $text) == 'price' or stripos(str_replace('/price ', '', $text), 'price ') !== false) {
+            return $this->telegram->executeCommand('price');
+        }
+
         // Nothing to do
         else {
+            // Process show price of coin
+            $coin_name = str_replace('/', '', $text);
+            // Format current ALT's price
+            $price = \BossBaby\Telegram::format_alt_price_for_telegram($coin_name);
+            // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::price::' . serialize($price));
+            if ($price) {
+                $data['text'] = $price;
+                return Request::sendMessage($data);
+            }
+
             $messages = [];
             $messages[] = 'Mày muốn gì *' . $caption . '*';
             $messages[] = 'Chúng mày muốn cái gì?';
@@ -179,6 +184,9 @@ class GenericmessageCommand extends SystemCommand
                 return Request::sendMessage($data);
             }
         }
+
+        // -------------------- Add more -------------------- //
+
 
         return Request::emptyResponse();
     }

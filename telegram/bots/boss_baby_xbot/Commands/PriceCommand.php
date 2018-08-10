@@ -48,6 +48,8 @@ class PriceCommand extends UserCommand
      */
     public function execute()
     {
+        // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
+
         $message   = $this->getMessage();
         $chat_id   = $message->getChat()->getId();
 
@@ -59,11 +61,16 @@ class PriceCommand extends UserCommand
         // // Get current config
         // global $environment;
 
-        $coin_name = trim($message->getText(true));
-        $coin_name = str_replace('/', '', $coin_name);
+        $text = trim($message->getText(true));
+        $text = str_replace('/', '', $text);
+
+        // price coin
+        if (stripos(str_replace('/price ', '', $text), 'price ') !== false) {
+            $text = str_replace('price ', '', str_replace('/price ', '', $text));
+        }
 
         // If no command parameter is passed, show the list.
-        if ($coin_name === '') {
+        if ($text === '' or $text === 'price') {
             // $data['text'] = PHP_EOL;
 
             // Format current XBT's price
@@ -73,10 +80,10 @@ class PriceCommand extends UserCommand
             return Request::sendMessage($data);
         }
 
-        $data['text'] = 'Làm gì có *' . $coin_name . '*, thử lại coi 😒';
+        $data['text'] = 'Làm gì có *' . $text . '*, thử lại coi 😒';
 
         // Format current ALT's price
-        $price = \BossBaby\Telegram::format_alt_price_for_telegram($coin_name);
+        $price = \BossBaby\Telegram::format_alt_price_for_telegram($text);
         if ($price) {
             $data['text'] = $price;
             return Request::sendMessage($data);

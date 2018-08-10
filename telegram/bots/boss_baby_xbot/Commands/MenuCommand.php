@@ -49,7 +49,7 @@ class MenuCommand extends UserCommand
      */
     public function execute()
     {
-        \BossBaby\Utility::writeLog('----'.__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
+        // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
         
         $message     = $this->getMessage();
         $chat_id     = $message->getChat()->getId();

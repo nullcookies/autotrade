@@ -5,8 +5,8 @@ class Discord
 {
     public static function sendMessage($webhook_url = '', $message = '')
     {
-        if (!$message)
-            $message = 'Message send at ' . date('H:i:s d/m/Y');
+        if (!$message) return null;
+            // $message = 'Message send at ' . date('H:i:s d/m/Y');
         
         if ($webhook_url !== '' && $message !== '') {
             $ch = curl_init();

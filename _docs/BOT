@@ -88,6 +88,12 @@ https://github.com/php-telegram-bot/core/issues/315
 Add BOT to a channel:
 https://stackoverflow.com/questions/33126743/how-do-i-add-my-bot-to-a-channel
 
+Set BOT catch all message:
+https://stackoverflow.com/questions/44741746/get-reply-message-from-telegram-bot-api
+Goto @BotFather, and turn off privacy mode
+/setprivacy — Set which messages your bot will receive when added to a group. With privacy mode disabled, the bot will receive all messages.
+You might need re-add your bot to group after set this.
+
 Get Channel ID:
 https://stackoverflow.com/questions/36099709/how-get-right-telegram-channel-id/36253461
 https://api.telegram.org/bot111:222/sendMessage?chat_id=@channelName&text=123
@@ -334,4 +340,9 @@ https://api.coindesk.com/v1/bpi/currentprice.json
 https://api.coindesk.com/v1/bpi/currentprice/USD.json
 https://api.coindesk.com/v1/bpi/historical/close.json
 https://api.coindesk.com/v1/bpi/historical/close.json?start=2013-09-01&end=2013-09-05
+
+PHP Chart:
+http://wiki.pchart.net/
+https://github.com/bozhinov/pChart2.0-for-PHP7
+
 
