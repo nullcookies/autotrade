@@ -64,7 +64,7 @@ class GenericmessageCommand extends SystemCommand
             'parse_mode' => 'markdown',
         ];
 
-        \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::text::' . serialize($text));
+        // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::text::' . serialize($text));
 
         // Get current config
         global $environment;
@@ -74,7 +74,7 @@ class GenericmessageCommand extends SystemCommand
 
         // Format current ALT's price
         $price = \BossBaby\Telegram::format_alt_price_for_telegram($coin_name);
-        \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::price::' . serialize($price));
+        // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::price::' . serialize($price));
         if ($price) {
             $data['text'] = $price;
             return Request::sendMessage($data);
@@ -109,7 +109,7 @@ class GenericmessageCommand extends SystemCommand
         }
 
         // Process menu
-        elseif ($text == '/twitter filter') {
+        elseif ($text == 'twitter filter') {
             // File store twitter data
             $twitter_config_file = CONFIG_DIR . '/twitter.php';
             $twitter_config = \BossBaby\Config::read($twitter_config_file);
@@ -122,7 +122,6 @@ class GenericmessageCommand extends SystemCommand
                 $message .= PHP_EOL;
                 foreach ($twitter_filter as $key => $value) {
                     $message .= $value . PHP_EOL;
-                    $message .= PHP_EOL;
                 }
                 $data['text'] = $message;
                 return Request::sendMessage($data);

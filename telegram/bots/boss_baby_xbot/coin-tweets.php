@@ -23,7 +23,7 @@ if (date('i') % 5 == 0)
 
 function run_cron() {
     // dump(__FUNCTION__ . '::' . time());
-    \BossBaby\Utility::writeLog('----'.__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
+    // \BossBaby\Utility::writeLog('----'.__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
 
     global $environment;
     
