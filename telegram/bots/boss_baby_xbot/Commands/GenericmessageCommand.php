@@ -69,7 +69,7 @@ class GenericmessageCommand extends SystemCommand
      */
     public function execute()
     {
-        // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
+        \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
 
         $message   = $this->getMessage();
         $chat_id   = $message->getChat()->getId();
@@ -123,35 +123,12 @@ class GenericmessageCommand extends SystemCommand
 
         // Process menu
         elseif (str_replace('/twitter ', '', $text) == 'twitter') {
-            // return $this->telegram->executeCommand($text);
-
-            $data = [
-                'chat_id'      => $chat_id,
-                'text'         => 'What do you want to do with Twitter?',
-                'reply_markup' => Keyboard::forceReply(),
-            ];
-            return Request::sendMessage($data);
+            return $this->telegram->executeCommand($text);
         }
 
         // Process menu
         elseif (str_replace('/twitter filter ', '', $text) == 'twitter filter') {
-            // File store twitter data
-            $twitter_config_file = CONFIG_DIR . '/twitter.php';
-            $twitter_config = \BossBaby\Config::read($twitter_config_file);
-            $twitter_config = \BossBaby\Utility::object_to_array($twitter_config);
-
-            $twitter_filter = (isset($twitter_config['filter']) and $twitter_config['filter']) ? (array) $twitter_config['filter'] : [];
-
-            if ($twitter_filter) {
-                $message = '*Các từ khoá đang được dùng để lọc*:' . PHP_EOL;
-                $message .= PHP_EOL;
-                foreach ($twitter_filter as $key => $value) {
-                    $message .= $value . PHP_EOL;
-                }
-                $message .= PHP_EOL;
-                $data['text'] = $message;
-                return Request::sendMessage($data);
-            }
+            return $this->telegram->executeCommand('twitter');
         }
 
         // Process price

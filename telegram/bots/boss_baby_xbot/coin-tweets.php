@@ -104,7 +104,7 @@ function run_cron() {
 
                         // Format for Telegram
                         $html_links = str_replace("\n\n", "\n", $text);
-                        $data['text'] = '[<a href="' . $link . '">' . $coin . '</a>] - ' . $html_links;
+                        $data['text'] = '📌 [<a href="' . $link . '">' . $coin . '</a>] - ' . $html_links;
                         // dump($data['text']);die;
                         if (trim($data['text'])) {
                             $chat_id = $environment->telegram->channels->{1}->id;
@@ -126,7 +126,7 @@ function run_cron() {
                         // $html_links = preg_replace('"\b(https?://\S+)"', '<a href="$1">$1</a>', $text);
                         // $html_links = preg_replace('"\b(https?://\S+)"', '<$1>', $text);
                         $html_links = str_replace("\n\n", "\n", $html_links);
-                        $data['text'] = "\n\r" . PHP_EOL . '-------------------------' . PHP_EOL . '<' . $link . '>' . PHP_EOL . '```' . $html_links . '```';
+                        $data['text'] = ':whale2: ' . "\n\r" . PHP_EOL . '<' . $link . '>' . PHP_EOL . '```' . $html_links . '```';
                         if (trim($data['text'])) {
                             // Send message to Discord
                             $webhook_url = $environment->discord->bots->{3}->webhook_url;
@@ -143,7 +143,7 @@ function run_cron() {
                 if (!$filtered) {
                     // Format for Telegram
                     $html_links = str_replace("\n\n", "\n", $text);
-                    $data['text'] = '[<a href="' . $link . '">' . $coin . '</a>] - ' . $html_links;
+                    $data['text'] = '📌 [<a href="' . $link . '">' . $coin . '</a>] - ' . $html_links;
                     // dump($data['text']);die;
                     if (trim($data['text'])) {
                         // $chat_id = $environment->telegram->channels->{4}->id;
@@ -165,7 +165,7 @@ function run_cron() {
                     // Format for Discord
                     // $html_links = preg_replace('"\b(https?://\S+)"', '<$1>', $text);
                     $html_links = str_replace("\n\n", "\n", $html_links);
-                    $data['text'] = "\n\r" . PHP_EOL . '-------------------------' . PHP_EOL . '<' . $link . '>' . PHP_EOL . '```' . $html_links . '```';
+                    $data['text'] = ':whale2: ' . "\n\r" . PHP_EOL . '<' . $link . '>' . PHP_EOL . '```' . $html_links . '```';
                     if (trim($data['text'])) {
                         // Send message to Discord
                         $webhook_url = $environment->discord->bots->{4}->webhook_url;
