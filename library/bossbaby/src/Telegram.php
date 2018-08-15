@@ -49,7 +49,7 @@ class Telegram
         $arr['Changed'] = $arr['lastChangePcnt']; unset($arr['lastChangePcnt']);
 
         $price = \BossBaby\Telegram::func_telegram_print_arr($arr);
-        $price = str_replace('Symbol: XBTUSD', 'Giá *XBT/USD* trên Bitmex', $price);
+        $price = str_replace('Symbol: XBTUSD', '*XBT/USD* on Bitmex', $price);
 
         return $price;
     }
@@ -63,7 +63,7 @@ class Telegram
         if (is_array($arr) and count($arr)) {
             // \BossBaby\Utility::writeLog('arr:'.serialize($arr).PHP_EOL.'-coin:'.serialize($coin_name));
             // $price = \BossBaby\Telegram::func_telegram_print_arr($arr);
-            $price .= 'Giá *' . $coin_name . '* trên Binance:' . PHP_EOL;
+            $price .= '*' . $coin_name . '* on Binance:' . PHP_EOL;
             foreach ($arr as $key => $value) {
                 $price .= str_replace($coin_name, $coin_name . '/', $key) . ': ' . $value . PHP_EOL;
             }
@@ -74,7 +74,7 @@ class Telegram
             $price .= PHP_EOL;
             // \BossBaby\Utility::writeLog('arr:'.serialize($arr).PHP_EOL.'-coin:'.serialize($coin_name));
             // $price = \BossBaby\Telegram::func_telegram_print_arr($arr);
-            $price .= 'Giá *' . $coin_name . '* trên Bittrex:' . PHP_EOL;
+            $price .= '*' . $coin_name . '* on Bittrex:' . PHP_EOL;
             foreach ($arr as $key => $value) {
                 $price .= str_replace('-', '/', $key) . ': ' . $value . PHP_EOL;
             }
@@ -152,9 +152,11 @@ class Telegram
                             if (array_key_exists($coin, $tmp_arr)) {
                                 $old_price = number_format($tmp_arr[$coin], 8);
                                 // dump('changed_1h$old_price'); dump($old_price);
-                                $calc_1h = round((($new_price - $old_price) / $old_price) * 100, 2);
-                                if (!isset($arr['changed_1h'])) $arr['changed_1h'] = [];
-                                $changed_1h = $arr['changed_1h'][$coin] = $calc_1h;
+                                if ($old_price > 0) {
+                                    $calc_1h = round((($new_price - $old_price) / $old_price) * 100, 2);
+                                    if (!isset($arr['changed_1h'])) $arr['changed_1h'] = [];
+                                    $changed_1h = $arr['changed_1h'][$coin] = $calc_1h;
+                                }
                             }
                         }
 
@@ -182,9 +184,11 @@ class Telegram
                             if (array_key_exists($coin, $tmp_arr)) {
                                 $old_price = number_format($tmp_arr[$coin], 8);
                                 // dump('changed_5m$old_price'); dump($old_price);
-                                $calc_5m = round((($new_price - $old_price) / $old_price) * 100, 2);
-                                if (!isset($arr['changed_5m'])) $arr['changed_5m'] = [];
-                                $changed_5m = $arr['changed_5m'][$coin] = $calc_5m;
+                                if ($old_price > 0) {
+                                    $calc_5m = round((($new_price - $old_price) / $old_price) * 100, 2);
+                                    if (!isset($arr['changed_5m'])) $arr['changed_5m'] = [];
+                                    $changed_5m = $arr['changed_5m'][$coin] = $calc_5m;
+                                }
                             }
                         }
 
@@ -212,9 +216,11 @@ class Telegram
                             if (array_key_exists($coin, $tmp_arr)) {
                                 $old_price = number_format($tmp_arr[$coin], 8);
                                 // dump('changed_1m$old_price'); dump($old_price);
-                                $calc_1m = round((($new_price - $old_price) / $old_price) * 100, 2);
-                                if (!isset($arr['changed_1m'])) $arr['changed_1m'] = [];
-                                $changed_1m = $arr['changed_1m'][$coin] = $calc_1m;
+                                if ($old_price > 0) {
+                                    $calc_1m = round((($new_price - $old_price) / $old_price) * 100, 2);
+                                    if (!isset($arr['changed_1m'])) $arr['changed_1m'] = [];
+                                    $changed_1m = $arr['changed_1m'][$coin] = $calc_1m;
+                                }
                             }
                         }
 
@@ -242,9 +248,11 @@ class Telegram
                             if (array_key_exists($coin, $tmp_arr)) {
                                 $old_price = number_format($tmp_arr[$coin], 8);
                                 // dump('changed_10s$old_price'); dump($old_price);
-                                $calc_10s = round((($new_price - $old_price) / $old_price) * 100, 2);
-                                if (!isset($arr['changed_10s'])) $arr['changed_10s'] = [];
-                                $changed_10s = $arr['changed_10s'][$coin] = $calc_10s;
+                                if ($old_price > 0) {
+                                    $calc_10s = round((($new_price - $old_price) / $old_price) * 100, 2);
+                                    if (!isset($arr['changed_10s'])) $arr['changed_10s'] = [];
+                                    $changed_10s = $arr['changed_10s'][$coin] = $calc_10s;
+                                }
                             }
                         }
                         
@@ -315,7 +323,7 @@ class Telegram
             // Write again into file
             $arr = json_encode($arr);
             // dump('$arr'); dump($arr);
-            \BossBaby\Config::write_file($file, $arr);
+            \BossBaby\Config::write_file($file, $arr, '0777');
             sleep(1);
         }
 
@@ -403,9 +411,11 @@ class Telegram
                             if (array_key_exists($coin, $tmp_arr)) {
                                 $old_price = number_format($tmp_arr[$coin], 8);
                                 // dump('changed_1h$old_price'); dump($old_price);
-                                $calc_1h = round((($new_price - $old_price) / $old_price) * 100, 2);
-                                if (!isset($arr['changed_1h'])) $arr['changed_1h'] = [];
-                                $changed_1h = $arr['changed_1h'][$coin] = $calc_1h;
+                                if ($old_price > 0) {
+                                    $calc_1h = round((($new_price - $old_price) / $old_price) * 100, 2);
+                                    if (!isset($arr['changed_1h'])) $arr['changed_1h'] = [];
+                                    $changed_1h = $arr['changed_1h'][$coin] = $calc_1h;
+                                }
                             }
                         }
 
@@ -433,9 +443,11 @@ class Telegram
                             if (array_key_exists($coin, $tmp_arr)) {
                                 $old_price = number_format($tmp_arr[$coin], 8);
                                 // dump('changed_5m$old_price'); dump($old_price);
-                                $calc_5m = round((($new_price - $old_price) / $old_price) * 100, 2);
-                                if (!isset($arr['changed_5m'])) $arr['changed_5m'] = [];
-                                $changed_5m = $arr['changed_5m'][$coin] = $calc_5m;
+                                if ($old_price > 0) {
+                                    $calc_5m = round((($new_price - $old_price) / $old_price) * 100, 2);
+                                    if (!isset($arr['changed_5m'])) $arr['changed_5m'] = [];
+                                    $changed_5m = $arr['changed_5m'][$coin] = $calc_5m;
+                                }
                             }
                         }
 
@@ -463,9 +475,11 @@ class Telegram
                             if (array_key_exists($coin, $tmp_arr)) {
                                 $old_price = number_format($tmp_arr[$coin], 8);
                                 // dump('changed_1m$old_price'); dump($old_price);
-                                $calc_1m = round((($new_price - $old_price) / $old_price) * 100, 2);
-                                if (!isset($arr['changed_1m'])) $arr['changed_1m'] = [];
-                                $changed_1m = $arr['changed_1m'][$coin] = $calc_1m;
+                                if ($old_price > 0) {
+                                    $calc_1m = round((($new_price - $old_price) / $old_price) * 100, 2);
+                                    if (!isset($arr['changed_1m'])) $arr['changed_1m'] = [];
+                                    $changed_1m = $arr['changed_1m'][$coin] = $calc_1m;
+                                }
                             }
                         }
 
@@ -493,9 +507,11 @@ class Telegram
                             if (array_key_exists($coin, $tmp_arr)) {
                                 $old_price = number_format($tmp_arr[$coin], 8);
                                 // dump('changed_10s$old_price'); dump($old_price);
-                                $calc_10s = round((($new_price - $old_price) / $old_price) * 100, 2);
-                                if (!isset($arr['changed_10s'])) $arr['changed_10s'] = [];
-                                $changed_10s = $arr['changed_10s'][$coin] = $calc_10s;
+                                if ($old_price > 0) {
+                                    $calc_10s = round((($new_price - $old_price) / $old_price) * 100, 2);
+                                    if (!isset($arr['changed_10s'])) $arr['changed_10s'] = [];
+                                    $changed_10s = $arr['changed_10s'][$coin] = $calc_10s;
+                                }
                             }
                         }
                         
@@ -566,14 +582,14 @@ class Telegram
             // Write again into file
             $arr = json_encode($arr);
             // dump('$arr'); dump($arr);
-            \BossBaby\Config::write_file($file, $arr);
+            \BossBaby\Config::write_file($file, $arr, '0777');
             sleep(1);
         }
 
         return $return;
     }
 
-    public static function get_user_feeds($username = '', $count = 1)
+    public static function get_twitter_feeds($username = '', $count = 1)
     {
         if (!$username or !$count) return [];
 
@@ -606,6 +622,20 @@ class Telegram
             }
         }
         
+        return $arr;
+    }
+
+    public static function get_binance_balances()
+    {
+        $tmp = \BossBaby\Binance::get_balances();
+        
+        $arr = [];
+        if (!$tmp) return $arr;
+
+        foreach ($tmp as $coin => $data) {
+            $arr[$coin] = $data;
+        }
+
         return $arr;
     }
 }

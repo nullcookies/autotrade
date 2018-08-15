@@ -1,7 +1,9 @@
 <?php
 return array(
 	'enable' => true,
-    'general' => array(),
+    'general' => array(
+        'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/',
+    ),
     'database' => array(
         '1' => array(
             'host' => 'localhost',
@@ -113,7 +115,7 @@ return array(
             'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/',
             '1' => array(
                 'id' => '696118749',
-                'name' => 'Boss Baby Notifier',
+                'name' => 'Boss Baby Notifier Bot',
                 'username' => 'boss_baby_notifier_bot',
                 'token' => '696118749:AAGofvL9n2Xp-LhBd-jut_QgmnUKV0AsMro',
                 'max_connections' => 40,
@@ -121,7 +123,7 @@ return array(
             ),
             '2' => array(
                 'id' => '669289813',
-                'name' => 'Boss Baby BOT',
+                'name' => 'Boss Baby Main Bot',
                 'username' => 'boss_baby_xbot',
                 'token' => '669289813:AAFqt7B2POV1yozQzKRmFnFbfAArrh4-VTo',
                 'max_connections' => 40,
@@ -148,10 +150,22 @@ return array(
                 'root_url' => 'https://t.me/channel_coin_pulse_bittrex',
             ),
             '4' => array(
+                'id' => -1001337969406,
+                'name' => 'Boss Baby Tweets',
+                'username' => 'channel_boss_baby_tweets',
+                'root_url' => 'https://t.me/channel_boss_baby_tweets',
+            ),
+            '5' => array(
                 'id' => -1001246511258,
                 'name' => 'Boss Baby Full Tweets',
                 'username' => 'channel_boss_baby_full_tweets',
                 'root_url' => 'https://t.me/channel_boss_baby_full_tweets',
+            ),
+            '6' => array(
+                'id' => -1001277026605,
+                'name' => 'Boss Baby Coin Volume',
+                'username' => 'channel_boss_baby_coin_volume',
+                'root_url' => 'https://t.me/channel_boss_baby_coin_volume',
             ),
         ),
         'groups' => array(

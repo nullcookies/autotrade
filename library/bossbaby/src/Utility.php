@@ -6,13 +6,17 @@ class Utility
     public static function writeLog($string = null, $file = null)
     {
         try {
-            $log_file = $file ?: LOGS_DIR . DS . date("Ymd") . "-log.txt";
+            $log_file = $file ?: LOGS_DIR . DS . "debug-" . date("Ymd") . ".txt";
             $str      = '';
             $str .= date('Y-m-d H:i:s') . "\t" . self::getClientIp();
             $str .= "\t" . $string . "\r\n";
             $str = strval($str);
             $fp  = fopen($log_file, 'a');
             fwrite($fp, $str);
+
+            @chmod($log_file, 0777);
+            // @chown($log_file, 'dosuser02');
+            
             return fclose($fp);
         }
         catch (Exception $e) {
@@ -310,6 +314,13 @@ class Utility
         
         // rebuild
         return $protocol . $parts['host'] . $port . $parts['path'] . $query;
+    }
+
+    public static function list_file_in_directory($directory = null)
+    {
+        if (!$directory or !is_dir($directory)) return null;
+        $scanned_directory = array_diff(scandir($directory), array('..', '.'));
+        return $scanned_directory;
     }
 
     public static function func_show_image($img)

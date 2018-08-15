@@ -13,7 +13,7 @@ require_once __DIR__ . '/../error-handle.php';
 // Load composer
 require_once LIB_DIR . '/telegram/vendor/autoload.php';
 
-// run_cron();
+run_cron();
 // $sleep = 9;
 // sleep($sleep); run_cron();
 // sleep($sleep); run_cron();
@@ -35,12 +35,12 @@ function run_cron() {
         $telegram = new Longman\TelegramBot\Telegram($bot_api_key, $bot_username);
         
         // Logging (Error, Debug and Raw Updates)
-        Longman\TelegramBot\TelegramLog::initErrorLog(LOGS_DIR . "/{$bot_username}_error.log");
-        // Longman\TelegramBot\TelegramLog::initDebugLog(LOGS_DIR . "/{$bot_username}_debug.log");
-        Longman\TelegramBot\TelegramLog::initUpdateLog(LOGS_DIR . "/{$bot_username}_update.log");
+        Longman\TelegramBot\TelegramLog::initErrorLog(LOGS_DIR . "/{$bot_username}_error-" . date("Ymd") . ".log");
+        // Longman\TelegramBot\TelegramLog::initDebugLog(LOGS_DIR . "/{$bot_username}_debug-" . date("Ymd") . ".log");
+        Longman\TelegramBot\TelegramLog::initUpdateLog(LOGS_DIR . "/{$bot_username}_update-" . date("Ymd") . ".log");
 
         // $chat_id   = $message->getChat()->getId();
-        $chat_id   = $environment->telegram->channels->{2}->id;
+        $chat_id   = $environment->telegram->channels->{6}->id;
         // $chat_id   = $environment->telegram->main->id;
 
         $data = [
@@ -52,7 +52,8 @@ function run_cron() {
 
         // $data['text'] = 'Message at ' . date('H:i:s d/m/Y');
 
-        $list_coin_binance = \BossBaby\Binance::get_coin_price();
+        $candlesticks = \BossBaby\Binance::get_candlesticks("TRXBTC", "5m", 1, (time() - (5*60)), time());
+        dump($candlesticks);
         die(__FILE__);
 
         $list_coin_binance = \BossBaby\Telegram::get_coin_pulse_binance(-5, 5);

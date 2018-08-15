@@ -35,9 +35,9 @@ function run_cron() {
         $telegram = new Longman\TelegramBot\Telegram($bot_api_key, $bot_username);
         
         // Logging (Error, Debug and Raw Updates)
-        Longman\TelegramBot\TelegramLog::initErrorLog(LOGS_DIR . "/{$bot_username}_error.log");
-        // Longman\TelegramBot\TelegramLog::initDebugLog(LOGS_DIR . "/{$bot_username}_debug.log");
-        Longman\TelegramBot\TelegramLog::initUpdateLog(LOGS_DIR . "/{$bot_username}_update.log");
+        Longman\TelegramBot\TelegramLog::initErrorLog(LOGS_DIR . "/{$bot_username}_error-" . date("Ymd") . ".log");
+        // Longman\TelegramBot\TelegramLog::initDebugLog(LOGS_DIR . "/{$bot_username}_debug-" . date("Ymd") . ".log");
+        Longman\TelegramBot\TelegramLog::initUpdateLog(LOGS_DIR . "/{$bot_username}_update-" . date("Ymd") . ".log");
 
         // $chat_id   = $message->getChat()->getId();
         $chat_id   = $environment->telegram->channels->{3}->id;

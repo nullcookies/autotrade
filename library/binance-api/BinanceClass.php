@@ -130,9 +130,12 @@ class Binance
     }
 
     //1m,3m,5m,15m,30m,1h,2h,4h,6h,8h,12h,1d,3d,1w,1M
-    public function candlesticks($symbol, $interval = "5m")
+    public function candlesticks($symbol, $interval = "5m", $limit = 500, $startTime = '', $endTime = '')
     {
-        return $this->request("v1/klines", ["symbol" => $symbol, "interval" => $interval]);
+        // if (!$startTime) $startTime = time();
+        // if (!$endTime) $endTime = time();
+        // , "startTime" => $startTime, "endTime" => $endTime
+        return $this->request("v1/klines", ["symbol" => $symbol, "interval" => $interval, "limit" => $limit]);
     }
 
     private function balanceData($array, $priceData = false)

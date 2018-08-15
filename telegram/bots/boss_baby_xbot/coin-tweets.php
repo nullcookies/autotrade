@@ -52,9 +52,9 @@ function run_cron() {
         $telegram = new Longman\TelegramBot\Telegram($bot_api_key, $bot_username);
         
         // Logging (Error, Debug and Raw Updates)
-        Longman\TelegramBot\TelegramLog::initErrorLog(LOGS_DIR . "/{$bot_username}_error.log");
-        // Longman\TelegramBot\TelegramLog::initDebugLog(LOGS_DIR . "/{$bot_username}_debug.log");
-        Longman\TelegramBot\TelegramLog::initUpdateLog(LOGS_DIR . "/{$bot_username}_update.log");
+        Longman\TelegramBot\TelegramLog::initErrorLog(LOGS_DIR . "/{$bot_username}_error-" . date("Ymd") . ".log");
+        // Longman\TelegramBot\TelegramLog::initDebugLog(LOGS_DIR . "/{$bot_username}_debug-" . date("Ymd") . ".log");
+        Longman\TelegramBot\TelegramLog::initUpdateLog(LOGS_DIR . "/{$bot_username}_update-" . date("Ymd") . ".log");
 
         // $chat_id   = $message->getChat()->getId();
         $chat_id   = $environment->telegram->channels->{4}->id;
@@ -74,8 +74,8 @@ function run_cron() {
             $username = trim($twitter_item['username']);
             if (!$username) continue;
 
-            $latest_tweet = \BossBaby\Telegram::get_user_feeds($username, 1);
-            // $latest_tweet = \BossBaby\Twitter::get_user_feeds($username, 1);
+            $latest_tweet = \BossBaby\Telegram::get_twitter_feeds($username, 1);
+            // $latest_tweet = \BossBaby\Twitter::get_twitter_feeds($username, 1);
             // \BossBaby\Utility::writeLog('latest_tweet:'.serialize($latest_tweet));
             
             $old_one = (isset($shown_tweets[$coin]) and trim($shown_tweets[$coin])) ? trim($shown_tweets[$coin]) : '';
@@ -104,10 +104,10 @@ function run_cron() {
 
                         // Format for Telegram
                         $html_links = str_replace("\n\n", "\n", $text);
-                        $data['text'] = '📌 [<a href="' . $link . '">' . $coin . '</a>] - ' . $html_links;
+                        $data['text'] = '🕊 [<a href="' . $link . '">' . $coin . '</a>] - ' . $html_links;
                         // dump($data['text']);die;
                         if (trim($data['text'])) {
-                            $chat_id = $environment->telegram->channels->{1}->id;
+                            $chat_id = $environment->telegram->channels->{4}->id;
                             $data['chat_id'] = $chat_id;
 
                             // \BossBaby\Utility::writeLog('text:'.serialize($data['text']));
@@ -143,7 +143,7 @@ function run_cron() {
                 if (!$filtered) {
                     // Format for Telegram
                     $html_links = str_replace("\n\n", "\n", $text);
-                    $data['text'] = '📌 [<a href="' . $link . '">' . $coin . '</a>] - ' . $html_links;
+                    $data['text'] = '🕊 [<a href="' . $link . '">' . $coin . '</a>] - ' . $html_links;
                     // dump($data['text']);die;
                     if (trim($data['text'])) {
                         // $chat_id = $environment->telegram->channels->{4}->id;
@@ -178,7 +178,7 @@ function run_cron() {
         }
 
         // Write back data into cache
-        \BossBaby\Config::write($shown_tweets_file, (array) $shown_tweets);
+        \BossBaby\Config::write($shown_tweets_file, (array) $shown_tweets, '0777');
         sleep(1);
 
         // return Request::emptyResponse();

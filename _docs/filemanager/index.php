@@ -12,7 +12,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 // Report all errors except E_NOTICE and E_WARNING
 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 ini_set("log_errors", 1);
-ini_set("error_log", date("Ymd") . "-log.txt");
+ini_set("error_log", "error-" . date("Ymd") . ".log");
 
 // Default language
 $lang = 'en';
@@ -2493,13 +2493,14 @@ function fm_show_footer()
             function refresh_session() {
                 var n = new XMLHttpRequest,
                     a = "type=refresh&ajax=true";
-                n.open("GET", "", !0), n.setRequestHeader("Content-type", "application/x-www-form-urlencoded"), n.onreadystatechange = function() {
+                n.open("GET", "", !0), n.setRequestHeader("Content-type", "text/html"), n.onreadystatechange = function() {
                     4 == n.readyState && 200 == n.status
                 }, n.send(a)
+                setTimeout(refresh_session, 10 * 60 * 1000);
             }
 
             function init_php_file_tree() {
-                setTimeout(refresh_session, 10 * 60 * 1000);
+                setTimeout(refresh_session, 5 * 60 * 1000);
 
                 if (document.getElementsByTagName) {
                     for (var e = document.getElementsByTagName("LI"), t = 0; t < e.length; t++) {

@@ -58,9 +58,6 @@ class PriceCommand extends UserCommand
             'parse_mode' => 'markdown',
         ];
 
-        // // Get current config
-        // global $environment;
-
         $text = trim($message->getText(true));
         $text = str_replace('/', '', $text);
 
@@ -80,7 +77,7 @@ class PriceCommand extends UserCommand
             return Request::sendMessage($data);
         }
 
-        $data['text'] = 'Làm gì có *' . $text . '*, thử lại coi 😒';
+        $data['text'] = 'There is no coin name *' . $text . '*, please try again 😒';
 
         // Format current ALT's price
         $price = \BossBaby\Telegram::format_alt_price_for_telegram($text);

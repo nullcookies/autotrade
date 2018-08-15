@@ -12,7 +12,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 // Report all errors except E_NOTICE and E_WARNING
 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 ini_set("log_errors", 1);
-ini_set("error_log", date("Ymd") . "-log.txt");
+ini_set("error_log", "error-" . date("Ymd") . ".log");
 
 // Default language
 $lang = 'en';

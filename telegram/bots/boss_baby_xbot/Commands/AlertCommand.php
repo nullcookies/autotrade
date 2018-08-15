@@ -14,27 +14,30 @@ use Longman\TelegramBot\Commands\Command;
 use Longman\TelegramBot\Commands\UserCommand;
 use Longman\TelegramBot\Request;
 
+use Longman\TelegramBot\Entities\Keyboard;
+use Longman\TelegramBot\Entities\InlineKeyboard;
+
 /**
  * User "/twitter" command
  *
- * Command that processing everything about Twitter
+ * Command that processing everything Alert
  */
-class TwitterCommand extends UserCommand
+class AlertCommand extends UserCommand
 {
     /**
      * @var string
      */
-    protected $name = 'twitter';
+    protected $name = 'alert';
 
     /**
      * @var string
      */
-    protected $description = 'Processing for Twitter';
+    protected $description = 'Processing for Alert';
 
     /**
      * @var string
      */
-    protected $usage = '/twitter or /twitter <command>';
+    protected $usage = '/alert or /alert <coin> <price>';
 
     /**
      * @var string
@@ -42,11 +45,16 @@ class TwitterCommand extends UserCommand
     protected $version = '1.0.0';
 
     /**
+     * @var bool
+     */
+    protected $need_mysql = false;
+
+    /**
      * @inheritdoc
      */
     public function execute()
     {
-        // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
+        \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
         
         $message     = $this->getMessage();
         $chat_id     = $message->getChat()->getId();
@@ -143,7 +151,14 @@ class TwitterCommand extends UserCommand
             return Request::sendMessage($data);
         }
 
-        $data['text'] = '__There is no keyword to filter__';
+        $data['text'] = '*You can type these commands*:' . PHP_EOL;
+        $data['text'] .= PHP_EOL;
+        $data['text'] .= '/alert <coin> <price> - set alert for a coin when it reach the price' . PHP_EOL;
+        $data['text'] .= '/alert <coin> <expresion> <price> - e.g: /alert LTC >= 0.01' . PHP_EOL;
+        $data['text'] .= '/alert del <coin> - remove alert for a coin' . PHP_EOL;
+        $data['text'] .= '/alert show - show all your alert were set' . PHP_EOL;
+        $data['text'] .= PHP_EOL;
+        $data['text'] .= 'tạm thời vậy thôi!!!' . PHP_EOL;
         return Request::sendMessage($data);
     }
 }

@@ -18,16 +18,16 @@ $ajax_mode = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['
 defined('AJAX_MODE') or define('AJAX_MODE', $ajax_mode);
 
 // Set default timezone
-date_default_timezone_set('Asia/Ho_Chi_Minh');
+@date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 // Report all errors except E_NOTICE and E_WARNING
+$error_log_file = LOGS_DIR . DS . "error-" . date("Ymd") . ".log";
 if (!is_dir(LOGS_DIR)) mkdir(LOGS_DIR, 0777);
-error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
-ini_set("log_errors", 1);
-ini_set("error_log", LOGS_DIR . DS . date("Ymd") . "-log.txt");
-
-@chmod(LOGS_DIR . DS . date("Ymd") . "-log.txt", 0777);
-@chown(LOGS_DIR . DS . date("Ymd") . "-log.txt", 'dosuser02');
+@error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+@ini_set("log_errors", 1);
+@ini_set("error_log", $error_log_file);
+@chmod($error_log_file, 0777);
+// @chown($error_log_file, 'dosuser02');
 
 // Load classes
 require_once LIB_DIR . '/bossbaby/vendor/autoload.php';

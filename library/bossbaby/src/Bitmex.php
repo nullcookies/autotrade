@@ -5,10 +5,8 @@ class Bitmex
 {
     public static function func_get_current_price($bitmex_instance = null)
     {
-        if (!is_object($bitmex_instance)) {
-            global $environment;
-            $bitmex_instance = new \Bitmex($environment->bitmex->accounts->{1}->apiKey, $environment->bitmex->accounts->{1}->apiSecret);
-        }
+        global $environment;
+        $bitmex_instance = new \Bitmex($environment->bitmex->accounts->{1}->apiKey, $environment->bitmex->accounts->{1}->apiSecret);
         
         $arr = $bitmex_instance->getTicker();
         if (is_array($arr) and count($arr)) {

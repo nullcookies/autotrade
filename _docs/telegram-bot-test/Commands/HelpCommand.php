@@ -42,11 +42,6 @@ class HelpCommand extends UserCommand
     protected $version = '1.3.0';
 
     /**
-     * @var bool
-     */
-    protected $private_only = true;
-
-    /**
      * @inheritdoc
      */
     public function execute()

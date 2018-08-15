@@ -69,7 +69,7 @@ class GenericmessageCommand extends SystemCommand
      */
     public function execute()
     {
-        \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
+        // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
 
         $message   = $this->getMessage();
         $chat_id   = $message->getChat()->getId();
@@ -77,8 +77,8 @@ class GenericmessageCommand extends SystemCommand
         $command = $message->getCommand();
         $text = trim($message->getText(true));
 
-        \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::text::' . serialize($text));
-        \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::str_replace::' . serialize(str_replace('/twitter ', '', $text)));
+        // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::text::' . serialize($text));
+        // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::str_replace::' . serialize(str_replace('/twitter ', '', $text)));
 
         //If a conversation is busy, execute the conversation command after handling the message
         $conversation = new Conversation(
@@ -127,7 +127,8 @@ class GenericmessageCommand extends SystemCommand
         }
 
         // Process menu
-        elseif (str_replace('/twitter filter ', '', $text) == 'twitter filter') {
+        elseif (stripos('twitter add filter', $text) !== false or stripos('twitter del filter', $text) !== false) {
+            $text = str_replace('twitter', '', $text);
             return $this->telegram->executeCommand('twitter');
         }
 

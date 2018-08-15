@@ -115,7 +115,7 @@ if (!function_exists('log_exception')) {
         curl_close($ch);
         
         // Uncomment following line and change path to store errors log in custom file
-        file_put_contents(LOGS_DIR . DS . date("Ymd") . "-log.txt", ($result ? 'Notified: ' . var_export($result, true) . PHP_EOL : 'Not notified: ' . var_export($result, true) . PHP_EOL) . $message . PHP_EOL, FILE_APPEND);
+        file_put_contents(LOGS_DIR . DS . "error-" . date("Ymd") . ".log", ($result ? 'Notified: ' . var_export($result, true) . PHP_EOL : 'Not notified: ' . var_export($result, true) . PHP_EOL) . $message . PHP_EOL, FILE_APPEND);
         
         // Sending 200 response code
         // @header('X-PHP-Response-Code: 200', true, 200);
