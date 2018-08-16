@@ -80,6 +80,17 @@ class Telegram
             }
         }
 
+        $arr = \BossBaby\HoubiPro::get_coin_price($coin_name);
+        if (is_array($arr) and count($arr)) {
+            $price .= PHP_EOL;
+            // \BossBaby\Utility::writeLog('arr:'.serialize($arr).PHP_EOL.'-coin:'.serialize($coin_name));
+            // $price = \BossBaby\Telegram::func_telegram_print_arr($arr);
+            $price .= '*' . $coin_name . '* on HoubiPro:' . PHP_EOL;
+            foreach ($arr as $key => $value) {
+                $price .= str_replace('-', '/', $key) . ': ' . number_format($value, 8) . PHP_EOL;
+            }
+        }
+
         return $price;
     }
 
@@ -633,7 +644,29 @@ class Telegram
         if (!$tmp) return $arr;
 
         foreach ($tmp as $coin => $data) {
-            $arr[$coin] = $data;
+            if ($data['available'] > 0 or $data['onOrder'] > 0 or $data['btcValue'] > 0)
+                $arr[$coin] = $data;
+        }
+
+        return $arr;
+    }
+
+    public static function get_bittrex_balances()
+    {
+        $tmp = \BossBaby\Bittrex::get_balances();
+        
+        $arr = [];
+        if (!$tmp or $tmp->success != 1) return $arr;
+        $tmp = $tmp->result;
+        $tmp = \BossBaby\Utility::object_to_array($tmp);
+
+        foreach ($tmp as $pos => $data) {
+            $coin = $data['Currency'];
+            $data['available'] = $data['Balance'];
+            $data['onOrder'] = 0;
+            $data['btcValue'] = 0;
+            if ($data['available'] > 0 or $data['onOrder'] > 0 or $data['btcValue'] > 0)
+                $arr[$coin] = $data;
         }
 
         return $arr;

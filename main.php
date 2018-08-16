@@ -34,6 +34,7 @@ require_once LIB_DIR . '/bossbaby/vendor/autoload.php';
 require_once LIB_DIR . '/bitmex-api/BitMex.php';
 require_once LIB_DIR . '/binance-api/BinanceClass.php';
 require_once LIB_DIR . '/bittrex-api/Bittrex.php';
+require_once LIB_DIR . '/houbi-api/lib.php';
 require_once LIB_DIR . '/twitter/vendor/autoload.php';
 
 $is_https = isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1)

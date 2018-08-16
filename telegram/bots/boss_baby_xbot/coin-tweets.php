@@ -146,8 +146,8 @@ function run_cron() {
                     $data['text'] = '🕊 [<a href="' . $link . '">' . $coin . '</a>] - ' . $html_links;
                     // dump($data['text']);die;
                     if (trim($data['text'])) {
-                        // $chat_id = $environment->telegram->channels->{4}->id;
-                        $chat_id = $environment->telegram->groups->{1}->id;
+                        $chat_id = $environment->telegram->channels->{5}->id;
+                        // $chat_id = $environment->telegram->groups->{1}->id;
                         $data['chat_id'] = $chat_id;
 
                         // \BossBaby\Utility::writeLog('text:'.serialize($data['text']));

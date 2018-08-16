@@ -52,8 +52,11 @@ function run_cron() {
 
         // $data['text'] = 'Message at ' . date('H:i:s d/m/Y');
 
-        $candlesticks = \BossBaby\Binance::get_candlesticks("TRXBTC", "5m", 1, (time() - (5*60)), time());
-        dump($candlesticks);
+        // $candlesticks = \BossBaby\Binance::get_candlesticks("TRXBTC", "5m", 1, (time() - (5*60)), time());
+        // dump($candlesticks);
+
+        $prices = \BossBaby\HoubiPro::get_list_coin();
+        dump($prices);
         die(__FILE__);
 
         $list_coin_binance = \BossBaby\Telegram::get_coin_pulse_binance(-5, 5);

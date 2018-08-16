@@ -48,4 +48,17 @@ class Bittrex
 
         return $arr;
     }
+
+    public static function get_balances()
+    {
+        global $environment;
+        $environment->bittrex_instance = new \Bittrex($environment->bittrex->accounts->{1}->apiKey, $environment->bittrex->accounts->{1}->apiSecret);
+        
+        if (!is_object($environment->bittrex_instance)) return [];
+
+        $arr = $environment->bittrex_instance->GetBalances();
+        // \BossBaby\Utility::writeLog('arr:'.serialize($arr));
+
+        return $arr;
+    }
 }

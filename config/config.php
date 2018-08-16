@@ -54,9 +54,22 @@ return array(
         'root_url' => 'https://www.huobi.com/',
         'accounts' => array(
             '1' => array(
+                'uid' => 37921108,
+                'uuid' => 'E266ACFDA86F2007067235AE1E002F5985769568096FA464CA5DB8DF357A9242',
+                'userId' => 3792110,
                 'email' => 'longersoft@gmail.com',
+                'note' => 'longersoft@gmail.com',
                 'apiKey' => '3606b44b-5ee91e14-aa63634c-5682d',
                 'apiSecret' => '422cade3-55f95051-2760ade9-cd57e',
+            ),
+            '2' => array(
+                'uid' => 37921108,
+                'uuid' => 'E266ACFDA86F2007067235AE1E002F5985769568096FA464CA5DB8DF357A9242',
+                'userId' => 3792110,
+                'email' => 'longersoft@gmail.com',
+                'note' => 'houbi_api',
+                'apiKey' => '657987ef-10b0fe14-7d4c6ca3-b23c2',
+                'apiSecret' => 'bdce1da7-68f3c40b-2e346c48-8a2b4',
             ),
         ),
     ),

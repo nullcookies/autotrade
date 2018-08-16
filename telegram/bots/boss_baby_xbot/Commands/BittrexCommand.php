@@ -15,16 +15,16 @@ use Longman\TelegramBot\Commands\UserCommand;
 use Longman\TelegramBot\Request;
 
 /**
- * User "/binance" command
+ * User "/bittrex" command
  *
  * Command that processing everything about Binance
  */
-class BinanceCommand extends UserCommand
+class BittrexCommand extends UserCommand
 {
     /**
      * @var string
      */
-    protected $name = 'binance';
+    protected $name = 'bittrex';
 
     /**
      * @var string
@@ -34,7 +34,7 @@ class BinanceCommand extends UserCommand
     /**
      * @var string
      */
-    protected $usage = '/binance or /binance <command>';
+    protected $usage = '/bittrex or /bittrex <command>';
 
     /**
      * @var string
@@ -65,8 +65,8 @@ class BinanceCommand extends UserCommand
         $text = str_replace('/', '', $text);
 
         // chart coin
-        if (stripos(str_replace('/binance ', '', $text), 'binance ') !== false) {
-            $text = str_replace('binance ', '', str_replace('/binance ', '', $text));
+        if (stripos(str_replace('/bittrex ', '', $text), 'bittrex ') !== false) {
+            $text = str_replace('bittrex ', '', str_replace('/bittrex ', '', $text));
         }
 
         // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::chat_id::' . $chat_id . '::text::' . $text);
@@ -75,36 +75,39 @@ class BinanceCommand extends UserCommand
         // global $environment;
 
         // If no command parameter is passed, show the list.
-        if ($text === '' or $text === 'binance') {
+        if ($text === '' or $text === 'bittrex') {
             // $data['text'] = PHP_EOL;
 
-            // Get balance on Binance
-            $binance_balances = \BossBaby\Telegram::get_binance_balances();
-            // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::binance_balances::' . serialize($binance_balances));
+            // Get balance on Bittrex
+            $bittrex_balances = \BossBaby\Telegram::get_bittrex_balances();
+            // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::bittrex_balances::' . serialize($bittrex_balances));
 
             $text = '';
-            if (is_array($binance_balances) and count($binance_balances)) {
+            if (is_array($bittrex_balances) and count($bittrex_balances)) {
                 // Try to get current price of all coin
-                $file = CONFIG_DIR . '/binance_coins.php';
+                $file = CONFIG_DIR . '/bittrex_coins.php';
                 $old_data = \BossBaby\Config::read_file($file);
                 $old_data = \BossBaby\Utility::object_to_array(json_decode($old_data));
                 if (!json_last_error() and $old_data and isset($old_data['10s']) and $old_data['10s'])
                     $list_coin = $old_data['10s'];
                 else
-                    $list_coin = \BossBaby\Binance::get_list_coin();
-                $btc_price = (float) $list_coin['BTCUSDT'];
+                    $list_coin = \BossBaby\Bittrex::get_list_coin();
+                $btc_price = $list_coin['USDT-BTC'];
+                $btc_price = (float) str_replace(',', '', $btc_price);
 
                 $total = 0;
-                foreach ($binance_balances as $coin => $item) {
+                foreach ($bittrex_balances as $coin => $item) {
                     $text .= '*' . $coin . '* ';
 
                     // Calculate price and amount of BTC
                     $coin_price = 0;
-                    if (array_key_exists($coin . 'BTC', $list_coin))
-                        $coin_price = $list_coin[$coin . 'BTC'];
+                    if (array_key_exists('BTC-' . $coin, $list_coin)) {
+                        $coin_price = $list_coin['BTC-' . $coin];
+                        $coin_price = (float) str_replace(',', '', $coin_price);
+                    }
 
                     $num_coin = $item['available'] + $item['onOrder'];
-                    if ($list_coin and array_key_exists($coin . 'BTC', $list_coin) and !in_array($coin, ['BTC','USDT'])) {
+                    if ($list_coin and array_key_exists('BTC-' . $coin, $list_coin) and !in_array($coin, ['BTC','USDT'])) {
                         $num_coin = $item['available'] + $item['onOrder'];
                         $item['btcValue'] += ($num_coin * $coin_price);
                     }
@@ -119,13 +122,6 @@ class BinanceCommand extends UserCommand
                         $item['btcValue'] = 0;
                         $text .= '-N: ' . $num_coin . ' ';
                         $text .= $num_coin . '$';
-                    }
-                    elseif ($coin == 'BNB') {
-                        // $item['btcValue'] = 0;
-                        $text .= '-N: ' . $num_coin . ' ';
-                        $text .= '-P: ' . $coin_price . 'BTC ';
-                        $text .= '-E: ' . number_format($item['btcValue'], 2) . 'BTC ';
-                        $text .= number_format(($item['btcValue'] * $btc_price), 2) . '$';
                     }
                     else {
                         $text .= '-N: ' . number_format($num_coin, 2) . ' ';

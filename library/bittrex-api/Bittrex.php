@@ -41,7 +41,7 @@ class Bittrex
 		$result = curl_exec($ch);
 
 		if ($result === false) {
-			\BossBaby\Utility::writeLog('CURL Error: ' . curl_error($ch));
+			\BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::CURL Error: ' . curl_error($ch));
 			return $result;
 		}
 		
