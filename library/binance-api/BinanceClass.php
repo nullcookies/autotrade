@@ -189,5 +189,15 @@ class Binance
         }
         return $prices;
     }
-}
 
+    // /api/v1/ticker/24hr
+    public function ticker_24h($symbol = '')
+    {
+        // if (!$startTime) $startTime = time();
+        // if (!$endTime) $endTime = time();
+        // , "startTime" => $startTime, "endTime" => $endTime
+        $params = [];
+        if ($symbol) $params['symbol'] = $symbol;
+        return $this->request("v1/ticker/24hr", $params);
+    }
+}

@@ -178,7 +178,7 @@ function run_cron() {
         }
 
         // Write back data into cache
-        \BossBaby\Config::write($shown_tweets_file, (array) $shown_tweets, '0777');
+        \BossBaby\Config::write($shown_tweets_file, (array) $shown_tweets);
         sleep(1);
 
         // return Request::emptyResponse();

@@ -98,7 +98,7 @@ class TwitterCommand extends UserCommand
             // Add to the list keyword
             $twitter_filter[] = $new_keyword;
             $twitter_config['filter'] = $twitter_filter;
-            \BossBaby\Config::write($twitter_config_file, $twitter_config, '0777');
+            \BossBaby\Config::write($twitter_config_file, $twitter_config);
 
             $data['text'] = 'The keyword *' . $new_keyword . '* has been added into the list!';
             return Request::sendMessage($data);
@@ -127,7 +127,7 @@ class TwitterCommand extends UserCommand
             if (isset($twitter_filter[$is_exists]))
                 unset($twitter_filter[$is_exists]);
             $twitter_config['filter'] = $twitter_filter;
-            \BossBaby\Config::write($twitter_config_file, $twitter_config, '0777');
+            \BossBaby\Config::write($twitter_config_file, $twitter_config);
 
             $data['text'] = 'The keyword *' . $new_keyword . '* has been removed from the list!';
             return Request::sendMessage($data);

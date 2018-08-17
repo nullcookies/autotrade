@@ -121,19 +121,22 @@ class BittrexCommand extends UserCommand
                     elseif ($coin == 'USDT') {
                         $item['btcValue'] = 0;
                         $text .= '-N: ' . $num_coin . ' ';
-                        $text .= $num_coin . '$';
+                        $text .= '-E: ' . $num_coin . '$';
                     }
                     else {
-                        $text .= '-N: ' . number_format($num_coin, 2) . ' ';
-                        $text .= '-P: ' . $coin_price . 'BTC ';
-                        $text .= '-E: ' . number_format($item['btcValue'], 2) . 'BTC ';
+                        if ($num_coin > 50)
+                            $text .= '-N: ' . number_format($num_coin, 0) . ' ';
+                        else
+                            $text .= '-N: ' . number_format($num_coin, 2) . ' ';
+                        $text .= '-P: ' . number_format($coin_price, 8) . 'BTC ';
+                        $text .= '-E: ' . number_format($item['btcValue'], 4) . 'BTC ';
                         $text .= number_format(($item['btcValue'] * $btc_price), 2) . '$';
                     }
 
                     $text .= PHP_EOL;
                     $total += $item['btcValue'];
                 }
-                $text .= PHP_EOL . '*Total*: ~' . number_format($total, 2) . 'BTC ' . number_format(($total * $btc_price), 2) . '$';
+                $text .= PHP_EOL . '*Total*: ~*' . number_format($total, 8) . '*BTC (' . number_format(($total * $btc_price), 2) . '$)';
 
                 // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::text::' . serialize($text));
 

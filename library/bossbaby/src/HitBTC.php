@@ -1,17 +1,17 @@
 <?php
 namespace BossBaby;
 
-class Binance
+class HitBTC
 {
     public static function get_coin_price($coin = null)
     {
         if (!$coin) return [];
 
         // global $environment;
-        // $environment->binance_instance = new \Binance($environment->binance->accounts->{1}->apiKey, $environment->binance->accounts->{1}->apiSecret);
-        // if (!is_object($environment->binance_instance)) return [];
+        // $environment->hitbtc_instance = new \Binance($environment->hitbtc->accounts->{1}->apiKey, $environment->hitbtc->accounts->{1}->apiSecret);
+        // if (!is_object($environment->hitbtc_instance)) return [];
 
-        // $tmp = $environment->binance_instance->prices();
+        // $tmp = $environment->hitbtc_instance->prices();
         $tmp = \BossBaby\Binance::get_list_coin();
         // \BossBaby\Utility::writeLog('coin:'.serialize($coin).PHP_EOL.'-tmp:'.serialize($tmp));
 
@@ -30,22 +30,10 @@ class Binance
     public static function get_list_coin()
     {
         global $environment;
-        $environment->binance_instance = new \Binance($environment->binance->accounts->{1}->apiKey, $environment->binance->accounts->{1}->apiSecret);
-        if (!is_object($environment->binance_instance)) return [];
+        $environment->hitbtc_instance = new \Binance($environment->hitbtc->accounts->{1}->apiKey, $environment->hitbtc->accounts->{1}->apiSecret);
+        if (!is_object($environment->hitbtc_instance)) return [];
 
-        $arr = $environment->binance_instance->prices();
-        // \BossBaby\Utility::writeLog('arr:'.serialize($arr));
-
-        return $arr;
-    }
-
-    public static function get_ticker_24h()
-    {
-        global $environment;
-        $environment->binance_instance = new \Binance($environment->binance->accounts->{1}->apiKey, $environment->binance->accounts->{1}->apiSecret);
-        if (!is_object($environment->binance_instance)) return [];
-
-        $arr = $environment->binance_instance->ticker_24h();
+        $arr = $environment->hitbtc_instance->prices();
         // \BossBaby\Utility::writeLog('arr:'.serialize($arr));
 
         return $arr;
@@ -54,10 +42,10 @@ class Binance
     public static function get_balances()
     {
         global $environment;
-        $environment->binance_instance = new \Binance($environment->binance->accounts->{1}->apiKey, $environment->binance->accounts->{1}->apiSecret);
-        if (!is_object($environment->binance_instance)) return [];
+        $environment->hitbtc_instance = new \Binance($environment->hitbtc->accounts->{1}->apiKey, $environment->hitbtc->accounts->{1}->apiSecret);
+        if (!is_object($environment->hitbtc_instance)) return [];
 
-        $arr = $environment->binance_instance->balances();
+        $arr = $environment->hitbtc_instance->balances();
         // \BossBaby\Utility::writeLog('arr:'.serialize($arr));
 
         return $arr;
@@ -66,10 +54,10 @@ class Binance
     public static function get_candlesticks($symbol, $interval = "5m", $limit = 1, $startTime = '', $endTime = '')
     {
         global $environment;
-        $environment->binance_instance = new \Binance($environment->binance->accounts->{1}->apiKey, $environment->binance->accounts->{1}->apiSecret);
-        if (!is_object($environment->binance_instance)) return [];
+        $environment->hitbtc_instance = new \Binance($environment->hitbtc->accounts->{1}->apiKey, $environment->hitbtc->accounts->{1}->apiSecret);
+        if (!is_object($environment->hitbtc_instance)) return [];
 
-        $arr = $environment->binance_instance->candlesticks($symbol, $interval, $limit, $startTime, $endTime);
+        $arr = $environment->hitbtc_instance->candlesticks($symbol, $interval, $limit, $startTime, $endTime);
         // \BossBaby\Utility::writeLog('arr:'.serialize($arr));
 
         // [

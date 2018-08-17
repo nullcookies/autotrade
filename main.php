@@ -32,8 +32,9 @@ if (!is_dir(LOGS_DIR)) mkdir(LOGS_DIR, 0777);
 // Load classes
 require_once LIB_DIR . '/bossbaby/vendor/autoload.php';
 require_once LIB_DIR . '/bitmex-api/BitMex.php';
-require_once LIB_DIR . '/binance-api/BinanceClass.php';
+require_once LIB_DIR . '/binance-api/vendor/autoload.php';
 require_once LIB_DIR . '/bittrex-api/Bittrex.php';
+require_once LIB_DIR . '/hitbtc-api/vendor/autoload.php';
 require_once LIB_DIR . '/houbi-api/lib.php';
 require_once LIB_DIR . '/twitter/vendor/autoload.php';
 

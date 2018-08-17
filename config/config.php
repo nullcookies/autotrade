@@ -180,6 +180,12 @@ return array(
                 'username' => 'channel_boss_baby_coin_volume',
                 'root_url' => 'https://t.me/channel_boss_baby_coin_volume',
             ),
+            '7' => array(
+                'id' => -1001192365682,
+                'name' => 'Boss Baby Coinpulse HoubiPro',
+                'username' => 'channel_coin_pulse_houbipro',
+                'root_url' => 'https://t.me/channel_coin_pulse_houbipro',
+            ),
         ),
         'groups' => array(
             '1' => array(

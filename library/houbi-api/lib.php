@@ -300,7 +300,7 @@ class req {
 	// 借贷账户详情
 	function margin_balance($symbol='') {
 		$this->api_method = "/v1/margin/accounts/balance";
-		$this->req_method = 'POST';
+		$this->req_method = 'GET';
 		$postdata = [
 		];
 		if ($symbol) $postdata['symbol'] = $symbol;

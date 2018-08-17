@@ -5,10 +5,11 @@ class Bittrex
 {
     public static function get_coin_price($coin = null)
     {
+        if (!$coin) return [];
+
         global $environment;
         $environment->bittrex_instance = new \Bittrex($environment->bittrex->accounts->{1}->apiKey, $environment->bittrex->accounts->{1}->apiSecret);
-        
-        if (!is_object($environment->bittrex_instance) or !$coin) return [];
+        if (!is_object($environment->bittrex_instance)) return [];
 
         // $environment->bittrex_instance = new \Bittrex($environment->bittrex->accounts->{1}->apiKeynew \Bittrex($environment->bittrex->accounts->{1}->apiKey, $environment->bittrex->accounts->{1}->apiSecret);, $environment->bittrex->accounts->{1}->apiSecret, 'get');
         // $responce = $environment->bittrex_instance->GetCurrencies();
@@ -40,11 +41,14 @@ class Bittrex
     {
         global $environment;
         $environment->bittrex_instance = new \Bittrex($environment->bittrex->accounts->{1}->apiKey, $environment->bittrex->accounts->{1}->apiSecret);
-        
         if (!is_object($environment->bittrex_instance)) return [];
 
         $arr = $environment->bittrex_instance->GetMarketSummaries();
         // \BossBaby\Utility::writeLog('arr:'.serialize($arr));
+
+        if (!$arr or $arr->success != true or !$arr->result)
+            return [];
+        $arr = \BossBaby\Utility::object_to_array($arr->result);
 
         return $arr;
     }
@@ -53,7 +57,6 @@ class Bittrex
     {
         global $environment;
         $environment->bittrex_instance = new \Bittrex($environment->bittrex->accounts->{1}->apiKey, $environment->bittrex->accounts->{1}->apiSecret);
-        
         if (!is_object($environment->bittrex_instance)) return [];
 
         $arr = $environment->bittrex_instance->GetBalances();

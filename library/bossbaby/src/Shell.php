@@ -73,7 +73,7 @@ class Shell
         try {
             if (!is_file($file) or !file_exists($file)) {
                 \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::error::file does not exist');
-                throw new Exception("File $file does not exist");
+                throw new \Exception("File $file does not exist");
             }
 
             $file = trim($file);
@@ -87,12 +87,12 @@ class Shell
 
             return $output;
         }
-        catch(Exception $e) {
+        catch(\Exception $e) {
             if ($debug) {
                 \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::error::' . serialize($e));
             }
 
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
