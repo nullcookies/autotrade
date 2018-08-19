@@ -84,17 +84,26 @@ class BinanceCommand extends UserCommand
 
             $text = '';
             if (is_array($binance_balances) and count($binance_balances)) {
-                // Try to get current price of all coin
+                // Get list current coin
                 $file = CONFIG_DIR . '/binance_coins.php';
-                $old_data = \BossBaby\Config::read_file($file);
-                $old_data = \BossBaby\Utility::object_to_array(json_decode($old_data));
-                if (!json_last_error() and $old_data and isset($old_data['10s']) and $old_data['10s'])
-                    $list_coin = $old_data['10s'];
-                else
+                $list_coin = \BossBaby\Config::read($file);
+                if ($list_coin)
+                    $list_coin = $list_coin['symbols'];
+                if ($list_coin) {
+                    $list_coin_tmp = [];
+                    foreach ($list_coin as $coin => $item) {
+                        $list_coin_tmp[$coin] = $item['price'];
+                    }
+                    $list_coin = $list_coin_tmp;
+                    unset($list_coin_tmp);
+                }
+                if (!$list_coin) {
                     $list_coin = \BossBaby\Binance::get_list_coin();
-                $btc_price = (float) $list_coin['BTCUSDT'];
-
+                }
+                
                 $total = 0;
+                $btc_price = (float) $list_coin['BTCUSDT'];
+                
                 foreach ($binance_balances as $coin => $item) {
                     $text .= '*' . $coin . '* ';
 

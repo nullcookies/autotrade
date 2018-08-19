@@ -18,6 +18,7 @@ require_once __DIR__ . '/error-handle.php';
 \BossBaby\Shell::async_execute_file(__DIR__ . '/boss_baby_xbot/coin-update-binance.php');
 \BossBaby\Shell::async_execute_file(__DIR__ . '/boss_baby_xbot/coin-update-bittrex.php');
 \BossBaby\Shell::async_execute_file(__DIR__ . '/boss_baby_xbot/coin-update-houbipro.php');
+\BossBaby\Shell::async_execute_file(__DIR__ . '/boss_baby_xbot/coin-update-bitmex.php');
 
 // Run cron calculate coin pulse on Exchanges
 \BossBaby\Shell::async_execute_file(__DIR__ . '/boss_baby_xbot/coin-pulse-binance.php');
@@ -28,7 +29,7 @@ require_once __DIR__ . '/error-handle.php';
 \BossBaby\Shell::async_execute_file(__DIR__ . '/boss_baby_xbot/coin-tweets.php');
 
 // Run cron retrive coin volume Binance
-// \BossBaby\Shell::async_execute_file(__DIR__ . '/boss_baby_xbot/coin-vol-binance.php');
+\BossBaby\Shell::async_execute_file(__DIR__ . '/boss_baby_xbot/coin-vol-binance.php');
 
 // Finished
 die('FINISHED');

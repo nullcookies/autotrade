@@ -200,11 +200,12 @@ WAMP uses PHP7:
 https://www.youtube.com/watch?v=gWSOdC1jjxM
 
 
-
+Bitmex API
 https://www.bitmex.com/api/explorer/
 https://www.bitmex.com/app/automatedTradingEngines
 https://www.botvs.com/
 https://www.botvs.com/bbs-topic/865
+https://www.bitmex.com/api/explorer/#!/Quote/Quote_get
 
 Total 11 (delta 6), reused 0 (delta 0)
 remote: 
@@ -352,5 +353,61 @@ HoubiPro API:
 https://github.com/huobiapi/API_Docs/wiki/REST_api_reference#get-v1accountaccountsaccount-idbalance-%E6%9F%A5%E8%AF%A2pro%E7%AB%99%E6%8C%87%E5%AE%9A%E8%B4%A6%E6%88%B7%E7%9A%84%E4%BD%99%E9%A2%9D
 https://github.com/huobiapi/API_Docs_en/wiki
 https://github.com/huobiapi?tab=repositories
+
+Run composer with specific PHP version:
+#https://getcomposer.org/download/
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('SHA384', 'composer-setup.php') === '544e09ee996cdf60ece3804abc52599c22b1f40f4323403c44d44fdfdd586475ca9813a858088ffbc1f233e9b180f061') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+/Applications/MAMP/bin/php/php5.6.0/bin/php composer.phar install
+
+
+$ sudo find / -iname "composer.phar"
+Password:
+Sorry, try again.
+Password:
+find: /dev/fd/SwaggerClient-php: No such file or directory
+find: /dev/fd/SwaggerClient-php: No such file or directory
+/usr/local/bin/composer.phar
+/Volumes/DATA/.Trashes/501/composer.phar
+/Volumes/DATA/Backups.backupdb/Long’s MacBook Pro/2017-04-14-002301/Mac Yosemite/usr/local/bin/composer.phar
+/Volumes/DATA/Backups.backupdb/Long’s MacBook Pro/2017-04-20-231931/Mac Yosemite/usr/local/bin/composer.phar
+/Volumes/DATA/Backups.backupdb/Long’s MacBook Pro/2017-04-20-233434/Mac Yosemite/usr/local/bin/composer.phar
+/Volumes/DATA/Backups.backupdb/Long’s MacBook Pro/2017-04-21-003653/Mac Yosemite/usr/local/bin/composer.phar
+/Volumes/DATA/Backups.backupdb/Long’s MacBook Pro/2017-04-21-013751/Mac Yosemite/usr/local/bin/composer.phar
+/Volumes/DATA/Backups.backupdb/Long’s MacBook Pro/2017-04-21-023804/Mac Yosemite/usr/local/bin/composer.phar
+/Volumes/DATA/Backups.backupdb/Long’s MacBook Pro/2017-04-21-033823/Mac Yosemite/usr/local/bin/composer.phar
+/Volumes/DATA/Backups.backupdb/Long’s MacBook Pro/2017-04-21-043725/Mac Yosemite/usr/local/bin/composer.phar
+/Volumes/DATA/Backups.backupdb/Long’s MacBook Pro/2017-04-21-053724/Mac Yosemite/usr/local/bin/composer.phar
+/Volumes/DATA/Backups.backupdb/Long’s MacBook Pro/2017-04-21-063842/Mac Yosemite/usr/local/bin/composer.phar
+/Volumes/DATA/Backups.backupdb/Long’s MacBook Pro/2017-04-21-073556/Mac Yosemite/usr/local/bin/composer.phar
+/Volumes/DATA/Backups.backupdb/Long’s MacBook Pro/2017-04-21-083817/Mac Yosemite/usr/local/bin/composer.phar
+/Volumes/DATA/Backups.backupdb/Long’s MacBook Pro/2017-04-21-093351/Mac Yosemite/usr/local/bin/composer.phar
+/Volumes/DATA/Backups.backupdb/Long’s MacBook Pro/2017-04-21-103547/Mac Yosemite/usr/local/bin/composer.phar
+/Volumes/DATA/Backups.backupdb/Long’s MacBook Pro/2017-04-21-113717/Mac Yosemite/usr/local/bin/composer.phar
+/Volumes/DATA/Backups.backupdb/Long’s MacBook Pro/2017-04-21-123726/Mac Yosemite/usr/local/bin/composer.phar
+/Volumes/DATA/Backups.backupdb/Long’s MacBook Pro/2017-04-21-133808/Mac Yosemite/usr/local/bin/composer.phar
+/Volumes/DATA/Backups.backupdb/Long’s MacBook Pro/2017-04-21-143410/Mac Yosemite/usr/local/bin/composer.phar
+/Volumes/DATA/Backups.backupdb/Long’s MacBook Pro/2017-04-21-153337/Mac Yosemite/usr/local/bin/composer.phar
+/Volumes/DATA/Backups.backupdb/Long’s MacBook Pro/2017-04-21-163910/Mac Yosemite/usr/local/bin/composer.phar
+/Volumes/DATA/Backups.backupdb/Long’s MacBook Pro/2017-04-21-223851/Mac Yosemite/usr/local/bin/composer.phar
+/Volumes/DATA/Backups.backupdb/Long’s MacBook Pro/2017-10-11-105654/Mac Yosemite/usr/local/bin/composer.phar
+/Volumes/DATA/Projects/cms/akeneo/composer.phar
+/Volumes/DATA/Projects/framework/_requirements/composer/composer.phar
+/Volumes/DATA/Projects/framework/laravel/cms/bootstrap_starter/composer.phar
+/Volumes/DATA/Projects/framework/laravel/cms/cashier/composer.phar
+/Volumes/DATA/Projects/framework/laravel/demo/composer.phar
+/Volumes/DATA/Projects/framework/laravel/test/composer.phar
+/Volumes/DATA/Projects/framework/symfony/demo/composer.phar
+/Volumes/DATA/Projects/framework/symfony/test/composer.phar
+/Volumes/DATA/Projects/framework/zendf2/_web/Big-Sticky-Notes/composer.phar
+/Volumes/DATA/Projects/framework/zendf2/_web/ZendSkeletonApplication/composer.phar
+/Volumes/DATA/Projects/mine/autotrade/library/bitmex-api/api-connectors/auto-generated/php/SwaggerClient-php/composer.phar
+/Volumes/DATA/Projects/sunbytes/flexbord/_docs/deployed_on_local_v1/api/composer.phar
+/Volumes/DATA/Projects/sunbytes/flexbord/develop/api/composer.phar
+/Volumes/DATA/Projects/sunbytes/review/trainforlife/code/composer.phar
+Longs-MacBook-Pro:SwaggerClient-php longvu$ 
+
 
 

@@ -45,9 +45,9 @@ class BitMex
      *
      * @return ticker array
      */
-    public function getTicker()
+    public function getTicker($symbol = self::SYMBOL)
     {
-        $symbol           = self::SYMBOL;
+        // $symbol           = self::SYMBOL;
         $data['function'] = "instrument";
         $data['params']   = array(
             "symbol" => $symbol
@@ -59,16 +59,18 @@ class BitMex
         if (!$return || count($return) != 1 || !isset($return[0]['symbol']))
             return false;
         
-        $return = array(
-            "symbol" => $return[0]['symbol'],
-            "last" => $return[0]['lastPrice'],
-            "bid" => $return[0]['bidPrice'],
-            "ask" => $return[0]['askPrice'],
-            "high" => $return[0]['highPrice'],
-            "low" => $return[0]['lowPrice'],
-            "lastChangePcnt" => $return[0]["lastChangePcnt"],
-            "market_price" => $return[0]["markPrice"],
-        );
+        // $return = array(
+        //     "symbol" => $return[0]['symbol'],
+        //     "last" => $return[0]['lastPrice'],
+        //     "bid" => $return[0]['bidPrice'],
+        //     "ask" => $return[0]['askPrice'],
+        //     "high" => $return[0]['highPrice'],
+        //     "low" => $return[0]['lowPrice'],
+        //     "lastChangePcnt" => $return[0]["lastChangePcnt"],
+        //     "market_price" => $return[0]["markPrice"],
+        // );
+
+        $return = $return[0];
         
         return $return;
     }
@@ -609,5 +611,5 @@ class BitMex
             echo "BitMex error ({$return['error']['name']}) : {$return['error']['message']}\n";
         
         return true;
-    }   
+    }
 }

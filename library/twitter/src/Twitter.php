@@ -307,7 +307,7 @@ class Twitter
 		$result = curl_exec($curl);
 		if (curl_errno($curl)) {
 			// throw new TwitterException('Server error: ' . curl_error($curl));
-			\BossBaby\Utility::writeLog(__FILE__.'::server-error:'.curl_error($curl) . "\n" . 'data::' . serialize($data));
+			\BossBaby\Utility::writeLog(__FILE__.'::'.__FUNCTION__.'::server-error:'.curl_error($curl) . "\n" . 'data::' . serialize($data));
 			$tmp = new stdClass();
 			$tmp->error = curl_error($curl);
 			return $tmp;
@@ -327,7 +327,10 @@ class Twitter
 				? $payload->errors[0]->message . "\n" . 'data::' . serialize($data)
 				: "Server error #$code with answer $result" . "\n" . 'data::' . serialize($data);
 			// throw new TwitterException($message, $code);
-			\BossBaby\Utility::writeLog(__FILE__.'::error:'.$message);
+
+			if (strpos($message, 'exceeded') === false)
+				\BossBaby\Utility::writeLog(__FILE__.'::'.__FUNCTION__.'::error:'.$message);
+
 			$tmp = new stdClass();
 			$tmp->error = $message;
 			return $tmp;

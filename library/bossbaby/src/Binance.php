@@ -3,27 +3,47 @@ namespace BossBaby;
 
 class Binance
 {
-    public static function get_coin_price($coin = null)
+    public static function get_coin_price($coin_name = null)
     {
-        if (!$coin) return [];
+        // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::coin:'.serialize($coin_name));
+        
+        if (!$coin_name) return [];
 
         // global $environment;
         // $environment->binance_instance = new \Binance($environment->binance->accounts->{1}->apiKey, $environment->binance->accounts->{1}->apiSecret);
         // if (!is_object($environment->binance_instance)) return [];
 
-        // $tmp = $environment->binance_instance->prices();
-        $tmp = \BossBaby\Binance::get_list_coin();
-        // \BossBaby\Utility::writeLog('coin:'.serialize($coin).PHP_EOL.'-tmp:'.serialize($tmp));
+        // $list_coin = $environment->binance_instance->prices();
+        // $list_coin = \BossBaby\Binance::get_list_coin();
+
+        // Get list current coin
+        $file = CONFIG_DIR . '/binance_coins.php';
+        $list_coin = \BossBaby\Config::read($file);
+        if ($list_coin)
+            $list_coin = $list_coin['symbols'];
+        if ($list_coin) {
+            $list_coin_tmp = [];
+            foreach ($list_coin as $coin => $item) {
+                $list_coin_tmp[$coin] = $item['price'];
+            }
+            $list_coin = $list_coin_tmp;
+            unset($list_coin_tmp);
+        }
+        if (!$list_coin) {
+            $list_coin = \BossBaby\Binance::get_list_coin();
+        }
+
+        // \BossBaby\Utility::writeLog('coin:'.serialize($coin_name).PHP_EOL.'-list_coin:'.serialize($list_coin));
 
         $arr = [];
-        if (is_array($tmp) and count($tmp)) {
-            foreach ($tmp as $key => $value) {
-                if (strpos($key, $coin . 'BTC') !== false or strpos($key, $coin . 'ETH') !== false or strpos($key, $coin . 'USDT') !== false or strpos($key, $coin . 'BNB') !== false)
-                    $arr[$key] = $value;
+        $arr_retrieve = [$coin_name . 'BTC', $coin_name . 'ETH', $coin_name . 'USDT', $coin_name . 'USDT', $coin_name . 'BNB', $coin_name . 'HT'];
+        if (is_array($list_coin) and count($list_coin)) {
+            foreach ($list_coin as $symbol => $price) {
+                if (in_array($symbol, $arr_retrieve))
+                    $arr[$symbol] = number_format($price, 8);
             }
         }
 
-        // \BossBaby\Utility::writeLog('arr:'.serialize($arr).PHP_EOL.'-coin:'.serialize($coin));
         return $arr;
     }
 

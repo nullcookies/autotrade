@@ -7,6 +7,8 @@
 
 if (!defined('STDIN')) die('Access denied.' . "\n");
 
+set_time_limit(9);
+
 // Error handle
 require_once __DIR__ . '/../error-handle.php';
 
@@ -18,6 +20,8 @@ sleep($sleep); run_cron();
 sleep($sleep); run_cron();
 
 function run_cron() {
+    // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
+    
     // Run cron to update coin from exchange
     $tmp = \BossBaby\Binance::get_ticker_24h();
     // \BossBaby\Utility::writeLog('tmp:'.serialize($tmp));
@@ -38,12 +42,18 @@ function run_cron() {
         if ($arr) {
             // File store coin data
             $file = CONFIG_DIR . '/binance_coins.php';
+            $file_tmp = $file . '.lock';
             // \BossBaby\Utility::writeLog('file:'.serialize($file));
 
             // Write overwrite to file
             \BossBaby\Config::write($file, $arr);
             unset($arr);
             sleep(1);
+
+            if (is_file($file_tmp) and file_exists($file_tmp)) {
+                @rename($file_tmp, $file);
+                sleep(1);
+            }
 
             die('UPDATED');
         }

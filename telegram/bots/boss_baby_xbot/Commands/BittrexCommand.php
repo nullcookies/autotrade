@@ -86,28 +86,47 @@ class BittrexCommand extends UserCommand
             if (is_array($bittrex_balances) and count($bittrex_balances)) {
                 // Try to get current price of all coin
                 $file = CONFIG_DIR . '/bittrex_coins.php';
-                $old_data = \BossBaby\Config::read_file($file);
-                $old_data = \BossBaby\Utility::object_to_array(json_decode($old_data));
-                if (!json_last_error() and $old_data and isset($old_data['10s']) and $old_data['10s'])
-                    $list_coin = $old_data['10s'];
-                else
+                $list_coin = \BossBaby\Config::read($file);
+                if ($list_coin)
+                    $list_coin = $list_coin['symbols'];
+                if ($list_coin) {
+                    $list_coin_tmp = [];
+                    foreach ($list_coin as $coin => $item) {
+                        $list_coin_tmp[$coin] = $item['price'];
+                    }
+                    $list_coin = $list_coin_tmp;
+                    unset($list_coin_tmp);
+                }
+                if ($list_coin) {
                     $list_coin = \BossBaby\Bittrex::get_list_coin();
-                $btc_price = $list_coin['USDT-BTC'];
-                $btc_price = (float) str_replace(',', '', $btc_price);
-
+                    if ($list_coin) {
+                        $list_coin_tmp = [];
+                        foreach ($list_coin as $pos => $item) {
+                            $coin = $item['MarketName'];
+                            $tmp_name = explode('-', $coin);
+                            if ($tmp_name and isset($tmp_name[0]) and isset($tmp_name[1])) {
+                                $coin = $tmp_name[1] . $tmp_name[0];
+                            }
+                            $list_coin_tmp[$coin] = $item['Last'];
+                        }
+                        $list_coin = $list_coin_tmp;
+                        unset($list_coin_tmp);
+                    }
+                }
+                
                 $total = 0;
+                $btc_price = (float) $list_coin['BTCUSDT'];
+
                 foreach ($bittrex_balances as $coin => $item) {
                     $text .= '*' . $coin . '* ';
 
                     // Calculate price and amount of BTC
                     $coin_price = 0;
-                    if (array_key_exists('BTC-' . $coin, $list_coin)) {
-                        $coin_price = $list_coin['BTC-' . $coin];
-                        $coin_price = (float) str_replace(',', '', $coin_price);
-                    }
+                    if (array_key_exists($coin . 'BTC', $list_coin))
+                        $coin_price = $list_coin[$coin . 'BTC'];
 
                     $num_coin = $item['available'] + $item['onOrder'];
-                    if ($list_coin and array_key_exists('BTC-' . $coin, $list_coin) and !in_array($coin, ['BTC','USDT'])) {
+                    if ($list_coin and array_key_exists($coin . 'BTC', $list_coin) and !in_array($coin, ['BTC','USDT'])) {
                         $num_coin = $item['available'] + $item['onOrder'];
                         $item['btcValue'] += ($num_coin * $coin_price);
                     }

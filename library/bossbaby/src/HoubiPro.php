@@ -3,51 +3,89 @@ namespace BossBaby;
 
 class HoubiPro
 {
-    public static function get_coin_price($coin = null)
+    public static function get_coin_price($coin_name = null)
     {
-        if (!$coin) return [];
+        // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::coin:'.serialize($coin_name));
 
-        global $environment;
-        defined('ACCOUNT_ID') or define('ACCOUNT_ID', $environment->houbi->accounts->{1}->userId); // 你的账户ID 
-        defined('ACCESS_KEY') or define('ACCESS_KEY', $environment->houbi->accounts->{1}->apiKey); // 你的ACCESS_KEY
-        defined('SECRET_KEY') or define('SECRET_KEY', $environment->houbi->accounts->{1}->apiSecret); // 你的SECRET_KEY
-        $environment->houbipro_instance = new \req();
-        if (!is_object($environment->houbipro_instance)) return [];
+        if (!$coin_name) return [];
+
+        // global $environment;
+        // defined('ACCOUNT_ID') or define('ACCOUNT_ID', $environment->houbi->accounts->{1}->userId); // 你的账户ID 
+        // defined('ACCESS_KEY') or define('ACCESS_KEY', $environment->houbi->accounts->{1}->apiKey); // 你的ACCESS_KEY
+        // defined('SECRET_KEY') or define('SECRET_KEY', $environment->houbi->accounts->{1}->apiSecret); // 你的SECRET_KEY
+        // $environment->houbipro_instance = new \req();
+        // if (!is_object($environment->houbipro_instance)) return [];
+
+        // $arr = [];
+        // $coin_name = strtolower($coin_name);
+
+        // $coin_check = $coin_name . 'btc';
+        // $tmp = $environment->houbipro_instance->get_market_trade($coin_check);
+        // // \BossBaby\Utility::writeLog('coin:'.serialize($coin_name).PHP_EOL.'-tmp:'.serialize($tmp));
+        // if (is_object($tmp) and $tmp->status == 'ok' and $tmp->tick) {
+        //     $tmp = $tmp->tick;
+        //     $tmp = \BossBaby\Utility::object_to_array($tmp);
+        //     if ($tmp['data'][0]['price'])
+        //         $arr[strtoupper($coin_name . '/BTC')] = (float) $tmp['data'][0]['price'];
+        // }
+
+        // $coin_check = $coin_name . 'eth';
+        // $tmp = $environment->houbipro_instance->get_market_trade($coin_check);
+        // // \BossBaby\Utility::writeLog('coin:'.serialize($coin_name).PHP_EOL.'-tmp:'.serialize($tmp));
+        // if (is_object($tmp) and $tmp->status == 'ok' and $tmp->tick) {
+        //     $tmp = $tmp->tick;
+        //     $tmp = \BossBaby\Utility::object_to_array($tmp);
+        //     if ($tmp['data'][0]['price'])
+        //         $arr[strtoupper($coin_name . '/ETH')] = (float) $tmp['data'][0]['price'];
+        // }
+
+        // $coin_check = $coin_name . 'usdt';
+        // $tmp = $environment->houbipro_instance->get_market_trade($coin_check);
+        // // \BossBaby\Utility::writeLog('coin:'.serialize($coin_name).PHP_EOL.'-tmp:'.serialize($tmp));
+        // if (is_object($tmp) and $tmp->status == 'ok' and $tmp->tick) {
+        //     $tmp = $tmp->tick;
+        //     $tmp = \BossBaby\Utility::object_to_array($tmp);
+        //     if ($tmp['data'][0]['price'])
+        //         $arr[strtoupper($coin_name . '/USDT')] = (float) $tmp['data'][0]['price'];
+        // }
+
+        // Get list current coin
+        $file = CONFIG_DIR . '/houbipro_coins.php';
+        $list_coin = \BossBaby\Config::read($file);
+        if ($list_coin)
+            $list_coin = $list_coin['symbols'];
+        if ($list_coin) {
+            $list_coin_tmp = [];
+            foreach ($list_coin as $coin => $item) {
+                $list_coin_tmp[$coin] = $item['price'];
+            }
+            $list_coin = $list_coin_tmp;
+            unset($list_coin_tmp);
+        }
+        if (!$list_coin) {
+            $list_coin = \BossBaby\HoubiPro::get_list_coin();
+            if ($list_coin) {
+                $list_coin_tmp = [];
+                foreach ($list_coin as $pos => $item) {
+                    $coin = strtoupper($item['symbol']);
+                    $list_coin_tmp[$coin] = $item['close'];
+                }
+                $list_coin = $list_coin_tmp;
+                unset($list_coin_tmp);
+            }
+        }
+
+        // \BossBaby\Utility::writeLog('coin:'.serialize($coin_name).PHP_EOL.'-list_coin:'.serialize($list_coin));
 
         $arr = [];
-        $coin = strtolower($coin);
-
-        $coin_check = $coin . 'btc';
-        $tmp = $environment->houbipro_instance->get_market_trade($coin_check);
-        // \BossBaby\Utility::writeLog('coin:'.serialize($coin).PHP_EOL.'-tmp:'.serialize($tmp));
-        if (is_object($tmp) and $tmp->status == 'ok' and $tmp->tick) {
-            $tmp = $tmp->tick;
-            $tmp = \BossBaby\Utility::object_to_array($tmp);
-            if ($tmp['data'][0]['price'])
-                $arr[strtoupper($coin . '/BTC')] = (float) $tmp['data'][0]['price'];
+        $arr_retrieve = [$coin_name . 'BTC', $coin_name . 'ETH', $coin_name . 'USDT', $coin_name . 'USDT', $coin_name . 'BNB', $coin_name . 'HT'];
+        if (is_array($list_coin) and count($list_coin)) {
+            foreach ($list_coin as $symbol => $price) {
+                if (in_array($symbol, $arr_retrieve))
+                    $arr[$symbol] = number_format($price, 8);
+            }
         }
 
-        $coin_check = $coin . 'eth';
-        $tmp = $environment->houbipro_instance->get_market_trade($coin_check);
-        // \BossBaby\Utility::writeLog('coin:'.serialize($coin).PHP_EOL.'-tmp:'.serialize($tmp));
-        if (is_object($tmp) and $tmp->status == 'ok' and $tmp->tick) {
-            $tmp = $tmp->tick;
-            $tmp = \BossBaby\Utility::object_to_array($tmp);
-            if ($tmp['data'][0]['price'])
-                $arr[strtoupper($coin . '/ETH')] = (float) $tmp['data'][0]['price'];
-        }
-
-        $coin_check = $coin . 'usdt';
-        $tmp = $environment->houbipro_instance->get_market_trade($coin_check);
-        // \BossBaby\Utility::writeLog('coin:'.serialize($coin).PHP_EOL.'-tmp:'.serialize($tmp));
-        if (is_object($tmp) and $tmp->status == 'ok' and $tmp->tick) {
-            $tmp = $tmp->tick;
-            $tmp = \BossBaby\Utility::object_to_array($tmp);
-            if ($tmp['data'][0]['price'])
-                $arr[strtoupper($coin . '/USDT')] = (float) $tmp['data'][0]['price'];
-        }
-
-        // \BossBaby\Utility::writeLog('arr:'.serialize($arr).PHP_EOL.'-coin:'.serialize($coin));
         return $arr;
     }
 

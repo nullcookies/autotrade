@@ -3,16 +3,16 @@ namespace BossBaby;
 
 class Bitmex
 {
-    public static function func_get_current_price($bitmex_instance = null)
+    public static function func_get_current_price($bitmex_instance = null, $symbol = 'XBTUSD')
     {
         global $environment;
         $bitmex_instance = new \Bitmex($environment->bitmex->accounts->{1}->apiKey, $environment->bitmex->accounts->{1}->apiSecret);
         
-        $arr = $bitmex_instance->getTicker();
-        if (is_array($arr) and count($arr)) {
-            $arr['marketPrice'] = $arr['market_price'];
-            unset($arr['market_price']);
-        }
+        $arr = $bitmex_instance->getTicker($symbol);
+        // if (is_array($arr) and count($arr)) {
+        //     $arr['marketPrice'] = $arr['market_price'];
+        //     unset($arr['market_price']);
+        // }
         return $arr;
     }
 

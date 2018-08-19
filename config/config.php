@@ -257,6 +257,13 @@ return array(
                 'token' => 'qM8wcK-zrf6WJU1cEz3va-duNe4vw8bVpVnupXFARxlibflw-Fe5pywgut9jdFUpIIbe',
                 'webhook_url' => 'https://discordapp.com/api/webhooks/476312922998439936/qM8wcK-zrf6WJU1cEz3va-duNe4vw8bVpVnupXFARxlibflw-Fe5pywgut9jdFUpIIbe',
             ),
+            '5' => array(
+                'id' => '480680388931354625',
+                'name' => '',
+                'username' => 'channel_coin_pulse_houbipro',
+                'token' => '6akkIT0-mTTO8fuV1z6Grs-89XuVIf3b5DC6jWS20Zk899y02VXuLg6m-5J8p99g9y_k',
+                'webhook_url' => 'https://discordapp.com/api/webhooks/480680388931354625/6akkIT0-mTTO8fuV1z6Grs-89XuVIf3b5DC6jWS20Zk899y02VXuLg6m-5J8p99g9y_k',
+            ),
             '9' => array(
                 'id' => '472078161786437640',
                 'name' => '',
@@ -297,6 +304,12 @@ return array(
                 'name' => 'tweets_full',
                 'username' => 'twitter_feeds',
                 'root_url' => 'https://discordapp.com/channels/475344557228294154/476312881365778433',
+            ),
+            '5' => array(
+                'id' => '475877642999037952',
+                'name' => 'channel_coin_pulse_houbipro',
+                'username' => 'channel_coin_pulse_houbipro',
+                'root_url' => 'https://discordapp.com/channels/475344557228294154/475877642999037952',
             ),
         ),
     ),

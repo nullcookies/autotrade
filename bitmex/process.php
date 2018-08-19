@@ -50,7 +50,25 @@ if (count($_POST) > 0 and isset($_POST['rtype']) and $_POST['rtype'] == 'ajax' a
 }
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-current-price') {
-	$arr = \BossBaby\Bitmex::func_get_current_price($environment->bitmex_instance);
+	$file = CONFIG_DIR . '/bitmex_coins.php';
+    $list_coin = \BossBaby\Config::read($file);
+    if ($list_coin) {
+        $arr = $list_coin['symbols']['XBTUSD'];
+    }
+    else {
+		$arr = \BossBaby\Bitmex::func_get_current_price($environment->bitmex_instance);
+	}
+
+	$arr = array(
+        "symbol" => $arr['symbol'],
+        "last" => $arr['lastPrice'],
+        "bid" => $arr['bidPrice'],
+        "ask" => $arr['askPrice'],
+        "high" => $arr['highPrice'],
+        "low" => $arr['lowPrice'],
+        "lastChangePcnt" => $arr["lastChangePcnt"],
+        "market_price" => $arr["markPrice"],
+    );
 
 	$last_orig = $arr['last'];
 	$last_sess = (isset($_SESSION['getTicker']['last'])) ? $_SESSION['getTicker']['last'] : 0;

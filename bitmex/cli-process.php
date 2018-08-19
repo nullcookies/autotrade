@@ -41,7 +41,25 @@ function func_show_current_price()
 		echo "\n";
 		echo 'Time: ' . date('Y-m-d H:i:s') . ' -> ' . $_check_price . "\n";
 
-		$arr = \BossBaby\Bitmex::func_get_current_price($environment->bitmex_instance);
+		$file = CONFIG_DIR . '/bitmex_coins.php';
+        $list_coin = \BossBaby\Config::read($file);
+        if ($list_coin) {
+            $arr = $list_coin['symbols']['XBTUSD'];
+        }
+        else {
+			$arr = \BossBaby\Bitmex::func_get_current_price($environment->bitmex_instance);
+		}
+
+		$arr = array(
+            "symbol" => $arr['symbol'],
+            "last" => $arr['lastPrice'],
+            "bid" => $arr['bidPrice'],
+            "ask" => $arr['askPrice'],
+            "high" => $arr['highPrice'],
+            "low" => $arr['lowPrice'],
+            "lastChangePcnt" => $arr["lastChangePcnt"],
+            "market_price" => $arr["markPrice"],
+        );
 
 		$last_orig = $arr['last'];
 		$last_sess = (isset($_current_price)) ? $_current_price : 0;
