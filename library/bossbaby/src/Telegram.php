@@ -1272,7 +1272,7 @@ class Telegram
                             if (isset($old_data['5m']) and isset($old_data['5m'][$coin]['price'])) $tmp_str .= ' 5m ago: ' . number_format($old_data['5m'][$coin]['price'], 8);
                             if (isset($old_data['1h']) and isset($old_data['1h'][$coin]['price'])) $tmp_str .= ' 1h ago: ' . number_format($old_data['1h'][$coin]['price'], 8);
                             $tmp_str .= PHP_EOL . 'last price: <b>' . $new_price . '</b>';
-                            if (isset($old_data['10s']) and isset($old_data['10s'][$coin]['volume'])) $tmp_str .= ' 10s ago: ' . number_format($old_data['10s'][$coin]['volume'], );
+                            if (isset($old_data['10s']) and isset($old_data['10s'][$coin]['volume'])) $tmp_str .= ' 10s ago: ' . number_format($old_data['10s'][$coin]['volume'], 2);
                             if (isset($old_data['1m']) and isset($old_data['1m'][$coin]['volume'])) $tmp_str .= ' 1m ago: ' . number_format($old_data['1m'][$coin]['volume'], 2);
                             if (isset($old_data['5m']) and isset($old_data['5m'][$coin]['volume'])) $tmp_str .= ' 5m ago: ' . number_format($old_data['5m'][$coin]['volume'], 2);
                             if (isset($old_data['1h']) and isset($old_data['1h'][$coin]['volume'])) $tmp_str .= ' 1h ago: ' . number_format($old_data['1h'][$coin]['volume'], 2);
@@ -1289,7 +1289,7 @@ class Telegram
                             if (isset($old_data['5m']) and isset($old_data['5m'][$coin]['price'])) $tmp_str .= ' 5m ago: ' . number_format($old_data['5m'][$coin]['price'], 8);
                             if (isset($old_data['1h']) and isset($old_data['1h'][$coin]['price'])) $tmp_str .= ' 1h ago: ' . number_format($old_data['1h'][$coin]['price'], 8);
                             $tmp_str .= PHP_EOL . 'last price: **' . $new_price . '**';
-                            if (isset($old_data['10s']) and isset($old_data['10s'][$coin]['volume'])) $tmp_str .= ' 10s ago: ' . number_format($old_data['10s'][$coin]['volume'], );
+                            if (isset($old_data['10s']) and isset($old_data['10s'][$coin]['volume'])) $tmp_str .= ' 10s ago: ' . number_format($old_data['10s'][$coin]['volume'], 2);
                             if (isset($old_data['1m']) and isset($old_data['1m'][$coin]['volume'])) $tmp_str .= ' 1m ago: ' . number_format($old_data['1m'][$coin]['volume'], 2);
                             if (isset($old_data['5m']) and isset($old_data['5m'][$coin]['volume'])) $tmp_str .= ' 5m ago: ' . number_format($old_data['5m'][$coin]['volume'], 2);
                             if (isset($old_data['1h']) and isset($old_data['1h'][$coin]['volume'])) $tmp_str .= ' 1h ago: ' . number_format($old_data['1h'][$coin]['volume'], 2);
