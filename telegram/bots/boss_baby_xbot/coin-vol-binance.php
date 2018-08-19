@@ -47,7 +47,7 @@ function run_cron() {
 
     // $data['text'] = 'Message at ' . date('H:i:s d/m/Y');
 
-    $list_coin_binance = \BossBaby\Telegram::get_coin_vol_binance(-0.5, 0.5, -0.5, 0.5);
+    $list_coin_binance = \BossBaby\Telegram::get_coin_vol_binance(-0.5, 0.5, -2, 2);
     // \BossBaby\Utility::writeLog('list_coin_binance:'.serialize($list_coin_binance));
 
     // if ($list_coin_binance)
