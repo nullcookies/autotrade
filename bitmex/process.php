@@ -36,8 +36,8 @@ if (!$environment->enable)
 	die('<p class="message">STOP!!!</p>');
 
 $environment->bitmex_instance = new \Bitmex($environment->bitmex->accounts->{1}->apiKey, $environment->bitmex->accounts->{1}->apiSecret);
-// $environment->bitmex_instance2 = new \Bitmex($environment->bitmex->accounts->{2}->apiKey, $environment->bitmex->accounts->{2}->apiSecret);
-$environment->bitmex_instance2 = $environment->bitmex_instance;
+// $environment->bitmex_instance2 = $environment->bitmex_instance;
+$environment->bitmex_instance2 = new \Bitmex($environment->bitmex->accounts->{2}->apiKey, $environment->bitmex->accounts->{2}->apiSecret);
 $environment->bitmex_instance3 = new \Bitmex($environment->bitmex->accounts->{3}->apiKey, $environment->bitmex->accounts->{3}->apiSecret);
 
 // ------------------------------------------------------------ //

@@ -7,8 +7,6 @@
 
 if (!defined('STDIN')) die('Access denied.' . "\n");
 
-set_time_limit(9);
-
 // Error handle
 require_once __DIR__ . '/../error-handle.php';
 
@@ -60,9 +58,9 @@ function run_cron() {
                 sleep(1);
             }
 
-            die('UPDATED');
+            // die('UPDATED');
         }
     }
 
-    die('NOTHING');
+    // die('NOTHING');
 }

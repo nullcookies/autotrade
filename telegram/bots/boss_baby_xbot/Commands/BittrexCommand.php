@@ -47,6 +47,11 @@ class BittrexCommand extends UserCommand
     protected $need_mysql = false;
 
     /**
+     * @var bool
+     */
+    protected $private_only = true;
+
+    /**
      * @inheritdoc
      */
     public function execute()

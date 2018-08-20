@@ -536,13 +536,17 @@ class BitMex
         curl_setopt($this->ch, CURLOPT_CONNECTTIMEOUT, 0); 
         curl_setopt($this->ch, CURLOPT_TIMEOUT, 10); //timeout in seconds
         $return = curl_exec($this->ch);
+
+        if (strpos($return, '403 Forbidden') !== false) {
+            \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::return::' . serialize($return));
+        }
         
         if (!$return) {
             $this->curlError();
             $this->error = true;
             return false;
         }
-        
+
         $return = json_decode($return, true);
         
         if (isset($return['error'])) {

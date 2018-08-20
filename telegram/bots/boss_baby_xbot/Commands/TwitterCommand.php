@@ -42,6 +42,11 @@ class TwitterCommand extends UserCommand
     protected $version = '1.0.0';
 
     /**
+     * @var bool
+     */
+    protected $private_only = true;
+
+    /**
      * @inheritdoc
      */
     public function execute()
@@ -66,7 +71,7 @@ class TwitterCommand extends UserCommand
         // return Request::sendMessage($data);
 
         // File store twitter data
-        $twitter_config_file = CONFIG_DIR . '/twitter.php';
+        $twitter_config_file = CONFIG_DIR . '/twitter_config.php';
         $twitter_config = \BossBaby\Config::read($twitter_config_file);
         $twitter_config = \BossBaby\Utility::object_to_array($twitter_config);
 

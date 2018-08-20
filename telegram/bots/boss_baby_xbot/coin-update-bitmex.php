@@ -7,8 +7,6 @@
 
 if (!defined('STDIN')) die('Access denied.' . "\n");
 
-set_time_limit(9);
-
 // Error handle
 require_once __DIR__ . '/../error-handle.php';
 
@@ -26,6 +24,7 @@ function run_cron() {
     // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
     
     // Run cron to update coin from exchange
+    // $list_symbol = ['XBTUSD'];
     $list_symbol = ['XBTUSD', 'XBTU18', 'XBTZ18', 'ADAU18', 'BCHU18', 'EOSU18', 'ETHUSD', 'ETHU18', 'LTCU18', 'TRXU18', 'XRPU18'];
 
     $arr = [];
@@ -60,8 +59,8 @@ function run_cron() {
             sleep(1);
         }
 
-        die('UPDATED');
+        // die('UPDATED');
     }
 
-    die('NOTHING');
+    // die('NOTHING');
 }

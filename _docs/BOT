@@ -206,6 +206,8 @@ https://www.bitmex.com/app/automatedTradingEngines
 https://www.botvs.com/
 https://www.botvs.com/bbs-topic/865
 https://www.bitmex.com/api/explorer/#!/Quote/Quote_get
+Limit:
+https://www.bitmex.com/app/restAPI#Limits
 
 Total 11 (delta 6), reused 0 (delta 0)
 remote: 
@@ -409,5 +411,7 @@ find: /dev/fd/SwaggerClient-php: No such file or directory
 /Volumes/DATA/Projects/sunbytes/review/trainforlife/code/composer.phar
 Longs-MacBook-Pro:SwaggerClient-php longvu$ 
 
-
+Telegram BOT errors:
+1. Bad Request: can't parse entities: Can't find end of the entity starting at byte offset
+-> wrong text formarted
 

@@ -6,8 +6,17 @@ class Bitmex
     public static function func_get_current_price($bitmex_instance = null, $symbol = 'XBTUSD')
     {
         global $environment;
-        $bitmex_instance = new \Bitmex($environment->bitmex->accounts->{1}->apiKey, $environment->bitmex->accounts->{1}->apiSecret);
+
+        $list_accounts = $environment->bitmex->accounts;
+        $list_id = [];
+        foreach ($list_accounts as $key => $account) {
+            $list_id[] = $key;
+        }
+        $rand = array_rand($list_id);
+        if ($rand <= 0) return;
         
+        $bitmex_instance = new \Bitmex($environment->bitmex->accounts->{$rand}->apiKey, $environment->bitmex->accounts->{$rand}->apiSecret);
+
         $arr = $bitmex_instance->getTicker($symbol);
         // if (is_array($arr) and count($arr)) {
         //     $arr['marketPrice'] = $arr['market_price'];

@@ -5,7 +5,7 @@
  * Uncommented parameters must be filled
  */
 
-// if (!defined('STDIN')) die('Access denied.' . "\n");
+if (!defined('STDIN')) die('Access denied.' . "\n");
 
 // Error handle
 require_once __DIR__ . '/../error-handle.php';

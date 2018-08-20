@@ -41,8 +41,10 @@ class Bittrex
 		$result = curl_exec($ch);
 
 		if ($result === false) {
-			\BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::CURL Error: ' . curl_error($ch));
-			return $result;
+			$curl_error = curl_error($ch);
+			if (strpos($curl_error, 'Resolving timed out') === false)
+				\BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::CURL-Error: ' . $curl_error);
+			return null;
 		}
 		
 		return json_decode($result);

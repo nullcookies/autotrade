@@ -68,19 +68,23 @@ class PriceCommand extends UserCommand
 
         // If no command parameter is passed, show the list.
         if ($text === '' or $text === 'price') {
-            // $data['text'] = PHP_EOL;
-
             // Format current XBT's price
             $price = \BossBaby\Telegram::format_xbt_price_for_telegram();
+            $price = trim($price);
 
-            $data['text'] = $price . PHP_EOL;
-            return Request::sendMessage($data);
+            if ($price) {
+                // $data['text'] = 'Testing at ' . date('YmdHis');
+                $data['text'] = $price . PHP_EOL;
+                return Request::sendMessage($data);
+            }
         }
 
         $data['text'] = 'There is no coin name *' . $text . '*, please try again 😒';
 
         // Format current ALT's price
         $price = \BossBaby\Telegram::format_alt_price_for_telegram($text);
+        $price = trim($price);
+
         if ($price) {
             $data['text'] = $price;
             return Request::sendMessage($data);

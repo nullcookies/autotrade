@@ -28,7 +28,7 @@ $bot_username = $environment->telegram->bots->{2}->username;
 $telegram = new Telegram($bot_api_key, $bot_username);
 
 // File store twitter data
-$twitter_config_file = CONFIG_DIR . '/twitter.php';
+$twitter_config_file = CONFIG_DIR . '/twitter_config.php';
 $twitter_config = \BossBaby\Config::read($twitter_config_file);
 $twitter_config = \BossBaby\Utility::object_to_array($twitter_config);
 

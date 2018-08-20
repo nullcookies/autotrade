@@ -7,6 +7,7 @@ class Utility
     {
         try {
             $log_file = $file ?: LOGS_DIR . DS . "debug-" . date("Ymd") . ".txt";
+            $file_exists = (is_file($log_file) and file_exists($log_file));
             $str      = '';
             $str .= date('Y-m-d H:i:s') . "\t" . self::getClientIp();
             $str .= "\t" . $string . "\r\n";
@@ -14,8 +15,10 @@ class Utility
             $fp  = fopen($log_file, 'a');
             fwrite($fp, $str);
 
-            @chmod($log_file, 0777);
-            // @chown($log_file, 'dosuser02');
+            if (!$file_exists) {
+                @chmod($log_file, 0777);
+                // @chown($log_file, 'dosuser02');
+            }
             
             return fclose($fp);
         }
