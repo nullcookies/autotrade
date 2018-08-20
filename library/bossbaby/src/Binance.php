@@ -18,8 +18,9 @@ class Binance
 
         // Get list current coin
         $file = CONFIG_DIR . '/binance_coins.php';
-        $list_coin = \BossBaby\Config::read($file);
-        if ($list_coin)
+        $list_coin = \BossBaby\Config::read_file($file);
+        $list_coin = \BossBaby\Utility::object_to_array(json_decode($list_coin));
+        if (!json_last_error() and $list_coin)
             $list_coin = $list_coin['symbols'];
         if ($list_coin) {
             $list_coin_tmp = [];

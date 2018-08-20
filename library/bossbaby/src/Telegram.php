@@ -25,8 +25,9 @@ class Telegram
         // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
 
         $file = CONFIG_DIR . '/bitmex_coins.php';
-        $list_coin = \BossBaby\Config::read($file);
-        if ($list_coin and isset($list_coin['symbols']['XBTUSD'])) {
+        $list_coin = \BossBaby\Config::read_file($file);
+        $list_coin = \BossBaby\Utility::object_to_array(json_decode($list_coin));
+        if (!json_last_error() and $list_coin and isset($list_coin['symbols']['XBTUSD'])) {
             $arr = $list_coin['symbols']['XBTUSD'];
         }
         else {
@@ -122,8 +123,9 @@ class Telegram
 
         // Get list current coin
         $file = CONFIG_DIR . '/binance_coins.php';
-        $list_coin = \BossBaby\Config::read($file);
-        if ($list_coin)
+        $list_coin = \BossBaby\Config::read_file($file);
+        $list_coin = \BossBaby\Utility::object_to_array(json_decode($list_coin));
+        if (!json_last_error() and $list_coin)
             $list_coin = $list_coin['symbols'];
         if ($list_coin) {
             $list_coin_tmp = [];
@@ -390,8 +392,9 @@ class Telegram
 
         // Get list current coin
         $file = CONFIG_DIR . '/bittrex_coins.php';
-        $list_coin = \BossBaby\Config::read($file);
-        if ($list_coin)
+        $list_coin = \BossBaby\Config::read_file($file);
+        $list_coin = \BossBaby\Utility::object_to_array(json_decode($list_coin));
+        if (!json_last_error() and $list_coin)
             $list_coin = $list_coin['symbols'];
         if ($list_coin) {
             $list_coin_tmp = [];
@@ -670,8 +673,9 @@ class Telegram
 
         // Get list current coin
         $file = CONFIG_DIR . '/houbipro_coins.php';
-        $list_coin = \BossBaby\Config::read($file);
-        if ($list_coin)
+        $list_coin = \BossBaby\Config::read_file($file);
+        $list_coin = \BossBaby\Utility::object_to_array(json_decode($list_coin));
+        if (!json_last_error() and $list_coin)
             $list_coin = $list_coin['symbols'];
         if ($list_coin) {
             $list_coin_tmp = [];
@@ -1007,12 +1011,15 @@ class Telegram
 
     public static function get_coin_vol_binance($min = -5, $max = 5, $min_vol = -5, $max_vol = 5)
     {
+        \BossBaby\Utility::writeLog('----'.__FILE__ . '::' . __FUNCTION__ . '::min::' . $min . '::max::' . $max . '::min_vol::' . $min_vol . '::max_vol::' . $max_vol);
+
         $return = ['telegram' => [], 'discord' => []];
 
         // Get list current coin
         $file = CONFIG_DIR . '/binance_coins.php';
-        $list_coin = \BossBaby\Config::read($file);
-        if ($list_coin)
+        $list_coin = \BossBaby\Config::read_file($file);
+        $list_coin = \BossBaby\Utility::object_to_array(json_decode($list_coin));
+        if (!json_last_error() and $list_coin)
             $list_coin = $list_coin['symbols'];
         if (!$list_coin) {
             $list_coin = \BossBaby\Binance::get_ticker_24h();

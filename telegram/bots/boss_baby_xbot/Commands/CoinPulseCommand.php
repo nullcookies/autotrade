@@ -14,9 +14,9 @@ use Longman\TelegramBot\Commands\UserCommand;
 use Longman\TelegramBot\Request;
 
 /**
- * Price command
+ * CoinPulse command
  *
- * Gets executed when a user check price
+ * Execute for coinpulse
  */
 class CoinPulseCommand extends UserCommand
 {

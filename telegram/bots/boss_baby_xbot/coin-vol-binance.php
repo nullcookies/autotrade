@@ -47,7 +47,16 @@ function run_cron() {
 
     // $data['text'] = 'Message at ' . date('H:i:s d/m/Y');
 
-    $list_coin_binance = \BossBaby\Telegram::get_coin_vol_binance(-0.5, 0.5, -2, 2);
+    $coin_config_file = CONFIG_DIR . '/coin_config.php';
+    $coin_config = \BossBaby\Config::read($coin_config_file);
+    $coin_config = \BossBaby\Utility::object_to_array($coin_config);
+
+    $min_changed = 0;
+    $max_changed = number_format((float) $coin_config['coin_volume']['binance']['max_changed'], 2);
+    $min_vol = 0;
+    $max_vol = number_format((float) $coin_config['coin_volume']['binance']['max_volume'], 2);
+    
+    $list_coin_binance = \BossBaby\Telegram::get_coin_vol_binance($min_changed, $max_changed, $min_vol, $max_vol);
     // \BossBaby\Utility::writeLog('list_coin_binance:'.serialize($list_coin_binance));
 
     // if ($list_coin_binance)

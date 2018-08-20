@@ -49,7 +49,8 @@ function run_cron() {
             // \BossBaby\Utility::writeLog('file:'.serialize($file));
 
             // Write overwrite to file
-            \BossBaby\Config::write($file_tmp, $arr);
+            $arr = json_encode($arr);
+            \BossBaby\Config::write_file($file, $arr);
             unset($arr);
             sleep(1);
 

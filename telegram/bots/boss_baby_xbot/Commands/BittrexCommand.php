@@ -91,8 +91,9 @@ class BittrexCommand extends UserCommand
             if (is_array($bittrex_balances) and count($bittrex_balances)) {
                 // Try to get current price of all coin
                 $file = CONFIG_DIR . '/bittrex_coins.php';
-                $list_coin = \BossBaby\Config::read($file);
-                if ($list_coin)
+                $list_coin = \BossBaby\Config::read_file($file);
+                $list_coin = \BossBaby\Utility::object_to_array(json_decode($list_coin));
+                if (!json_last_error() and $list_coin)
                     $list_coin = $list_coin['symbols'];
                 if ($list_coin) {
                     $list_coin_tmp = [];
