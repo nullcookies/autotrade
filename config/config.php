@@ -195,6 +195,12 @@ return array(
                 'root_url' => '',
             ),
             '2' => array(
+                'id' => -236373407,
+                'name' => 'Boss Baby Bitmex',
+                'username' => '',
+                'root_url' => '',
+            ),
+            '3' => array(
                 'id' => -1001178093869,
                 'name' => 'BítMết',
                 'username' => '',

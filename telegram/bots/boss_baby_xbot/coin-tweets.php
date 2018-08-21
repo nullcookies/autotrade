@@ -42,6 +42,7 @@ if (!$twitter_data) {
 
 $shown_tweets_file = CONFIG_DIR . '/twitter_shown.php';
 $shown_tweets = (is_file($shown_tweets_file) and file_exists($shown_tweets_file)) ? \BossBaby\Config::read($shown_tweets_file) : [];
+$shown_tweets = \BossBaby\Utility::object_to_array($shown_tweets);
 
 // Add you bot's API key and name
 $bot_api_key  = $environment->telegram->bots->{2}->token;
@@ -70,8 +71,10 @@ foreach ($twitter_data as $coin => $twitter_item)
     // \BossBaby\Utility::writeLog('latest_tweet:'.serialize($latest_tweet));
 
     if (!$latest_tweet) continue;
+
+    // \BossBaby\Utility::writeLog(__FILE__.'0::'.PHP_EOL.'::coin:'.serialize($coin).PHP_EOL.'::old_one:'.serialize(clean($shown_tweets[$coin])));
     
-    $old_one = (isset($shown_tweets[$coin]) and trim($shown_tweets[$coin])) ? trim($shown_tweets[$coin]) : '';
+    $old_one = $shown_tweets[$coin];
     // $first_one = (isset($latest_tweet[0]) and trim($latest_tweet[0])) ? trim($latest_tweet[0]) : '';
 
     $first_one = '';
@@ -81,6 +84,15 @@ foreach ($twitter_data as $coin => $twitter_item)
     }
     // \BossBaby\Utility::writeLog('satus_id:'.serialize($satus_id));
     // \BossBaby\Utility::writeLog('text:'.serialize($text));
+
+    // // Write back data into cache
+    // $shown_tweets[$coin] = $first_one;
+    // \BossBaby\Config::write($shown_tweets_file, (array) $shown_tweets);
+    // sleep(1);
+
+    // if ($coin == 'KMD') {
+    //     \BossBaby\Utility::writeLog(__FILE__.'0::'.PHP_EOL.'::coin:'.serialize($coin).PHP_EOL.'::old_one:'.serialize(clean($old_one)).PHP_EOL.'::first_one:'.serialize(clean($first_one)));
+    // }
     
     if (clean($first_one) !== clean($old_one)) {
         // https://twitter.com/$coin
@@ -93,8 +105,8 @@ foreach ($twitter_data as $coin => $twitter_item)
         
         foreach ($twitter_filter as $keyword) {
             $keyword = clean($keyword);
-            $first_one = clean($first_one);
-            if (strpos($first_one, $keyword) !== false) {
+            $first_one_tmp = clean($first_one);
+            if (strpos($first_one_tmp, $keyword) !== false) {
                 $filtered = true;
 
                 // Format for Telegram
@@ -131,7 +143,7 @@ foreach ($twitter_data as $coin => $twitter_item)
                     // sleep(1);
                 }
 
-                \BossBaby\Utility::writeLog(__FILE__.'1::'.PHP_EOL.'::first_one:'.serialize(clean($first_one)).PHP_EOL.'::old_one:'.serialize(clean($old_one)));
+                // \BossBaby\Utility::writeLog(__FILE__.'1::'.PHP_EOL.'::first_one:'.serialize(clean($first_one)).PHP_EOL.'::old_one:'.serialize(clean($old_one)));
                 break;
             }
         }
@@ -171,14 +183,18 @@ foreach ($twitter_data as $coin => $twitter_item)
                 // sleep(1);
             }
 
-            \BossBaby\Utility::writeLog(__FILE__.'2::'.PHP_EOL.'::first_one:'.serialize(clean($first_one)).PHP_EOL.'::old_one:'.serialize(clean($old_one)));
+            // \BossBaby\Utility::writeLog(__FILE__.'2::'.PHP_EOL.'::first_one:'.serialize(clean($first_one)).PHP_EOL.'::old_one:'.serialize(clean($old_one)));
         }
     }
 
+    $shown_tweets[$coin] = $first_one;
     sleep(1);
 }
 
 // Write back data into cache
+$shown_tweets['last_updated'] = date('Y-m-d H:i:s');
+$shown_tweets['last_updated_unix'] = time();
+// \BossBaby\Utility::writeLog(__FILE__.'9::Done, write to file::'.$shown_tweets_file.PHP_EOL.'::shown_tweets::'.serialize($shown_tweets));
 \BossBaby\Config::write($shown_tweets_file, (array) $shown_tweets);
 sleep(1);
 
