@@ -75,8 +75,9 @@ function func_show_current_price()
 		// echo 'Time: ' . date('Y-m-d H:i:s') . ' -> ' . $_check_price . "\n";
 
 		$file = CONFIG_DIR . '/bitmex_coins.php';
-        $list_coin = \BossBaby\Config::read($file);
-        if ($list_coin) {
+        $list_coin = \BossBaby\Config::read_file($file);
+	    $list_coin = \BossBaby\Utility::object_to_array(json_decode($list_coin));
+	    if (!json_last_error() and $list_coin and isset($list_coin['symbols']['XBTUSD'])) {
             $arr = $list_coin['symbols']['XBTUSD'];
         }
         else {

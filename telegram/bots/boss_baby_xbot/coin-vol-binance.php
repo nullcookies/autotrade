@@ -16,6 +16,9 @@ require_once LIB_DIR . '/telegram/vendor/autoload.php';
 use Longman\TelegramBot\Request;
 use Longman\TelegramBot\Telegram;
 
+// Run for every 5 min
+if (date('i') % 5 == 0) exit;
+
 run_cron();
 // $sleep = 10;
 // sleep($sleep); run_cron();

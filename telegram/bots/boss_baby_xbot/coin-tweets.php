@@ -81,8 +81,8 @@ foreach ($twitter_data as $coin => $twitter_item)
     }
     // \BossBaby\Utility::writeLog('satus_id:'.serialize($satus_id));
     // \BossBaby\Utility::writeLog('text:'.serialize($text));
-
-    if ($first_one !== $old_one) {
+    
+    if (clean($first_one) !== clean($old_one)) {
         // https://twitter.com/$coin
         // https://twitter.com/$username/status/1026653571377332224
         $link = "https://twitter.com/$username/status/$satus_id";
@@ -92,7 +92,8 @@ foreach ($twitter_data as $coin => $twitter_item)
         $filtered = false;
         
         foreach ($twitter_filter as $keyword) {
-            $first_one = trim(strtolower($first_one));
+            $keyword = clean($keyword);
+            $first_one = clean($first_one);
             if (strpos($first_one, $keyword) !== false) {
                 $filtered = true;
 
@@ -130,6 +131,7 @@ foreach ($twitter_data as $coin => $twitter_item)
                     // sleep(1);
                 }
 
+                \BossBaby\Utility::writeLog(__FILE__.'1::'.PHP_EOL.'::first_one:'.serialize(clean($first_one)).PHP_EOL.'::old_one:'.serialize(clean($old_one)));
                 break;
             }
         }
@@ -168,6 +170,8 @@ foreach ($twitter_data as $coin => $twitter_item)
                 // \BossBaby\Utility::writeLog(__FILE__.'result2:'.serialize($result));
                 // sleep(1);
             }
+
+            \BossBaby\Utility::writeLog(__FILE__.'2::'.PHP_EOL.'::first_one:'.serialize(clean($first_one)).PHP_EOL.'::old_one:'.serialize(clean($old_one)));
         }
     }
 
@@ -177,3 +181,10 @@ foreach ($twitter_data as $coin => $twitter_item)
 // Write back data into cache
 \BossBaby\Config::write($shown_tweets_file, (array) $shown_tweets);
 sleep(1);
+
+
+function clean($string) {
+    $string = trim(strtolower($string));
+    $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
+    return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+}

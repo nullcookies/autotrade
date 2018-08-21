@@ -99,8 +99,8 @@ class ConfigCommand extends UserCommand
         }
 
         $data['text'] = '*Current config*:' . PHP_EOL;
-        $data['text'] .= 'coin_volume - binance - max_volume: ' . $coin_config['coin_volume']['binance']['max_volume'] . '%' . PHP_EOL;
-        $data['text'] .= 'coin_volume - binance - max_changed: ' . $coin_config['coin_volume']['binance']['max_changed'] . '%' . PHP_EOL;
+        $data['text'] .= 'Max volume to check coin on Binance: ' . $coin_config['coin_volume']['binance']['max_volume'] . '%' . PHP_EOL;
+        $data['text'] .= 'Max price changed to check coin on Binance: ' . $coin_config['coin_volume']['binance']['max_changed'] . '%' . PHP_EOL;
         return Request::sendMessage($data);
     }
 }

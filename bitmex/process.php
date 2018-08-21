@@ -51,8 +51,9 @@ if (count($_POST) > 0 and isset($_POST['rtype']) and $_POST['rtype'] == 'ajax' a
 
 if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 'load-current-price') {
 	$file = CONFIG_DIR . '/bitmex_coins.php';
-    $list_coin = \BossBaby\Config::read($file);
-    if ($list_coin) {
+    $list_coin = \BossBaby\Config::read_file($file);
+    $list_coin = \BossBaby\Utility::object_to_array(json_decode($list_coin));
+    if (!json_last_error() and $list_coin and isset($list_coin['symbols']['XBTUSD'])) {
         $arr = $list_coin['symbols']['XBTUSD'];
     }
     else {

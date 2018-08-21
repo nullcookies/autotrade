@@ -304,10 +304,10 @@ class Telegram
                         }
                         
                         // Check to add to returns
-                        if ((($calc_10s > $max or $calc_10s < $min) and ($changed_time_10s >= 10)) 
-                            or (($calc_1m > $max or $calc_1m < $min) and ($changed_time_1m >= 1*60)) 
-                            or (($calc_5m > $max or $calc_5m < $min) and ($changed_time_5m >= 5*60)) 
-                            or (($calc_1h > $max or $calc_1h < $min) and ($changed_time_1h >= 60*60))
+                        if ((((($calc_10s >= 0) and ($calc_10s > $max) and ($calc_10s > $old_data['changed_10s'][$coin])) or (($calc_10s < 0) and ($calc_10s < $min) and ($calc_10s < $old_data['changed_10s'][$coin]))) and ($changed_time_10s >= 10)) 
+                            or (((($calc_1m >= 0) and ($calc_1m > $max) and ($calc_1m > $old_data['changed_1m'][$coin])) or (($calc_1m < 0) and ($calc_1m < $min) and ($calc_1m < $old_data['changed_1m'][$coin]))) and ($changed_time_1m >= 1*60)) 
+                            or (((($calc_5m >= 0) and ($calc_5m > $max) and ($calc_5m > $old_data['changed_5m'][$coin])) or (($calc_5m < 0) and ($calc_5m < $min) and ($calc_5m < $old_data['changed_5m'][$coin]))) and ($changed_time_5m >= 5*60)) 
+                            or (((($calc_1h >= 0) and ($calc_1h > $max) and ($calc_1h > $old_data['changed_1h'][$coin])) or (($calc_1h < 0) and ($calc_1h < $min) and ($calc_1h < $old_data['changed_1h'][$coin]))) and ($changed_time_1h >= 60*60))
                         ) {
                             if ($calc_1h > $max or $calc_1h < $min) {
                                 $changed_1h = ' (<b>' . $calc_1h . '</b>%/1h)';
@@ -594,10 +594,10 @@ class Telegram
                         }
                         
                         // Check to add to returns
-                        if ((($calc_10s > $max or $calc_10s < $min) and ($changed_time_10s >= 10)) 
-                            or (($calc_1m > $max or $calc_1m < $min) and ($changed_time_1m >= 1*60)) 
-                            or (($calc_5m > $max or $calc_5m < $min) and ($changed_time_5m >= 5*60)) 
-                            or (($calc_1h > $max or $calc_1h < $min) and ($changed_time_1h >= 60*60))
+                        if ((((($calc_10s >= 0) and ($calc_10s > $max) and ($calc_10s > $old_data['changed_10s'][$coin])) or (($calc_10s < 0) and ($calc_10s < $min) and ($calc_10s < $old_data['changed_10s'][$coin]))) and ($changed_time_10s >= 10)) 
+                            or (((($calc_1m >= 0) and ($calc_1m > $max) and ($calc_1m > $old_data['changed_1m'][$coin])) or (($calc_1m < 0) and ($calc_1m < $min) and ($calc_1m < $old_data['changed_1m'][$coin]))) and ($changed_time_1m >= 1*60)) 
+                            or (((($calc_5m >= 0) and ($calc_5m > $max) and ($calc_5m > $old_data['changed_5m'][$coin])) or (($calc_5m < 0) and ($calc_5m < $min) and ($calc_5m < $old_data['changed_5m'][$coin]))) and ($changed_time_5m >= 5*60)) 
+                            or (((($calc_1h >= 0) and ($calc_1h > $max) and ($calc_1h > $old_data['changed_1h'][$coin])) or (($calc_1h < 0) and ($calc_1h < $min) and ($calc_1h < $old_data['changed_1h'][$coin]))) and ($changed_time_1h >= 60*60))
                         ) {
                             if ($calc_1h > $max or $calc_1h < $min) {
                                 $changed_1h = ' (<b>' . $calc_1h . '</b>%/1h)';
@@ -864,10 +864,10 @@ class Telegram
                         }
                         
                         // Check to add to returns
-                        if ((($calc_10s > $max or $calc_10s < $min) and ($changed_time_10s >= 10)) 
-                            or (($calc_1m > $max or $calc_1m < $min) and ($changed_time_1m >= 1*60)) 
-                            or (($calc_5m > $max or $calc_5m < $min) and ($changed_time_5m >= 5*60)) 
-                            or (($calc_1h > $max or $calc_1h < $min) and ($changed_time_1h >= 60*60))
+                        if ((((($calc_10s >= 0) and ($calc_10s > $max) and ($calc_10s > $old_data['changed_10s'][$coin])) or (($calc_10s < 0) and ($calc_10s < $min) and ($calc_10s < $old_data['changed_10s'][$coin]))) and ($changed_time_10s >= 10)) 
+                            or (((($calc_1m >= 0) and ($calc_1m > $max) and ($calc_1m > $old_data['changed_1m'][$coin])) or (($calc_1m < 0) and ($calc_1m < $min) and ($calc_1m < $old_data['changed_1m'][$coin]))) and ($changed_time_1m >= 1*60)) 
+                            or (((($calc_5m >= 0) and ($calc_5m > $max) and ($calc_5m > $old_data['changed_5m'][$coin])) or (($calc_5m < 0) and ($calc_5m < $min) and ($calc_5m < $old_data['changed_5m'][$coin]))) and ($changed_time_5m >= 5*60)) 
+                            or (((($calc_1h >= 0) and ($calc_1h > $max) and ($calc_1h > $old_data['changed_1h'][$coin])) or (($calc_1h < 0) and ($calc_1h < $min) and ($calc_1h < $old_data['changed_1h'][$coin]))) and ($changed_time_1h >= 60*60))
                         ) {
                             if ($calc_1h > $max or $calc_1h < $min) {
                                 $changed_1h = ' (<b>' . $calc_1h . '</b>%/1h)';
@@ -1011,7 +1011,7 @@ class Telegram
 
     public static function get_coin_vol_binance($min = -5, $max = 5, $min_vol = -5, $max_vol = 5)
     {
-        \BossBaby\Utility::writeLog('----'.__FILE__ . '::' . __FUNCTION__ . '::min::' . $min . '::max::' . $max . '::min_vol::' . $min_vol . '::max_vol::' . $max_vol);
+        // \BossBaby\Utility::writeLog('----'.__FILE__ . '::' . __FUNCTION__ . '::min::' . $min . '::max::' . $max . '::min_vol::' . $min_vol . '::max_vol::' . $max_vol);
 
         $return = ['telegram' => [], 'discord' => []];
 
@@ -1161,23 +1161,23 @@ class Telegram
                         }
 
                         // Check to add to returns
-                        if ((($calc_15m <= $max) and ($calc_vol_15m > $max_vol) and ($changed_time_15m >= 15*60))
-                            or (($calc_1h <= $max) and ($calc_vol_1h > $max_vol) and ($changed_time_1h >= 60*60))
+                        if (((($calc_15m <= $max) and ($calc_vol_15m > $max_vol) and ($calc_15m > $old_data['changed_vol_15m'][$coin])) and ($changed_time_15m >= 15*60))
+                            or ((($calc_1h <= $max) and ($calc_vol_1h > $max_vol) and ($calc_1h > $old_data['changed_vol_1h'][$coin])) and ($changed_time_1h >= 60*60))
                         ) {
-                            if ($calc_1h <= $max)
-                                $changed_1h = ' (<b>' . $calc_1h . '</b>%/1h)';
-                            elseif ($calc_15m <= $max)
-                                $changed_15m = ' (<b>' . $calc_15m . '</b>%/15m)';
+                            // if ($calc_1h <= $max)
+                            //     $changed_1h = ' (<b>' . $calc_1h . '</b>%/1h)';
+                            // elseif ($calc_15m <= $max)
+                            //     $changed_15m = ' (<b>' . $calc_15m . '</b>%/15m)';
                             
-                            if ($changed_1h == '' and isset($old_data['changed_1h'][$coin])) $changed_1h = ' (' . $old_data['changed_1h'][$coin] . '%/1h)';
-                            if ($changed_15m == '' and isset($old_data['changed_15m'][$coin])) $changed_15m = ' (' . $old_data['changed_15m'][$coin] . '%/15m)';
-                            if (strpos($changed_1h, '(') === false) $changed_1h = ' (' . $changed_1h . '%/1h)';
-                            if (strpos($changed_15m, '(') === false) $changed_15m = ' (' . $changed_15m . '%/15m)';
+                            // if ($changed_1h == '' and isset($old_data['changed_1h'][$coin])) $changed_1h = ' (' . $old_data['changed_1h'][$coin] . '%/1h)';
+                            // if ($changed_15m == '' and isset($old_data['changed_15m'][$coin])) $changed_15m = ' (' . $old_data['changed_15m'][$coin] . '%/15m)';
+                            // if (strpos($changed_1h, '(') === false) $changed_1h = ' (' . $changed_1h . '%/1h)';
+                            // if (strpos($changed_15m, '(') === false) $changed_15m = ' (' . $changed_15m . '%/15m)';
 
                             if ($calc_vol_1h > $max_vol)
-                                $changed_1h = ' (<b>' . $calc_vol_1h . '</b>%/1h)';
+                                $changed_vol_1h = ' (<b>' . $calc_vol_1h . '</b>%/1h)';
                             elseif ($calc_vol_15m > $max_vol)
-                                $changed_15m = ' (<b>' . $calc_vol_15m . '</b>%/15m)';
+                                $changed_vol_15m = ' (<b>' . $calc_vol_15m . '</b>%/15m)';
                             
                             if ($changed_vol_1h == '' and isset($old_data['changed_vol_1h'][$coin])) $changed_vol_1h = ' (' . $old_data['changed_vol_1h'][$coin] . '%/1h)';
                             if ($changed_vol_15m == '' and isset($old_data['changed_vol_15m'][$coin])) $changed_vol_15m = ' (' . $old_data['changed_vol_15m'][$coin] . '%/15m)';
