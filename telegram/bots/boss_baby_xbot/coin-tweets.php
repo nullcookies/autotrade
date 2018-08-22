@@ -17,7 +17,7 @@ use Longman\TelegramBot\Request;
 use Longman\TelegramBot\Telegram;
 
 // Run for every 5 min
-if (date('i') % 5 == 0) exit;
+if (date('i') % 5 != 0) exit;
 
 // Get global config
 global $environment;
@@ -26,6 +26,9 @@ global $environment;
 $bot_api_key  = $environment->telegram->bots->{2}->token;
 $bot_username = $environment->telegram->bots->{2}->username;
 $telegram = new Telegram($bot_api_key, $bot_username);
+
+// $shown_tweets_file = CONFIG_DIR . '/twitter_shown.php';
+// dump(unlink($shown_tweets_file));die();
 
 // File store twitter data
 $twitter_config_file = CONFIG_DIR . '/twitter_config.php';
@@ -41,9 +44,10 @@ if (!$twitter_data) {
 }
 
 $shown_tweets_file = CONFIG_DIR . '/twitter_shown.php';
-$shown_tweets = (is_file($shown_tweets_file) and file_exists($shown_tweets_file)) ? \BossBaby\Config::read($shown_tweets_file) : [];
-$shown_tweets = \BossBaby\Utility::object_to_array($shown_tweets);
-if (!$shown_tweets) $shown_tweets = [];
+$shown_tweets_file_tmp = $shown_tweets_file . '.lock';
+$shown_tweets = (is_file($shown_tweets_file) and file_exists($shown_tweets_file)) ? \BossBaby\Config::read_file($shown_tweets_file) : [];
+$shown_tweets = \BossBaby\Utility::object_to_array(json_decode($shown_tweets));
+if (!json_last_error() or !$shown_tweets) $shown_tweets = [];
 
 // Add you bot's API key and name
 $bot_api_key  = $environment->telegram->bots->{2}->token;
@@ -86,15 +90,6 @@ foreach ($twitter_data as $coin => $twitter_item)
     // \BossBaby\Utility::writeLog('satus_id:'.serialize($satus_id));
     // \BossBaby\Utility::writeLog('text:'.serialize($text));
 
-    // // Write back data into cache
-    // $shown_tweets[$coin] = $first_one;
-    // \BossBaby\Config::write($shown_tweets_file, (array) $shown_tweets);
-    // sleep(1);
-
-    // if ($coin == 'KMD') {
-    //     \BossBaby\Utility::writeLog(__FILE__.'0::'.PHP_EOL.'::coin:'.serialize($coin).PHP_EOL.'::old_one:'.serialize(clean($old_one)).PHP_EOL.'::first_one:'.serialize(clean($first_one)));
-    // }
-    
     if (clean($first_one) !== clean($old_one)) {
         // https://twitter.com/$coin
         // https://twitter.com/$username/status/1026653571377332224
@@ -188,23 +183,17 @@ foreach ($twitter_data as $coin => $twitter_item)
         }
     }
 
-    $shown_tweets[$coin] = $first_one;
-
     // Write back data into cache
     $shown_tweets['last_updated'] = date('Y-m-d H:i:s');
     $shown_tweets['last_updated_unix'] = time();
     // \BossBaby\Utility::writeLog(__FILE__.'9::Done, write to file::'.$shown_tweets_file.PHP_EOL.'::shown_tweets::'.serialize($shown_tweets));
-    \BossBaby\Config::write($shown_tweets_file, (array) $shown_tweets);
+    \BossBaby\Config::write_file($shown_tweets_file_tmp, json_encode((array) $shown_tweets));
     sleep(1);
+    if (is_file($shown_tweets_file_tmp) and file_exists($shown_tweets_file_tmp)) {
+        @rename($shown_tweets_file_tmp, $shown_tweets_file);
+        // sleep(1);
+    }
 }
-
-// Write back data into cache
-$shown_tweets['last_updated'] = date('Y-m-d H:i:s');
-$shown_tweets['last_updated_unix'] = time();
-// \BossBaby\Utility::writeLog(__FILE__.'9::Done, write to file::'.$shown_tweets_file.PHP_EOL.'::shown_tweets::'.serialize($shown_tweets));
-\BossBaby\Config::write($shown_tweets_file, (array) $shown_tweets);
-sleep(1);
-
 
 function clean($string) {
     $string = trim(strtolower($string));
