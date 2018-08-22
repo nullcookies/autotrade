@@ -415,3 +415,7 @@ Telegram BOT errors:
 1. Bad Request: can't parse entities: Can't find end of the entity starting at byte offset
 -> wrong text formarted
 
+API coins:
+https://www.coingecko.com/api
+https://www.coingecko.com/en/coins/bitcoin-gold
+

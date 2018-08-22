@@ -13,7 +13,6 @@
 	    <meta name="viewport" content="user-scalable=no,width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0" />
 	    <link rel="icon" href="process.php?img=favicon" type="image/png" />
 	    <link rel="shortcut icon" href="process.php?img=favicon" type="image/png" />
-		<meta http-equiv="refresh" content="3601" />
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 		<link href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet">
 		<link href="../assets/css/styles.css" rel="stylesheet">

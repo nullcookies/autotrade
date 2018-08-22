@@ -226,7 +226,10 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 			$arr = array(
 				'marginType' => ($tmp['liquidationPrice'] < $tmp['avgEntryPrice']) ? 'LONG' : 'SHORT',
 				'leverage' => $tmp['leverage'],
+				'openingQty' => $tmp['openingQty'],
 				'execQty' => $tmp['execQty'],
+				'openOrderSellQty' => $tmp['openOrderSellQty'],
+				'currentQty' => $tmp['currentQty'],
 				'realisedPnl' => $tmp['realisedPnl'],
 				'unrealisedGrossPnl' => $tmp['unrealisedGrossPnl'],
 				'unrealisedPnlPcnt' => $tmp['unrealisedPnlPcnt'],
@@ -275,7 +278,10 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 			$arr = array(
 				'marginType' => ($tmp['liquidationPrice'] < $tmp['avgEntryPrice']) ? 'LONG' : 'SHORT',
 				'leverage' => $tmp['leverage'],
+				'openingQty' => $tmp['openingQty'],
 				'execQty' => $tmp['execQty'],
+				'openOrderSellQty' => $tmp['openOrderSellQty'],
+				'currentQty' => $tmp['currentQty'],
 				'realisedPnl' => $tmp['realisedPnl'],
 				'unrealisedGrossPnl' => $tmp['unrealisedGrossPnl'],
 				'unrealisedPnlPcnt' => $tmp['unrealisedPnlPcnt'],

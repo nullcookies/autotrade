@@ -43,6 +43,7 @@ if (!$twitter_data) {
 $shown_tweets_file = CONFIG_DIR . '/twitter_shown.php';
 $shown_tweets = (is_file($shown_tweets_file) and file_exists($shown_tweets_file)) ? \BossBaby\Config::read($shown_tweets_file) : [];
 $shown_tweets = \BossBaby\Utility::object_to_array($shown_tweets);
+if (!$shown_tweets) $shown_tweets = [];
 
 // Add you bot's API key and name
 $bot_api_key  = $environment->telegram->bots->{2}->token;
@@ -74,7 +75,7 @@ foreach ($twitter_data as $coin => $twitter_item)
 
     // \BossBaby\Utility::writeLog(__FILE__.'0::'.PHP_EOL.'::coin:'.serialize($coin).PHP_EOL.'::old_one:'.serialize(clean($shown_tweets[$coin])));
     
-    $old_one = $shown_tweets[$coin];
+    $old_one = (isset($shown_tweets[$coin]) and trim($shown_tweets[$coin])) ? trim($shown_tweets[$coin]) : '';
     // $first_one = (isset($latest_tweet[0]) and trim($latest_tweet[0])) ? trim($latest_tweet[0]) : '';
 
     $first_one = '';
@@ -188,6 +189,12 @@ foreach ($twitter_data as $coin => $twitter_item)
     }
 
     $shown_tweets[$coin] = $first_one;
+
+    // Write back data into cache
+    $shown_tweets['last_updated'] = date('Y-m-d H:i:s');
+    $shown_tweets['last_updated_unix'] = time();
+    // \BossBaby\Utility::writeLog(__FILE__.'9::Done, write to file::'.$shown_tweets_file.PHP_EOL.'::shown_tweets::'.serialize($shown_tweets));
+    \BossBaby\Config::write($shown_tweets_file, (array) $shown_tweets);
     sleep(1);
 }
 
