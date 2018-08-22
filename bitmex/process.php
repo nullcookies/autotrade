@@ -224,9 +224,9 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 			// \BossBaby\Utility::func_print_arr_to_table($tmp);
 			
 			$arr = array(
-				'openingQty' => $tmp['openingQty'],
-				'leverage' => $tmp['leverage'],
 				'marginType' => ($tmp['liquidationPrice'] < $tmp['avgEntryPrice']) ? 'LONG' : 'SHORT',
+				'leverage' => $tmp['leverage'],
+				'execQty' => $tmp['execQty'],
 				'realisedPnl' => $tmp['realisedPnl'],
 				'unrealisedGrossPnl' => $tmp['unrealisedGrossPnl'],
 				'unrealisedPnlPcnt' => $tmp['unrealisedPnlPcnt'],
@@ -238,10 +238,11 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 				'liquidationPrice' => $tmp['liquidationPrice'],
 				'isOpen' => $tmp['isOpen'],
 				'initMarginReq' => $tmp['initMarginReq'],
-				// 'markPrice' => $tmp['markPrice'],
+				'markPrice' => $tmp['markPrice'],
 				// 'commission' => $tmp['commission'],
 				// 'maintMarginReq' => $tmp['maintMarginReq'],
 			);
+			if (isset($_SESSION['getTicker']['last'])) $arr['lastPrice'] = $_SESSION['getTicker']['last'];
 			if ($arr['realisedPnl'] < 0) $arr['realisedPnl'] = '<span class="text-danger">' . number_format(($tmp['realisedPnl'] * 0.00000001), 8) . ' XBT</span>';
 			else $arr['realisedPnl'] = '<span class="text-success">' . number_format(($tmp['realisedPnl'] * 0.00000001), 8) . ' XBT</span>';
 			if ($arr['unrealisedGrossPnl'] < 0) $arr['unrealisedGrossPnl'] = '<span class="text-danger">' . number_format(($tmp['unrealisedGrossPnl'] * 0.00000001), 8) . ' XBT</span>';
@@ -272,9 +273,9 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 			// \BossBaby\Utility::func_print_arr_to_table($tmp);
 			
 			$arr = array(
-				'openingQty' => $tmp['openingQty'],
-				'leverage' => $tmp['leverage'],
 				'marginType' => ($tmp['liquidationPrice'] < $tmp['avgEntryPrice']) ? 'LONG' : 'SHORT',
+				'leverage' => $tmp['leverage'],
+				'execQty' => $tmp['execQty'],
 				'realisedPnl' => $tmp['realisedPnl'],
 				'unrealisedGrossPnl' => $tmp['unrealisedGrossPnl'],
 				'unrealisedPnlPcnt' => $tmp['unrealisedPnlPcnt'],
@@ -286,10 +287,11 @@ if (count($_GET) > 0 and $ajax_mode and isset($_GET['act']) and $_GET['act'] == 
 				'liquidationPrice' => $tmp['liquidationPrice'],
 				'isOpen' => $tmp['isOpen'],
 				'initMarginReq' => $tmp['initMarginReq'],
-				// 'markPrice' => $tmp['markPrice'],
+				'markPrice' => $tmp['markPrice'],
 				// 'commission' => $tmp['commission'],
 				// 'maintMarginReq' => $tmp['maintMarginReq'],
 			);
+			if (isset($_SESSION['getTicker']['last'])) $arr['lastPrice'] = $_SESSION['getTicker']['last'];
 			if ($arr['realisedPnl'] < 0) $arr['realisedPnl'] = '<span class="text-danger">' . number_format(($tmp['realisedPnl'] * 0.00000001), 8) . ' XBT</span>';
 			else $arr['realisedPnl'] = '<span class="text-success">' . number_format(($tmp['realisedPnl'] * 0.00000001), 8) . ' XBT</span>';
 			if ($arr['unrealisedGrossPnl'] < 0) $arr['unrealisedGrossPnl'] = '<span class="text-danger">' . number_format(($tmp['unrealisedGrossPnl'] * 0.00000001), 8) . ' XBT</span>';

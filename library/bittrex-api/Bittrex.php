@@ -7,7 +7,6 @@ class Bittrex
 	private $m_apiSecret;
 	private $m_method = 'curl';
 	
-	
 	public function __construct($p_apiKey, $p_apiSecret, $method = 'curl')
 	{
 		$this->m_apiKey    = $p_apiKey;
@@ -34,7 +33,7 @@ class Bittrex
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 			'apisign:' . hash_hmac('sha512', $l_uri, $this->m_apiSecret)
 		));
-		curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 20);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true); 
 		curl_setopt($ch, CURLOPT_CAINFO, __DIR__ . '/cacert.pem');
@@ -42,7 +41,7 @@ class Bittrex
 
 		if ($result === false) {
 			$curl_error = curl_error($ch);
-			if (strpos($curl_error, 'Resolving timed out') === false)
+			if (strpos($curl_error, 'Resolving timed out') === false and strpos($curl_error, 'Connection timed out') === false)
 				\BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::CURL-Error: ' . $curl_error);
 			return null;
 		}

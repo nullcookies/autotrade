@@ -57,7 +57,7 @@ function run_cron() {
 
         if (is_file($file_tmp) and file_exists($file_tmp)) {
             @rename($file_tmp, $file);
-            sleep(1);
+            // sleep(1);
         }
 
         // die('UPDATED');
