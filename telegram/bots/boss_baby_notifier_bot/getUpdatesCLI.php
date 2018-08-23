@@ -1,8 +1,12 @@
+#!/usr/bin/php
 <?php
 /**
  * README
- * This configuration file is intended to run a list of commands with crontab.
+ * This configuration file is intended to run the bot with the getUpdates method.
  * Uncommented parameters must be filled
+ *
+ * Bash script:
+ * $ while true; do ./getUpdatesCLI.php; done
  */
 
 if (!defined('STDIN')) die('Access denied.' . "\n");
@@ -13,18 +17,9 @@ require_once __DIR__ . '/../error-handle.php';
 // Load composer
 require_once LIB_DIR . '/telegram/vendor/autoload.php';
 
-// Your command(s) to run, pass it just like in a message (arguments supported)
-$commands = [
-    // '/whoami',
-    // '/price',
-    "/echo I'm a bot!",
-    '/sendlogs',
-    '/cleanup 30',
-];
-
 // Add you bot's API key and name
-$bot_api_key  = $environment->telegram->bots->{2}->token;
-$bot_username = $environment->telegram->bots->{2}->username;
+$bot_api_key  = $environment->telegram->bots->{1}->token;
+$bot_username = $environment->telegram->bots->{1}->username;
 
 // Define all IDs of admin users in this array (leave as empty array if not used)
 $admin_users = [
@@ -33,16 +28,16 @@ $admin_users = [
 
 // Define all paths for your custom commands in this array (leave as empty array if not used)
 $commands_paths = [
-   __DIR__ . '/Commands/',
+    __DIR__ . '/Commands/',
 ];
 
-// // Enter your MySQL database credentials
-// $mysql_credentials = [
-//     'host'     => $environment->database->{1}->host,
-//     'user'     => $environment->database->{1}->user,
-//     'password' => $environment->database->{1}->pass,
-//     'database' => $environment->database->{1}->name,
-// ];
+// Enter your MySQL database credentials
+$mysql_credentials = [
+    'host'     => $environment->database->{1}->host,
+    'user'     => $environment->database->{1}->user,
+    'password' => $environment->database->{1}->pass,
+    'database' => $environment->database->{1}->name,
+];
 
 try {
     // Create Telegram API object
@@ -51,11 +46,11 @@ try {
     // Add commands paths containing your custom commands
     $telegram->addCommandsPaths($commands_paths);
 
-    // // Enable admin users
-    // $telegram->enableAdmins($admin_users);
+    // Enable admin users
+    $telegram->enableAdmins($admin_users);
 
     // Enable MySQL
-    //$telegram->enableMySql($mysql_credentials);
+    $telegram->enableMySql($mysql_credentials);
 
     // Logging (Error, Debug and Raw Updates)
     Longman\TelegramBot\TelegramLog::initErrorLog(LOGS_DIR . "/{$bot_username}_error-" . date("Ymd") . ".log");
@@ -69,8 +64,8 @@ try {
     $telegram->setDownloadPath(LOGS_DIR);
     //$telegram->setUploadPath(__DIR__ . '/Upload');
 
-    // Here you can set some command specific parameters,
-    // e.g. Google geocode/timezone api key for /date command:
+    // Here you can set some command specific parameters
+    // e.g. Google geocode/timezone api key for /date command
     //$telegram->setCommandConfig('date', ['google_api_key' => 'your_google_api_key_here']);
 
     // Botan.io integration
@@ -79,16 +74,21 @@ try {
     // Requests Limiter (tries to prevent reaching Telegram API limits)
     $telegram->enableLimiter();
 
-    // Run user selected commands
-    $telegram->runCommands($commands);
+    // Handle telegram getUpdates request
+    $server_response = $telegram->handleGetUpdates();
 
+    if ($server_response->isOk()) {
+        $update_count = count($server_response->getResult());
+        echo date('Y-m-d H:i:s', time()) . ' - Processed ' . $update_count . ' updates';
+    } else {
+        echo date('Y-m-d H:i:s', time()) . ' - Failed to fetch updates' . PHP_EOL;
+        echo $server_response->printError();
+    }
 } catch (Longman\TelegramBot\Exception\TelegramException $e) {
-    // Silence is golden!
-    // echo $e;
+    echo $e->getMessage();
     // Log telegram errors
     Longman\TelegramBot\TelegramLog::error($e);
 } catch (Longman\TelegramBot\Exception\TelegramLogException $e) {
-    // Silence is golden!
-    // Uncomment this to catch log initialisation errors
-    // echo $e;
+    // Catch log initialisation errors
+    echo $e->getMessage();
 }

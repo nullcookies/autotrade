@@ -159,13 +159,14 @@ class MenuCommand extends UserCommand
         // );
         // $data['reply_markup'] = $keyboard;
         
-        $data['text'] = '*Danh sách các lệnh có thể dùng*:' . PHP_EOL;
-        $data['text'] .= PHP_EOL;
-        // $data['text'] .= '/start - cái này khỏi nói làm gì' . PHP_EOL;
-        // $data['text'] .= '/menu - hiển thị danh sách lệnh có thể dùng' . PHP_EOL;
-        $data['text'] .= '/price - xem giá coin, mặc định là BTC' . PHP_EOL;
-        $data['text'] .= PHP_EOL;
-        $data['text'] .= 'tạm thời vậy thôi!!!' . PHP_EOL;
+        $text = '*List of command can be use*:' . PHP_EOL;
+        $text .= PHP_EOL;
+        // $text .= '/start - cái này khỏi nói làm gì' . PHP_EOL;
+        // $text .= '/menu - hiển thị danh sách lệnh có thể dùng' . PHP_EOL;
+        $text .= '/price - check price of coin, default BTC' . PHP_EOL;
+        $text .= PHP_EOL;
+        $text .= '... tobe continued' . PHP_EOL;
+        $data['text'] = $text;
 
         return Request::sendMessage($data);
     }

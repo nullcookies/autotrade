@@ -538,7 +538,7 @@ class BitMex
         $return = curl_exec($this->ch);
 
         if (strpos($return, '403 Forbidden') !== false) {
-            \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::return::' . serialize($return));
+            \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::403 Forbidden');
         }
         
         if (!$return) {

@@ -14,36 +14,26 @@ use Longman\TelegramBot\Commands\SystemCommand;
 use Longman\TelegramBot\Request;
 
 /**
- * Start command
+ * Generic command
  *
- * Gets executed when a user first starts using the bot.
+ * Gets executed for generic commands, when no other appropriate one is found.
  */
-class StartCommand extends SystemCommand
+class GenericCommand extends SystemCommand
 {
     /**
      * @var string
      */
-    protected $name = 'start';
+    protected $name = 'generic';
 
     /**
      * @var string
      */
-    protected $description = 'Start command';
-
-    /**
-     * @var string
-     */
-    protected $usage = '/start';
+    protected $description = 'Handles generic commands or is executed by default when a command is not found';
 
     /**
      * @var string
      */
     protected $version = '1.1.0';
-
-    /**
-     * @var bool
-     */
-    protected $private_only = true;
 
     /**
      * Command execute method
@@ -54,29 +44,27 @@ class StartCommand extends SystemCommand
     public function execute()
     {
         $message = $this->getMessage();
+
+        //You can use $command as param
         $chat_id = $message->getChat()->getId();
+        $user_id = $message->getFrom()->getId();
         $from    = $message->getFrom();
-        // $user_id = $message->getFrom()->getId();
+        $command = $message->getCommand();
+
+        //If the user is an admin and the command is in the format "/whoisXYZ", call the /whois command
+        if (stripos($command, 'whois') === 0 && $this->telegram->isAdmin($user_id)) {
+            return $this->telegram->executeCommand('whois');
+        }
 
         if ($from->getFirstName() or $from->getLastName())
             $caption = sprintf('%s %s', $from->getFirstName(), $from->getLastName());
         else 
             $caption = sprintf('%s', $from->getUsername());
 
-        // $text = 'Chào ' . $caption . '!' . PHP_EOL . 'Nếu không biết phải làm gì, hãy gõ /menu!';
-
-        $text = '*List of command can be use*:' . PHP_EOL;
-        $text .= PHP_EOL;
-        // $text .= '/start - cái này khỏi nói làm gì' . PHP_EOL;
-        // $text .= '/menu - hiển thị danh sách lệnh có thể dùng' . PHP_EOL;
-        $text .= '/price - check price of coin, default BTC' . PHP_EOL;
-        $text .= PHP_EOL;
-        $text .= '... tobe continued' . PHP_EOL;
-
         $data = [
             'chat_id' => $chat_id,
             'parse_mode' => 'markdown',
-            'text'    => $text,
+            'text'    => 'Không có lệnh /' . $command . ' nhé *' . $caption .'*, đừng cố thử 😒' . PHP_EOL . 'Nếu không biết phải làm gì, hãy gõ /menu!',
         ];
 
         return Request::sendMessage($data);

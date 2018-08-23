@@ -25,6 +25,7 @@ function run_cron() {
     
     // Run cron to update coin from exchange
     // $list_symbol = ['XBTUSD'];
+    // $list_symbol = ['XBTUSD', 'ADAU18', 'BCHU18', 'ETHUSD', 'LTCU18', 'EOSU18', 'TRXU18', 'XRPU18'];
     $list_symbol = ['XBTUSD', 'XBTU18', 'XBTZ18', 'ADAU18', 'BCHU18', 'EOSU18', 'ETHUSD', 'ETHU18', 'LTCU18', 'TRXU18', 'XRPU18'];
 
     $arr = [];
@@ -33,7 +34,11 @@ function run_cron() {
     $arr['last_updated_unix'] = time();
 
     foreach ($list_symbol as $symbol) {
+        if ($symbol != 'XBTUSD' and rand(1,9) % 4 != 0)
+            continue;
+
         $tmp = \BossBaby\Bitmex::func_get_current_price(null, $symbol);
+        // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::symbol::' . $symbol);
         // \BossBaby\Utility::writeLog('tmp:'.serialize($tmp));
         if ($tmp) {
             $coin = $tmp['symbol'];
