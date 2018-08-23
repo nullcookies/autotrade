@@ -85,7 +85,8 @@ function run_cron() {
             break;
         }
 
-        if (clean($first_one) !== clean($old_one)) {
+        $first_one_tmp = md5(trim($first_one));
+        if (clean($first_one_tmp) !== clean($old_one)) {
             // https://twitter.com/$coin
             // https://twitter.com/$username/status/1026653571377332224
             $link = "https://twitter.com/$username/status/$satus_id";
@@ -175,7 +176,8 @@ function run_cron() {
         // Write back data into cache
         $shown_tweets['last_updated'] = date('Y-m-d H:i:s');
         $shown_tweets['last_updated_unix'] = time();
-        $shown_tweets[$coin] = trim($first_one);
+        $shown_tweets['last_updated_name'] = $coin;
+        $shown_tweets[$coin] = md5(trim($first_one));
 
         \BossBaby\Config::write_file($shown_tweets_file_tmp, json_encode((array) $shown_tweets));
         sleep(1);
