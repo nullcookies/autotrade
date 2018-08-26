@@ -36,6 +36,9 @@ class Telegram
             $arr = \BossBaby\Bitmex::func_get_current_price($environment->bitmex_instance);
         }
 
+        if (!$arr or !$arr['symbol'])
+            return null;
+
         $arr = array(
             "symbol" => $arr['symbol'],
             "last" => $arr['lastPrice'],
@@ -56,15 +59,15 @@ class Telegram
         // $arr['sess_last'] = $last_sess;
         
         if (!isset($_current_price)) {
-            if ($arr['lastChangePcnt'] >= 0) $arr['last'] = '👆 ' . $arr['last'];
-            elseif ($arr['lastChangePcnt'] < 0) $arr['last'] = '👇 ' . $arr['last'];
+            if ($arr['lastChangePcnt'] >= 0) $arr['last'] = '🔵 ' . $arr['last'];
+            elseif ($arr['lastChangePcnt'] < 0) $arr['last'] = '🔴 ' . $arr['last'];
         }
         else {
-            if ($arr['last'] >= $last_sess) $arr['last'] = '👆 ' . $arr['last'];
-            elseif ($arr['last'] < $last_sess) $arr['last'] = '👇 ' . $arr['last'];
+            if ($arr['last'] >= $last_sess) $arr['last'] = '🔵 ' . $arr['last'];
+            elseif ($arr['last'] < $last_sess) $arr['last'] = '🔴 ' . $arr['last'];
         }
-        if ($arr['lastChangePcnt'] > 0) $arr['lastChangePcnt'] = '👆 ' . ($arr['lastChangePcnt'] * 100) . '%';
-        elseif ($arr['lastChangePcnt'] < 0) $arr['lastChangePcnt'] = '👇 ' . ($arr['lastChangePcnt'] * 100) . '%';
+        if ($arr['lastChangePcnt'] > 0) $arr['lastChangePcnt'] = '🔵 ' . ($arr['lastChangePcnt'] * 100) . '%';
+        elseif ($arr['lastChangePcnt'] < 0) $arr['lastChangePcnt'] = '🔴 ' . ($arr['lastChangePcnt'] * 100) . '%';
         else $arr['lastChangePcnt'] =  ($arr['lastChangePcnt'] * 100) . '%';
 
         $arr['Changed'] = $arr['lastChangePcnt']; unset($arr['lastChangePcnt']);

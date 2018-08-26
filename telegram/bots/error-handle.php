@@ -81,7 +81,7 @@ if (!function_exists('log_exception')) {
         $message .= PHP_EOL . "File: <b>" . $file . "</b>";
         $message .= PHP_EOL . "Line: <b>{$e->getLine()}</b>";
         $message .= PHP_EOL . "Time: <b>" . date("H:i:s / d.m.Y") . "</b>";
-        $message .= PHP_EOL . ((!empty($incoming)) ? "<b>Incoming message:</b><pre>" . PHP_EOL . var_export($incoming, true) . '</pre>' : PHP_EOL . '<b>Trace:</b><pre>' . $trace . '</pre>');
+        $message .= PHP_EOL . ((!empty($incoming)) ? "<b>Incoming message:</b>" . PHP_EOL . '<pre>' . var_export($incoming, true) . '</pre>' : '<b>Trace</b>' . PHP_EOL . '<pre>' . $trace . '</pre>');
         
         // developer notification message settings
         $fields_string = '';

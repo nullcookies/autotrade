@@ -61,6 +61,11 @@ class PriceCommand extends UserCommand
         $text = trim($message->getText(true));
         $text = str_replace('/', '', $text);
 
+        // Get global environment
+        global $environment;
+
+        $price = '';
+
         // price coin
         if (stripos(str_replace('/price ', '', $text), 'price ') !== false) {
             $text = str_replace('price ', '', str_replace('/price ', '', $text));
@@ -68,14 +73,86 @@ class PriceCommand extends UserCommand
 
         // If no command parameter is passed, show the list.
         if ($text === '' or $text === 'price') {
-            // Format current XBT's price
-            $price = \BossBaby\Telegram::format_xbt_price_for_telegram();
-            $price = trim($price);
+            // // Format current XBT's price
+            // $price = \BossBaby\Telegram::format_xbt_price_for_telegram();
+            // $price = trim($price);
+
+            $file = CONFIG_DIR . '/binance_coins.php';
+            $list_coin = \BossBaby\Config::read_file($file);
+            $list_coin = \BossBaby\Utility::object_to_array(json_decode($list_coin));
+            if (!json_last_error() and $list_coin) {
+                $list_coin = $list_coin['symbols'];
+                $coin_name = strtoupper($text);
+                if (isset($list_coin['BTCUSDT'])) {
+                    $price .= '*BTC/USDT*' . PHP_EOL;
+                    $price .= 'Binance: ' . number_format($list_coin['BTCUSDT']['price'], 2) . PHP_EOL;
+                }
+            }
+            $file = CONFIG_DIR . '/bittrex_coins.php';
+            $list_coin = \BossBaby\Config::read_file($file);
+            $list_coin = \BossBaby\Utility::object_to_array(json_decode($list_coin));
+            if (!json_last_error() and $list_coin) {
+                $list_coin = $list_coin['symbols'];
+                $coin_name = strtoupper($text);
+                if (isset($list_coin['BTCUSDT'])) {
+                    // $price .= '*BTC/USDT*' . PHP_EOL;
+                    $price .= 'Bittrex: ' . number_format($list_coin['BTCUSDT']['price'], 2) . PHP_EOL;
+                }
+            }
+            $file = CONFIG_DIR . '/houbipro_coins.php';
+            $list_coin = \BossBaby\Config::read_file($file);
+            $list_coin = \BossBaby\Utility::object_to_array(json_decode($list_coin));
+            if (!json_last_error() and $list_coin) {
+                $list_coin = $list_coin['symbols'];
+                $coin_name = strtoupper($text);
+                if (isset($list_coin['BTCUSDT'])) {
+                    // $price .= '*BTC/USDT*' . PHP_EOL;
+                    $price .= 'HoubiPro: ' . number_format($list_coin['BTCUSDT']['price'], 2) . PHP_EOL;
+                }
+            }
+            $file = CONFIG_DIR . '/bitmex_coins.php';
+            $list_coin = \BossBaby\Config::read_file($file);
+            $list_coin = \BossBaby\Utility::object_to_array(json_decode($list_coin));
+            if (!json_last_error() and $list_coin) {
+                $list_coin = $list_coin['symbols'];
+                $coin_name = strtoupper($text);
+                if (isset($list_coin['XBTUSD'])) {
+                    // $price .= '*BTC/USDT*' . PHP_EOL;
+                    $price .= 'Bitmex: ' . number_format($list_coin['XBTUSD']['price'], 2) . PHP_EOL;
+                }
+            }
 
             if ($price) {
                 // $data['text'] = 'Testing at ' . date('YmdHis');
                 $data['text'] = $price . PHP_EOL;
-                return Request::sendMessage($data);
+                Request::sendMessage($data);
+
+                // Call file to draw chart
+                \BossBaby\Shell::async_execute_file(__DIR__ . '/../draw-area-chart.php');
+                sleep(1);
+
+                // Get list file in chart folder
+                $list_file = \BossBaby\Utility::list_file_in_directory(LOGS_DIR);
+                // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::list_file::' . serialize($list_file));
+
+                if (is_array($list_file) and count($list_file)) {
+                    $file_show = '';
+                    foreach ($list_file as $file) {
+                        if (stripos($file, 'BTC-') !== false) {
+                            $file_show = $file;
+                            break;
+                        }
+                    }
+
+                    $photo = $environment->general->root_url . '/logs/' . $file_show;
+                    // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::photo::' . serialize($photo));
+
+                    return Request::sendPhoto([
+                        'chat_id' => $chat_id,
+                        'photo'   => $photo,
+                        'parse_mode' => 'markdown',
+                    ]);
+                }
             }
         }
 

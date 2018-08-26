@@ -165,7 +165,6 @@ class GenericmessageCommand extends SystemCommand
 
         // -------------------- Add more -------------------- //
 
-
         return Request::emptyResponse();
     }
 }

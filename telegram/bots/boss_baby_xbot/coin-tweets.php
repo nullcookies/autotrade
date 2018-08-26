@@ -44,12 +44,16 @@ function run_cron() {
         \BossBaby\Utility::writeLog(__FILE__ . '::Empty config');
         exit;
     }
+
+    if (!is_dir(CONFIG_DIR . '/twitter'))
+        @mkdir(CONFIG_DIR . '/twitter', 0777);
     
     foreach ($twitter_data as $coin => $twitter_item)
     {
         // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::coin::'.serialize($coin));
 
-        $shown_tweets_file = CONFIG_DIR . '/twitter_shown.php';
+        // $shown_tweets_file = CONFIG_DIR . '/twitter_shown.php';
+        $shown_tweets_file = CONFIG_DIR . '/twitter/twitter_shown_' . clean($coin) . '.php';
         $shown_tweets_file_tmp = $shown_tweets_file . '.lock';
         $shown_tweets = (is_file($shown_tweets_file) and file_exists($shown_tweets_file)) ? \BossBaby\Config::read_file($shown_tweets_file) : '';
         $shown_tweets = \BossBaby\Utility::object_to_array(json_decode($shown_tweets));
@@ -85,8 +89,9 @@ function run_cron() {
             break;
         }
 
-        $first_one_tmp = md5(clean($first_one));
-        if ($first_one_tmp !== $old_one) {
+        // $first_one_tmp = md5(clean($first_one));
+        // if ($first_one_tmp !== $old_one) {
+        if ($first_one !== $old_one) {
             // https://twitter.com/$coin
             // https://twitter.com/$username/status/1026653571377332224
             $link = "https://twitter.com/$username/status/$satus_id";
@@ -177,7 +182,8 @@ function run_cron() {
         $shown_tweets['last_updated'] = date('Y-m-d H:i:s');
         $shown_tweets['last_updated_unix'] = time();
         $shown_tweets['last_updated_name'] = $coin;
-        $shown_tweets[$coin] = md5(clean($first_one));
+        // $shown_tweets[$coin] = md5(clean($first_one));
+        $shown_tweets[$coin] = $first_one;
 
         \BossBaby\Config::write_file($shown_tweets_file_tmp, json_encode((array) $shown_tweets));
         sleep(1);
