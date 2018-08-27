@@ -58,8 +58,7 @@ class PriceCommand extends UserCommand
             'parse_mode' => 'markdown',
         ];
 
-        $text = trim($message->getText(true));
-        $text = str_replace('/', '', $text);
+        $text = \BossBaby\Telegram::clean_command($message->getText(true));
 
         // Get global environment
         global $environment;

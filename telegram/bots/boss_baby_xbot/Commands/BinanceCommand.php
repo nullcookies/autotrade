@@ -66,8 +66,7 @@ class BinanceCommand extends UserCommand
             'parse_mode' => 'markdown',
         ];
         
-        $text = trim($message->getText(true));
-        $text = str_replace('/', '', $text);
+        $text = \BossBaby\Telegram::clean_command($message->getText(true));
 
         // chart coin
         if (stripos(str_replace('/binance ', '', $text), 'binance ') !== false) {

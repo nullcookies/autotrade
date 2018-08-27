@@ -1234,4 +1234,12 @@ class Telegram
 
         return $return;
     }
+
+    public static function clean_command($command = '')
+    {
+        $command = trim($command);
+        $command = ltrim($command, '/');
+        // $command = str_replace('/', '', $command);
+        return preg_replace('!\s+!', ' ', $command);
+    }
 }

@@ -52,7 +52,7 @@ class ConfigCommand extends UserCommand
 
         $message   = $this->getMessage();
         $chat_id   = $message->getChat()->getId();
-        $text      = trim($message->getText(true));
+        $text      = \BossBaby\Telegram::clean_command($message->getText(true));
 
         \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::text::' . serialize($text));
 

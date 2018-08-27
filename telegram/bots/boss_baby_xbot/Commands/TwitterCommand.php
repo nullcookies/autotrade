@@ -61,7 +61,7 @@ class TwitterCommand extends UserCommand
             'parse_mode' => 'markdown',
         ];
 
-        $text = trim($message->getText(true));
+        $text = \BossBaby\Telegram::clean_command($message->getText(true));
 
         // $data = [
         //     'chat_id'      => $chat_id,
@@ -84,7 +84,7 @@ class TwitterCommand extends UserCommand
         // Process add filter
         // twitter add filter test
         if (stripos($text, 'add filter') !== false) {
-            $new_keyword = str_replace('add filter', '', $text);
+            $new_keyword = str_ireplace('add filter', '', $text);
             $new_keyword = trim($new_keyword);
 
             // Check if exists
@@ -112,7 +112,7 @@ class TwitterCommand extends UserCommand
         // Process remove filter
         // twitter remove filter test
         if (stripos($text, 'del filter') !== false) {
-            $new_keyword = str_replace('del filter', '', $text);
+            $new_keyword = str_ireplace('del filter', '', $text);
             $new_keyword = trim($new_keyword);
 
             // Check if not exists

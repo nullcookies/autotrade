@@ -75,7 +75,7 @@ class GenericmessageCommand extends SystemCommand
         $chat_id   = $message->getChat()->getId();
         
         $command = $message->getCommand();
-        $text = trim($message->getText(true));
+        $text = \BossBaby\Telegram::clean_command($message->getText(true));
 
         // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::text::' . serialize($text));
         // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::str_replace::' . serialize(str_replace('/twitter ', '', $text)));

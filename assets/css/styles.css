@@ -1,6 +1,6 @@
 body,table{width:100%;font-size:14px}
 h3{font-size:14px!important}
-table{margin-bottom:0!important;white-space:pre}
+table:last-child{margin-bottom:0px!important;white-space:pre}
 td{border:1px solid #eee}
 td.col-title{width:40%}
 ul.nav li{white-space:nowrap}

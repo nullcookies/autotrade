@@ -66,9 +66,8 @@ class BittrexCommand extends UserCommand
             'parse_mode' => 'markdown',
         ];
         
-        $text = trim($message->getText(true));
-        $text = str_replace('/', '', $text);
-
+        $text = \BossBaby\Telegram::clean_command($message->getText(true));
+        
         // chart coin
         if (stripos(str_replace('/bittrex ', '', $text), 'bittrex ') !== false) {
             $text = str_replace('bittrex ', '', str_replace('/bittrex ', '', $text));

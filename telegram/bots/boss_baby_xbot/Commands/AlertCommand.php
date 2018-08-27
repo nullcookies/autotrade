@@ -80,7 +80,7 @@ class AlertCommand extends UserCommand
             'parse_mode' => 'markdown',
         ];
 
-        $text = trim($message->getText(true));
+        $text = \BossBaby\Telegram::clean_command($message->getText(true));
 
         // $data = [
         //     'chat_id'      => $chat_id,
@@ -116,18 +116,38 @@ class AlertCommand extends UserCommand
             \BossBaby\Config::write($alert_file, $alert_data);
 
             // twitter add filter test
-            if (stripos($text, 'add filter') !== false) {
-                // 
+            if (stripos($text, 'set') !== false) {
+                $text = str_ireplace('set', '', $text);
+                $text = \BossBaby\Telegram::clean_command($text);
+                $tmp = explode(' ', $text);
+                if (is_array($tmp) and count($tmp) >= 2) {
+                    if (count($tmp) == 3) {
+                        // 
+                    }
+                    elseif (count($tmp) == 2) {
+                        // 
+                    }
+                }
             }
             elseif (1==2) {
                 // 
             }
             else {
-                $message = '*List coin you were set before*:' . PHP_EOL;
-                foreach ($alert_data[$user_id]['alert'] as $coin) {
-                    $message .= $keyword . PHP_EOL;
+                if (isset($alert_data[$user_id]['alert']) and is_array($alert_data[$user_id]['alert']) and count($alert_data[$user_id]['alert'])) {
+                    $message = '*List coin you were set before*:' . PHP_EOL;
+                    foreach ($alert_data[$user_id]['alert'] as $coin) {
+                        $message .= $keyword . PHP_EOL;
+                    }
+                    $message .= PHP_EOL;
                 }
-                $message .= PHP_EOL;
+                else {
+                    $message = '*You can run these commands*:' . PHP_EOL;
+                    $message .= '/alert set <coin-name> [condition] <price/BTC>' . PHP_EOL;
+                    $message .= '/alert remove <number>' . PHP_EOL;
+                    $message .= '/alert remove <coin-name>' . PHP_EOL;
+                    $message .= '/alert' . PHP_EOL;
+                }
+
                 $data['text'] = $message;
                 return Request::sendMessage($data);
             }

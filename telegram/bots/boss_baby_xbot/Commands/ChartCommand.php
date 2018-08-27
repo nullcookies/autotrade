@@ -61,9 +61,8 @@ class ChartCommand extends UserCommand
             'parse_mode' => 'markdown',
         ];
         
-        $text = trim($message->getText(true));
-        $text = str_replace('/', '', $text);
-
+        $text = \BossBaby\Telegram::clean_command($message->getText(true));
+        
         // chart coin
         if (stripos(str_replace('/chart ', '', $text), 'chart ') !== false) {
             $text = str_replace('chart ', '', str_replace('/chart ', '', $text));
