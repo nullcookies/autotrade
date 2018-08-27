@@ -35,6 +35,11 @@ require_once __DIR__ . '/../../main.php';
 if (!$environment->enable)
     die('STOP!!!');
 
+// Create folder is not exists
+if (!is_dir(CONFIG_DIR . '/twitter')) @mkdir(CONFIG_DIR . '/twitter', 0777);
+if (!is_dir(LOGS_DIR . '/telegram')) @mkdir(LOGS_DIR . '/telegram', 0777);
+if (!is_dir(LOGS_DIR . '/telegram/bots')) @mkdir(LOGS_DIR . '/telegram/bots', 0777);
+
 /**
  * Error handler, passes flow over the exception logger with new ErrorException.
  *

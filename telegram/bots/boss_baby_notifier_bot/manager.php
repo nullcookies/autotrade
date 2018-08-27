@@ -109,9 +109,9 @@ try {
 
         // Logging (Error, Debug and Raw Updates)
         'logging'  => [
-           'debug'  => LOGS_DIR . "/{$bot_username}_debug-" . date("Ymd") . ".log",
-           'error'  => LOGS_DIR . "/{$bot_username}_error-" . date("Ymd") . ".log",
-           'update' => LOGS_DIR . "/{$bot_username}_update-" . date("Ymd") . ".log",
+           'debug'  => LOGS_DIR . "/telegram/bots/{$bot_username}_debug-" . date("Ymd") . ".log",
+           'error'  => LOGS_DIR . "/telegram/bots/{$bot_username}_error-" . date("Ymd") . ".log",
+           'update' => LOGS_DIR . "/telegram/bots/{$bot_username}_update-" . date("Ymd") . ".log",
         ],
 
         // Set custom Upload and Download paths

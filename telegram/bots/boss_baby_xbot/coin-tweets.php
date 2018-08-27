@@ -45,9 +45,6 @@ function run_cron() {
         exit;
     }
 
-    if (!is_dir(CONFIG_DIR . '/twitter'))
-        @mkdir(CONFIG_DIR . '/twitter', 0777);
-    
     foreach ($twitter_data as $coin => $twitter_item)
     {
         // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::coin::'.serialize($coin));
