@@ -111,7 +111,7 @@ class GenericmessageCommand extends SystemCommand
 
         // Process Hello
         if (str_replace('/hello ', '', $text) == 'hello') {
-            $message = 'Chào mày, *' . $caption . '*!';
+            $message = 'Hi *' . $caption . '*!';
             $data['text'] = $message;
             return Request::sendMessage($data);
         }
@@ -150,11 +150,16 @@ class GenericmessageCommand extends SystemCommand
             }
 
             $messages = [];
-            $messages[] = 'Mày muốn gì *' . $caption . '*';
-            $messages[] = 'Chúng mày muốn cái gì?';
-            $messages[] = 'Hello';
-            $messages[] = "How are you doing?";
-            $messages[] = "Howdy!";
+            $messages[] = 'Every trader has strengths and weakness. Some are good holders of winners, but may hold their losers a little too long. Others may cut their winners a little short, but are quick to take their losses. As long as you stick to your own style, you get the good and bad in your own approach. [Michael Marcus]';
+            $messages[] = 'You can be free. You can live and work anywhere in the world. You can be independent from routine and not answer to anybody. [Alexander Elder]';
+            $messages[] = 'A lot of people get so enmeshed in the markets that they lose their perspective. Working longer does not necessarily equate with working smarter. In fact, sometimes is the other way around. [Martin Schwartz]';
+            $messages[] = 'I believe in analysis and not forecasting. [Nicolas Darvas]';
+            $messages[] = 'A peak performance trader is totally committed to being the best and doing whatever it takes to be the best. He feels totally responsible for whatever happens and thus can learn from mistakes. These people typically have a working business plan for trading because they treat trading as a business.. [Van K. Tharp]';
+            $messages[] = 'Win or lose, everybody gets what they want out of the market. Some people seem to like to lose, so they win by losing money. [Ed Seykota]';
+            $messages[] = 'The secret to being successful from a trading perspective is to have an indefatigable and an undying and unquenchable thirst for information and knowledge. [Paul Tudor Jones]';
+            $messages[] = 'What seems too high and risky to the majority generally goes higher and what seems low and cheap generally goes lower. [William O\'Neil]';
+            $messages[] = 'Markets can remain irrational longer than you can remain solvent. [John Maynard Keynes]';
+            $messages[] = 'You don\'t need to be a rocket scientist. Investing is not a game where the guy with the 160 IQ beats the guy with 130 IQ. [Warren Buffet]';
             $message = $messages[rand(0, count($messages)-1)];
             
             if (rand(1,1000) % 3 == 0) {

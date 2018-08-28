@@ -13,28 +13,40 @@ require_once __DIR__ . '/../error-handle.php';
 // // Load composer
 // require_once LIB_DIR . '/bitmex-api/api-connectors/auto-generated/php/SwaggerClient-php/vendor/autoload.php';
 
-run_cron();
-$sleep = 10;
-sleep($sleep); run_cron();
-sleep($sleep); run_cron();
-sleep($sleep); run_cron();
-sleep($sleep); run_cron();
+// run_cron();
+// $sleep = 10;
+// sleep($sleep); run_cron();
+// sleep($sleep); run_cron();
+// sleep($sleep); run_cron();
+// sleep($sleep); run_cron();
 
 function run_cron() {
     // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
-    
+
     // Run cron to update coin from exchange
     // $list_symbol = ['XBTUSD'];
     // $list_symbol = ['XBTUSD', 'ADAU18', 'BCHU18', 'ETHUSD', 'LTCU18', 'EOSU18', 'TRXU18', 'XRPU18'];
     $list_symbol = ['XBTUSD', 'XBTU18', 'XBTZ18', 'ADAU18', 'BCHU18', 'EOSU18', 'ETHUSD', 'ETHU18', 'LTCU18', 'TRXU18', 'XRPU18'];
 
-    $arr = [];
+    // File store coin data
+    $file = CONFIG_DIR . '/bitmex_coins.php';
+    $file_tmp = $file . '.lock';
+    // \BossBaby\Utility::writeLog('file:'.serialize($file));
+
+    if (is_file($file) and file_exists($file)) {
+        $arr = \BossBaby\Config::read_file($file);
+        $arr = \BossBaby\Utility::object_to_array(json_decode($arr));
+    }
+
+    if (json_last_error() or !$arr)
+        $arr = [];
     $arr['symbols'] = [];
     $arr['last_updated'] = date('Y-m-d H:i:s');
     $arr['last_updated_unix'] = time();
 
     foreach ($list_symbol as $symbol) {
-        if ($symbol != 'XBTUSD' and rand(1,9) % 4 != 0)
+        // if (!in_array($symbol, ['XBTUSD', 'ADAU18', 'BCHU18', 'EOSU18', 'ETHU18', 'LTCU18', 'TRXU18', 'XRPU18']) and rand(1,9) % 4 != 0)
+        if (!in_array($symbol, ['XBTUSD']) and rand(1,9) % 4 != 0)
             continue;
 
         $tmp = \BossBaby\Bitmex::func_get_current_price(null, $symbol);
@@ -49,11 +61,6 @@ function run_cron() {
     }
 
     if ($arr) {
-        // File store coin data
-        $file = CONFIG_DIR . '/bitmex_coins.php';
-        $file_tmp = $file . '.lock';
-        // \BossBaby\Utility::writeLog('file:'.serialize($file));
-
         // Write overwrite to file
         $arr = json_encode($arr);
         \BossBaby\Config::write_file($file, $arr);

@@ -15,6 +15,7 @@ class Bitmex
         $rand = array_rand($list_id);
         if ($rand <= 0) return;
         
+        // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::email::' . $environment->bitmex->accounts->{$rand}->email . '::apiKey::' . $environment->bitmex->accounts->{$rand}->apiKey);
         $bitmex_instance = new \Bitmex($environment->bitmex->accounts->{$rand}->apiKey, $environment->bitmex->accounts->{$rand}->apiSecret);
 
         $arr = $bitmex_instance->getTicker($symbol);

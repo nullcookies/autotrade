@@ -43,6 +43,8 @@ class GenericCommand extends SystemCommand
      */
     public function execute()
     {
+        // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
+        
         $message = $this->getMessage();
 
         //You can use $command as param

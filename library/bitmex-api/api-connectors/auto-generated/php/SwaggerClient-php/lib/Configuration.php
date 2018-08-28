@@ -81,7 +81,8 @@ class Configuration
      *
      * @var string
      */
-    protected $host = 'https://localhost/api/v1';
+    // protected $host = 'https://localhost/api/v1';
+    protected $host = 'https://www.bitmex.com/api/v1';
 
     /**
      * User agent of the HTTP request, set to "PHP-Swagger" by default
