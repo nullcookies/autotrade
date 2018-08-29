@@ -69,7 +69,7 @@ class GenericmessageCommand extends SystemCommand
      */
     public function execute()
     {
-        // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
+        \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
 
         $message   = $this->getMessage();
         $chat_id   = $message->getChat()->getId();
@@ -77,7 +77,7 @@ class GenericmessageCommand extends SystemCommand
         $command = $message->getCommand();
         $text = \BossBaby\Telegram::clean_command($message->getText(true));
 
-        \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::text::' . serialize($text));
+        // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::text::' . serialize($text));
         // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::str_replace::' . serialize(str_replace('/twitter ', '', $text)));
 
         //If a conversation is busy, execute the conversation command after handling the message
@@ -116,22 +116,6 @@ class GenericmessageCommand extends SystemCommand
             return Request::sendMessage($data);
         }
 
-        // Process menu
-        elseif (str_replace('/menu ', '', $text) == 'menu') {
-            return $this->telegram->executeCommand($text);
-        }
-
-        // Process menu
-        elseif (str_replace('/twitter ', '', $text) == 'twitter') {
-            return $this->telegram->executeCommand($text);
-        }
-
-        // Process menu
-        elseif (stripos('twitter add filter', $text) !== false or stripos('twitter del filter', $text) !== false) {
-            $text = str_replace('twitter', '', $text);
-            return $this->telegram->executeCommand('twitter');
-        }
-
         // Process price
         elseif (str_replace('/price ', '', $text) == 'price' or stripos(str_replace('/price ', '', $text), 'price ') !== false) {
             return $this->telegram->executeCommand('price');
@@ -148,10 +132,15 @@ class GenericmessageCommand extends SystemCommand
             $file = CONFIG_DIR . '/bitmex_coins.php';
             $list_coin = \BossBaby\Config::read_file($file);
             $list_coin = \BossBaby\Utility::object_to_array(json_decode($list_coin));
+            
             if (!json_last_error() and $list_coin) {
                 $list_coin = $list_coin['symbols'];
                 $coin_name = strtoupper($text);
-                // $list_symbol = ['XBTUSD', 'XBTU18', 'XBTZ18', 'ADAU18', 'BCHU18', 'EOSU18', 'ETHUSD', 'ETHU18', 'LTCU18', 'TRXU18', 'XRPU18'];
+
+                $list_symbol_2dec = ['XBTUSD', 'XBTU18', 'XBTZ18', 'XBT7D_D95', 'XBT7D_U105', 'ETHUSD'];
+                $list_symbol_5dec = ['BCHU18', 'ETHU18', 'LTCU18'];
+                $list_symbol_8dec = ['ADAU18', 'EOSU18', 'TRXU18', 'XRPU18'];
+                
                 if ($coin_name == 'XBT' or $coin_name == 'BTC') $coin_name = 'XBTUSD';
                 if ($coin_name == 'TRX') $coin_name = 'TRXU18';
                 if ($coin_name == 'ADA') $coin_name = 'ADAU18';
@@ -159,12 +148,17 @@ class GenericmessageCommand extends SystemCommand
                 if ($coin_name == 'EOS') $coin_name = 'EOSU18';
                 if ($coin_name == 'ETH') $coin_name = 'ETHU18';
                 if ($coin_name == 'XRP') $coin_name = 'XRPU18';
+                
                 if (isset($list_coin[$coin_name])) {
-                    // $price .= '*BTC/USDT*' . PHP_EOL;
-                    $price .= $list_coin[$coin_name]['symbol'] . ': ' . number_format($list_coin[$coin_name]['price'], 8) . PHP_EOL;
-                }
-                else {
-                    $price = 'Could not retrieve price of *' . $coin_name . '*';
+                    $price = '*' . $coin_name . '* on Bitmex:' . PHP_EOL;
+                    if (in_array($coin_name, $list_symbol_2dec)) {
+                        $price .= 'Price: *' . number_format($list_coin[$coin_name]['price'], 2) . '*' . PHP_EOL;
+                    } elseif (in_array($coin_name, $list_symbol_5dec)) {
+                        $price .= 'Price: *' . number_format($list_coin[$coin_name]['price'], 5) . '*' . PHP_EOL;
+                    } else {
+                        $price .= 'Price: *' . number_format($list_coin[$coin_name]['price'], 8) . '*' . PHP_EOL;
+                    }
+                    $price .= 'Volume: ' . number_format($list_coin[$coin_name]['volume'], 2) . '' . PHP_EOL;
                 }
             }
 
@@ -187,7 +181,7 @@ class GenericmessageCommand extends SystemCommand
             $messages[] = 'You don\'t need to be a rocket scientist. Investing is not a game where the guy with the 160 IQ beats the guy with 130 IQ. [Warren Buffet]';
             $message = $messages[rand(0, count($messages)-1)];
             
-            if (rand(1,1000) % 3 == 0) {
+            if (rand(1,1000) % 2 == 0) {
                 $data['text'] = $message;
                 return Request::sendMessage($data);
             }

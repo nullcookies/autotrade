@@ -206,6 +206,7 @@ https://www.bitmex.com/app/automatedTradingEngines
 https://www.botvs.com/
 https://www.botvs.com/bbs-topic/865
 https://www.bitmex.com/api/explorer/#!/Quote/Quote_get
+https://github.com/OAI/OpenAPI-Specification#additional-libraries
 Limit:
 https://www.bitmex.com/app/restAPI#Limits
 
@@ -427,12 +428,80 @@ https://www.tradingheroes.com/17-best-trading-quotes-ever/
 
 Error: Cannot find module 'lodash'
 https://stackoverflow.com/questions/27431187/cannot-find-module-lodash
+npm install lodash --save
+npm install debug --save
+npm install eventemitter2 --save
+npm install superagent --save
+npm install ws --save
+npm cache clean
+npm install
+
+Test WS:
+$node /autotrade/library/bitmex-api/api-connectors/official-ws/nodejs/example.js
 
 Using Github together with Bitbucket
 https://stackoverflow.com/questions/12961514/how-to-use-bitbucket-and-github-at-the-same-time-for-one-project
 
 Heroku:
 https://bossbaby-autobot.herokuapp.com/
+https://agilewarrior.wordpress.com/2014/05/16/how-to-create-a-named-app-in-heroku/
+Commands: https://devcenter.heroku.com/categories/command-line
+https://devcenter.heroku.com/articles/heroku-cli-commands
+Cronjob: https://devcenter.heroku.com/articles/scheduled-jobs-custom-clock-processes
+
+$ heroku -h
+CLI to interact with Heroku
+
+VERSION
+  heroku/7.12.3 win32-x64 node-v10.9.0
+
+USAGE
+  $ heroku [COMMAND]
+
+COMMANDS
+  access          manage user access to apps
+  addons          tools and services for developing, extending, and operating
+                  your app
+  apps            manage apps on Heroku
+  auth            check 2fa status
+  authorizations  OAuth authorizations
+  autocomplete    display autocomplete installation instructions
+  buildpacks      scripts used to compile apps
+  certs           a topic for the ssl plugin
+  ci              run an application test suite on Heroku
+  clients         OAuth clients on the platform
+  config          environment variables of apps
+  container       Use containers to build and deploy Heroku apps
+  domains         custom domains for apps
+  drains          forward logs to syslog or HTTPS
+  features        add/remove app features
+  git             manage local git repository for app
+  help            display help for heroku
+  keys            add/remove account ssh keys
+  labs            add/remove experimental features
+  local           run heroku app locally
+  logs            display recent log output
+  maintenance     enable/disable access to app
+  members         manage organization members
+  notifications   display notifications
+  orgs            manage organizations
+  pg              manage postgresql databases
+  pipelines       groups of apps that share the same codebase
+  plugins         list installed plugins
+  ps              Client tools for Heroku Exec
+  psql            open a psql shell to the database
+  redis           manage heroku redis instances
+  regions         list available regions for deployment
+  releases        display the releases for an app
+  reviewapps      disposable apps built on GitHub pull requests
+  run             run a one-off process inside a Heroku dyno
+  sessions        OAuth sessions
+  spaces          manage heroku private spaces
+  status          status of the Heroku platform
+  teams           manage teams
+  update          update the Heroku CLI
+  webhooks        setup HTTP notifications of app activity
+
 
 Repositories:
 https://bitbucket.org/longersoft/autotrade
@@ -442,5 +511,12 @@ https://git.heroku.com/bossbaby-autobot.git (https://dashboard.heroku.com/apps/b
 NodeJS + Apache:
 https://tomatohater.com/2013/08/29/want-heroku-apache-php-but-getting-nodejs-stack/
 
+Heroku set errors:
+https://devcenter.heroku.com/articles/error-pages
+heroku config:set \
+  ERROR_PAGE_URL=https://www.herokucdn.com/error-pages/application-error.html \
+  MAINTENANCE_PAGE_URL=https://www.herokucdn.com/error-pages/application-error.html
 
-
+Heroku: Check errors:
+https://dashboard.heroku.com/apps/bossbaby-bitmex/logs
+https://dashboard.heroku.com/apps/bossbaby-autobot/logs

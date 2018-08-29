@@ -48,7 +48,7 @@ class PriceCommand extends UserCommand
      */
     public function execute()
     {
-        // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
+        \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
 
         $message   = $this->getMessage();
         $chat_id   = $message->getChat()->getId();
@@ -79,7 +79,7 @@ class PriceCommand extends UserCommand
             if ($price) {
                 // $data['text'] = 'Testing at ' . date('YmdHis');
                 $data['text'] = $price . PHP_EOL;
-                Request::sendMessage($data);
+                return Request::sendMessage($data);
 
                 // Call file to draw chart
                 \BossBaby\Shell::async_execute_file(__DIR__ . '/../../boss_baby_xbot/draw-area-chart.php');
@@ -122,9 +122,33 @@ class PriceCommand extends UserCommand
         if (!json_last_error() and $list_coin) {
             $list_coin = $list_coin['symbols'];
             $coin_name = strtoupper($text);
+
+            $list_symbol_2dec = ['XBTUSD', 'XBTU18', 'XBTZ18', 'XBT7D_D95', 'XBT7D_U105', 'ETHUSD'];
+            $list_symbol_5dec = ['BCHU18', 'ETHU18', 'LTCU18'];
+            $list_symbol_8dec = ['ADAU18', 'EOSU18', 'TRXU18', 'XRPU18'];
+
+            if ($coin_name == 'XBT' or $coin_name == 'BTC') $coin_name = 'XBTUSD';
+            if ($coin_name == 'TRX') $coin_name = 'TRXU18';
+            if ($coin_name == 'ADA') $coin_name = 'ADAU18';
+            if ($coin_name == 'BCH') $coin_name = 'BCHU18';
+            if ($coin_name == 'EOS') $coin_name = 'EOSU18';
+            if ($coin_name == 'ETH') $coin_name = 'ETHU18';
+            if ($coin_name == 'XRP') $coin_name = 'XRPU18';
+            
             if (isset($list_coin[$coin_name])) {
                 // $price .= '*BTC/USDT*' . PHP_EOL;
-                $price .= 'Bitmex: ' . number_format($list_coin[$coin_name]['price'], 2) . PHP_EOL;
+                $price .= '*' . $coin_name . '* on Bitmex:' . PHP_EOL;
+                if (in_array($coin_name, $list_symbol_2dec)) {
+                    $price .= 'Price: *' . number_format($list_coin[$coin_name]['price'], 2) . '*' . PHP_EOL;
+                } elseif (in_array($coin_name, $list_symbol_5dec)) {
+                    $price .= 'Price: *' . number_format($list_coin[$coin_name]['price'], 5) . '*' . PHP_EOL;
+                } else {
+                    $price .= 'Price: *' . number_format($list_coin[$coin_name]['price'], 8) . '*' . PHP_EOL;
+                }
+                $price .= 'Volume: ' . number_format($list_coin[$coin_name]['volume'], 2) . '' . PHP_EOL;
+            }
+            else {
+                $price = 'Could not retrieve price of *' . $coin_name . '*';
             }
         }
 

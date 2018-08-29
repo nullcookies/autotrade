@@ -45,10 +45,12 @@ class BitMex
      *
      * @return ticker array
      */
-    public function getTicker($symbol = self::SYMBOL)
+    public function getTicker($symbol = self::SYMBOL, $is_active = true)
     {
         // $symbol           = self::SYMBOL;
         $data['function'] = "instrument";
+        if ($is_active)
+            $data['function'] = "/instrument/active";
         $data['params']   = array(
             "symbol" => $symbol
         );
@@ -56,7 +58,7 @@ class BitMex
         $return = $this->publicQuery($data);
         // dump($return); die;
         
-        if (!$return || count($return) != 1 || !isset($return[0]['symbol']))
+        if (!$return || !isset($return[0]['symbol']))
             return false;
         
         // $return = array(
@@ -70,7 +72,8 @@ class BitMex
         //     "market_price" => $return[0]["markPrice"],
         // );
 
-        $return = $return[0];
+        if (count($return) == 1)
+            $return = $return[0];
         
         return $return;
     }
@@ -537,15 +540,15 @@ class BitMex
         curl_setopt($this->ch, CURLOPT_TIMEOUT, 10); //timeout in seconds
         $return = curl_exec($this->ch);
 
-        // Then, after your curl_exec call:
-        $header_size = curl_getinfo($this->ch, CURLINFO_HEADER_SIZE);
-        $header = substr($return, 0, $header_size);
-        $body = substr($return, $header_size);
+        // // Then, after your curl_exec call:
+        // $header_size = curl_getinfo($this->ch, CURLINFO_HEADER_SIZE);
+        // $header = substr($return, 0, $header_size);
+        // $body = substr($return, $header_size);
 
-        dump($header_size);
-        dump($header);
-        dump($body);
-        dump($return); die;
+        // dump($header_size);
+        // dump($header);
+        // dump($body);
+        // dump($return); die;
 
         if (strpos($return, '403 Forbidden') !== false) {
             \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::403 Forbidden');
@@ -625,35 +628,5 @@ class BitMex
             echo "BitMex error ({$return['error']['name']}) : {$return['error']['message']}\n";
         
         return true;
-    }
-
-    public function getQuote($symbol = self::SYMBOL)
-    {
-        // $symbol           = self::SYMBOL;
-        $data['function'] = "quote";
-        $data['params']   = array(
-            "symbol" => $symbol
-        );
-        
-        $return = $this->publicQuery($data);
-        dump($return); die;
-        
-        if (!$return || count($return) != 1 || !isset($return[0]['symbol']))
-            return false;
-        
-        // $return = array(
-        //     "symbol" => $return[0]['symbol'],
-        //     "last" => $return[0]['lastPrice'],
-        //     "bid" => $return[0]['bidPrice'],
-        //     "ask" => $return[0]['askPrice'],
-        //     "high" => $return[0]['highPrice'],
-        //     "low" => $return[0]['lowPrice'],
-        //     "lastChangePcnt" => $return[0]["lastChangePcnt"],
-        //     "market_price" => $return[0]["markPrice"],
-        // );
-
-        $return = $return[0];
-        
-        return $return;
     }
 }

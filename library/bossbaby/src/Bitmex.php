@@ -3,17 +3,16 @@ namespace BossBaby;
 
 class Bitmex
 {
-    public static function func_get_current_price($bitmex_instance = null, $symbol = 'XBTUSD')
+    public static function func_get_current_price($bitmex_instance = null, $symbol = 'XBTUSD', $is_active = true)
     {
         global $environment;
 
         $list_accounts = $environment->bitmex->accounts;
         $list_id = [];
-        foreach ($list_accounts as $key => $account) {
-            $list_id[] = $key;
-        }
+        foreach ($list_accounts as $key => $account) {$list_id[] = $key;}
+        if (!isset($list_id[0])) unset($list_id[0]);
         $rand = array_rand($list_id);
-        if ($rand <= 0) return;
+        if ($rand <= 0) return [];
         
         // \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::email::' . $environment->bitmex->accounts->{$rand}->email . '::apiKey::' . $environment->bitmex->accounts->{$rand}->apiKey);
         $bitmex_instance = new \Bitmex($environment->bitmex->accounts->{$rand}->apiKey, $environment->bitmex->accounts->{$rand}->apiSecret);

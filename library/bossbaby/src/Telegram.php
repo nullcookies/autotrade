@@ -36,8 +36,10 @@ class Telegram
             $arr = \BossBaby\Bitmex::func_get_current_price($environment->bitmex_instance);
         }
 
-        if (!$arr or !$arr['symbol'])
+        if (!$arr or !isset($arr['symbol']) or !$arr['symbol']) {
+            \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::failed::' . serialize($arr));
             return null;
+        }
 
         $arr = array(
             "symbol" => $arr['symbol'],

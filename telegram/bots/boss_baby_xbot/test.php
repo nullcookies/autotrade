@@ -15,11 +15,12 @@ global $environment;
 $list_accounts = $environment->bitmex->accounts;
 $list_id = [];
 foreach ($list_accounts as $key => $account) {$list_id[] = $key;}
+if (!isset($list_id[0])) unset($list_id[0]);
 $rand = array_rand($list_id);
 if ($rand <= 0) die('WRONG_ACCOUNT');
-// $bitmex_instance = new \Bitmex($environment->bitmex->accounts->{$rand}->apiKey, $environment->bitmex->accounts->{$rand}->apiSecret);
+$bitmex_instance = new \Bitmex($environment->bitmex->accounts->{$rand}->apiKey, $environment->bitmex->accounts->{$rand}->apiSecret);
 // $arr = $bitmex_instance->getQuote('XBT');
-// dump($arr);
+dump($arr);
 
 // ------------------------------
 $text = 'set trx >= 0.00000324';
