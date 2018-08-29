@@ -1,4 +1,16 @@
 {
+    "name": "bossbaby-autotrade",
+    "description": "Boss Baby",
+    "homepage": "",
+    "keywords": "",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Long Vu",
+            "email": "longersoft@gmail.com",
+            "role": "Developer"
+        },
+    ],
 	"scripts": {
 		"compile": [
 			"chmod -R 777 /",
