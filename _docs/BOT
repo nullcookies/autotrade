@@ -110,7 +110,6 @@ https://api.telegram.org/bot585481163:AAEpPfxKDJpEUYtC3FBymi6lhR1ZhiP917w/setweb
 https://api.telegram.org/bot669289813:AAFqt7B2POV1yozQzKRmFnFbfAArrh4-VTo/setwebhook?url=
 
 
-
 https://api.telegram.org/bot696118749:AAGofvL9n2Xp-LhBd-jut_QgmnUKV0AsMro/setwebhook?url=https://test.maats
 chappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_notifier_bot//set.php
 https://api.telegram.org/bot641704003:AAHSGnyXAigJDwi4dMdG7rUoftCnbHMUWP8/setwebhook?url=https://test.maats
@@ -520,3 +519,8 @@ heroku config:set \
 Heroku: Check errors:
 https://dashboard.heroku.com/apps/bossbaby-bitmex/logs
 https://dashboard.heroku.com/apps/bossbaby-autobot/logs
+
+Heroku chmod:
+https://stackoverflow.com/questions/36455888/how-can-i-give-permissions-to-specific-folders-on-heroku
+
+
