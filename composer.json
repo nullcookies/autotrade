@@ -1,19 +1,18 @@
 {
     "name": "bossbaby-autotrade",
     "description": "Boss Baby",
-    "homepage": "",
-    "keywords": "",
+    "keywords": ["fuck", "you"],
     "license": "MIT",
     "authors": [
         {
             "name": "Long Vu",
             "email": "longersoft@gmail.com",
             "role": "Developer"
-        },
+        }
     ],
-	"scripts": {
-		"compile": [
-			"chmod -R 777 /",
-		]
-	}
+    "scripts": {
+        "compile": [
+            "chmod -R 777 ./"
+        ]
+    }
 }
