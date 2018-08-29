@@ -519,6 +519,7 @@ heroku config:set \
 Heroku: Check errors:
 https://dashboard.heroku.com/apps/bossbaby-bitmex/logs
 https://dashboard.heroku.com/apps/bossbaby-autobot/logs
+https://bossbaby-autobot.herokuapp.com/logs/error-20180829.log
 
 Heroku chmod:
 https://stackoverflow.com/questions/36455888/how-can-i-give-permissions-to-specific-folders-on-heroku
