@@ -28,4 +28,3 @@ git pull bitbucket master
 git pull github master
 git pull heroku master
 
-
