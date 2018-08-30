@@ -2,13 +2,13 @@
   "name": "bitmex-realtime-api",
   "version": "0.4.0",
   "description": "A library for interacting with BitMEX's websocket API.",
-  "main": "library/bitmex-api/api-connectors/official-ws/nodejs/index.js",
+  "main": "library/bitmex-api/api-connectors/official-ws/nodejs/example.js",
   "repository": "https://github.com/BitMEX/api-connectors.git",
   "engines": {
     "node": ">=4"
   },
   "scripts": {
-    "start": "node library/bitmex-api/api-connectors/official-ws/nodejs/index.js",
+    "start": "node library/bitmex-api/api-connectors/official-ws/nodejs/example.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

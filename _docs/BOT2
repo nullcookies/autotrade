@@ -31,3 +31,9 @@ git pull bitbucket master
 git pull github master
 git pull heroku master
 
+node library/bitmex-api/api-connectors/official-ws/nodejs/example.js
+node library/bitmex-api/api-connectors/official-ws/browser-primus/WebsocketManager.js
+node library/bitmex-api/api-connectors/official-ws/delta-server/index.js
+node library/bitmex-api/api-connectors/official-http/node-fetch/index.js
+node library/bitmex-api/api-connectors/official-http/node-request/index.js
+node library/bitmex-api/api-connectors/auto-generated/javascript/test/api/InstrumentApi.spec.js
