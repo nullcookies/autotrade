@@ -20,6 +20,9 @@ git remote show bitbucket
 git remote show github
 git remote show heroku
 
+git add -A
+git commit -m "*change buildpack"
+
 git push bitbucket HEAD:master
 git push github HEAD:master
 git push heroku HEAD:master
