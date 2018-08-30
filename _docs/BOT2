@@ -1,0 +1,30 @@
+Cronjob: https://devcenter.heroku.com/articles/scheduled-jobs-custom-clock-processes
+https://devcenter.heroku.com/articles/scheduler#installing-the-add-on
+heroku addons:create scheduler:standard
+heroku addons:open scheduler
+
+https://git.heroku.com/bossbaby-autobot.git (https://dashboard.heroku.com/apps/bossbaby-autobot)
+https://longersoft@bitbucket.org/longersoft/autotrade.git
+https://github.com/longersoft/autotrade.git
+
+NodeJS + Apache:
+https://tomatohater.com/2013/08/29/want-heroku-apache-php-but-getting-nodejs-stack/
+
+Heroku, setup NodeJS app:
+https://drublic.de/blog/how-to-set-up-herokuapp
+
+Git, show origin:
+git config --get remote.origin.url
+git remote show origin
+git remote show bitbucket
+git remote show github
+git remote show heroku
+
+git push bitbucket HEAD:master
+git push github HEAD:master
+git push heroku HEAD:master
+
+git pull bitbucket master
+git pull github master
+git pull heroku master
+

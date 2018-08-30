@@ -3,6 +3,7 @@
 /logs/
 /_docs/analytics/
 /_docs/bowhead/
+/vendor/
 
 # Compiled source #
 ###################
