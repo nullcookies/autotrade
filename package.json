@@ -8,7 +8,7 @@
     "node": ">=4"
   },
   "scripts": {
-    "start": "node example",
+    "start": "node library/bitmex-api/api-connectors/official-ws/nodejs/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
