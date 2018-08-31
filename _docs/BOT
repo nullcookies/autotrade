@@ -203,12 +203,14 @@ https://www.youtube.com/watch?v=gWSOdC1jjxM
 Bitmex API
 https://www.bitmex.com/api/explorer/
 https://www.bitmex.com/app/automatedTradingEngines
+https://www.bitmex.com/app/wsAPI
 https://www.botvs.com/
 https://www.botvs.com/bbs-topic/865
 https://www.bitmex.com/api/explorer/#!/Quote/Quote_get
 https://github.com/OAI/OpenAPI-Specification#additional-libraries
 Limit:
 https://www.bitmex.com/app/restAPI#Limits
+https://www.bitmex.com/app/restAPI#Viewing-Your-Request-Rate-Limit
 
 Total 11 (delta 6), reused 0 (delta 0)
 remote: 
@@ -425,6 +427,9 @@ https://agilewarrior.wordpress.com/2014/05/16/how-to-create-a-named-app-in-herok
 Commands: https://devcenter.heroku.com/categories/command-line
 https://devcenter.heroku.com/articles/heroku-cli-commands
 Cronjob: https://devcenter.heroku.com/articles/scheduled-jobs-custom-clock-processes
+https://devcenter.heroku.com/articles/scheduler#installing-the-add-on
+heroku addons:create scheduler:standard
+heroku addons:open scheduler
 
 $ heroku -h
 CLI to interact with Heroku
@@ -484,9 +489,50 @@ Repositories:
 https://bitbucket.org/longersoft/autotrade
 https://github.com/longersoft/autotrade
 https://git.heroku.com/bossbaby-autobot.git (https://dashboard.heroku.com/apps/bossbaby-autobot)
+https://longersoft@bitbucket.org/longersoft/autotrade.git
+https://github.com/longersoft/autotrade.git
 
 NodeJS + Apache:
+Settings -> Add Buildpack
+https://elements.heroku.com/buttons/avdim/heroku-multipack-nodejs-php-example
 https://tomatohater.com/2013/08/29/want-heroku-apache-php-but-getting-nodejs-stack/
+https://github.com/heroku/heroku-buildpack-php
+https://devcenter.heroku.com/articles/using-multiple-buildpacks-for-an-app
+https://devcenter.heroku.com/articles/using-node-js-to-perform-javascript-optimization-for-play-and-scala-applications
+
+https://github.com/heroku/heroku-buildpack-multi
+heroku create --buildpack https://github.com/heroku/heroku-buildpack-multi
+
+Heroku status:
+https://status.heroku.com/
+
+Heroku, setup NodeJS app:
+https://drublic.de/blog/how-to-set-up-herokuapp
+
+Git, show origin:
+git config --get remote.origin.url
+git remote show origin
+git remote show bitbucket
+git remote show github
+git remote show heroku
+
+git add -A
+git commit -m "*change buildpack"
+
+git push bitbucket HEAD:master
+git push github HEAD:master
+git push heroku HEAD:master
+
+git pull bitbucket master
+git pull github master
+git pull heroku master
+
+node library/bitmex-api/api-connectors/official-ws/nodejs/example.js
+node library/bitmex-api/api-connectors/official-ws/browser-primus/WebsocketManager.js
+node library/bitmex-api/api-connectors/official-ws/delta-server/index.js
+node library/bitmex-api/api-connectors/official-http/node-fetch/index.js
+node library/bitmex-api/api-connectors/official-http/node-request/index.js
+node library/bitmex-api/api-connectors/auto-generated/javascript/test/api/InstrumentApi.spec.js
 
 Heroku set errors:
 https://devcenter.heroku.com/articles/error-pages
@@ -505,4 +551,33 @@ https://stackoverflow.com/questions/36455888/how-can-i-give-permissions-to-speci
 git push bitbucket HEAD:master
 git push github HEAD:master
 git push heroku HEAD:master
+
+Free NodeJS Hosting:
+https://zeit.co/now
+https://glitch.com/
+https://hostingviet.vn/cung-cap-hosting-nodejs-gioi-thieu-tong-quan-nodejs
+
+Zeit:
+$ npm install -g now
+C:\Users\devnghia\AppData\Roaming\npm\now -> C:\Users\devnghia\AppData\Roaming\npm\node_modules\now\download\dist\now
+> now@11.4.0 postinstall C:\Users\devnghia\AppData\Roaming\npm\node_modules\now
+> node download/install.js
+> For the source code, check out: https://github.com/zeit/now-cli
+C:\Users\devnghia\AppData\Roaming\npm
+`-- now@11.4.0
+
+Zeit deploy:
+$ now --public
+
+Zeit error:
+https://github.com/zeit/now-cli/issues/992
+$ now -d
+$ now -d --public
+
+Google Cloud Platform:
+https://console.cloud.google.com/home/activity?project=api-project-163205861839
+https://codelabs.developers.google.com/codelabs/cp100-compute-engine/#0
+
+API key: AIzaSyC4p5CsbhLdOCRrIQnNGdxtgrdJws7Yxb8
+C:\Users\devnghia\AppData\Local\Google\Cloud SDK>
 
