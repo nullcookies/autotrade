@@ -672,5 +672,11 @@ Go language:
 https://golang.org/
 https://www.youtube.com/watch?v=C8LgvuEBraI
 
+Node js on Docker:
+https://www.youtube.com/watch?v=DwlIn9zOcfc
+http://howtonode.org/hello-node
+$ gcloud container builds submit --tag gcr.io/worldclassmicroservices/noadapp:1.0 .
+$ gcloud container clusters create cluseter1 --zone=us-central1-f
+
 
 
