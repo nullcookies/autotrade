@@ -204,10 +204,13 @@ class Telegram
                             if (array_key_exists($coin, $tmp_arr)) {
                                 $old_price = number_format($tmp_arr[$coin], 8);
                                 // dump('changed_1h$old_price'); dump($old_price);
-                                if ($old_price > 0) {
+                                if ($old_price > 0 and (float) $old_price != (float) $new_price) {
                                     $calc_1h = round((($new_price - $old_price) / $old_price) * 100, 2);
                                     if (!isset($arr['changed_1h'])) $arr['changed_1h'] = [];
                                     $changed_1h = $arr['changed_1h'][$coin] = $calc_1h;
+                                }
+                                else {
+                                    $changed_1h = $arr['changed_1h'][$coin] = 0;
                                 }
                             }
                         }
@@ -236,10 +239,13 @@ class Telegram
                             if (array_key_exists($coin, $tmp_arr)) {
                                 $old_price = number_format($tmp_arr[$coin], 8);
                                 // dump('changed_5m$old_price'); dump($old_price);
-                                if ($old_price > 0) {
+                                if ($old_price > 0 and (float) $old_price != (float) $new_price) {
                                     $calc_5m = round((($new_price - $old_price) / $old_price) * 100, 2);
                                     if (!isset($arr['changed_5m'])) $arr['changed_5m'] = [];
                                     $changed_5m = $arr['changed_5m'][$coin] = $calc_5m;
+                                }
+                                else {
+                                    $changed_5m = $arr['changed_5m'][$coin] = 0;
                                 }
                             }
                         }
@@ -268,10 +274,13 @@ class Telegram
                             if (array_key_exists($coin, $tmp_arr)) {
                                 $old_price = number_format($tmp_arr[$coin], 8);
                                 // dump('changed_1m$old_price'); dump($old_price);
-                                if ($old_price > 0) {
+                                if ($old_price > 0 and (float) $old_price != (float) $new_price) {
                                     $calc_1m = round((($new_price - $old_price) / $old_price) * 100, 2);
                                     if (!isset($arr['changed_1m'])) $arr['changed_1m'] = [];
                                     $changed_1m = $arr['changed_1m'][$coin] = $calc_1m;
+                                }
+                                else {
+                                    $changed_1m = $arr['changed_1m'][$coin] = 0;
                                 }
                             }
                         }
@@ -300,10 +309,13 @@ class Telegram
                             if (array_key_exists($coin, $tmp_arr)) {
                                 $old_price = number_format($tmp_arr[$coin], 8);
                                 // dump('changed_10s$old_price'); dump($old_price);
-                                if ($old_price > 0) {
+                                if ($old_price > 0 and (float) $old_price != (float) $new_price) {
                                     $calc_10s = round((($new_price - $old_price) / $old_price) * 100, 2);
                                     if (!isset($arr['changed_10s'])) $arr['changed_10s'] = [];
                                     $changed_10s = $arr['changed_10s'][$coin] = $calc_10s;
+                                }
+                                else {
+                                    $changed_10s = $arr['changed_10s'][$coin] = 0;
                                 }
                             }
                         }
@@ -494,10 +506,13 @@ class Telegram
                             if (array_key_exists($coin, $tmp_arr)) {
                                 $old_price = number_format($tmp_arr[$coin], 8);
                                 // dump('changed_1h$old_price'); dump($old_price);
-                                if ($old_price > 0) {
+                                if ($old_price > 0 and (float) $old_price != (float) $new_price) {
                                     $calc_1h = round((($new_price - $old_price) / $old_price) * 100, 2);
                                     if (!isset($arr['changed_1h'])) $arr['changed_1h'] = [];
                                     $changed_1h = $arr['changed_1h'][$coin] = $calc_1h;
+                                }
+                                else {
+                                    $changed_1h = $arr['changed_1h'][$coin] = 0;
                                 }
                             }
                         }
@@ -526,10 +541,13 @@ class Telegram
                             if (array_key_exists($coin, $tmp_arr)) {
                                 $old_price = number_format($tmp_arr[$coin], 8);
                                 // dump('changed_5m$old_price'); dump($old_price);
-                                if ($old_price > 0) {
+                                if ($old_price > 0 and (float) $old_price != (float) $new_price) {
                                     $calc_5m = round((($new_price - $old_price) / $old_price) * 100, 2);
                                     if (!isset($arr['changed_5m'])) $arr['changed_5m'] = [];
                                     $changed_5m = $arr['changed_5m'][$coin] = $calc_5m;
+                                }
+                                else {
+                                    $changed_5m = $arr['changed_5m'][$coin] = 0;
                                 }
                             }
                         }
@@ -558,10 +576,13 @@ class Telegram
                             if (array_key_exists($coin, $tmp_arr)) {
                                 $old_price = number_format($tmp_arr[$coin], 8);
                                 // dump('changed_1m$old_price'); dump($old_price);
-                                if ($old_price > 0) {
+                                if ($old_price > 0 and (float) $old_price != (float) $new_price) {
                                     $calc_1m = round((($new_price - $old_price) / $old_price) * 100, 2);
                                     if (!isset($arr['changed_1m'])) $arr['changed_1m'] = [];
                                     $changed_1m = $arr['changed_1m'][$coin] = $calc_1m;
+                                }
+                                else {
+                                    $changed_1m = $arr['changed_1m'][$coin] = 0;
                                 }
                             }
                         }
@@ -590,10 +611,13 @@ class Telegram
                             if (array_key_exists($coin, $tmp_arr)) {
                                 $old_price = number_format($tmp_arr[$coin], 8);
                                 // dump('changed_10s$old_price'); dump($old_price);
-                                if ($old_price > 0) {
+                                if ($old_price > 0 and (float) $old_price != (float) $new_price) {
                                     $calc_10s = round((($new_price - $old_price) / $old_price) * 100, 2);
                                     if (!isset($arr['changed_10s'])) $arr['changed_10s'] = [];
                                     $changed_10s = $arr['changed_10s'][$coin] = $calc_10s;
+                                }
+                                else {
+                                    $changed_10s = $arr['changed_10s'][$coin] = 0;
                                 }
                             }
                         }
@@ -764,10 +788,13 @@ class Telegram
                             if (array_key_exists($coin, $tmp_arr)) {
                                 $old_price = number_format($tmp_arr[$coin], 8);
                                 // dump('changed_1h$old_price'); dump($old_price);
-                                if ($old_price > 0) {
+                                if ($old_price > 0 and (float) $old_price != (float) $new_price) {
                                     $calc_1h = round((($new_price - $old_price) / $old_price) * 100, 2);
                                     if (!isset($arr['changed_1h'])) $arr['changed_1h'] = [];
                                     $changed_1h = $arr['changed_1h'][$coin] = $calc_1h;
+                                }
+                                else {
+                                    $changed_1h = $arr['changed_1h'][$coin] = 0;
                                 }
                             }
                         }
@@ -796,10 +823,13 @@ class Telegram
                             if (array_key_exists($coin, $tmp_arr)) {
                                 $old_price = number_format($tmp_arr[$coin], 8);
                                 // dump('changed_5m$old_price'); dump($old_price);
-                                if ($old_price > 0) {
+                                if ($old_price > 0 and (float) $old_price != (float) $new_price) {
                                     $calc_5m = round((($new_price - $old_price) / $old_price) * 100, 2);
                                     if (!isset($arr['changed_5m'])) $arr['changed_5m'] = [];
                                     $changed_5m = $arr['changed_5m'][$coin] = $calc_5m;
+                                }
+                                else {
+                                    $changed_5m = $arr['changed_5m'][$coin] = 0;
                                 }
                             }
                         }
@@ -828,10 +858,13 @@ class Telegram
                             if (array_key_exists($coin, $tmp_arr)) {
                                 $old_price = number_format($tmp_arr[$coin], 8);
                                 // dump('changed_1m$old_price'); dump($old_price);
-                                if ($old_price > 0) {
+                                if ($old_price > 0 and (float) $old_price != (float) $new_price) {
                                     $calc_1m = round((($new_price - $old_price) / $old_price) * 100, 2);
                                     if (!isset($arr['changed_1m'])) $arr['changed_1m'] = [];
                                     $changed_1m = $arr['changed_1m'][$coin] = $calc_1m;
+                                }
+                                else {
+                                    $changed_1m = $arr['changed_1m'][$coin] = 0;
                                 }
                             }
                         }
@@ -860,10 +893,13 @@ class Telegram
                             if (array_key_exists($coin, $tmp_arr)) {
                                 $old_price = number_format($tmp_arr[$coin], 8);
                                 // dump('changed_10s$old_price'); dump($old_price);
-                                if ($old_price > 0) {
+                                if ($old_price > 0 and (float) $old_price != (float) $new_price) {
                                     $calc_10s = round((($new_price - $old_price) / $old_price) * 100, 2);
                                     if (!isset($arr['changed_10s'])) $arr['changed_10s'] = [];
                                     $changed_10s = $arr['changed_10s'][$coin] = $calc_10s;
+                                }
+                                else {
+                                    $changed_10s = $arr['changed_10s'][$coin] = 0;
                                 }
                             }
                         }
@@ -1113,13 +1149,17 @@ class Telegram
                                 $old_volume = $tmp_arr[$coin]['volume'];
                                 // dump('changed_1h$old_price'); dump($old_price);
                                 // dump('changed_1h$old_volume'); dump($old_volume);
-                                if ($old_price > 0 and $old_volume > 0) {
+                                if ($old_price > 0 and $old_volume > 0 and (float) $old_price != (float) $new_price and (float) $old_volume != (float) $new_volume) {
                                     $calc_1h = round((($new_price - $old_price) / $old_price) * 100, 2);
                                     if (!isset($arr['changed_1h'])) $arr['changed_1h'] = [];
                                     $changed_1h = $arr['changed_1h'][$coin] = $calc_1h;
                                     $calc_vol_1h = round((($new_volume - $old_volume) / $old_volume) * 100, 2);
                                     if (!isset($arr['changed_vol_1h'])) $arr['changed_vol_1h'] = [];
                                     $changed_vol_1h = $arr['changed_vol_1h'][$coin] = $calc_vol_1h;
+                                }
+                                else {
+                                    $changed_1h = $arr['changed_1h'][$coin] = 0;
+                                    $changed_vol_1h = $arr['changed_vol_1h'][$coin] = 0;
                                 }
                             }
                         }
@@ -1154,13 +1194,17 @@ class Telegram
                                 $old_volume = $tmp_arr[$coin]['volume'];
                                 // dump('changed_15m$old_price'); dump($old_price);
                                 // dump('changed_15m$old_volume'); dump($old_volume);
-                                if ($old_price > 0 and $old_volume > 0) {
+                                if ($old_price > 0 and $old_volume > 0 and (float) $old_price != (float) $new_price and (float) $old_volume != (float) $new_volume) {
                                     $calc_15m = round((($new_price - $old_price) / $old_price) * 100, 2);
                                     if (!isset($arr['changed_15m'])) $arr['changed_15m'] = [];
                                     $changed_15m = $arr['changed_15m'][$coin] = $calc_15m;
                                     $calc_vol_15m = round((($new_volume - $old_volume) / $old_volume) * 100, 2);
                                     if (!isset($arr['changed_vol_15m'])) $arr['changed_vol_15m'] = [];
                                     $changed_vol_15m = $arr['changed_vol_15m'][$coin] = $calc_vol_15m;
+                                }
+                                else {
+                                    $changed_15m = $arr['changed_15m'][$coin] = 0;
+                                    $changed_vol_15m = $arr['changed_vol_15m'][$coin] = 0;
                                 }
                             }
                         }
