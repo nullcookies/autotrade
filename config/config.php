@@ -2,7 +2,7 @@
 return array(
 	'enable' => true,
     'general' => array(
-        'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/',
+        'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/bot/',
     ),
     'database' => array(
         '1' => array(
@@ -125,14 +125,14 @@ return array(
             'root_url' => 'https://telegram.org/',
         ),
         'bots' => array(
-            'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/',
+            'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/bot/telegram/bots/',
             '1' => array(
                 'id' => '696118749',
                 'name' => 'Boss Baby Notifier Bot',
                 'username' => 'boss_baby_notifier_bot',
                 'token' => '696118749:AAGofvL9n2Xp-LhBd-jut_QgmnUKV0AsMro',
                 'max_connections' => 40,
-                'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_notifier_bot/'
+                'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/bot/telegram/bots/boss_baby_notifier_bot/'
             ),
             '2' => array(
                 'id' => '669289813',
@@ -140,7 +140,7 @@ return array(
                 'username' => 'boss_baby_xbot',
                 'token' => '669289813:AAFqt7B2POV1yozQzKRmFnFbfAArrh4-VTo',
                 'max_connections' => 40,
-                'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/autobot/telegram/bots/boss_baby_xbot/'
+                'root_url' => 'https://test.maatschappelijkwerkonline.nl/testing/bot/telegram/bots/boss_baby_xbot/'
             ),
         ),
         'channels' => array(

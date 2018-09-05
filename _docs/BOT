@@ -581,3 +581,102 @@ https://codelabs.developers.google.com/codelabs/cp100-compute-engine/#0
 API key: AIzaSyC4p5CsbhLdOCRrIQnNGdxtgrdJws7Yxb8
 C:\Users\devnghia\AppData\Local\Google\Cloud SDK>
 
+Docker:
+https://viblo.asia/p/docker-chua-biet-gi-den-biet-dung-phan-1-ByEZkWrEZQ0
+https://viblo.asia/p/docker-chua-biet-gi-den-biet-dung-phan-2-dockerfile-RQqKLzeOl7z
+https://store.docker.com/
+https://hub.docker.com/
+https://docs.docker.com/toolbox/toolbox_install_windows/#step-1-check-your-version
+https://www.youtube.com/watch?v=YFl2mCHdv24
+
+Step-By-Step: Enabling Hyper-V for use on Windows 10
+https://blogs.technet.microsoft.com/canitpro/2015/09/08/step-by-step-enabling-hyper-v-for-use-on-windows-10/
+
+Fix error: Looks like something went wrong in step ´Looking for vboxmanage.exe
+https://github.com/docker/toolbox/issues/473
+https://stackoverflow.com/questions/33725779/failed-to-open-create-the-internal-network-vagrant-on-windows10/33733486#33733486
+
+Docker error: error during connect: Get http://%2F%2F.%2Fpipe%2Fdocker_engine/v1.38/containers/json: open //./pipe/docker_engine: The system cannot find the file specified. In the default daemon configuration on Windows, the docker client must be run elevated to connect. This error may also indicate that the docker daemon is not running.
+https://github.com/docker/toolbox/issues/636#issuecomment-327024572
+Downloading the ISO from here: https://github.com/boot2docker/boot2docker/releases/
+Placed the ISO here:
+C:\Users\xxxxxxxx.docker\machine\cache
+C:\Users\devnghia\.docker\machine\cache
+Re-ran the Docker QuickStart Terminal. Alternatively, run from the command prompt: docker-machine create --driver virtualbox default
+Run docker run hello-world to test
+
+https://cloud.docker.com/swarm/longersoft/repository/create
+
+D:\Projects\mine\autotrade>docker-machine create --virtualbox-no-vtx-check default
+Running pre-create checks...
+(default) Image cache directory does not exist, creating it at C:\Users\Administrator.UHVBEXTHMQR7A4L\.docker\machine\cache...
+(default) No default Boot2Docker ISO found locally, downloading the latest release...
+(default) Latest release for github.com/boot2docker/boot2docker is v18.06.1-ce
+(default) Downloading C:\Users\Administrator.UHVBEXTHMQR7A4L\.docker\machine\cache\boot2docker.iso from https://github.com/boot2docker/boot2docker/releases/download/v18.06.1-ce/boot2docker.iso...
+(default) 0%....10%....20%....30%....40%....50%....60%....70%....80%....90%....100%
+Creating machine...
+(default) Copying C:\Users\Administrator.UHVBEXTHMQR7A4L\.docker\machine\cache\boot2docker.iso to C:\Users\Administrator.UHVBEXTHMQR7A4L\.docker\machine\machines\default\boot2docker.iso...
+(default) Creating VirtualBox VM...
+(default) Creating SSH key...
+(default) Starting the VM...
+(default) Check network to re-create if needed...
+(default) Windows might ask for the permission to configure a dhcp server. Sometimes, such confirmation window is minimized in the taskbar.
+Error creating machine: Error in driver during machine creation: Unable to start the VM: C:\Program Files\Oracle\VirtualBox\VBoxManage.exe startvm default --type headless failed:
+VBoxManage.exe: error: Failed to open/create the internal network 'HostInterfaceNetworking-VirtualBox Host-Only Ethernet Adapter #2' (VERR_INTNET_FLT_IF_NOT_FOUND).
+VBoxManage.exe: error: Failed to attach the network LUN (VERR_INTNET_FLT_IF_NOT_FOUND)
+VBoxManage.exe: error: Details: code E_FAIL (0x80004005), component ConsoleWrap, interface IConsole
+
+Details: 00:00:01.428234 Power up failed (vrc=VERR_INTNET_FLT_IF_NOT_FOUND, rc=E_FAIL (0X80004005))
+
+-----
+C:\Users\devnghia>cd C:\Users\devnghia\Downloads\test
+C:\Users\devnghia\Downloads\test>@for /f "tokens=*" %i IN ('docker-machine env') DO @%i
+C:\Users\devnghia\Downloads\test>docker-machine create --driver virtualbox default
+Docker machine "default" already exists
+C:\Users\devnghia\Downloads\test>docker run hello-world
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+9db2ca6ccae0: Pull complete
+Digest: sha256:4b8ff392a12ed9ea17784bd3c9a8b1fa3299cac44aca35a85c90c5e3c7afacdc
+Status: Downloaded newer image for hello-world:latest
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+For more examples and ideas, visit:
+ https://docs.docker.com/engine/userguide/
+C:\Users\devnghia\Downloads\test>
+-----
+
+After deploy autobot:
+$ rm -rf .git
+$ rm .gitignore
+$ rm -rf _docs
+$ rm -rf filemanager
+$ rm composer.*
+$ rm package.json
+$ cp -r ../autobot/config/* config/
+$ chmod -R 777 .
+
+Go language:
+https://golang.org/
+https://www.youtube.com/watch?v=C8LgvuEBraI
+
+Node js on Docker:
+https://www.youtube.com/watch?v=DwlIn9zOcfc
+http://howtonode.org/hello-node
+$ gcloud container builds submit --tag gcr.io/worldclassmicroservices/noadapp:1.0 .
+$ gcloud container clusters create cluseter1 --zone=us-central1-f
+
+
+
