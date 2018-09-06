@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nodeapp
+spec:
+  replicas: 7
+  template:
+    metadata:
+      labels:
+        name: nodeapp
+        area: 51
+    spec:
+      containers:
+      - name: nodeapp
+        imge: gcr.io/<PROJECT_ID>/nodeapp:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000

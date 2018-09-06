@@ -1,23 +1,8 @@
-FROM ubuntu:16.04
+FROM node:alpine
+COPY package.json package.json
+RUN npm install
 
-MAINTAINER Long Vu<longersoft@gmail.com>
-
-RUN DEBIAN_FRONTEND=noninteractive
-
-RUN apt-get update
-
-RUN apt-get install -y nginx
-
-RUN echo "mysql-server mysql-server/root_password password root" | debconf-set-selections \
-    && echo "mysql-server mysql-server/root_password_again password root" | debconf-set-selections \
-    && apt-get install -y mysql-server
-
-WORKDIR /venv
-
-COPY start.sh /venv
-
-RUN chmod a+x /venv/*
-
-ENTRYPOINT ["/venv/start.sh"]
-
-EXPOSE 80
+# Add your source files
+COPY . .
+EXPOSE 3000
+CMD ["nmp", "start"]
