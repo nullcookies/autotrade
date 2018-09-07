@@ -885,4 +885,10 @@ Manage user and Access key:
 https://console.aws.amazon.com/iam/home#/users
 
 Error Your account is not signed up for the S3
+Did you create an AWS account <u>and</u> sign up for Amazon S3? You need to do both. You can sign up for S3 here: http://aws.amazon.com/s3.
+https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/
+https://us-east-2.console.aws.amazon.com/console/home?region=us-east-2#
+https://s3.console.aws.amazon.com/console/signup?#
+https://us-east-2.console.aws.amazon.com/console/signup?region=us-east-2
+https://aws.amazon.com/free/
 
