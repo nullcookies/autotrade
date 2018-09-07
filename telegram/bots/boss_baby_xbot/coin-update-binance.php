@@ -34,6 +34,8 @@ function run_cron() {
             $coin = $item['symbol'];
             $arr['symbols'][$coin] = $item;
             $arr['symbols'][$coin]['price'] = $item['lastPrice'];
+            $arr['symbols'][$coin]['coinVolume'] = $item['volume'];
+            $arr['symbols'][$coin]['volume'] = $item['quoteVolume'];
         }
         unset($tmp);
 

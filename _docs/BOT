@@ -527,6 +527,15 @@ git pull bitbucket master
 git pull github master
 git pull heroku master
 
+---
+Git fetch with username and password
+Run as PowerShell
+Linux: > git config --global credential.'https://source.developers.google.com'.helper gcloud.sh
+Wins: > git config --global credential.https://source.developers.google.com.helper gcloud.cmd
+> sh .gcloud-authen (this content copied from https://source.developers.google.com/new-password)
+> gcloud source repos create bossbaby-bot
+> git remote add google https://source.developers.google.com/p/bossbaby-bot/r/bossbaby-bot
+
 node library/bitmex-api/api-connectors/official-ws/nodejs/example.js
 node library/bitmex-api/api-connectors/official-ws/browser-primus/WebsocketManager.js
 node library/bitmex-api/api-connectors/official-ws/delta-server/index.js
@@ -566,6 +575,7 @@ C:\Users\devnghia\AppData\Roaming\npm\now -> C:\Users\devnghia\AppData\Roaming\n
 C:\Users\devnghia\AppData\Roaming\npm
 `-- now@11.4.0
 
+----------
 Zeit deploy:
 $ now --public
 
@@ -581,6 +591,7 @@ https://codelabs.developers.google.com/codelabs/cp100-compute-engine/#0
 API key: AIzaSyC4p5CsbhLdOCRrIQnNGdxtgrdJws7Yxb8
 C:\Users\devnghia\AppData\Local\Google\Cloud SDK>
 
+--------
 Docker:
 https://viblo.asia/p/docker-chua-biet-gi-den-biet-dung-phan-1-ByEZkWrEZQ0
 https://viblo.asia/p/docker-chua-biet-gi-den-biet-dung-phan-2-dockerfile-RQqKLzeOl7z
@@ -668,6 +679,7 @@ $ rm package.json
 $ cp -r ../autobot/config/* config/
 $ chmod -R 777 .
 
+-----
 Go language:
 https://golang.org/
 https://www.youtube.com/watch?v=C8LgvuEBraI
@@ -678,5 +690,199 @@ http://howtonode.org/hello-node
 $ gcloud container builds submit --tag gcr.io/worldclassmicroservices/noadapp:1.0 .
 $ gcloud container clusters create cluseter1 --zone=us-central1-f
 
+-----
+D:\Projects\mine\temp>cd ..\autotrade
 
+D:\Projects\mine\autotrade>gcloud builds submit --tag gcr.io/worldclassmicroservices/noadapp:1.0 .
+Creating temporary tarball archive of 12409 file(s) totalling 98.0 MiB before compression.
+Some files were not included in the source upload.
+
+Check the gcloud log [C:\Users\devnghia\AppData\Roaming\gcloud\logs\2018.09.05\16.44.45.243000.log] to see which files and the contents of the
+default gcloudignore file used (see `$ gcloud topic gcloudignore` to learn
+more).
+
+Uploading tarball of [.] to [gs://bossbaby-autotrade_cloudbuild/source/1536140685.7-6930fa4336074d4cac9291e0f53f84eb.tgz]Created [https://cloudbuild.googleapis.com/v1/projects/bossbaby-autotrade/builds/0385b957-3bfd-4cfe-a2ee-803d413be342].
+Logs are available at [https://console.cloud.google.com/gcr/builds/0385b957-3bfd-4cfe-a2ee-803d413be342?project=688722435440].
+-------------------------------------------------------------------------- REMOTE BUILD OUTPUT ---------------------------------------------------------------------------
+starting build "0385b957-3bfd-4cfe-a2ee-803d413be342"
+
+FETCHSOURCE
+Fetching storage object: gs://bossbaby-autotrade_cloudbuild/source/1536140685.7-6930fa4336074d4cac9291e0f53f84eb.tgz#1536140919493205
+Copying gs://bossbaby-autotrade_cloudbuild/source/1536140685.7-6930fa4336074d4cac9291e0f53f84eb.tgz#1536140919493205...
+- [1 files][ 40.8 MiB/ 40.8 MiB]
+Operation completed over 1 objects/40.8 MiB.
+BUILD
+Already have image (with digest): gcr.io/cloud-builders/docker
+SERROR: gcloud crashed (IOError): [Errno 0] Error
+
+If you would like to report this issue, please run the following command:
+  gcloud feedback
+
+To check gcloud for common problems, please run the following command:
+  gcloud info --run-diagnostics
+
+
+-------------
+Deploy to Google Cloud:
+> export $TUTORIALDIR=src/bossbaby-autotrade/nodejs_gae_quickstart-2018-09-06-09-46
+> git clone https://github.com/GoogleCloudPlatform/nodejs-getting-started.git $TUTORIALDIR
+> cd .\nodejs-getting-started\1-hello-world\
+> cat .\app.js
+> cat .\app.yaml
+> npm install
+> export PORT=8080 && 
+npm start
+> gcloud app browse
+
+$ gcloud app deploy app.yaml
+
+-------------
+Google Cloud DNS failed to load
+Go to APIs & services -> Library (https://console.cloud.google.com/apis/library?authuser=1&project=bot-bitmex)
+Type DNS
+Click on "Google Cloud DNS API" (https://console.cloud.google.com/apis/library/dns.googleapis.com?q=DNS&id=1eb2abcf-01c6-482e-95e8-f3999edf5f6f&project=bot-bitmex&authuser=1)
+Click on "Enable"
+
+Deploy from Source:
+https://cloud.google.com/functions/docs/deploying/repo
+
+-------------
+Start Cloud Tools for PowerShell
+
+> gcloud init
+Welcome! This command will take you through the configuration of gcloud.
+
+Settings from your current configuration [default] are:
+core:
+  account: longersoft@gmail.com
+  disable_usage_reporting: 'False'
+  project: bot-bitmex
+
+Pick configuration to use:
+ [1] Re-initialize this configuration [default] with new settings
+ [2] Create a new configuration
+Please enter your numeric choice:  1
+
+Your current configuration has been set to: [default]
+
+You can skip diagnostics next time by using the following flag:
+  gcloud init --skip-diagnostics
+
+Network diagnostic detects and fixes local network connection issues.
+Checking network connection...done.
+Reachability Check passed.
+Network diagnostic (1/1 checks) passed.
+
+Choose the account you would like to use to perform operations for
+this configuration:
+ [1] longersoft@gmail.com
+ [2] Log in with a new account
+Please enter your numeric choice:  1
+
+You are logged in as: [longersoft@gmail.com].
+
+Pick cloud project to use:
+ [1] bot-bitmex
+ [2] Create a new project
+Please enter numeric choice or text value (must exactly match list
+item):  1
+
+Your current project has been set to: [bot-bitmex].
+
+Not setting default zone/region (this feature makes it easier to use
+[gcloud compute] by setting an appropriate default value for the
+--zone and --region flag).
+See https://cloud.google.com/compute/docs/gcloud-compute section on how to set
+default compute region and zone manually. If you would like [gcloud init] to be
+able to do this for you the next time you run it, make sure the
+Compute Engine API is enabled for your project on the
+https://console.developers.google.com/apis page.
+
+Your Google Cloud SDK is configured and ready to use!
+
+* Commands that require authentication will use longersoft@gmail.com by default
+* Commands will reference project `bot-bitmex` by default
+Run `gcloud help config` to learn how to change individual settings
+
+This gcloud configuration is called [default]. You can create additional configurations if you work with multiple accounts and/or projects.
+Run `gcloud topic configurations` to learn more.
+
+Some things to try next:
+
+* Run `gcloud --help` to see the Cloud Platform services you can interact with. And run `gcloud help COMMAND` to get help on any gcloud command.
+* Run `gcloud topic -h` to learn about advanced features of the SDK like arg files and output formatting
+PS D:\Projects\mine\bossbaby-bitmex>
+
+-------------
+Push code from local to Google Cloud:
+> gcloud init
+> git config --global credential.https://source.developers.google.com.helper gcloud.cmd
+> git remote add google https://source.developers.google.com/p/bot-bitmex/r/bot-bitmex
+> git push --all google
+
+# https://source.developers.google.com/new-password?state=cloud&code=4/UgD2EaWPdSRiwSH7oK216pMWg1OrRv1w8X2cMP2cxdV3QxLLFYKwqCMPoq72VBxgZ_EcGOIqADy6Ot6d1tWF8eI#
+Configure Git
+Configure Git with a cookie for this service by copying this script and pasting it into a shell.
+Windows Users ↴
+We recommend Git for Windows.
+Use this one if you use cmd, or the one below if you use Git Bash.
+
+git config --global http.cookiefile "%USERPROFILE%\.gitcookies"
+powershell -noprofile -nologo -command Write-Output "source.developers.google.com`tFALSE`t/`tTRUE`t2147483647`to`tgit-longersoft.gmail.com=1/r-c1B5lDyBotMeTYx4GFnLi1NDW0ek8rB6hKVO1zJF8" >>"%USERPROFILE%\.gitcookies"
+
+Authenticate as longersoft@gmail.com to source.developers.google.com
+
+eval 'set +o history' 2>/dev/null || setopt HIST_IGNORE_SPACE 2>/dev/null
+ touch ~/.gitcookies
+ chmod 0600 ~/.gitcookies
+
+ git config --global http.cookiefile ~/.gitcookies
+
+ tr , \\t <<\__END__ >>~/.gitcookies
+source.developers.google.com,FALSE,/,TRUE,2147483647,o,git-longersoft.gmail.com=1/r-c1B5lDyBotMeTYx4GFnLi1NDW0ek8rB6hKVO1zJF8
+__END__
+eval 'set -o history' 2>/dev/null || unsetopt HIST_IGNORE_SPACE 2>/dev/null
+
+This script is designed to work in bash and zsh. It ensures that the password is not saved in your shell history.
+If your home directory is on a network filesystem, consider using a location on local disk.
+
+Revoke cookies
+https://www.google.com/accounts/IssuedAuthSubTokens
+
+=> Resolved: update to latest git version 2.18.x
+
+-------------
+Clone your Cloud Repository to a local Git repository:
+> gcloud init
+> gcloud source repos clone bot-bitmex --project=bot-bitmex
+> cd bot-bitmex
+> git add -A
+> git commit -m "message"
+> git push -u origin master
+
+Google Cloud Cron:
+PHP: https://cloud.google.com/appengine/docs/standard/php/config/cron
+https://cloud.google.com/appengine/docs/flexible/nodejs/scheduling-jobs-with-cron-yaml
+https://console.cloud.google.com/appengine/taskqueues/cron?project=bot-bitmex
+
+List project to delete
+https://console.cloud.google.com/cloud-resource-manager?_ga=2.201590161.-1421894554.1535687418&_gac=1.44887696.1535702738.EAIaIQobChMI_-KdveqW3QIVkAsrCh31xQ_bEAAYASABEgJP9PD_BwE
+
+Google Cloud Buil NodeJS app:
+https://cloud.google.com/appengine/docs/standard/nodejs/building-app/
+
+Create new repo
+https://console.cloud.google.com/code/develop/browse/bossbaby-bot?project=bossbaby-bot
+
+-------------
+Amazon:
+https://github.com/aws/aws-sdk-php
+https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/php/example_code
+https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-examples-creating-buckets.html
+https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html?icmpid=docs_iam_console
+
+Manage user and Access key:
+https://console.aws.amazon.com/iam/home#/users
+
+Error Your account is not signed up for the S3
 

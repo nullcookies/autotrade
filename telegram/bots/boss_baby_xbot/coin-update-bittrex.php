@@ -38,7 +38,7 @@ function run_cron() {
             }
             $arr['symbols'][$coin] = $item;
             $arr['symbols'][$coin]['price'] = $item['Last'];
-            $arr['symbols'][$coin]['volume'] = $item['Volume'];
+            $arr['symbols'][$coin]['volume'] = $item['BaseVolume'];
         }
         unset($tmp);
 
