@@ -516,6 +516,12 @@ git remote show bitbucket
 git remote show github
 git remote show heroku
 
+Git show all remote url:
+git remote
+
+Add github as remote
+https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/
+
 git add -A
 git commit -m "*change buildpack"
 
@@ -526,6 +532,72 @@ git push heroku HEAD:master
 git pull bitbucket master
 git pull github master
 git pull heroku master
+
+git fetch bitbucket master
+git fetch github master
+
+git push bitbucket master
+git push github master
+
+-----
+Git store username, password
+https://stackoverflow.com/questions/35942754/how-to-save-username-and-password-in-git
+git config credential.helper store
+git pull
+
+-----
+Git add user
+git config user.email "longersoft@gmail.com"
+git config user.name "Long Vu"
+
+-----
+Git show config:
+git config --list
+
+> git config --list
+core.symlinks=false
+core.autocrlf=true
+color.diff=auto
+color.status=auto
+color.branch=auto
+color.interactive=true
+pack.packsizelimit=2g
+help.format=html
+http.sslcainfo=D:/Git/mingw64/ssl/certs/ca-bundle.crt
+diff.astextplain.textconv=astextplain
+rebase.autosquash=true
+http.sslcainfo=C:/Users/devnghia/AppData/Local/Programs/Git/mingw64/ssl/certs/ca-bundle.crt
+http.sslbackend=openssl
+diff.astextplain.textconv=astextplain
+filter.lfs.clean=git-lfs clean -- %f
+filter.lfs.smudge=git-lfs smudge -- %f
+filter.lfs.process=git-lfs filter-process
+filter.lfs.required=true
+credential.helper=manager
+core.editor='C:\Program Files (x86)\Notepad++\notepad++.exe' -multiInst -notabbar -nosession -noPlugin
+user.name=Long Vu
+user.email=longersoft@gmail.com
+credential.https://source.developers.google.com.helper=gcloud.cmd
+http.cookiefile=C:/Users/devnghia/.gitcookies
+core.repositoryformatversion=0
+core.filemode=false
+core.bare=false
+core.logallrefupdates=true
+core.symlinks=false
+core.ignorecase=true
+credential.helper=
+credential.helper=!gcloud.cmd auth git-helper --account=longersoft@gmail.com --ignore-unknown $@
+remote.origin.url=https://source.developers.google.com/p/bossbaby-bot/r/bossbaby-bot
+remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
+branch.master.remote=origin
+branch.master.merge=refs/heads/master
+remote.github.url=https://github.com/longersoft/autotrade.git
+remote.github.fetch=+refs/heads/*:refs/remotes/github/*
+remote.bitbucket.url=https://longersoft@bitbucket.org/longersoft/autotrade.git
+remote.bitbucket.fetch=+refs/heads/*:refs/remotes/bitbucket/*
+user.email=longersoft@gmail.com
+user.name=Long Vu
+(END)
 
 ---
 Git fetch with username and password

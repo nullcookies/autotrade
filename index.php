@@ -31,5 +31,7 @@ if (isset($_SESSION['user_name']) and $_SESSION['user_name']) {
 }
 else {
 	echo 'Silence is golden!!!';
+
+	phpinfo();
 }
 ?>
