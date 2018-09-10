@@ -941,8 +941,12 @@ List project to delete
 https://console.cloud.google.com/cloud-resource-manager
 https://console.cloud.google.com/cloud-resource-manager?_ga=2.201590161.-1421894554.1535687418&_gac=1.44887696.1535702738.EAIaIQobChMI_-KdveqW3QIVkAsrCh31xQ_bEAAYASABEgJP9PD_BwE
 
-Google Cloud Buil NodeJS app:
+Google Cloud Build NodeJS app:
+https://cloud.google.com/nodejs/
 https://cloud.google.com/appengine/docs/standard/nodejs/building-app/
+
+PHP app:
+https://cloud.google.com/php/docs/
 
 Create new repo
 https://console.cloud.google.com/code/develop/browse/bossbaby-bot?project=bossbaby-bot
@@ -964,4 +968,45 @@ https://us-east-2.console.aws.amazon.com/console/home?region=us-east-2#
 https://s3.console.aws.amazon.com/console/signup?#
 https://us-east-2.console.aws.amazon.com/console/signup?region=us-east-2
 https://aws.amazon.com/free/
+
+Create bucket
+https://docs.aws.amazon.com/aws-sdk-php/v3/api/
+https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-s3-2006-03-01.html#createbucket
+https://docs.aws.amazon.com/aws-sdk-php/v2/guide/service-s3.html
+
+Put object:
+https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-mediastore-data-2017-09-01.html#putobject
+
+Delete bucket:
+https://docs.aws.amazon.com/AmazonS3/latest/user-guide/delete-bucket.html
+
+Example:
+https://gist.github.com/keithweaver/69869c88c9b98dcc8d168f82a7be3807
+https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/php/example_code/s3/PutObject.php
+
+List all file in bucket:
+https://docs.aws.amazon.com/AmazonS3/latest/dev/ListingObjectKeysUsingPHP.html
+
+-----
+Start PHP local by command:
+> php -S localhost:8000 -t [path/to/folder]
+http://localhost:8000
+
+Install LAMP on Gcloud:
+https://cloud.google.com/community/tutorials/setting-up-lamp
+
+Start Node JS local by command:
+> node file.js
+> npm start
+
+Gcloud deploy:
+https://cloud.google.com/appengine/docs/flexible/nodejs/testing-and-deploying-your-app
+gcloud app deploy --project PROJECT_ID --version VERSION_ID --no-promote
+gcloud app deploy --project bossbaby-bot --no-promote
+
+----
+https://cloud.google.com/php/getting-started/tutorial-app
+gcloud auth application-default login
+gcloud config list
+gcloud config set project [YOUR_PROJECT_ID]
 
