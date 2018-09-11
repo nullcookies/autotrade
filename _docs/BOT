@@ -958,6 +958,9 @@ https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/php/example_code
 https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/s3-examples-creating-buckets.html
 https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html?icmpid=docs_iam_console
 
+Manage, Home:
+https://console.aws.amazon.com/s3/home
+
 Manage user and Access key:
 https://console.aws.amazon.com/iam/home#/users
 
@@ -968,6 +971,14 @@ https://us-east-2.console.aws.amazon.com/console/home?region=us-east-2#
 https://s3.console.aws.amazon.com/console/signup?#
 https://us-east-2.console.aws.amazon.com/console/signup?region=us-east-2
 https://aws.amazon.com/free/
+
+Installing the AWS Command Line Interface
+pip install awscli --upgrade --user
+
+Setup:
+https://aws.amazon.com/documentation/cli/
+https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html
+https://docs.aws.amazon.com/AmazonS3/latest/dev/setup-aws-cli.html
 
 Create bucket
 https://docs.aws.amazon.com/aws-sdk-php/v3/api/
@@ -980,12 +991,69 @@ https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-mediastore-data-2017-09-01.ht
 Delete bucket:
 https://docs.aws.amazon.com/AmazonS3/latest/user-guide/delete-bucket.html
 
+Force delete bucket:
+https://docs.aws.amazon.com/AmazonS3/latest/dev/delete-or-empty-bucket.html#delete-bucket
+
+For some bucket can not to delete:
+https://stackoverflow.com/questions/41811971/cant-delete-empty-s3-bucket
+https://console.aws.amazon.com/s3/buckets/elasticbeanstalk-eu-central-1-467896064199/?region=ap-southeast-1&tab=permissions
+Open bucket -> Edit policy for Bucket -> Delete => Done
+Then run: > aws s3 rb s3://elasticbeanstalk-eu-central-1-467896064199 --force
+Or php code to delete:
+$result = $s3Client->deleteBucket([
+    'Bucket' => $BUCKET_NAME, //REQUIRED
+]);
+
 Example:
 https://gist.github.com/keithweaver/69869c88c9b98dcc8d168f82a7be3807
 https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/php/example_code/s3/PutObject.php
 
 List all file in bucket:
 https://docs.aws.amazon.com/AmazonS3/latest/dev/ListingObjectKeysUsingPHP.html
+
+Bucket list:
+https://console.aws.amazon.com/s3/buckets/
+https://console.aws.amazon.com/s3/buckets/longvu-test-20180910084045/test_example/?region=eu-central-1&tab=overview#
+
+Deploy PHP application:
+https://aws.amazon.com/getting-started
+https://aws.amazon.com/getting-started/tutorials/launch-an-app/
+https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/php-ha-tutorial.html
+https://eu-central-1.console.aws.amazon.com/elasticbeanstalk
+
+Bill, payment:
+https://console.aws.amazon.com/billing/home
+
+Close account:
+https://console.aws.amazon.com/billing/home?#/account
+
+Install Python, pip, and the EB CLI on Windows
+https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install-windows.html
+pip install awsebcli --upgrade --user
+
+Install the Elastic Beanstalk Command Line Interface (EB CLI)
+https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html?icmpid=docs_elasticbeanstalk_console
+
+Managing Access Keys for Your AWS Account Root User
+https://docs.aws.amazon.com/general/latest/gr/managing-aws-access-keys.html
+
+Main, Root account:
+Access Key ID: AKIAI7T4WDBDVMBDX3HA
+Secret Access Key: HfKB4aPzpKVkaGq3xNCHlZOR25WZR94Asanykrh6
+
+Create new EC2 virtual server:
+https://us-west-2.console.aws.amazon.com/ec2/v2/home
+region=ap-southeast-1
+region=us-west-2
+
+Connect to virtual machine:
+$ ssh -i ~/.ssh/bossbaby-bot.pem ec2-user@54.244.195.28
+
+User data:
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html
+
+Virtual Linux install Apache and PHP with yum
+https://support.rackspace.com/how-to/centos-6-apache-and-php-install/
 
 -----
 Start PHP local by command:
