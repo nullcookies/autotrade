@@ -18,7 +18,7 @@ ini_set("error_log", "error-" . date("Ymd") . ".log");
 $lang = 'en';
 
 // Auth with login/password (set true/false to enable/disable it)
-$use_auth = false;
+$use_auth = true;
 
 // Users: array('Username' => 'Password', 'Username2' => 'Password2', ...), Password has to encripted into MD5
 $auth_users = array(

@@ -138,8 +138,8 @@ class Utility
             if ($user == $key and md5(base64_encode($pass)) == $value) return $key;
         }
         
-        return 'admin';
-        // return null;
+        // return 'admin';
+        return null;
     }
 
     public static function func_replace_by_star($str = null)
