@@ -1106,6 +1106,13 @@ package-cleanup --cleandupes
 Add Security Group into an EC2 Instance
 https://serverfault.com/questions/37088/how-to-add-a-security-group-to-a-running-ec2-instance/565852#565852
 
+Install mb_scrypt
+https://stackoverflow.com/questions/10278561/how-to-install-php-mbstring-on-centos-6-2
+yum install php70w-mbstring
+
+Edit php.ini
+vi /etc/php.ini
+
 -----
 Start PHP local by command:
 > php -S localhost:8000 -t [path/to/folder]
