@@ -1106,12 +1106,33 @@ package-cleanup --cleandupes
 Add Security Group into an EC2 Instance
 https://serverfault.com/questions/37088/how-to-add-a-security-group-to-a-running-ec2-instance/565852#565852
 
+Delete EC2 Image
+https://serverfault.com/questions/436648/how-to-delete-ec2-ami
+
 Install mb_scrypt
 https://stackoverflow.com/questions/10278561/how-to-install-php-mbstring-on-centos-6-2
 yum install php70w-mbstring
 
 Edit php.ini
+$ ls -la /etc/httpd/conf.d/
 vi /etc/php.ini
+
+Find httpd.conf
+https://stackoverflow.com/questions/12202021/lost-httpd-conf-file-located-apache
+httpd -V
+One of the lines of output should look like:
+-D SERVER_CONFIG_FILE="conf/httpd.conf"
+which, combined with the line:
+-D HTTPD_ROOT="/etc/httpd"
+sudo vi /etc/httpd/conf/httpd.conf
+
+Error ssh “permissions are too open” error
+https://stackoverflow.com/questions/9270734/ssh-permissions-are-too-open-error
+chmod 400 ~/.ssh/id_rsa
+$ chmod 400 /Volumes/DATA/Projects/mine/bossbaby-bot/_docs/bossbaby-bot.pem
+bossbaby-bot$ ssh -i /Volumes/DATA/Projects/mine/bossbaby-bot/_docs/bossbaby-bot.pem ec2-user@34.217.108.117
+bossbaby-bitmex$ ssh -i /Volumes/DATA/Projects/mine/bossbaby-bot/_docs/bossbaby-bitmex.pem ec2-user@35.162.167.198
+bossbaby-test$ ssh -i /Volumes/DATA/Projects/mine/bossbaby-bot/_docs/bossbaby-test.pem ec2-user@34.220.167.144
 
 -----
 Start PHP local by command:
