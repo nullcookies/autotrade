@@ -1042,6 +1042,8 @@ Access Key ID: AKIAI7T4WDBDVMBDX3HA
 Secret Access Key: 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
 
 Create new EC2 virtual server:
+Create an EC2 Instance and Install a Web Server
+https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Tutorials.WebServerDB.CreateWebServer.html
 https://us-west-2.console.aws.amazon.com/ec2/v2/home
 region=ap-southeast-1
 region=us-west-2
@@ -1054,6 +1056,55 @@ https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html
 
 Virtual Linux install Apache and PHP with yum
 https://support.rackspace.com/how-to/centos-6-apache-and-php-install/
+sudo /usr/sbin/apachectl restart
+sudo service httpd start
+https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/php-development-environment.html
+
+Update PHP 7:
+https://www.rosehosting.com/blog/install-php-7-on-centos-7/
+
+Yum remove all PHP
+https://stackoverflow.com/questions/43537523/how-to-uninstall-an-older-php-version-from-centos7
+yum remove php-cli mod_php php-common
+yum install mod_php70u php70u-cli php70u-mysqlnd
+
+Delete EC2 Instance:
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/terminating-instances.html
+After you terminate an instance, it remains visible in the console for a short while, and then the entry is automatically deleted. You cannot delete the terminated instance entry yourself.
+
+Allow ping to EC2 Instance:
+https://stackoverflow.com/questions/21981796/cannot-ping-aws-ec2-instance
+By default everything is denied. The exception you need to add to the Security Group depends on the service you need to make available to the internet.
+If it is a webserver you will need to allow access to port 80 for 0.0.0.0/0 (which means any IP address).
+To allow pinging the instance you need to enable ICMP traffic.
+
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html#ec2-classic-security-groups
+#Inbound rules
+Add a new EC2 security group inbound rule:
+Type: Custom ICMP rule
+Protocol: Echo Request
+Port: N/A
+Source: your choice (I would select Anywhere to be able to ping from any machine)
+
+Create EC2 Instance from Image (AMI)
+https://aws.amazon.com/premiumsupport/knowledge-center/launch-instance-custom-ami/
+https://us-west-2.console.aws.amazon.com/ec2/v2/home?region=us-west-2#Images:search=ami-08061a3c086088140
+
+Deploy PHP application with Elastic Beanstalk
+https://ap-southeast-1.console.aws.amazon.com/elasticbeanstalk/home
+eb deploy
+
+Yum install git
+https://www.digitalocean.com/community/tutorials/how-to-install-git-on-centos-7
+
+Yum delete conflict packages:
+https://access.redhat.com/solutions/158883
+yum install yum-utils
+package-cleanup --dupes
+package-cleanup --cleandupes
+
+Add Security Group into an EC2 Instance
+https://serverfault.com/questions/37088/how-to-add-a-security-group-to-a-running-ec2-instance/565852#565852
 
 -----
 Start PHP local by command:
