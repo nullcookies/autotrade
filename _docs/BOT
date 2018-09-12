@@ -1129,3 +1129,7 @@ gcloud auth application-default login
 gcloud config list
 gcloud config set project [YOUR_PROJECT_ID]
 
+----
+Cron:
+*/1 * * * * php /var/www/html/telegram/bots/async-crons.php >/dev/null 2>&1
+

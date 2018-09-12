@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:13:17","last_updated_unix":1536736397,"last_updated_name":"XVG","XVG":"RT @SwenVanZanten: If you think we're chilling around with our \ud83e\udd5c\ud83e\udd5c your mistaken \ud83e\udd23\n\nWorking on the transaction layout after some days on wor\u2026"}

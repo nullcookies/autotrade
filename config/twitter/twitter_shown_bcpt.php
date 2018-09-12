@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:11:37","last_updated_unix":1536736297,"last_updated_name":"BCPT","BCPT":"How to Settle up in Lndr\n\n\u2b1b Step 1: Tap settle up on the friends tab\n\u2b1b Step 2: Select your settlement choice or rec\u2026 https:\/\/t.co\/hFjxbf9U7U"}

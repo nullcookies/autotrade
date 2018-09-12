@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:12:37","last_updated_unix":1536736357,"last_updated_name":"DGD","DGD":"I just published \u201cDigixDAO Governance Model \u2014 Update #11\u201d https:\/\/t.co\/ZGibaK3uY6"}

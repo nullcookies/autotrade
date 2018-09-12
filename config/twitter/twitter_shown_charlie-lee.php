@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:14:42","last_updated_unix":1536736482,"last_updated_name":"Charlie Lee","Charlie Lee":"RT @LTCFoundation: Our last Lightning Deal for the Litecoin Summit!\u26a1\ufe0f\u26a1\ufe0f\n\nUse code \u201cLIGHTNING60\" for 60% OFF passes. Register at https:\/\/t.c\u2026"}

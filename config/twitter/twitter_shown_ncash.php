@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:15:40","last_updated_unix":1536736540,"last_updated_name":"NCASH","NCASH":"RT @enblocibc: Kishva Ambigapathy talks about the potential of #Blockchain and its early adoption through youth innovation https:\/\/t.co\/PT2\u2026"}

@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:15:07","last_updated_unix":1536736507,"last_updated_name":"Richie","Richie":"Hey, I just $MET you and this is crazy\nBut here's my exchange, so trade here maybe\n\n@BittrexExchange"}

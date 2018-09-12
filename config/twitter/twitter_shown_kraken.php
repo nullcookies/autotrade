@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:15:33","last_updated_unix":1536736533,"last_updated_name":"Kraken","Kraken":"Thank you @CamiRusso for the accurate reporting. Never fun saying goodbye to team members but business needs change\u2026 https:\/\/t.co\/VBfY3ekvrE"}

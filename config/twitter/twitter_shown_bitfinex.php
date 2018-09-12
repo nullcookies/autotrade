@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:15:29","last_updated_unix":1536736529,"last_updated_name":"Bitfinex","Bitfinex":"Sarah Compani, Bitfinex Legal Counsel, stopped by The Cyberlaw Podcast last week to discuss security and best pract\u2026 https:\/\/t.co\/muPFaxY00O"}

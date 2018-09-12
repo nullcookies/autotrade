@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:13:46","last_updated_unix":1536736426,"last_updated_name":"WAVES","WAVES":"On 21 September #Waves Developers Advocate @ikardanoff will be giving a presentation about #SmartContracts in Singa\u2026 https:\/\/t.co\/eEQwlF8zAi"}

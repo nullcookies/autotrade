@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:14:08","last_updated_unix":1536736448,"last_updated_name":"XZC","XZC":"RT @wildwestcryptos: Bruce Porter speaks with Aaron Ting at the ASEAN Decentralized 2.0 Conference #Zcoin #crypto https:\/\/t.co\/7r5IdImWlt"}

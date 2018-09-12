@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:11:59","last_updated_unix":1536736319,"last_updated_name":"ADA","ADA":"We have moved over to @Cardano, please head there \ud83d\ude00 https:\/\/t.co\/MbSnM5eyvP"}

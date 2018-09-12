@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:13:11","last_updated_unix":1536736391,"last_updated_name":"BQX","BQX":"Hey @SatoshiLite! In case you missed it: We thought to let you know that $LTC is now fully transactable in the Etho\u2026 https:\/\/t.co\/UQPcksXZpn"}

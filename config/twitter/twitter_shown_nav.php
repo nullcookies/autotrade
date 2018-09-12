@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:15:22","last_updated_unix":1536736522,"last_updated_name":"NAV","NAV":"A big thank you to everyone who participated in the #NavCoin #OpenAlias #competition. The winners are being notifie\u2026 https:\/\/t.co\/OcLT1Jmzaf"}

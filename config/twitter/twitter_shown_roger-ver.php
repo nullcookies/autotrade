@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:14:50","last_updated_unix":1536736490,"last_updated_name":"Roger Ver","Roger Ver":"I don't retweet other people's tweets often, but when I do, it is because it is fantastic content!  Well done\u2026 https:\/\/t.co\/SO0CFXTvlz"}

@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:13:19","last_updated_unix":1536736399,"last_updated_name":"FUN","FUN":"RT @EthereumNetw: FunFair's Gambling License Secured &amp; Gearing up for September Launch\n@funfairtech https:\/\/t.co\/L4sf0hlWMD"}

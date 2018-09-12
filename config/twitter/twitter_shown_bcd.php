@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:11:24","last_updated_unix":1536736284,"last_updated_name":"BCD","BCD":"RT @roboadvisorcoin: Our Robot is still keeping a watchful eye on @BitcoinDiamond_.\nIs it still an interesting buy?\nhttps:\/\/t.co\/Gwiq4oItKg"}

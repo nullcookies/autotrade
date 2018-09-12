@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:12:00","last_updated_unix":1536736320,"last_updated_name":"SALT","SALT":"Have you tried the upgraded SALT Platform when applying for a loan?  If you haven\u2019t visited SALT recently, see how\u2026 https:\/\/t.co\/1gwNPRBahK"}

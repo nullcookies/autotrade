@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:16:23","last_updated_unix":1536736583,"last_updated_name":"QLC","QLC":"Curious to know how $QLC is planning to implement #smartcontracts on top of #BlockLattice? Find out the answer belo\u2026 https:\/\/t.co\/I6VmWetBZp"}

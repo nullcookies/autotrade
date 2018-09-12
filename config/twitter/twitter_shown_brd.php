@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:11:50","last_updated_unix":1536736310,"last_updated_name":"BRD","BRD":"For all tweets regarding the BRD token, follow our official account @BRDHQ \n\n- Social Media Team"}

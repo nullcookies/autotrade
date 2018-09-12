@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:14:28","last_updated_unix":1536736468,"last_updated_name":"KNC","KNC":"With the massive amount of innovation happening, how can we reduce the friction in the blockchain space and allow t\u2026 https:\/\/t.co\/xoa4YfSWzg"}

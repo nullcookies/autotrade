@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:12:05","last_updated_unix":1536736325,"last_updated_name":"SNGLS","SNGLS":"VP of Entertainment, Jason Tyrrell, and VP of Entertainment Finance &amp; Development, Dan Hyman, speak at #TIFF to dis\u2026 https:\/\/t.co\/wpjZeYCJsk"}

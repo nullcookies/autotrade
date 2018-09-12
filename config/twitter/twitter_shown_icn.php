@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:14:02","last_updated_unix":1536736442,"last_updated_name":"ICN","ICN":"RT @goFaast: Many people don't want to\/can't spend hours researching #cryptocurrencies ...they just want to make good investment choices wi\u2026"}

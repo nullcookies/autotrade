@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:15:25","last_updated_unix":1536736525,"last_updated_name":"Binance","Binance":"RT @MaltaStockExch: \u2066@MaltaStockExch\u2069 pleased to announce an MOU signed, with crypto giant \u2066@binance\u2069, to set up a security token Exchange.\u2026"}

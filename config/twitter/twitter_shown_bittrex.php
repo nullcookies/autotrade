@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:15:20","last_updated_unix":1536736520,"last_updated_name":"Bittrex","Bittrex":"RT @SimonYuSEA: \u201cIf you\u2019re a bad actor you\u2019re going to go to avenues where peer to peer transactions are possible. It\u2019ll be hard for bad ac\u2026"}

@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:12:11","last_updated_unix":1536736331,"last_updated_name":"CND","CND":"Will the average performance of tokens issued by #exchanges outperform $ETH price development from 12:01 AM $UTC 11\u2026 https:\/\/t.co\/y4e2VDiBbh"}

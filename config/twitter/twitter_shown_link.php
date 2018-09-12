@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:12:03","last_updated_unix":1536736323,"last_updated_name":"LINK","LINK":"This @OpenLawOfficial demo shows how simple it is to connect legal contracts with real world fiat currencies using\u2026 https:\/\/t.co\/a4oYnint3K"}

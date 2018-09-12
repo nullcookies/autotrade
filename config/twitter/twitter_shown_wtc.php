@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:13:34","last_updated_unix":1536736414,"last_updated_name":"WTC","WTC":"Waltonchian partners with Dongdaemun Fashion Town Tourism Zone, the largest fashion shopping district in\u2026 https:\/\/t.co\/Itg8eHJUjK"}

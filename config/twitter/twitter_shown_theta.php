@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:15:17","last_updated_unix":1536736517,"last_updated_name":"THETA","THETA":"Karen Huh, SVP of CJ Group, joins Theta as strategic advisor for the Korean media sector:\n\nhttps:\/\/t.co\/9NUzCnfiAL"}

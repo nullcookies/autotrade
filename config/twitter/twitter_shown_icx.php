@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:13:58","last_updated_unix":1536736438,"last_updated_name":"ICX","ICX":"#ICONFoundation is proud to take part in 'Blockchain Seoul 2018' event. \nJ.H. Kim, ICON council member will be atte\u2026 https:\/\/t.co\/gsM4rimNh5"}

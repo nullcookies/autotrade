@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:13:28","last_updated_unix":1536736408,"last_updated_name":"GVT","GVT":"Greetings, Visioners! The day of the full-fledged release is what all we've been waiting for, and it is just around\u2026 https:\/\/t.co\/hVj4JTyKRZ"}

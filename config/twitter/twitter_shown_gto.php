@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:13:36","last_updated_unix":1536736416,"last_updated_name":"GTO","GTO":"Greetings from the 4th Global Blockchain Summit 2018 in Shanghai. @VitalikButerin @shanghaiist #blockchainweek #GTO\u2026 https:\/\/t.co\/oxwhZqobD5"}

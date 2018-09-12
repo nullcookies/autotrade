@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:10:48","last_updated_unix":1536736248,"last_updated_name":"OAX","OAX":"Our Digital Lead, Robson Chiu managed to catch Jehan Chu, Co-Founder of Kenetics Capital for a quick chat. Jehan is\u2026 https:\/\/t.co\/b4zj0goCQ3"}

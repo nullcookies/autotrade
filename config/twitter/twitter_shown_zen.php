@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:14:12","last_updated_unix":1536736452,"last_updated_name":"ZEN","ZEN":"\ud83d\udd0a\ud83d\udd0a\ud83d\udd0a\u00a0We've expanded our brand from @zencashofficial to @horizenglobal reflecting our transition from a cryptocurrenc\u2026 https:\/\/t.co\/qZTa9aKO6n"}

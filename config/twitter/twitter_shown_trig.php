@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:13:00","last_updated_unix":1536736380,"last_updated_name":"TRIG","TRIG":"RT @NRACarryGuard: BREAKING: The 2018 #NRACarryGuardExpo has been CANCELLED due to the impending threat of #HurricaneFlorence. Ticket purch\u2026"}

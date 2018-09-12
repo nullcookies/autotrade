@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:15:39","last_updated_unix":1536736539,"last_updated_name":"AE","AE":"Last week we gathered #aeternity's core team in Berlin and had great discussions, planning sessions and coding.\n\nEx\u2026 https:\/\/t.co\/JyaL5SdLNO"}

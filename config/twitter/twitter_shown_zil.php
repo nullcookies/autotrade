@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:14:16","last_updated_unix":1536736456,"last_updated_name":"ZIL","ZIL":"Join us in #London for a #Scilla smart contract workshop and hackathon on Oct 6 and 7. Sign up here\u2026 https:\/\/t.co\/Oat7OZS9cX"}

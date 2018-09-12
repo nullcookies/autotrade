@@ -1,0 +1,1 @@
+{"last_updated":"2018-09-12 14:16:10","last_updated_unix":1536736570,"last_updated_name":"POA","POA":"Great panel on scaling and interoperability with @barinov discussing sidechains and bridges as scalability solution\u2026 https:\/\/t.co\/78hrwLXoZq"}
