@@ -100,16 +100,16 @@ function run_cron() {
         }
     }
 
-    // // Format for Discord
-    // if ($list_coin_binance['discord']) {
-    //     foreach ($list_coin_binance['discord'] as $text) {
-    //         $data['text'] = trim($text);
+    // Format for Discord
+    if ($list_coin_binance['discord']) {
+        foreach ($list_coin_binance['discord'] as $text) {
+            $data['text'] = trim($text);
 
-    //         // Send message to Discord
-    //         $webhook_url = $environment->discord->bots->{1}->webhook_url;
-    //         $result = \BossBaby\Discord::sendMessage($webhook_url, $data['text']);
-    //         // \BossBaby\Utility::writeLog(__FILE__.'result2:'.serialize($result));
-    //         sleep(1);
-    //     }
-    // }
+            // Send message to Discord
+            $webhook_url = $environment->discord->bots->{6}->webhook_url;
+            $result = \BossBaby\Discord::sendMessage($webhook_url, $data['text']);
+            // \BossBaby\Utility::writeLog(__FILE__.'result2:'.serialize($result));
+            sleep(1);
+        }
+    }
 }
