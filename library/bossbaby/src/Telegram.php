@@ -1113,140 +1113,140 @@ class Telegram
                         // dump('$new_price'); dump($new_price);
                         // dump('$new_volume'); dump($new_volume);
                         if ($new_price <= 0 or $new_volume <= 0) continue;
-                        $calc_15m = $calc_1h = 0;
-                        $calc_vol_15m = $calc_vol_1h = 0;
+                        $calc_4h = $calc_24h = 0;
+                        $calc_vol_4h = $calc_vol_24h = 0;
                         $coin_name = (strrpos($coin, 'BTC') !== false) ? str_replace('BTC', '', $coin) : $coin;
                         // dump('$coin_name'); dump($coin_name); die;
                         if (in_array($coin_name, $list_ignore)) continue;
 
-                        // Check for 1h
-                        $changed_1h = '';
-                        $old_time_1h = (isset($old_data['updated_1h']) and $old_data['updated_1h']) ? $old_data['updated_1h'] : 0;
-                        $changed_time_1h = $current_time - $old_time_1h;
-                        // dump('changed_time_1h'); dump($changed_time_1h);
-                        if ($changed_time_1h >= 60*60) {
-                            $arr['1h'] = $list_coin;
-                            $arr['updated_1h'] = $current_time;
+                        // Check for 24h
+                        $changed_24h = '';
+                        $old_time_24h = (isset($old_data['updated_24h']) and $old_data['updated_24h']) ? $old_data['updated_24h'] : 0;
+                        $changed_time_24h = $current_time - $old_time_24h;
+                        // dump('changed_time_24h'); dump($changed_time_24h);
+                        if ($changed_time_24h >= 24*60*60) {
+                            $arr['24h'] = $list_coin;
+                            $arr['updated_24h'] = $current_time;
                         }
                         else {
-                            $arr['1h'] = $old_data['1h'];
-                            $arr['updated_1h'] = $old_time_1h;
+                            $arr['24h'] = $old_data['24h'];
+                            $arr['updated_24h'] = $old_time_24h;
                         }
-                        if (!isset($arr['changed_1h'])) $arr['changed_1h'] = [];
-                        if (isset($old_data['changed_1h'][$coin])) {
-                            $changed_1h = $arr['changed_1h'][$coin] = $old_data['changed_1h'][$coin];
+                        if (!isset($arr['changed_24h'])) $arr['changed_24h'] = [];
+                        if (isset($old_data['changed_24h'][$coin])) {
+                            $changed_24h = $arr['changed_24h'][$coin] = $old_data['changed_24h'][$coin];
                         }
-                        if (!isset($arr['changed_vol_1h'])) $arr['changed_vol_1h'] = [];
-                        if (isset($old_data['changed_vol_1h'][$coin])) {
-                            $changed_vol_1h = $arr['changed_vol_1h'][$coin] = $old_data['changed_vol_1h'][$coin];
+                        if (!isset($arr['changed_vol_24h'])) $arr['changed_vol_24h'] = [];
+                        if (isset($old_data['changed_vol_24h'][$coin])) {
+                            $changed_vol_24h = $arr['changed_vol_24h'][$coin] = $old_data['changed_vol_24h'][$coin];
                         }
-                        // dump(isset($old_data['1h']) and is_array($old_data['1h']) and count($old_data['1h']));
-                        if (isset($old_data['1h']) and is_array($old_data['1h']) and count($old_data['1h'])) {
-                            $tmp_arr = $old_data['1h'];
-                            // dump('array_key_exists($coin, $tmp_arr1h)'); dump(array_key_exists($coin, $tmp_arr));
+                        // dump(isset($old_data['24h']) and is_array($old_data['24h']) and count($old_data['24h']));
+                        if (isset($old_data['24h']) and is_array($old_data['24h']) and count($old_data['24h'])) {
+                            $tmp_arr = $old_data['24h'];
+                            // dump('array_key_exists($coin, $tmp_arr24h)'); dump(array_key_exists($coin, $tmp_arr));
                             if (array_key_exists($coin, $tmp_arr)) {
                                 $old_price = number_format($tmp_arr[$coin]['price'], 8);
                                 $old_volume = $tmp_arr[$coin]['volume'];
-                                // dump('changed_1h$old_price'); dump($old_price);
-                                // dump('changed_1h$old_volume'); dump($old_volume);
+                                // dump('changed_24h$old_price'); dump($old_price);
+                                // dump('changed_24h$old_volume'); dump($old_volume);
                                 if ($old_price > 0 and (float) $old_price != (float) $new_price) {
-                                    $calc_1h = round((float) (((float) $new_price - (float) $old_price) / (float) $old_price) * 100, 2);
-                                    if (!isset($arr['changed_1h'])) $arr['changed_1h'] = [];
-                                    $changed_1h = $arr['changed_1h'][$coin] = $calc_1h;
+                                    $calc_24h = round((float) (((float) $new_price - (float) $old_price) / (float) $old_price) * 100, 2);
+                                    if (!isset($arr['changed_24h'])) $arr['changed_24h'] = [];
+                                    $changed_24h = $arr['changed_24h'][$coin] = $calc_24h;
                                 }
                                 else {
-                                    $changed_1h = $arr['changed_1h'][$coin] = 0;
+                                    $changed_24h = $arr['changed_24h'][$coin] = 0;
                                 }
                                 if ($old_volume > 0 and (float) $old_volume != (float) $new_volume) {
-                                    $calc_vol_1h = round((float) (((float) $new_volume - (float) $old_volume) / (float) $old_volume) * 100, 2);
-                                    if (!isset($arr['changed_vol_1h'])) $arr['changed_vol_1h'] = [];
-                                    $changed_vol_1h = $arr['changed_vol_1h'][$coin] = $calc_vol_1h;
+                                    $calc_vol_24h = round((float) (((float) $new_volume - (float) $old_volume) / (float) $old_volume) * 100, 2);
+                                    if (!isset($arr['changed_vol_24h'])) $arr['changed_vol_24h'] = [];
+                                    $changed_vol_24h = $arr['changed_vol_24h'][$coin] = $calc_vol_24h;
                                 }
                                 else {
-                                    $changed_vol_1h = $arr['changed_vol_1h'][$coin] = 0;
+                                    $changed_vol_24h = $arr['changed_vol_24h'][$coin] = 0;
                                 }
                             }
                         }
 
-                        // Check for 15m
-                        $changed_15m = '';
-                        $old_time_15m = (isset($old_data['updated_15m']) and $old_data['updated_15m']) ? $old_data['updated_15m'] : 0;
-                        $changed_time_15m = $current_time - $old_time_15m;
-                        // dump('changed_time_15m'); dump($changed_time_15m);
-                        if ($changed_time_15m >= 15*60) {
-                            $arr['15m'] = $list_coin;
-                            $arr['updated_15m'] = $current_time;
+                        // Check for 4h
+                        $changed_4h = '';
+                        $old_time_4h = (isset($old_data['updated_4h']) and $old_data['updated_4h']) ? $old_data['updated_4h'] : 0;
+                        $changed_time_4h = $current_time - $old_time_4h;
+                        // dump('changed_time_4h'); dump($changed_time_4h);
+                        if ($changed_time_4h >= 4*60*60) {
+                            $arr['4h'] = $list_coin;
+                            $arr['updated_4h'] = $current_time;
                         }
                         else {
-                            $arr['15m'] = $old_data['15m'];
-                            $arr['updated_15m'] = $old_time_15m;
+                            $arr['4h'] = $old_data['4h'];
+                            $arr['updated_4h'] = $old_time_4h;
                         }
-                        if (!isset($arr['changed_15m'])) $arr['changed_15m'] = [];
-                        if (isset($old_data['changed_15m'][$coin])) {
-                            $changed_15m = $arr['changed_15m'][$coin] = $old_data['changed_15m'][$coin];
+                        if (!isset($arr['changed_4h'])) $arr['changed_4h'] = [];
+                        if (isset($old_data['changed_4h'][$coin])) {
+                            $changed_4h = $arr['changed_4h'][$coin] = $old_data['changed_4h'][$coin];
                         }
-                        if (!isset($arr['changed_vol_15m'])) $arr['changed_vol_15m'] = [];
-                        if (isset($old_data['changed_vol_15m'][$coin])) {
-                            $changed_vol_15m = $arr['changed_vol_15m'][$coin] = $old_data['changed_vol_15m'][$coin];
+                        if (!isset($arr['changed_vol_4h'])) $arr['changed_vol_4h'] = [];
+                        if (isset($old_data['changed_vol_4h'][$coin])) {
+                            $changed_vol_4h = $arr['changed_vol_4h'][$coin] = $old_data['changed_vol_4h'][$coin];
                         }
-                        // dump(isset($old_data['15m']) and is_array($old_data['15m']) and count($old_data['15m']));
-                        if (isset($old_data['15m']) and is_array($old_data['15m']) and count($old_data['15m'])) {
-                            $tmp_arr = $old_data['15m'];
-                            // dump('array_key_exists($coin, $tmp_arr15m)'); dump(array_key_exists($coin, $tmp_arr));
+                        // dump(isset($old_data['4h']) and is_array($old_data['4h']) and count($old_data['4h']));
+                        if (isset($old_data['4h']) and is_array($old_data['4h']) and count($old_data['4h'])) {
+                            $tmp_arr = $old_data['4h'];
+                            // dump('array_key_exists($coin, $tmp_arr4h)'); dump(array_key_exists($coin, $tmp_arr));
                             if (array_key_exists($coin, $tmp_arr)) {
                                 $old_price = number_format($tmp_arr[$coin]['price'], 8);
                                 $old_volume = $tmp_arr[$coin]['volume'];
-                                // dump('changed_15m$old_price'); dump($old_price);
-                                // dump('changed_15m$old_volume'); dump($old_volume);
+                                // dump('changed_4h$old_price'); dump($old_price);
+                                // dump('changed_4h$old_volume'); dump($old_volume);
                                 if ($old_price > 0 and $old_volume > 0 and (float) $old_price != (float) $new_price and (float) $old_volume != (float) $new_volume) {
-                                    $calc_15m = round((float) (((float) $new_price - (float) $old_price) / (float) $old_price) * 100, 2);
-                                    if (!isset($arr['changed_15m'])) $arr['changed_15m'] = [];
-                                    $changed_15m = $arr['changed_15m'][$coin] = $calc_15m;
-                                    $calc_vol_15m = round((float) (((float) $new_volume - (float) $old_volume) / (float) $old_volume) * 100, 2);
-                                    if (!isset($arr['changed_vol_15m'])) $arr['changed_vol_15m'] = [];
-                                    $changed_vol_15m = $arr['changed_vol_15m'][$coin] = $calc_vol_15m;
+                                    $calc_4h = round((float) (((float) $new_price - (float) $old_price) / (float) $old_price) * 100, 2);
+                                    if (!isset($arr['changed_4h'])) $arr['changed_4h'] = [];
+                                    $changed_4h = $arr['changed_4h'][$coin] = $calc_4h;
+                                    $calc_vol_4h = round((float) (((float) $new_volume - (float) $old_volume) / (float) $old_volume) * 100, 2);
+                                    if (!isset($arr['changed_vol_4h'])) $arr['changed_vol_4h'] = [];
+                                    $changed_vol_4h = $arr['changed_vol_4h'][$coin] = $calc_vol_4h;
                                 }
                                 else {
-                                    $changed_15m = $arr['changed_15m'][$coin] = 0;
-                                    $changed_vol_15m = $arr['changed_vol_15m'][$coin] = 0;
+                                    $changed_4h = $arr['changed_4h'][$coin] = 0;
+                                    $changed_vol_4h = $arr['changed_vol_4h'][$coin] = 0;
                                 }
                             }
                         }
 
                         // Check to add to returns
-                        if (((($calc_15m <= $max) and ($calc_vol_15m > $max_vol) and (isset($old_data['changed_vol_15m'][$coin]) and $calc_15m > $old_data['changed_vol_15m'][$coin])) and ($changed_time_15m >= 15*60))
-                            or ((($calc_1h <= $max) and ($calc_vol_1h > $max_vol) and (isset($old_data['changed_vol_1h'][$coin]) and $calc_1h > $old_data['changed_vol_1h'][$coin])) and ($changed_time_1h >= 60*60))
+                        if (((($calc_4h <= $max) and ($calc_vol_4h > $max_vol) and (isset($old_data['changed_vol_4h'][$coin]) and $calc_4h > $old_data['changed_vol_4h'][$coin])) and ($changed_time_4h >= 4*60*60))
+                            or ((($calc_24h <= $max) and ($calc_vol_24h > $max_vol) and (isset($old_data['changed_vol_24h'][$coin]) and $calc_24h > $old_data['changed_vol_24h'][$coin])) and ($changed_time_24h >= 24*60*60))
                         ) {
-                            // if ($calc_1h <= $max)
-                            //     $changed_1h = ' (<b>' . (float) $calc_1h . '</b>%/1h)';
-                            // elseif ($calc_15m <= $max)
-                            //     $changed_15m = ' (<b>' . (float) $calc_15m . '</b>%/15m)';
+                            // if ($calc_24h <= $max)
+                            //     $changed_24h = ' (<b>' . (float) $calc_24h . '</b>%/24h)';
+                            // elseif ($calc_4h <= $max)
+                            //     $changed_4h = ' (<b>' . (float) $calc_4h . '</b>%/4h)';
                             
-                            // if ($changed_1h == '' and isset($old_data['changed_1h'][$coin])) $changed_1h = ' (' . (float) $old_data['changed_1h'][$coin] . '%/1h)';
-                            // if ($changed_15m == '' and isset($old_data['changed_15m'][$coin])) $changed_15m = ' (' . (float) $old_data['changed_15m'][$coin] . '%/15m)';
-                            // if (strpos($changed_1h, '(') === false) $changed_1h = ' (' . $changed_1h . '%/1h)';
-                            // if (strpos($changed_15m, '(') === false) $changed_15m = ' (' . $changed_15m . '%/15m)';
+                            // if ($changed_24h == '' and isset($old_data['changed_24h'][$coin])) $changed_24h = ' (' . (float) $old_data['changed_24h'][$coin] . '%/24h)';
+                            // if ($changed_4h == '' and isset($old_data['changed_4h'][$coin])) $changed_4h = ' (' . (float) $old_data['changed_4h'][$coin] . '%/4h)';
+                            // if (strpos($changed_24h, '(') === false) $changed_24h = ' (' . $changed_24h . '%/24h)';
+                            // if (strpos($changed_4h, '(') === false) $changed_4h = ' (' . $changed_4h . '%/4h)';
 
-                            if ($calc_vol_1h > $max_vol)
-                                $changed_vol_1h = ' (<b>' . (float) $calc_vol_1h . '</b>%/1h)';
-                            elseif ($calc_vol_15m > $max_vol)
-                                $changed_vol_15m = ' (<b>' . (float) $calc_vol_15m . '</b>%/15m)';
+                            if ($calc_vol_24h > $max_vol)
+                                $changed_vol_24h = ' (<b>' . (float) $calc_vol_24h . '</b>%/24h)';
+                            elseif ($calc_vol_4h > $max_vol)
+                                $changed_vol_4h = ' (<b>' . (float) $calc_vol_4h . '</b>%/4h)';
                             
-                            if ($changed_vol_1h == '' and isset($old_data['changed_vol_1h'][$coin])) $changed_vol_1h = ' (' . (float) $old_data['changed_vol_1h'][$coin] . '%/1h)';
-                            if ($changed_vol_15m == '' and isset($old_data['changed_vol_15m'][$coin])) $changed_vol_15m = ' (' . (float) $old_data['changed_vol_15m'][$coin] . '%/15m)';
-                            if (strpos($changed_vol_1h, '(') === false) $changed_vol_1h = ' (' . $changed_vol_1h . '%/1h)';
-                            if (strpos($changed_vol_15m, '(') === false) $changed_vol_15m = ' (' . $changed_vol_15m . '%/15m)';
+                            if ($changed_vol_24h == '' and isset($old_data['changed_vol_24h'][$coin])) $changed_vol_24h = ' (' . (float) $old_data['changed_vol_24h'][$coin] . '%/24h)';
+                            if ($changed_vol_4h == '' and isset($old_data['changed_vol_4h'][$coin])) $changed_vol_4h = ' (' . (float) $old_data['changed_vol_4h'][$coin] . '%/4h)';
+                            if (strpos($changed_vol_24h, '(') === false) $changed_vol_24h = ' (' . $changed_vol_24h . '%/24h)';
+                            if (strpos($changed_vol_4h, '(') === false) $changed_vol_4h = ' (' . $changed_vol_4h . '%/4h)';
                             
-                            $text_out_link = \BossBaby\Utility::func_clean_double_space($changed_vol_1h . $changed_vol_15m);
+                            $text_out_link = \BossBaby\Utility::func_clean_double_space($changed_vol_24h . $changed_vol_4h);
 
                             // Format for Telegram
                             // https://www.binance.com/trade.html?symbol=BTC_USDT
                             $tmp_str = '<a href="https://www.binance.com/trade.html?symbol=' . $coin_name . '_BTC">' . $coin_name . '</a> ' . $text_out_link . PHP_EOL;
-                            if (isset($old_data['15m']) and isset($old_data['15m'][$coin]['price'])) $tmp_str .= '15m ago: ' . number_format($old_data['15m'][$coin]['price'], 8);
-                            if (isset($old_data['1h']) and isset($old_data['1h'][$coin]['price'])) $tmp_str .= ' -1h ago: ' . number_format($old_data['1h'][$coin]['price'], 8);
-                            $tmp_str .= PHP_EOL . 'last price: <b>' . $new_price . '</b>' . PHP_EOL;
-                            if (isset($old_data['15m']) and isset($old_data['15m'][$coin]['volume'])) $tmp_str .= '15m ago: ' . number_format($old_data['15m'][$coin]['volume'], 2);
-                            if (isset($old_data['1h']) and isset($old_data['1h'][$coin]['volume'])) $tmp_str .= ' -1h ago: ' . number_format($old_data['1h'][$coin]['volume'], 2);
+                            // if (isset($old_data['4h']) and isset($old_data['4h'][$coin]['price'])) $tmp_str .= '4h ago: ' . number_format($old_data['4h'][$coin]['price'], 8);
+                            // if (isset($old_data['24h']) and isset($old_data['24h'][$coin]['price'])) $tmp_str .= ' -24h ago: ' . number_format($old_data['24h'][$coin]['price'], 8);
+                            // $tmp_str .= PHP_EOL . 'last price: <b>' . $new_price . '</b>' . PHP_EOL;
+                            if (isset($old_data['4h']) and isset($old_data['4h'][$coin]['volume'])) $tmp_str .= '4h ago: ' . number_format($old_data['4h'][$coin]['volume'], 2);
+                            if (isset($old_data['24h']) and isset($old_data['24h'][$coin]['volume'])) $tmp_str .= ' -24h ago: ' . number_format($old_data['24h'][$coin]['volume'], 2);
                             $tmp_str .= PHP_EOL . 'last volume: <b>' . number_format($new_volume, 2) . '</b>';
                             $return['telegram'][] = $tmp_str . PHP_EOL;
 
@@ -1255,11 +1255,11 @@ class Telegram
                             $text_out_link = str_replace('<b>', '**', $text_out_link);
                             $text_out_link = str_replace('</b>', '**', $text_out_link);
                             $tmp_str .= PHP_EOL . '**#' . $coin_name . '** ' . $text_out_link . PHP_EOL;
-                            if (isset($old_data['15m']) and isset($old_data['1m'][$coin]['price'])) $tmp_str .= '15m ago: ' . number_format($old_data['15m'][$coin]['price'], 8);
-                            if (isset($old_data['1h']) and isset($old_data['1h'][$coin]['price'])) $tmp_str .= ' -1h ago: ' . number_format($old_data['1h'][$coin]['price'], 8);
-                            $tmp_str .= PHP_EOL . 'last price: **' . $new_price . '**' . PHP_EOL;
-                            if (isset($old_data['15m']) and isset($old_data['15m'][$coin]['volume'])) $tmp_str .= '15m ago: ' . number_format($old_data['15m'][$coin]['volume'], 2);
-                            if (isset($old_data['1h']) and isset($old_data['1h'][$coin]['volume'])) $tmp_str .= ' -1h ago: ' . number_format($old_data['1h'][$coin]['volume'], 2);
+                            // if (isset($old_data['4h']) and isset($old_data['1m'][$coin]['price'])) $tmp_str .= '4h ago: ' . number_format($old_data['4h'][$coin]['price'], 8);
+                            // if (isset($old_data['24h']) and isset($old_data['24h'][$coin]['price'])) $tmp_str .= ' -24h ago: ' . number_format($old_data['24h'][$coin]['price'], 8);
+                            // $tmp_str .= PHP_EOL . 'last price: **' . $new_price . '**' . PHP_EOL;
+                            if (isset($old_data['4h']) and isset($old_data['4h'][$coin]['volume'])) $tmp_str .= '4h ago: ' . number_format($old_data['4h'][$coin]['volume'], 2);
+                            if (isset($old_data['24h']) and isset($old_data['24h'][$coin]['volume'])) $tmp_str .= ' -24h ago: ' . number_format($old_data['24h'][$coin]['volume'], 2);
                             $tmp_str .= PHP_EOL . 'last volume: **' . number_format($new_volume, 2) . '**';
                             $return['discord'][] = $tmp_str;
                             // break;
@@ -1269,10 +1269,10 @@ class Telegram
             } // endif file-exist
             else {
                 // Put current coin data into array
-                $arr['15m'] = $arr['1h'] = $list_coin;
-                $arr['updated_15m'] = $arr['updated_1h'] = time();
-                $arr['changed_15m'] = $arr['changed_1h'] = [];
-                $arr['changed_vol_15m'] = $arr['changed_vol_1h'] = [];
+                $arr['4h'] = $arr['24h'] = $list_coin;
+                $arr['updated_4h'] = $arr['updated_24h'] = time();
+                $arr['changed_4h'] = $arr['changed_24h'] = [];
+                $arr['changed_vol_4h'] = $arr['changed_vol_24h'] = [];
             }
             
             // Write again into file

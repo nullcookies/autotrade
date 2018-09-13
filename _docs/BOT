@@ -1068,6 +1068,9 @@ https://stackoverflow.com/questions/43537523/how-to-uninstall-an-older-php-versi
 yum remove php-cli mod_php php-common
 yum install mod_php70u php70u-cli php70u-mysqlnd
 
+https://www.enterprisedb.com/docs/en/9.6/instguide/EDB_Postgres_Advanced_Server_Installation_Guide.1.76.html
+https://superuser.com/questions/547280/how-to-completely-uninstall-a-package-including-all-extra-files-that-came-with
+
 Delete EC2 Instance:
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/terminating-instances.html
 After you terminate an instance, it remains visible in the console for a short while, and then the entry is automatically deleted. You cannot delete the terminated instance entry yourself.
@@ -1111,11 +1114,20 @@ https://serverfault.com/questions/436648/how-to-delete-ec2-ami
 
 Install mb_scrypt
 https://stackoverflow.com/questions/10278561/how-to-install-php-mbstring-on-centos-6-2
-yum install php70w-mbstring
+$ sudo yum install php70w-mbstring
 
 Edit php.ini
 $ ls -la /etc/httpd/conf.d/
 vi /etc/php.ini
+
+Start Node Server automatic
+https://github.com/chovy/node-startup
+https://stackoverflow.com/questions/11275870/how-can-i-automatically-start-a-node-js-application-in-amazon-linux-ami-on-aws
+
+Node errors:
+(node:4832) [DEP0025] DeprecationWarning: sys is deprecated. Use util instead.
+https://github.com/Ziv-Barber/officegen/issues/86
+var sys = require('util');
 
 Find httpd.conf
 https://stackoverflow.com/questions/12202021/lost-httpd-conf-file-located-apache
@@ -1133,6 +1145,27 @@ $ chmod 400 /Volumes/DATA/Projects/mine/bossbaby-bot/_docs/bossbaby-bot.pem
 bossbaby-bot$ ssh -i /Volumes/DATA/Projects/mine/bossbaby-bot/_docs/bossbaby-bot.pem ec2-user@34.217.108.117
 bossbaby-bitmex$ ssh -i /Volumes/DATA/Projects/mine/bossbaby-bot/_docs/bossbaby-bitmex.pem ec2-user@35.162.167.198
 bossbaby-test$ ssh -i /Volumes/DATA/Projects/mine/bossbaby-bot/_docs/bossbaby-test.pem ec2-user@34.220.167.144
+
+Yum check error packages excluded due to repository priority protections
+https://serverfault.com/questions/312472/what-does-that-mean-packages-excluded-due-to-repository-priority-protections
+$ sudo yum list updates -d3
+
+Show all php modules
+http://www.knowledgebase-script.com/kb/article/how-to-enable-mbstring-in-php-46.html
+> php -m
+
+Install PHP GD
+https://ma.ttias.be/install-gd-library-for-php5-on-centos/
+Show all rpm packages:
+$ rpm -qa | grep php
+
+Show all PHP extensions:
+$ ls -la /usr/lib64/php/modules/
+
+---
+Check port
+> telnet domain <port-number>
+> telnet google.com 3306
 
 -----
 Start PHP local by command:
@@ -1160,4 +1193,17 @@ gcloud config set project [YOUR_PROJECT_ID]
 ----
 Cron:
 */1 * * * * php /var/www/html/telegram/bots/async-crons.php >/dev/null 2>&1
+
+---
+Node Js app chat bot:
+https://recast.ai/blog/nodejs-chatbot-movie-bot/
+
+Api on TheMovieDB
+https://www.themoviedb.org/settings/api
+API: d5cf93453fcf21e7cd7cfc7443dfe04c
+Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNWNmOTM0NTNmY2YyMWU3Y2Q3Y2ZjNzQ0M2RmZTA0YyIsInN1YiI6IjViOThkZWQzMGUwYTI2M2RiMjAwOTZjOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Ed552MraU1nhU4IKH2JB3UCrzqdhvA__TBPydEnnK3Q
+Example request: https://api.themoviedb.org/3/movie/550?api_key=d5cf93453fcf21e7cd7cfc7443dfe04c
+Git:
+https://github.com/RecastAI/Webchat.git
+https://github.com/Itera/chatbot-example-nodejs.git
 
