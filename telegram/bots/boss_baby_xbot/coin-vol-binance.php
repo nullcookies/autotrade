@@ -27,7 +27,7 @@ run_cron();
 // sleep($sleep); run_cron();
 
 function run_cron() {
-    \BossBaby\Utility::writeLog('----'.__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
+    // \BossBaby\Utility::writeLog('----'.__FILE__ . '::' . __FUNCTION__ . '::' . date('YmdHis'));
 
     // Get global config
     global $environment;

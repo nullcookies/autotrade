@@ -1213,9 +1213,11 @@ class Telegram
                             }
                         }
 
+                        \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::calc_4h::' . $calc_4h . '::calc_24h::' . $calc_24h . '::calc_vol_4h::' . $calc_vol_4h . '::calc_vol_24h::' . $calc_vol_24h . '::changed_time_4h::' . $changed_time_4h . '::changed_time_24h::' . $changed_time_24h);
+
                         // Check to add to returns
-                        if (((($calc_4h <= $max) and ($calc_vol_4h > $max_vol) and (isset($old_data['changed_vol_4h'][$coin]) and $calc_4h > $old_data['changed_vol_4h'][$coin])) and ($changed_time_4h >= 4*60*60))
-                            or ((($calc_24h <= $max) and ($calc_vol_24h > $max_vol) and (isset($old_data['changed_vol_24h'][$coin]) and $calc_24h > $old_data['changed_vol_24h'][$coin])) and ($changed_time_24h >= 24*60*60))
+                        if (((($calc_vol_4h > $max_vol) and (isset($old_data['changed_vol_4h'][$coin]) and ($changed_time_4h >= 4*60*60))
+                            or ((($calc_vol_24h > $max_vol) and (isset($old_data['changed_vol_24h'][$coin]) and ($changed_time_24h >= 24*60*60))
                         ) {
                             // if ($calc_24h <= $max)
                             //     $changed_24h = ' (<b>' . (float) $calc_24h . '</b>%/24h)';
