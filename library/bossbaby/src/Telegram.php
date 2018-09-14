@@ -1052,7 +1052,7 @@ class Telegram
 
     public static function get_coin_vol_binance($min = -5, $max = 5, $min_vol = -5, $max_vol = 5)
     {
-        // \BossBaby\Utility::writeLog('----'.__FILE__ . '::' . __FUNCTION__ . '::min::' . $min . '::max::' . $max . '::min_vol::' . $min_vol . '::max_vol::' . $max_vol);
+        \BossBaby\Utility::writeLog('----'.__FILE__ . '::' . __FUNCTION__ . '::min::' . $min . '::max::' . $max . '::min_vol::' . $min_vol . '::max_vol::' . $max_vol);
 
         $return = ['telegram' => [], 'discord' => []];
 
