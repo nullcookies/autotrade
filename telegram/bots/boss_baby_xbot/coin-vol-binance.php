@@ -62,11 +62,6 @@ function run_cron() {
     $list_coin_binance = \BossBaby\Telegram::get_coin_vol_binance($min_changed, $max_changed, $min_vol, $max_vol);
     // \BossBaby\Utility::writeLog('list_coin_binance:'.serialize($list_coin_binance));
 
-    dump($list_coin_binance);
-    dump($max_changed);
-    dump($max_vol);
-    die;
-
     // if ($list_coin_binance)
     //     $data['text'] .= trim($list_coin_binance);
 
