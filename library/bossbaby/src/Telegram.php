@@ -1052,7 +1052,7 @@ class Telegram
 
     public static function get_coin_vol_binance($min = -5, $max = 5, $min_vol = -5, $max_vol = 5)
     {
-        \BossBaby\Utility::writeLog('----'.__FILE__ . '::' . __FUNCTION__ . '::min::' . $min . '::max::' . $max . '::min_vol::' . $min_vol . '::max_vol::' . $max_vol);
+        // \BossBaby\Utility::writeLog('----'.__FILE__ . '::' . __FUNCTION__ . '::min::' . $min . '::max::' . $max . '::min_vol::' . $min_vol . '::max_vol::' . $max_vol);
 
         $return = ['telegram' => [], 'discord' => []];
 
@@ -1124,7 +1124,7 @@ class Telegram
                         $old_time_24h = (isset($old_data['updated_24h']) and $old_data['updated_24h']) ? $old_data['updated_24h'] : 0;
                         $changed_time_24h = $current_time - $old_time_24h;
                         // dump('changed_time_24h'); dump($changed_time_24h);
-                        if ($changed_time_24h >= 5*60) {
+                        if ($changed_time_24h >= 24*60*60) {
                             $arr['24h'] = $list_coin;
                             $arr['updated_24h'] = $current_time;
                         }
@@ -1173,7 +1173,7 @@ class Telegram
                         $old_time_4h = (isset($old_data['updated_4h']) and $old_data['updated_4h']) ? $old_data['updated_4h'] : 0;
                         $changed_time_4h = $current_time - $old_time_4h;
                         // dump('changed_time_4h'); dump($changed_time_4h);
-                        if ($changed_time_4h >= 1*60) {
+                        if ($changed_time_4h >= 4*60*60) {
                             $arr['4h'] = $list_coin;
                             $arr['updated_4h'] = $current_time;
                         }
@@ -1214,10 +1214,9 @@ class Telegram
                         }
 
                         // Check to add to returns
-                        if (((($calc_vol_4h > $max_vol) and (isset($old_data['changed_vol_4h'][$coin]))) and ($changed_time_4h >= 1*60))
-                            or ((($calc_vol_24h > $max_vol) and (isset($old_data['changed_vol_24h'][$coin]))) and ($changed_time_24h >= 5*60))
+                        if (((($calc_vol_4h > $max_vol) and (isset($old_data['changed_vol_4h'][$coin]))) and ($changed_time_4h >= 4*60*60))
+                            or ((($calc_vol_24h > $max_vol) and (isset($old_data['changed_vol_24h'][$coin]))) and ($changed_time_24h >= 24*60*60))
                         ) {
-                            \BossBaby\Utility::writeLog(__FILE__ . '::' . __FUNCTION__ . '::calc_4h::' . $calc_4h . '::calc_24h::' . $calc_24h . '::calc_vol_4h::' . $calc_vol_4h . '::calc_vol_24h::' . $calc_vol_24h . '::changed_time_4h::' . $changed_time_4h . '::changed_time_24h::' . $changed_time_24h);
                             // if ($calc_24h <= $max)
                             //     $changed_24h = ' (<b>' . (float) $calc_24h . '</b>%/24h)';
                             // elseif ($calc_4h <= $max)
